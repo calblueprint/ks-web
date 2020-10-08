@@ -1,9 +1,12 @@
-# People Power Web App
+# Kamehameha Schools x NSEVP x Blueprint
 
-_Last updated: May 3, 2020 (by Fang)_
+_Last updated: Oct 7, 2020 (by Nick)_
 
-The web client for People Power Solar Cooperative
+The web client for NSEVP's Food Hub Platform
 
+
+#  == Outdated ==
+ 
 - For the live app (master), visit https://peoplepower.netlify.com
 - For peoplepower-node (server) repo, go to https://github.com/calblueprint/peoplepower-node
 
