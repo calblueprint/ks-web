@@ -12,7 +12,6 @@ export const Tables = {
   RateSchedule: 'Rate Schedule',
   PledgeInvite: 'Pledge Invite',
   Payment: 'Payment',
-  TestDevelopment: 'Test (Development)',
   InvestmentBreakdown: 'Investment Breakdown'
 };
 
@@ -90,7 +89,7 @@ export const Columns = {
     isDefault: { name: `Is Default?`, type: `checkbox` },
     id: { name: `ID`, type: `formula` },
     address: { name: `Address`, type: `formula` },
-    pledgeInvitIds: { name: `Pledge Invite`, type: `foreignKey-many` }
+    pledgeInviteIds: { name: `Pledge Invite`, type: `foreignKey-many` }
   },
   Announcement: {
     primaryKey: { name: `Primary Key`, type: `formula` },
@@ -121,7 +120,7 @@ export const Columns = {
     subscriberIds: { name: `Subscribers`, type: `foreignKey-many` },
     enphaseSystemId: { name: `Enphase System ID`, type: `text` },
     enphaseUserId: { name: `Enphase User ID`, type: `text` },
-    subscriberBilIds: { name: `Subscriber Bill`, type: `foreignKey-many` },
+    subscriberBillIds: { name: `Subscriber Bill`, type: `foreignKey-many` },
     monthlyProductionData: { name: `Monthly Production Data`, type: `text` }
   },
   'Subscriber Bill': {
@@ -158,7 +157,7 @@ export const Columns = {
   },
   'Rate Schedule': {
     primaryKey: { name: `Primary Key`, type: `formula` },
-    subscriberBilIds: { name: `Subscriber Bill`, type: `foreignKey-many` },
+    subscriberBillIds: { name: `Subscriber Bill`, type: `foreignKey-many` },
     dateCreated: { name: `Date Created`, type: `formula` },
     dateUpdated: { name: `Date Updated`, type: `formula` },
     rate: { name: `Rate`, type: `number` },
@@ -196,11 +195,6 @@ export const Columns = {
     payerAddress: { name: `Payer Address`, type: `text` },
     payerFullName: { name: `Payer Full Name`, type: `text` },
     payerEmail: { name: `Payer Email`, type: `text` },
-    id: { name: `ID`, type: `formula` }
-  },
-  'Test (Development)': {
-    name: { name: `Name`, type: `text` },
-    tag: { name: `Tag`, type: `text` },
     id: { name: `ID`, type: `formula` }
   },
   'Investment Breakdown': {
