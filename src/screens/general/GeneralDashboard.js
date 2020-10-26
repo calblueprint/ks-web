@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import InvestmentWidget from '../shared/components/InvestmentWidget';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
-import ProductionEquivalenciesChart from '../../components/ProductionEquivalenciesChart';
+// import ProductionEquivalenciesChart from '../../components/ProductionEquivalenciesChart';
 import NoProjects from '../shared/components/NoProjects';
 
 class GeneralOwnerDashboard extends React.PureComponent {
@@ -40,7 +40,7 @@ class GeneralOwnerDashboard extends React.PureComponent {
               <div className="dash-solar-details-cont">
                 <h3>Solar Projects</h3>
                 <div className="dash-solar-details">
-                  <ProductionEquivalenciesChart />
+                  {/* <ProductionEquivalenciesChart /> */}
                 </div>
               </div>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DashboardBilling from './components/DashboardBilling';
-import DashboardCharts from './components/DashboardCharts';
+// import DashboardCharts from './components/DashboardCharts';
 import '../../styles/SubscriberDashboard.css';
 import '../../styles/Community.css';
 import {
@@ -51,10 +51,10 @@ class SubscriberDashboard extends React.Component {
             />
           </div>
           <div className="subscriber-section">
-            <DashboardCharts
+            {/* <DashboardCharts
               hasShares={owner.numberOfShares !== 0}
               effectiveCostData={effectiveCostData}
-            />
+            /> */}
           </div>
         </div>
         <div className="subscriber-side" />

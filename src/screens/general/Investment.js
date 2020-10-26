@@ -1,7 +1,6 @@
 import React from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 import { connect } from 'react-redux';
-import InvestmentsPieGraph from './components/InvestmentsPieGraph';
 import DividendsPreferencesModal from './components/DividendsPreferencesModal';
 import {
   updateOwner,
@@ -132,9 +131,6 @@ class Investment extends React.PureComponent {
                           towards helping the project group and cooperative:
                         </p>
                       </div>
-                      <InvestmentsPieGraph
-                        investmentBreakdowns={investmentBreakdowns}
-                      />
                     </div>
                   </div>
                 </div>
