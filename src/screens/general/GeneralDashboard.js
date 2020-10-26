@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import InvestmentWidget from '../shared/components/InvestmentWidget';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
 import ProductionEquivalenciesChart from '../../components/ProductionEquivalenciesChart';
@@ -13,7 +12,6 @@ class GeneralOwnerDashboard extends React.PureComponent {
      it when it's loaded.
   */
   render() {
-    const { owner } = this.props;
     return (
       <div className="dashboard">
         <div className="dashboard-content">
@@ -42,27 +40,6 @@ class GeneralOwnerDashboard extends React.PureComponent {
                 <div className="dash-solar-details">
                   <ProductionEquivalenciesChart />
                 </div>
-              </div>
-
-              <div className="dash-investment-cont">
-                <div className="header-button">
-                  <div className="dashboard-investment-header">
-                    <h3>My Investment</h3>
-                  </div>
-                  <div className="right-button">
-                    <Link to="/investment">
-                      <img
-                        className="button right-arrow-button"
-                        src={RightArrow}
-                        alt="right arrow"
-                      />
-                    </Link>
-                  </div>
-                </div>
-                <InvestmentWidget
-                  numberOfShares={owner.numberOfShares}
-                  smaller
-                />
               </div>
             </div>
           </div>
