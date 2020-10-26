@@ -39,7 +39,7 @@ class SubscriberDashboard extends React.Component {
   }
 
   render() {
-    const { owner, announcements, isLoadingAnnouncements } = this.props;
+    const { owner, isLoadingAnnouncements } = this.props;
     const { activeBill, transactions, effectiveCostData } = this.state;
 
     return (
@@ -58,12 +58,7 @@ class SubscriberDashboard extends React.Component {
             />
           </div>
         </div>
-        <div className="subscriber-side">
-          <DashboardProjectNews
-            announcements={announcements}
-            isLoadingAnnouncements={isLoadingAnnouncements}
-          />
-        </div>
+        <div className="subscriber-side" />
       </div>
     );
   }
@@ -72,8 +67,7 @@ class SubscriberDashboard extends React.Component {
 const mapStateToProps = state => ({
   owner: state.userData.owner,
   projectGroup: state.userData.projectGroup,
-  solarProjects: state.userData.solarProjects,
-  announcements: state.community.announcements
+  solarProjects: state.userData.solarProjects
 });
 
 export default connect(mapStateToProps)(SubscriberDashboard);

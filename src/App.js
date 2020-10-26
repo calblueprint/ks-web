@@ -9,7 +9,6 @@ import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
 import Billing from './screens/subscriber/Billing';
 import SubscriberDashboard from './screens/subscriber/SubscriberDashboard';
-import Community from './screens/shared/Community';
 import GeneralDashboard from './screens/general/GeneralDashboard';
 import AdminDashboard from './screens/admin/AdminDashboard';
 import UserProfile from './screens/shared/UserProfile';
@@ -84,7 +83,6 @@ class App extends React.Component {
           <Switch>
             <PPRoute exact path="/" component={HomeComponent} />
             <PPRoute exact path="/about" component={About} />
-            <AuthenticatedRoute path="/projectnews" component={Community} />
             <AuthenticatedRoute path="/profile" component={UserProfile} />
 
             <AuthenticatedRoute
