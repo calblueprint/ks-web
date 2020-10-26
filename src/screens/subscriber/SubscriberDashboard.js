@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import DashboardBilling from './components/DashboardBilling';
 import DashboardCharts from './components/DashboardCharts';
-import DashboardProjectNews from './components/DashboardProjectNews';
 import '../../styles/SubscriberDashboard.css';
 import '../../styles/Community.css';
 import {
@@ -39,7 +38,7 @@ class SubscriberDashboard extends React.Component {
   }
 
   render() {
-    const { owner, isLoadingAnnouncements } = this.props;
+    const { owner } = this.props;
     const { activeBill, transactions, effectiveCostData } = this.state;
 
     return (
