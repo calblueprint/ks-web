@@ -5,14 +5,12 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import userDataReducer from './userDataSlice';
-import communityReducer from './communitySlice';
 
 const history = createBrowserHistory();
 
 const reducers = combineReducers({
   router: connectRouter(history),
-  userData: userDataReducer,
-  community: communityReducer
+  userData: userDataReducer
 });
 
 // Redux persist saves and refreshes the redux store from local storage
