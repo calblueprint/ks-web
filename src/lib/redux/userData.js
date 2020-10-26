@@ -1,8 +1,7 @@
 import {
   getProjectGroupById,
   getOwnerById,
-  getSolarProjectsByIds,
-  getAnnouncementsByIds
+  getSolarProjectsByIds
 } from '../airtable/request';
 import { store } from './store';
 import {

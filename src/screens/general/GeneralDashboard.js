@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import AnnouncementList from '../shared/components/AnnouncementList';
 import InvestmentWidget from '../shared/components/InvestmentWidget';
 import '../../styles/GeneralOwnerDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
@@ -15,7 +13,7 @@ class GeneralOwnerDashboard extends React.PureComponent {
      it when it's loaded.
   */
   render() {
-    const { announcements, owner } = this.props;
+    const { owner } = this.props;
     return (
       <div className="dashboard">
         <div className="dashboard-content">
@@ -35,15 +33,7 @@ class GeneralOwnerDashboard extends React.PureComponent {
               </div>
             </div>
 
-            {announcements.length > 0 ? (
-              <AnnouncementList
-                announcements={announcements}
-                css="non-admin-height"
-                limitWidth
-              />
-            ) : (
-              <NoProjects />
-            )}
+            <NoProjects />
           </div>
           <div>
             <div className="general-dashboard-right-content">
@@ -85,8 +75,7 @@ class GeneralOwnerDashboard extends React.PureComponent {
 const mapStateToProps = state => ({
   owner: state.userData.owner,
   projectGroup: state.userData.projectGroup,
-  solarProjects: state.userData.solarProjects,
-  announcements: state.community.announcements
+  solarProjects: state.userData.solarProjects
 });
 
 export default connect(mapStateToProps)(GeneralOwnerDashboard);
