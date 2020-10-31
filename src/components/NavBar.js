@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   isAdmin,
-  isSubscriberOwner,
+  // isSubscriberOwner,
   // isGeneralOwner,
   isSignedIn,
   isOnboarding,
@@ -65,7 +65,7 @@ class NavBar extends React.PureComponent {
                 <Link to="/">Dashboard</Link>
               </li>
               {/* {isGeneralOwner(credentials) && ()} */}
-              {isSubscriberOwner(credentials) && (
+              {/* isSubscriberOwner(credentials) && (
                 <li
                   className={`${
                     pathname === '/billing' ? 'nav-item-selected' : 'nav-item'
@@ -73,7 +73,7 @@ class NavBar extends React.PureComponent {
                 >
                   <Link to="/billing">Billing</Link>
                 </li>
-              )}
+              ) */}
               {isAdmin(credentials) && (
                 <li
                   className={`${
