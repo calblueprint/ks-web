@@ -1,6 +1,6 @@
 import ContactInfoStep from './steps/ContactInfoStep';
 import BasicInfoStep from './steps/BasicInfoStep';
-import ProjectGroupStep from './steps/ProjectGroupStep';
+// import ProjectGroupStep from './steps/ProjectGroupStep';
 // import PaymentStep from './steps/PaymentStep';
 import CompleteStep from './steps/CompleteStep';
 import BylawStep from './steps/BylawStep';
@@ -44,13 +44,13 @@ const OnboardingData = [
       'Tell us some general contact information so we can get started setting up your account.',
     header: 'Welcome Aboard!'
   },
-  {
-    component: ProjectGroupStep,
-    fields: ['projectGroupId'],
-    copy:
-      'Project groups in People Power represent the different communities involved in our cooperative. ',
-    header: 'Select your project group'
-  },
+  // {
+  //   component: ProjectGroupStep,
+  //   fields: ['projectGroupId'],
+  //   copy:
+  //     'Project groups in People Power represent the different communities involved in our cooperative. ',
+  //   header: 'Select your project group'
+  // },
   {
     component: BylawStep,
     fields: ['bylaw1', 'bylaw2'],
