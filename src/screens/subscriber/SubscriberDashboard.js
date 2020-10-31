@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DashboardSection from './components/DashboardSection';
-// import DashboardCharts from './components/DashboardCharts';
 import '../../styles/SubscriberDashboard.css';
 import '../../styles/Community.css';
-// import { getSubscriberTransactionData } from '../../lib/subscriberUtils';
 
 class SubscriberDashboard extends React.Component {
   constructor(props) {
