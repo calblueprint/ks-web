@@ -8,7 +8,7 @@ import { formatAmount } from '../../../lib/subscriberUtils';
 
 export default class BillingMain extends React.PureComponent {
   render() {
-    const { seeAllTransactionsView, activeBill, transactions } = this.props;
+    const { seeAllTransactionsView, activeBill } = this.props;
 
     // TODO: Need to handle Pending Bill state
     const activeBalance = activeBill ? activeBill.balance : 0;

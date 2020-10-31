@@ -5,7 +5,7 @@ import LeftArrow from '../../../assets/left_arrow.png';
 
 export default class BillingAllTransactions extends React.PureComponent {
   render() {
-    const { transactions, seeMainView } = this.props;
+    const { seeMainView } = this.props;
     return (
       <div className="all-bills-outer-container">
         <button
