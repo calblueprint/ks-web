@@ -7,7 +7,6 @@ import { ConnectedRouter } from 'connected-react-router';
 import NavBar from './components/NavBar';
 import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
-import Billing from './screens/subscriber/Billing';
 import SubscriberDashboard from './screens/subscriber/SubscriberDashboard';
 import GeneralDashboard from './screens/general/GeneralDashboard';
 import AdminDashboard from './screens/admin/AdminDashboard';
@@ -27,7 +26,6 @@ import {
 } from './lib/credentials';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
-import BillingPayment from './screens/subscriber/components/BillingPayment';
 import PPRoute from './components/PPRoute';
 import FeedbackButton from './components/FeedbackButton';
 import { getOwnerById } from './lib/airtable/request';
@@ -97,17 +95,6 @@ class App extends React.Component {
               credential={Credentials.SUPERADMIN} // Admins only
               path="/superadmin"
               component={SuperAdminDashboard}
-            />
-            <AuthenticatedRoute
-              credential={Credentials.SUBSCRIBER} // Subscribers only
-              path="/billing"
-              component={Billing}
-              history={history}
-            />
-            <AuthenticatedRoute
-              credential={Credentials.SUBSCRIBER} // Subscribers only
-              path="/billPayment"
-              component={BillingPayment}
             />
             <PPRoute path="*" component={ErrorPage} />
           </Switch>
