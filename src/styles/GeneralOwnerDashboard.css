@@ -17,13 +17,6 @@
   margin-right: 0px;
 }
 
-.dash-solar-details {
-  background: white;
-  padding: 20px 35px;
-  border-radius: 5px;
-  width: 400px;
-}
-
 .dash-solar-details-cont h3,
 .dash-announcements-cont h3 {
   margin-bottom: 23px;
@@ -32,10 +25,6 @@
   font-size: 18px;
   font-weight: 800;
   line-height: 25px;
-}
-
-.dash-solar-details h3 {
-  color: var(--pp-blue);
 }
 
 .header-button {
@@ -47,7 +36,7 @@
   justify-content: flex-end;
   flex-direction: row;
   align-self: center;
-  width: 50%;
+  width: 80%;
 }
 
 .right-arrow-button {

@@ -2,18 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LoadingComponent from '../../../components/LoadingComponent';
 import RightArrow from '../../../assets/right_arrow.png';
-import NoProjects from '../../shared/components/NoProjects';
+import DashboardCard1 from '../../shared/components/DashboardCard1';
 
 export default class DashboardProjectNewsSection extends React.PureComponent {
   render() {
     let { announcements } = this.props;
     const { isLoadingAnnouncements } = this.props;
     announcements = [...announcements].reverse();
-    let renderedComponent = <NoProjects />;
+    let renderedComponent = <DashboardCard1 />;
     if (isLoadingAnnouncements || !announcements) {
       renderedComponent = <LoadingComponent />;
     } else if (announcements.length === 0) {
-      renderedComponent = <NoProjects />;
+      renderedComponent = <DashboardCard1 />;
     } else {
       renderedComponent = announcements.map(announcement => (
         <div key={announcement.title} className="subscriber-news-card">
@@ -33,8 +33,8 @@ export default class DashboardProjectNewsSection extends React.PureComponent {
     return (
       <div className="subscriber-side-container">
         <div className="subscriber-section-header">
-          <div className="subscriber-header">Project News</div>
-          <Link to="/projectnews">
+          <div className="subscriber-header">Page 1</div>
+          <Link to="/404">
             <img
               src={RightArrow}
               className="button right-arrow-button"
