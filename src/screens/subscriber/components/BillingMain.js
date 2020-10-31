@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import RightArrow from '../../../assets/right_arrow.png';
 import '../../../styles/SubscriberOwnerDashboard.css';
 import '../../../styles/BillingMain.css';
-import TransactionsTable from './TransactionsTable';
+// import TransactionsTable from './TransactionsTable';
 import { formatAmount } from '../../../lib/subscriberUtils';
 
 export default class BillingMain extends React.PureComponent {
@@ -121,11 +121,11 @@ export default class BillingMain extends React.PureComponent {
               </button>
             </div>
             <div className="billing-col-card">
-              <TransactionsTable
+              {/* <TransactionsTable
                 transactions={transactions}
                 numRows={6}
                 showPagination={false}
-              />
+              /> */}
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import DashboardBilling from './components/DashboardBilling';
+import DashboardSection from './components/DashboardSection';
 // import DashboardCharts from './components/DashboardCharts';
 import '../../styles/SubscriberDashboard.css';
 import '../../styles/Community.css';
@@ -28,16 +28,10 @@ class SubscriberDashboard extends React.Component {
       <div className="subscriber-page ">
         <div className="subscriber-main">
           <div className="subscriber-section">
-            <DashboardBilling />
-          </div>
-          <div className="subscriber-section">
-            {/* <DashboardCharts
-              hasShares={owner.numberOfShares !== 0}
-              effectiveCostData={effectiveCostData}
-            /> */}
+            <DashboardSection />
           </div>
         </div>
-        <div className="subscriber-side" />
+        {/* <div className="subscriber-side" /> */}
       </div>
     );
   }

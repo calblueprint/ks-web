@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../../styles/BillingAllTransactions.css';
-import TransactionsTable from './TransactionsTable';
+// import TransactionsTable from './TransactionsTable';
 import LeftArrow from '../../../assets/left_arrow.png';
 
 export default class BillingAllTransactions extends React.PureComponent {
@@ -23,7 +23,7 @@ export default class BillingAllTransactions extends React.PureComponent {
           </div>
         </button>
         <h1 className="all-bills-header">Transaction History</h1>
-        <TransactionsTable transactions={transactions} />
+        {/* <TransactionsTable transactions={transactions} /> */}
       </div>
     );
   }
