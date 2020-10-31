@@ -1,13 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DashboardBilling from './components/DashboardBilling';
-import DashboardCharts from './components/DashboardCharts';
+// import DashboardCharts from './components/DashboardCharts';
 import '../../styles/SubscriberDashboard.css';
 import '../../styles/Community.css';
-import {
-  getSubscriberTransactionData,
-  getEffectiveCostData
-} from '../../lib/subscriberUtils';
+// import { getSubscriberTransactionData } from '../../lib/subscriberUtils';
 
 class SubscriberDashboard extends React.Component {
   constructor(props) {
@@ -20,17 +17,6 @@ class SubscriberDashboard extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    const { owner } = this.props;
-
-    const { activeBill, transactions } = await getSubscriberTransactionData(
-      owner
-    );
-
-    const effectiveCostData = await getEffectiveCostData(owner);
-    this.setState({ activeBill, transactions, effectiveCostData });
-  }
-
   seeAllBills() {
     this.setState({
       mode: 1
@@ -38,23 +24,17 @@ class SubscriberDashboard extends React.Component {
   }
 
   render() {
-    const { owner } = this.props;
-    const { activeBill, transactions, effectiveCostData } = this.state;
-
     return (
       <div className="subscriber-page ">
         <div className="subscriber-main">
           <div className="subscriber-section">
-            <DashboardBilling
-              activeBill={activeBill}
-              transactions={transactions}
-            />
+            <DashboardBilling />
           </div>
           <div className="subscriber-section">
-            <DashboardCharts
+            {/* <DashboardCharts
               hasShares={owner.numberOfShares !== 0}
               effectiveCostData={effectiveCostData}
-            />
+            /> */}
           </div>
         </div>
         <div className="subscriber-side" />
@@ -63,10 +43,10 @@ class SubscriberDashboard extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  projectGroup: state.userData.projectGroup,
-  solarProjects: state.userData.solarProjects
+const mapStateToProps = () => ({
+  // owner: state.userData.owner,
+  // projectGroup: state.userData.projectGroup,
+  // solarProjects: state.userData.solarProjects
 });
 
 export default connect(mapStateToProps)(SubscriberDashboard);

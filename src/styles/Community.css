@@ -1,21 +1,3 @@
-.community .cont {
-  margin-left: 194px;
-  margin-top: 55px;
-}
-
-.community h1 {
-  font-style: normal;
-  font-weight: 900;
-  font-size: 36px;
-  line-height: 49px;
-  color: var(--pp-blue);
-  margin-top: 0px;
-}
-
-.community p {
-  color: var(--pp-black);
-}
-
 .announcement-card {
   background: white;
   border-radius: 5px;
@@ -50,11 +32,6 @@
   color: var(--pp-blue);
 }
 
-.community .announcement-card h2,
-h3 {
-  margin: 5px 0px;
-}
-
 .announcement-card img {
   clip-path: inset(20px 0px);
   width: 100%;
@@ -63,47 +40,6 @@ h3 {
 .non-admin-height {
   height: 650px !important;
   overflow-y: auto;
-}
-
-.community .cont .add-announcement {
-  display: block;
-}
-
-.community .cont .add-announcement form {
-  width: 100%;
-}
-
-.community .cont .add-announcement form textarea {
-  width: 100%;
-  outline: none;
-  resize: none;
-  border: none;
-  font-size: 16px;
-}
-
-.community .cont .add-announcement form input {
-  font-size: 16px;
-  border: none;
-  background: var(--pp-white);
-  border-radius: 2.5px;
-  width: 60px;
-  height: 30px;
-  outline: none;
-  float: right;
-}
-
-.community .cont .add-announcement form .btn-success {
-  background: green;
-}
-
-.community .cont .add-announcement form .btn-fail {
-  background: red;
-}
-
-.community .cont .add-announcement p {
-  margin-top: 10px;
-  margin-bottom: 0px;
-  color: var(--pp-white);
 }
 
 .project-news-header {
