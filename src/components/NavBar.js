@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
   isAdmin,
   isSubscriberOwner,
-  isGeneralOwner,
+  // isGeneralOwner,
   isSignedIn,
   isOnboarding,
   getCredentials
@@ -44,6 +44,7 @@ class NavBar extends React.PureComponent {
     }
 
     // else, if is signed in and DONE with onboarding
+
     return (
       <div className="nav-bar">
         <a href="/">
@@ -63,17 +64,7 @@ class NavBar extends React.PureComponent {
               >
                 <Link to="/">Dashboard</Link>
               </li>
-              {isGeneralOwner(credentials) && (
-                <li
-                  className={`${
-                    pathname === '/investment' || '/buyshares'
-                      ? 'nav-item-selected'
-                      : 'nav-item'
-                  } nav-item-styling`}
-                >
-                  <Link to="/investment">My Investment</Link>
-                </li>
-              )}
+              {/* {isGeneralOwner(credentials) && ()} */}
               {isSubscriberOwner(credentials) && (
                 <li
                   className={`${

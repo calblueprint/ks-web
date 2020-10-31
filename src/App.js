@@ -26,8 +26,6 @@ import {
   getCredentials
 } from './lib/credentials';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
-import Investment from './screens/general/Investment';
-import BuyShares from './screens/general/BuyShares';
 import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
 import BillingPayment from './screens/subscriber/components/BillingPayment';
 import PPRoute from './components/PPRoute';
@@ -101,11 +99,6 @@ class App extends React.Component {
               component={SuperAdminDashboard}
             />
             <AuthenticatedRoute
-              credential={Credentials.GENERAL} // General only
-              path="/investment"
-              component={Investment}
-            />
-            <AuthenticatedRoute
               credential={Credentials.SUBSCRIBER} // Subscribers only
               path="/billing"
               component={Billing}
@@ -115,11 +108,6 @@ class App extends React.Component {
               credential={Credentials.SUBSCRIBER} // Subscribers only
               path="/billPayment"
               component={BillingPayment}
-            />
-            <AuthenticatedRoute
-              credential={Credentials.GENERAL} // General only
-              path="/buyshares"
-              component={BuyShares}
             />
             <PPRoute path="*" component={ErrorPage} />
           </Switch>
