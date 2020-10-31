@@ -74,13 +74,6 @@ class NavBar extends React.PureComponent {
                   <Link to="/billing">Billing</Link>
                 </li>
               )}
-              <li
-                className={`${
-                  pathname === '/projectnews' ? 'nav-item-selected' : 'nav-item'
-                } nav-item-styling`}
-              >
-                <Link to="/projectnews">Project News</Link>
-              </li>
               {isAdmin(credentials) && (
                 <li
                   className={`${
