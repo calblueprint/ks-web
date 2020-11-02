@@ -11,18 +11,24 @@
 }
 
 .dashboard {
-  margin-top: 55px;
-  margin-left: 50px;
-  margin-right: 0px;
+  margin: 60px;
 }
 
 .dashboard-content h3 {
-  margin-bottom: 23px;
-  margin-top: 0px;
   color: var(--pp-blue-gray);
   font-size: 18px;
   font-weight: 800;
   line-height: 25px;
+}
+
+.dashboard-box {
+  border-radius: 5px;
+  background-color: white;
+  padding: 2rem;
+  width: 80%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .header-button {
@@ -34,7 +40,7 @@
   justify-content: flex-end;
   flex-direction: row;
   align-self: center;
-  width: 20%;
+  width: 90%;
 }
 
 .right-arrow-button {
@@ -51,15 +57,4 @@
   font-size: 16px;
   line-height: 22px;
   margin-left: 10px;
-}
-
-.dashboard-box {
-  border-radius: 5px;
-  background-color: white;
-  padding: 2rem;
-  width: 100%;
-  height: 70vh;
-  display: flex;
-  flex-direction: column;
-  margin-right: 10rem;
 }
