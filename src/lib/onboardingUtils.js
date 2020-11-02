@@ -2,7 +2,7 @@
 import React from 'react';
 import USStates from '../assets/usStates.json';
 import {
-  getAllProjectGroups,
+  // getAllProjectGroups,
   updateOwner,
   deleteOwner
 } from './airtable/request';
@@ -145,8 +145,8 @@ const ValidatorData = {
   permanentStreet2: [],
   mailingStreet2: [],
   certifyPermanentAddress: [validateCertifyPermanentAddress],
-  isReceivingDividends: [],
-  projectGroup: [v => validateExistence(v, 'Please choose a group')] // Custom error message
+  isReceivingDividends: []
+  // projectGroup: [v => validateExistence(v, 'Please choose a group')] // Custom error message
 };
 
 // Asynchronously validate field
@@ -189,14 +189,14 @@ const validateFieldSync = (name, value) => {
 };
 
 // Get all project groups that are public
-const getAvailableProjectGroups = async () => {
-  const projectGroups = await getAllProjectGroups();
+// const getAvailableProjectGroups = async () => {
+//   const projectGroups = await getAllProjectGroups();
 
-  // TODO: double check this logic
-  const selectableGroups = projectGroups.filter(group => group.isPublic);
-  const defaultGroup = projectGroups.find(group => group.isDefault);
-  return { selectableGroups, defaultGroup };
-};
+//   // TODO: double check this logic
+//   const selectableGroups = projectGroups.filter(group => group.isPublic);
+//   const defaultGroup = projectGroups.find(group => group.isDefault);
+//   return { selectableGroups, defaultGroup };
+// };
 
 // Update or Create the owner with the given fields
 const updateOwnerFields = async (owner, fields) => {
@@ -230,7 +230,7 @@ const returnToHomepage = owner => {
 export {
   validateField,
   validateFieldSync,
-  getAvailableProjectGroups,
+  // getAvailableProjectGroups,
   updateOwnerFields,
   returnToHomepage,
   toggleValidColor,

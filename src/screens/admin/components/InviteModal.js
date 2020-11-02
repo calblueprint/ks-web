@@ -4,7 +4,7 @@ import Success from '../../../assets/success.png';
 
 export default class InviteModal extends React.PureComponent {
   render() {
-    const { state, projectGroup, handleChange, handleCloseModal } = this.props;
+    const { state, handleChange, handleCloseModal } = this.props;
     const {
       showModal,
       showSuccessModal,
@@ -24,7 +24,7 @@ export default class InviteModal extends React.PureComponent {
           className="admin-modal"
           overlayClassName="admin-modal-overlay"
         >
-          <h3>Invite a Member to {projectGroup.name}</h3>
+          {/* <h3>Invite a Member to {projectGroup.name}</h3> */}
           <div className="admin-invite-form">
             <form onSubmit={this.handleSubmit}>
               <div className="admin-invite-form-row">

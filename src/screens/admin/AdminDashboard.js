@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AdminDashboardCard from './components/AdminDashboardCard';
 import {
-  getOwnerRecordsForProjectGroup,
+  // getOwnerRecordsForProjectGroup,
   inviteMember,
   triggerEmail,
   toggleValidColor,
@@ -53,15 +53,19 @@ class AdminDashboard extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchOwnerRecords();
+    // this.fetchOwnerRecords();
+    this.setState({ loading: false });
   }
 
-  componentDidUpdate(prevProps) {
-    const { projectGroup } = this.props;
-    if (prevProps.projectGroup !== projectGroup) {
-      this.fetchOwnerRecords();
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   const { projectGroup } = this.props;
+  //   if (prevProps.projectGroup !== projectGroup) {
+  //     this.fetchOwnerRecords();
+  //   }
+  //   this.setState({
+  //     loading: false
+  //   });
+  // }
 
   handleChange = event => {
     const target = event.target.name;
@@ -98,7 +102,7 @@ class AdminDashboard extends React.Component {
       inviteShareAmount
     } = this.state;
 
-    const { projectGroup } = this.props;
+    // const { projectGroup } = this.props;
 
     const newPledgeInvite = {
       firstName: inviteFirstName,
@@ -106,7 +110,7 @@ class AdminDashboard extends React.Component {
       phoneNumber: invitePhoneNumber,
       email: inviteEmail,
       shareAmount: parseInt(inviteShareAmount, 10),
-      projectGroupId: projectGroup.id,
+      // projectGroupId: projectGroup.id,
       status: 'Sent'
     };
 
@@ -212,14 +216,14 @@ class AdminDashboard extends React.Component {
     }
   };
 
-  fetchOwnerRecords = async () => {
-    const { projectGroup } = this.props;
-    const ownerRecords = await getOwnerRecordsForProjectGroup(projectGroup);
-    this.setState({
-      owners: ownerRecords,
-      loading: false
-    });
-  };
+  // fetchOwnerRecords = async () => {
+  //   const { projectGroup } = this.props;
+  //   const ownerRecords = [];
+  //   this.setState({
+  //     owners: ownerRecords,
+  //     loading: false
+  //   });
+  // };
 
   /* open/close modal logic */
   handleOpenModal = modal => {
@@ -271,7 +275,7 @@ class AdminDashboard extends React.Component {
   };
 
   render() {
-    const { owner, projectGroup } = this.props;
+    const { owner } = this.props;
     const credentials = getCredentials(owner);
     const {
       showModal,
@@ -305,7 +309,7 @@ class AdminDashboard extends React.Component {
       <div className="dashboard dash-admin">
         <div className="container">
           <div className="flex justify-content-space pb-5">
-            <h3 className="admin-project-group">{projectGroup.name}</h3>
+            {/* <h3 className="admin-project-group">{projectGroup.name}</h3> */}
             {isSuperAdmin(credentials) && (
               <Link to="/superadmin" className="super-admin-link">
                 Super Admin Dashboard{' '}
@@ -355,7 +359,7 @@ class AdminDashboard extends React.Component {
           className="admin-modal"
           overlayClassName="admin-modal-overlay"
         >
-          <h3>Invite a Member to {projectGroup.name}</h3>
+          {/* <h3>Invite a Member to {projectGroup.name}</h3> */}
           <div className="admin-invite-form">
             <form onSubmit={this.handleSubmit}>
               <div className="admin-invite-form-row">
@@ -765,8 +769,8 @@ class AdminDashboard extends React.Component {
 
 const mapStateToProps = state => ({
   owner: state.userData.owner,
-  userLogin: state.userData.userLogin,
-  projectGroup: state.userData.projectGroup
+  userLogin: state.userData.userLogin
+  // projectGroup: state.userData.projectGroup
 });
 
 export default connect(mapStateToProps)(AdminDashboard);

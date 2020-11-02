@@ -39,9 +39,9 @@ class GeneralOwnerDashboard extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  projectGroup: state.userData.projectGroup,
-  solarProjects: state.userData.solarProjects
+  owner: state.userData.owner
+  // projectGroup: state.userData.projectGroup,
+  // solarProjects: state.userData.solarProjects
 });
 
 export default connect(mapStateToProps)(GeneralOwnerDashboard);
