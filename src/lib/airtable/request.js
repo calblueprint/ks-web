@@ -58,20 +58,20 @@ export const createManyOwners = async records => {
 //   return Promise.all(createPromises);
 // };
 
-export const createAnnouncement = async record => {
-  return createRecord(Tables.Announcement, record);
-};
+// export const createAnnouncement = async record => {
+//   return createRecord(Tables.Announcement, record);
+// };
 
-export const createManyAnnouncements = async records => {
-  const createPromises = [];
-  const numCalls = Math.ceil(records.length / 10);
-  for (let i = 0; i < numCalls; i += 1) {
-    const subset = records.slice(i * 10, (i + 1) * 10);
-    if (subset.length > 0)
-      createPromises.push(createRecords(Tables.Announcement, subset));
-  }
-  return Promise.all(createPromises);
-};
+// export const createManyAnnouncements = async records => {
+//   const createPromises = [];
+//   const numCalls = Math.ceil(records.length / 10);
+//   for (let i = 0; i < numCalls; i += 1) {
+//     const subset = records.slice(i * 10, (i + 1) * 10);
+//     if (subset.length > 0)
+//       createPromises.push(createRecords(Tables.Announcement, subset));
+//   }
+//   return Promise.all(createPromises);
+// };
 
 // export const createSolarProject = async record => {
 //   return createRecord(Tables.SolarProject, record);
@@ -199,23 +199,23 @@ export const getAllOwners = async (filterByFormula = '', sort = []) => {
 //   return getAllRecords(Tables.ProjectGroup, filterByFormula, sort);
 // };
 
-export const getAnnouncementById = async id => {
-  return getRecordById(Tables.Announcement, id);
-};
+// export const getAnnouncementById = async id => {
+//   return getRecordById(Tables.Announcement, id);
+// };
 
-export const getAnnouncementsByIds = async (
-  ids,
-  filterByFormula = '',
-  sort = []
-) => {
-  let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
-  formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
-  return getAllRecords(Tables.Announcement, formula, sort);
-};
+// export const getAnnouncementsByIds = async (
+//   ids,
+//   filterByFormula = '',
+//   sort = []
+// ) => {
+//   let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
+//   formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
+//   return getAllRecords(Tables.Announcement, formula, sort);
+// };
 
-export const getAllAnnouncements = async (filterByFormula = '', sort = []) => {
-  return getAllRecords(Tables.Announcement, filterByFormula, sort);
-};
+// export const getAllAnnouncements = async (filterByFormula = '', sort = []) => {
+//   return getAllRecords(Tables.Announcement, filterByFormula, sort);
+// };
 
 // export const getSolarProjectById = async id => {
 //   return getRecordById(Tables.SolarProject, id);
@@ -365,20 +365,20 @@ export const updateManyOwners = async recordUpdates => {
 //   return Promise.all(updatePromises);
 // };
 
-export const updateAnnouncement = async (id, recordUpdates) => {
-  return updateRecord(Tables.Announcement, id, recordUpdates);
-};
+// export const updateAnnouncement = async (id, recordUpdates) => {
+//   return updateRecord(Tables.Announcement, id, recordUpdates);
+// };
 
-export const updateManyAnnouncements = async recordUpdates => {
-  const updatePromises = [];
-  const numCalls = Math.ceil(recordUpdates.length / 10);
-  for (let i = 0; i < numCalls; i += 1) {
-    const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
-    if (subset.length > 0)
-      updatePromises.push(updateRecords(Tables.Announcement, subset));
-  }
-  return Promise.all(updatePromises);
-};
+// export const updateManyAnnouncements = async recordUpdates => {
+//   const updatePromises = [];
+//   const numCalls = Math.ceil(recordUpdates.length / 10);
+//   for (let i = 0; i < numCalls; i += 1) {
+//     const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
+//     if (subset.length > 0)
+//       updatePromises.push(updateRecords(Tables.Announcement, subset));
+//   }
+//   return Promise.all(updatePromises);
+// };
 
 // export const updateSolarProject = async (id, recordUpdates) => {
 //   return updateRecord(Tables.SolarProject, id, recordUpdates);
@@ -480,9 +480,9 @@ export const deleteOwner = async id => {
 // export const deleteProjectGroup = async id => {
 //   return deleteRecord(Tables.ProjectGroup, id);
 // };
-export const deleteAnnouncement = async id => {
-  return deleteRecord(Tables.Announcement, id);
-};
+// export const deleteAnnouncement = async id => {
+//   return deleteRecord(Tables.Announcement, id);
+// };
 // export const deleteSolarProject = async id => {
 //   return deleteRecord(Tables.SolarProject, id);
 // };
