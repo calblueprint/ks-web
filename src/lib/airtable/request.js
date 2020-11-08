@@ -133,20 +133,20 @@ export const createManyPledgeInvites = async records => {
   return Promise.all(createPromises);
 };
 
-export const createPayment = async record => {
-  return createRecord(Tables.Payment, record);
-};
+// export const createPayment = async record => {
+//   return createRecord(Tables.Payment, record);
+// };
 
-export const createManyPayments = async records => {
-  const createPromises = [];
-  const numCalls = Math.ceil(records.length / 10);
-  for (let i = 0; i < numCalls; i += 1) {
-    const subset = records.slice(i * 10, (i + 1) * 10);
-    if (subset.length > 0)
-      createPromises.push(createRecords(Tables.Payment, subset));
-  }
-  return Promise.all(createPromises);
-};
+// export const createManyPayments = async records => {
+//   const createPromises = [];
+//   const numCalls = Math.ceil(records.length / 10);
+//   for (let i = 0; i < numCalls; i += 1) {
+//     const subset = records.slice(i * 10, (i + 1) * 10);
+//     if (subset.length > 0)
+//       createPromises.push(createRecords(Tables.Payment, subset));
+//   }
+//   return Promise.all(createPromises);
+// };
 
 export const createInvestmentBreakdown = async record => {
   return createRecord(Tables.InvestmentBreakdown, record);
@@ -292,23 +292,23 @@ export const getAllPledgeInvites = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.PledgeInvite, filterByFormula, sort);
 };
 
-export const getPaymentById = async id => {
-  return getRecordById(Tables.Payment, id);
-};
+// export const getPaymentById = async id => {
+//   return getRecordById(Tables.Payment, id);
+// };
 
-export const getPaymentsByIds = async (
-  ids,
-  filterByFormula = '',
-  sort = []
-) => {
-  let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
-  formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
-  return getAllRecords(Tables.Payment, formula, sort);
-};
+// export const getPaymentsByIds = async (
+//   ids,
+//   filterByFormula = '',
+//   sort = []
+// ) => {
+//   let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
+//   formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
+//   return getAllRecords(Tables.Payment, formula, sort);
+// };
 
-export const getAllPayments = async (filterByFormula = '', sort = []) => {
-  return getAllRecords(Tables.Payment, filterByFormula, sort);
-};
+// export const getAllPayments = async (filterByFormula = '', sort = []) => {
+//   return getAllRecords(Tables.Payment, filterByFormula, sort);
+// };
 
 export const getInvestmentBreakdownById = async id => {
   return getRecordById(Tables.InvestmentBreakdown, id);
@@ -440,20 +440,20 @@ export const updateManyPledgeInvites = async recordUpdates => {
   return Promise.all(updatePromises);
 };
 
-export const updatePayment = async (id, recordUpdates) => {
-  return updateRecord(Tables.Payment, id, recordUpdates);
-};
+// export const updatePayment = async (id, recordUpdates) => {
+//   return updateRecord(Tables.Payment, id, recordUpdates);
+// };
 
-export const updateManyPayments = async recordUpdates => {
-  const updatePromises = [];
-  const numCalls = Math.ceil(recordUpdates.length / 10);
-  for (let i = 0; i < numCalls; i += 1) {
-    const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
-    if (subset.length > 0)
-      updatePromises.push(updateRecords(Tables.Payment, subset));
-  }
-  return Promise.all(updatePromises);
-};
+// export const updateManyPayments = async recordUpdates => {
+//   const updatePromises = [];
+//   const numCalls = Math.ceil(recordUpdates.length / 10);
+//   for (let i = 0; i < numCalls; i += 1) {
+//     const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
+//     if (subset.length > 0)
+//       updatePromises.push(updateRecords(Tables.Payment, subset));
+//   }
+//   return Promise.all(updatePromises);
+// };
 
 export const updateInvestmentBreakdown = async (id, recordUpdates) => {
   return updateRecord(Tables.InvestmentBreakdown, id, recordUpdates);
@@ -495,9 +495,9 @@ export const deleteRateSchedule = async id => {
 export const deletePledgeInvite = async id => {
   return deleteRecord(Tables.PledgeInvite, id);
 };
-export const deletePayment = async id => {
-  return deleteRecord(Tables.Payment, id);
-};
+// export const deletePayment = async id => {
+//   return deleteRecord(Tables.Payment, id);
+// };
 export const deleteInvestmentBreakdown = async id => {
   return deleteRecord(Tables.InvestmentBreakdown, id);
 };
