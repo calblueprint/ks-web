@@ -7,16 +7,16 @@ export default {
   PAYPAL_TRANSACTION_FLAT_FEE_IN_DOLLARS: 0.3,
 
   // PAYPAL PAYMENT TYPES
-  BILL_PAYMENT_TYPE: 'Bill Payment',
-  BUY_SHARES_TYPE: 'Buy Shares',
-  SHARE_PRICE: 100,
-  MAX_SHARES: 10,
+  // BILL_PAYMENT_TYPE: 'Bill Payment',
+  // BUY_SHARES_TYPE: 'Buy Shares',
+  // SHARE_PRICE: 100,
+  // MAX_SHARES: 10,
 
   // TRANSACTION TYPES AND STATUS
-  BILL_TYPE: 'Bill',
-  ONLINE_PAYMENT_TYPE: 'Online Payment',
-  COMPLETED_STATUS: 'Completed',
-  PENDING_STATUS: 'Pending',
+  // BILL_TYPE: 'Bill',
+  // ONLINE_PAYMENT_TYPE: 'Online Payment',
+  // COMPLETED_STATUS: 'Completed',
+  // PENDING_STATUS: 'Pending',
 
   // ROUTES
   HOME_ROUTE: '/',
