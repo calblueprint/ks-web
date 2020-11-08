@@ -77,7 +77,7 @@ class Onboarding extends React.Component {
               isReceivingDividends: pledgeInvite.wantsDividends,
               phoneNumber: pledgeInvite.phoneNumber,
               email: pledgeInvite.email,
-              projectGroupId: pledgeInvite.projectGroupId,
+              // projectGroupId: pledgeInvite.projectGroupId,
               pledgeInviteId: pledgeInvite.id
             },
             inviteToken: pledgeInvite.id
@@ -130,7 +130,7 @@ class Onboarding extends React.Component {
 
       // Update extra fields if user has a valid invitation
       if (inviteToken) {
-        fieldsToUpdate.push('phoneNumber', 'projectGroupId', 'pledgeInviteId');
+        fieldsToUpdate.push('phoneNumber', 'pledgeInviteId');
         updatePledgeInvite(inviteToken, {
           status: PLEDGE_INVITE_USED
         });

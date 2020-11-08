@@ -1,7 +1,7 @@
 import {
-  getProjectGroupById,
-  getOwnerById,
-  getSolarProjectsByIds
+  // getProjectGroupById,
+  getOwnerById
+  // getSolarProjectsByIds
 } from '../airtable/request';
 import { store } from './store';
 import {
@@ -22,23 +22,23 @@ const refreshUserData = async (ownerId, loadSilently = false) => {
 
   // Fetch all the data
 
-  let projectGroup = {};
-  let solarProjects = [];
+  // let projectGroup = {};
+  // let solarProjects = [];
 
-  if (owner.projectGroupId) {
-    projectGroup = await getProjectGroupById(owner.projectGroupId);
+  // if (owner.projectGroupId) {
+  //   projectGroup = await getProjectGroupById(owner.projectGroupId);
 
-    const { solarProjectIds } = projectGroup;
-    if (solarProjectIds) {
-      solarProjects = await getSolarProjectsByIds(solarProjectIds);
-    }
-  }
+  //   const { solarProjectIds } = projectGroup;
+  //   if (solarProjectIds) {
+  //     solarProjects = await getSolarProjectsByIds(solarProjectIds);
+  //   }
+  // }
 
   // Save fetched user data to the redux store
   const userData = {
-    owner,
-    projectGroup,
-    solarProjects
+    owner
+    // projectGroup,
+    // solarProjects
   };
   store.dispatch(saveUserData(userData));
 };

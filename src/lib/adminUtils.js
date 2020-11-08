@@ -1,9 +1,9 @@
 /* eslint-disable no-await-in-loop */
 import {
-  updateProjectGroup,
-  getProjectGroupById,
-  createPledgeInvite,
-  getOwnersByIds
+  // updateProjectGroup,
+  // getProjectGroupById,
+  createPledgeInvite
+  // getOwnersByIds
 } from './airtable/request';
 import { refreshUserData } from './redux/userData';
 import {
@@ -87,14 +87,14 @@ export async function validateField(name, value) {
 
 // Remove owner from project group
 // TODO: What is the UX for the user when they try and log back in?
-export async function removeOwner(owner) {
-  const projectGroup = await getProjectGroupById(owner.projectGroupId);
+export async function removeOwner() {
+  // const projectGroup = await getProjectGroupById(owner.projectGroupId);
 
-  const newOwnerIds = projectGroup.ownerIds.filter(id => id !== owner.id);
+  // const newOwnerIds = projectGroup.ownerIds.filter(id => id !== owner.id);
 
-  await updateProjectGroup(projectGroup.id, {
-    ownerIds: newOwnerIds
-  });
+  // await updateProjectGroup(projectGroup.id, {
+  //   ownerIds: newOwnerIds
+  // });
 
   // Refresh local copy of data after updating owners
   const { owner: loggedInOwner } = store.getState().userData;
@@ -103,12 +103,12 @@ export async function removeOwner(owner) {
 
 // Get all owner records for a given project group
 // This filters out users that are currently onboarding
-export async function getOwnerRecordsForProjectGroup(projectGroup) {
-  const allOwners = await getOwnersByIds(projectGroup.ownerIds);
+// export async function getOwnerRecordsForProjectGroup(projectGroup) {
+//   const allOwners = await getOwnersByIds(projectGroup.ownerIds);
 
-  // Ensure onboarding users aren't considered
-  return allOwners.filter(o => o.onboardingStep === -1);
-}
+//   // Ensure onboarding users aren't considered
+//   return allOwners.filter(o => o.onboardingStep === -1);
+// }
 
 // Invite a member to a project group. Takes in a pledge invite Record
 export async function inviteMember(pledgeInvite) {

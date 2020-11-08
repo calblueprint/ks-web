@@ -186,7 +186,7 @@ class UserProfile extends React.Component {
       contactEditMode
     } = this.state;
 
-    const { owner, projectGroup } = this.props;
+    const { owner } = this.props;
 
     return (
       <div className="dashboard settings">
@@ -252,9 +252,9 @@ class UserProfile extends React.Component {
                   <p className="pg">
                     <label htmlFor="updatePG">
                       Project Group
-                      <label className="settings-label">
+                      {/* <label className="settings-label">
                         {projectGroup.name}
-                      </label>
+                      </label> */}
                     </label>
                   </p>
                 </div>
@@ -359,7 +359,7 @@ class UserProfile extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
-  projectGroup: state.userData.projectGroup
+  owner: state.userData.owner
+  // projectGroup: state.userData.projectGroup
 });
 export default connect(mapStateToProps)(UserProfile);
