@@ -5,21 +5,21 @@ import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AdminDashboardCard from './components/AdminDashboardCard';
-import {
-  // getOwnerRecordsForProjectGroup,
-  // inviteMember,
-  triggerEmail,
-  toggleValidColor,
-  validateField
-} from '../../lib/adminUtils';
+// import {
+//   getOwnerRecordsForProjectGroup,
+//   inviteMember,
+//   triggerEmail,
+//   toggleValidColor,
+//   validateField
+// } from '../../lib/adminUtils';
 import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
 import { isSuperAdmin, getCredentials } from '../../lib/credentials';
-import Success from '../../assets/success.png';
-import { updateOwner } from '../../lib/airtable/request';
+// import Success from '../../assets/success.png';
+// import { updateOwner } from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
 
-const SENDING_STATUS = 'Sending';
+// const SENDING_STATUS = 'Sending';
 const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);
 
@@ -32,12 +32,12 @@ class AdminDashboard extends React.Component {
       showModal: false,
       showSuccessModal: false,
       showAdminModal: false,
-      inviteFirstName: '',
-      inviteLastName: '',
-      invitePhoneNumber: '',
-      inviteEmail: '',
-      inviteShareAmount: '',
-      inviteWantsDividends: true,
+      // inviteFirstName: '',
+      // inviteLastName: '',
+      // invitePhoneNumber: '',
+      // inviteEmail: '',
+      // inviteShareAmount: '',
+      // inviteWantsDividends: true,
       status: '',
       displayAdminInfo: '',
       updatedPhoneNumber: '',
@@ -165,56 +165,56 @@ class AdminDashboard extends React.Component {
   //   }
   // };
 
-  validateContactAndSubmitData = async () => {
-    const {
-      updatedEmail,
-      updatedPhoneNumber,
-      updatedStreet1,
-      updatedStreet2,
-      updatedCity,
-      updatedState,
-      updatedZipcode,
-      displayAdminInfo
-    } = this.state;
-    const newOwner = {
-      phoneNumber: updatedPhoneNumber,
-      email: updatedEmail,
-      permanentStreet1: updatedStreet1,
-      permanentStreet2: updatedStreet2,
-      permanentCity: updatedCity,
-      permanentState: updatedState,
-      permanentZipcode: updatedZipcode
-    };
-    const errors = {};
-    let foundErrors = false;
-    const fields = [
-      'updatedEmail',
-      'updatedPhoneNumber',
-      'updatedStreet1',
-      'updatedCity',
-      'updatedState',
-      'updatedZipcode'
-    ];
+  // validateContactAndSubmitData = async () => {
+  //   const {
+  //     updatedEmail,
+  //     updatedPhoneNumber,
+  //     updatedStreet1,
+  //     updatedStreet2,
+  //     updatedCity,
+  //     updatedState,
+  //     updatedZipcode,
+  //     displayAdminInfo
+  //   } = this.state;
+  //   const newOwner = {
+  //     phoneNumber: updatedPhoneNumber,
+  //     email: updatedEmail,
+  //     permanentStreet1: updatedStreet1,
+  //     permanentStreet2: updatedStreet2,
+  //     permanentCity: updatedCity,
+  //     permanentState: updatedState,
+  //     permanentZipcode: updatedZipcode
+  //   };
+  //   const errors = {};
+  //   let foundErrors = false;
+  //   const fields = [
+  //     'updatedEmail',
+  //     'updatedPhoneNumber',
+  //     'updatedStreet1',
+  //     'updatedCity',
+  //     'updatedState',
+  //     'updatedZipcode'
+  //   ];
 
-    const errorMessages = await Promise.all(
-      fields.map(field => validateField(field, this.state[field]))
-    );
-    errorMessages.forEach((errorMessage, i) => {
-      errors[fields[i]] = errorMessage;
-      if (errorMessage !== '') {
-        foundErrors = true;
-      }
-    });
+  //   const errorMessages = await Promise.all(
+  //     fields.map(field => validateField(field, this.state[field]))
+  //   );
+  //   errorMessages.forEach((errorMessage, i) => {
+  //     errors[fields[i]] = errorMessage;
+  //     if (errorMessage !== '') {
+  //       foundErrors = true;
+  //     }
+  //   });
 
-    this.setState({
-      errors
-    });
+  //   this.setState({
+  //     errors
+  //   });
 
-    if (!foundErrors) {
-      await updateOwner(displayAdminInfo.id, newOwner);
-      this.setState({ adminEditMode: false });
-    }
-  };
+  //   if (!foundErrors) {
+  //     await updateOwner(displayAdminInfo.id, newOwner);
+  //     this.setState({ adminEditMode: false });
+  //   }
+  // };
 
   // fetchOwnerRecords = async () => {
   //   const { projectGroup } = this.props;
@@ -242,62 +242,62 @@ class AdminDashboard extends React.Component {
   //   }
   // };
 
-  handleCloseModal = modal => {
-    switch (modal) {
-      case 'invite':
-        this.setState({ showModal: false });
-        break;
-      case 'success':
-        this.setState({ showSuccessModal: false });
-        break;
-      case 'admin':
-        this.setState({ showAdminModal: false });
-        break;
-      default:
-        break;
-    }
-  };
+  // handleCloseModal = modal => {
+  //   switch (modal) {
+  //     case 'invite':
+  //       this.setState({ showModal: false });
+  //       break;
+  //     case 'success':
+  //       this.setState({ showSuccessModal: false });
+  //       break;
+  //     case 'admin':
+  //       this.setState({ showAdminModal: false });
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
-  handleContactEdit = type => {
-    switch (type) {
-      case 'edit':
-        this.setState({ adminEditMode: true });
-        break;
-      case 'cancel':
-        this.setState({ adminEditMode: false });
-        break;
-      case 'save':
-        this.validateContactAndSubmitData();
-        break;
-      default:
-        break;
-    }
-  };
+  // handleContactEdit = type => {
+  //   switch (type) {
+  //     case 'edit':
+  //       this.setState({ adminEditMode: true });
+  //       break;
+  //     case 'cancel':
+  //       this.setState({ adminEditMode: false });
+  //       break;
+  //     case 'save':
+  //       this.validateContactAndSubmitData();
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
   render() {
     const { owner } = this.props;
     const credentials = getCredentials(owner);
     const {
-      showModal,
-      showSuccessModal,
-      showAdminModal,
-      displayAdminInfo,
+      // showModal,
+      // showSuccessModal,
+      // showAdminModal,
+      // displayAdminInfo,
       owners,
-      inviteFirstName,
-      inviteLastName,
-      invitePhoneNumber,
-      inviteEmail,
-      inviteShareAmount,
-      adminEditMode,
-      updatedEmail,
-      updatedPhoneNumber,
-      updatedStreet1,
-      updatedStreet2,
-      updatedCity,
-      updatedState,
-      updatedZipcode,
-      errors,
-      status,
+      // inviteFirstName,
+      // inviteLastName,
+      // invitePhoneNumber,
+      // inviteEmail,
+      // inviteShareAmount,
+      // adminEditMode,
+      // updatedEmail,
+      // updatedPhoneNumber,
+      // updatedStreet1,
+      // updatedStreet2,
+      // updatedCity,
+      // updatedState,
+      // updatedZipcode,
+      // errors,
+      // status,
       loading
     } = this.state;
 
@@ -554,7 +554,7 @@ class AdminDashboard extends React.Component {
           )}
         </Modal> */}
         {/* Modal for admin card */}
-        {displayAdminInfo ? (
+        {/* {displayAdminInfo ? (
           <Modal
             isOpen={showAdminModal}
             onRequestClose={() => this.handleCloseModal('admin')}
@@ -761,7 +761,7 @@ class AdminDashboard extends React.Component {
               </div>
             </div>
           </Modal>
-        ) : null}
+        ) : null} */}
       </div>
     );
   }

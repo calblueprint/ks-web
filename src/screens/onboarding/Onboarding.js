@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import qs from 'qs';
+// import qs from 'qs';
 import OnboardingData from './onboardingData';
 import {
   validateField,
@@ -16,7 +16,7 @@ import Constants from '../../constants';
 // } from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
 
-const { GENERAL_OWNER, PLEDGE_INVITE_USED } = Constants;
+const { GENERAL_OWNER } = Constants;
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -49,7 +49,7 @@ class Onboarding extends React.Component {
 
   // Get latest values from props
   refreshState = async () => {
-    const { owner, location } = this.props;
+    const { owner } = this.props;
 
     // If there is a logged-in owner, copy it to state
     if (owner) {
@@ -89,7 +89,7 @@ class Onboarding extends React.Component {
 
   // Validate fields and update owner if no errors
   nextStep = async event => {
-    const { owner, inviteToken } = this.state;
+    const { owner } = this.state;
     if (event) {
       event.preventDefault();
     }

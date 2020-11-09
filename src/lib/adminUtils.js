@@ -17,15 +17,15 @@ import { store } from './redux/store';
 import USStates from '../assets/usStates.json';
 
 // Ensure shares is a valid number
-const validateShares = value => {
-  if (value > 10) {
-    return 'Max number of shares is 10';
-  }
-  if (value < 1) {
-    return 'Min number of shares is 1';
-  }
-  return '';
-};
+// const validateShares = value => {
+//   if (value > 10) {
+//     return 'Max number of shares is 10';
+//   }
+//   if (value < 1) {
+//     return 'Min number of shares is 1';
+//   }
+//   return '';
+// };
 
 // Ensure State is a real state (either abbreivation or full name)
 const ValidateUSState = value => {
@@ -39,8 +39,8 @@ const ValidateUSState = value => {
 // Specify special validation functions for fields
 // Default for all fields: [validateExistence]
 const ValidatorData = {
-  inviteEmail: [validateExistence, validateEmail, validateUniqueEmail],
-  inviteShareAmount: [validateExistence, validateNumber, validateShares],
+  // inviteEmail: [validateExistence, validateEmail, validateUniqueEmail],
+  // inviteShareAmount: [validateExistence, validateNumber, validateShares],
   updateEmail: [validateExistence, validateEmail, validateUniqueEmail],
   updateState: [validateExistence, ValidateUSState],
   updateZipcode: [validateExistence, validateNumber, validateZipcode],
@@ -116,26 +116,26 @@ export async function removeOwner() {
 // }
 
 // Calls a backend function that sends an email to the invited user with the pledge invite
-export async function triggerEmail(pledgeInviteId) {
-  try {
-    const emailInvite = await fetch(
-      `${process.env.REACT_APP_SERVER_URL}/invite`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          pledgeInviteId
-        })
-      }
-    );
+// export async function triggerEmail(pledgeInviteId) {
+//   try {
+//     const emailInvite = await fetch(
+//       `${process.env.REACT_APP_SERVER_URL}/invite`,
+//       {
+//         method: 'POST',
+//         headers: {
+//           Accept: 'application/json',
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//           pledgeInviteId
+//         })
+//       }
+//     );
 
-    const emailResponse = await emailInvite.json();
-    const { status } = emailResponse;
-    return status;
-  } catch (err) {
-    return 'error';
-  }
-}
+//     const emailResponse = await emailInvite.json();
+//     const { status } = emailResponse;
+//     return status;
+//   } catch (err) {
+//     return 'error';
+//   }
+// }

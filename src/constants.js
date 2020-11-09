@@ -23,7 +23,7 @@ export default {
   SIGNUP_ROUTE: '/onboarding',
 
   // INVITE TYPES
-  PLEDGE_INVITE_USED: 'Used',
+  // PLEDGE_INVITE_USED: 'Used',
 
   // BILL GENERATION
   BILL_ACTIVE_STATUS: 'Active',
