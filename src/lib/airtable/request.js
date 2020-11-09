@@ -118,20 +118,20 @@ export const createManyRateSchedules = async records => {
   return Promise.all(createPromises);
 };
 
-export const createPledgeInvite = async record => {
-  return createRecord(Tables.PledgeInvite, record);
-};
+// export const createPledgeInvite = async record => {
+//   return createRecord(Tables.PledgeInvite, record);
+// };
 
-export const createManyPledgeInvites = async records => {
-  const createPromises = [];
-  const numCalls = Math.ceil(records.length / 10);
-  for (let i = 0; i < numCalls; i += 1) {
-    const subset = records.slice(i * 10, (i + 1) * 10);
-    if (subset.length > 0)
-      createPromises.push(createRecords(Tables.PledgeInvite, subset));
-  }
-  return Promise.all(createPromises);
-};
+// export const createManyPledgeInvites = async records => {
+//   const createPromises = [];
+//   const numCalls = Math.ceil(records.length / 10);
+//   for (let i = 0; i < numCalls; i += 1) {
+//     const subset = records.slice(i * 10, (i + 1) * 10);
+//     if (subset.length > 0)
+//       createPromises.push(createRecords(Tables.PledgeInvite, subset));
+//   }
+//   return Promise.all(createPromises);
+// };
 
 export const createPayment = async record => {
   return createRecord(Tables.Payment, record);
@@ -274,23 +274,23 @@ export const getAllRateSchedules = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.RateSchedule, filterByFormula, sort);
 };
 
-export const getPledgeInviteById = async id => {
-  return getRecordById(Tables.PledgeInvite, id);
-};
+// export const getPledgeInviteById = async id => {
+//   return getRecordById(Tables.PledgeInvite, id);
+// };
 
-export const getPledgeInvitesByIds = async (
-  ids,
-  filterByFormula = '',
-  sort = []
-) => {
-  let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
-  formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
-  return getAllRecords(Tables.PledgeInvite, formula, sort);
-};
+// export const getPledgeInvitesByIds = async (
+//   ids,
+//   filterByFormula = '',
+//   sort = []
+// ) => {
+//   let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
+//   formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
+//   return getAllRecords(Tables.PledgeInvite, formula, sort);
+// };
 
-export const getAllPledgeInvites = async (filterByFormula = '', sort = []) => {
-  return getAllRecords(Tables.PledgeInvite, filterByFormula, sort);
-};
+// export const getAllPledgeInvites = async (filterByFormula = '', sort = []) => {
+//   return getAllRecords(Tables.PledgeInvite, filterByFormula, sort);
+// };
 
 export const getPaymentById = async id => {
   return getRecordById(Tables.Payment, id);
@@ -425,20 +425,20 @@ export const updateManyRateSchedules = async recordUpdates => {
   return Promise.all(updatePromises);
 };
 
-export const updatePledgeInvite = async (id, recordUpdates) => {
-  return updateRecord(Tables.PledgeInvite, id, recordUpdates);
-};
+// export const updatePledgeInvite = async (id, recordUpdates) => {
+//   return updateRecord(Tables.PledgeInvite, id, recordUpdates);
+// };
 
-export const updateManyPledgeInvites = async recordUpdates => {
-  const updatePromises = [];
-  const numCalls = Math.ceil(recordUpdates.length / 10);
-  for (let i = 0; i < numCalls; i += 1) {
-    const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
-    if (subset.length > 0)
-      updatePromises.push(updateRecords(Tables.PledgeInvite, subset));
-  }
-  return Promise.all(updatePromises);
-};
+// export const updateManyPledgeInvites = async recordUpdates => {
+//   const updatePromises = [];
+//   const numCalls = Math.ceil(recordUpdates.length / 10);
+//   for (let i = 0; i < numCalls; i += 1) {
+//     const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
+//     if (subset.length > 0)
+//       updatePromises.push(updateRecords(Tables.PledgeInvite, subset));
+//   }
+//   return Promise.all(updatePromises);
+// };
 
 export const updatePayment = async (id, recordUpdates) => {
   return updateRecord(Tables.Payment, id, recordUpdates);
@@ -492,9 +492,9 @@ export const deleteSubscriberBill = async id => {
 export const deleteRateSchedule = async id => {
   return deleteRecord(Tables.RateSchedule, id);
 };
-export const deletePledgeInvite = async id => {
-  return deleteRecord(Tables.PledgeInvite, id);
-};
+// export const deletePledgeInvite = async id => {
+//   return deleteRecord(Tables.PledgeInvite, id);
+// };
 export const deletePayment = async id => {
   return deleteRecord(Tables.Payment, id);
 };

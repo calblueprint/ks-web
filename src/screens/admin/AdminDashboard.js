@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import AdminDashboardCard from './components/AdminDashboardCard';
 import {
   // getOwnerRecordsForProjectGroup,
-  inviteMember,
+  // inviteMember,
   triggerEmail,
   toggleValidColor,
   validateField
@@ -91,79 +91,79 @@ class AdminDashboard extends React.Component {
     });
   };
 
-  handleSubmit = async event => {
-    event.preventDefault();
+  // handleSubmit = async event => {
+  //   event.preventDefault();
 
-    const {
-      inviteFirstName,
-      inviteLastName,
-      invitePhoneNumber,
-      inviteEmail,
-      inviteShareAmount
-    } = this.state;
+  //   const {
+  //     inviteFirstName,
+  //     inviteLastName,
+  //     invitePhoneNumber,
+  //     inviteEmail,
+  //     inviteShareAmount
+  //   } = this.state;
 
-    // const { projectGroup } = this.props;
+  //   // const { projectGroup } = this.props;
 
-    const newPledgeInvite = {
-      firstName: inviteFirstName,
-      lastName: inviteLastName,
-      phoneNumber: invitePhoneNumber,
-      email: inviteEmail,
-      shareAmount: parseInt(inviteShareAmount, 10),
-      // projectGroupId: projectGroup.id,
-      status: 'Sent'
-    };
+  //   const newPledgeInvite = {
+  //     firstName: inviteFirstName,
+  //     lastName: inviteLastName,
+  //     phoneNumber: invitePhoneNumber,
+  //     email: inviteEmail,
+  //     shareAmount: parseInt(inviteShareAmount, 10),
+  //     // projectGroupId: projectGroup.id,
+  //     status: 'Sent'
+  //   };
 
-    const errors = {};
-    let foundErrors = false;
-    const fields = [
-      'inviteFirstName',
-      'inviteLastName',
-      'invitePhoneNumber',
-      'inviteEmail',
-      'inviteShareAmount'
-    ];
+  //   const errors = {};
+  //   let foundErrors = false;
+  //   const fields = [
+  //     'inviteFirstName',
+  //     'inviteLastName',
+  //     'invitePhoneNumber',
+  //     'inviteEmail',
+  //     'inviteShareAmount'
+  //   ];
 
-    const errorMessages = await Promise.all(
-      fields.map(field => validateField(field, this.state[field]))
-    );
-    errorMessages.forEach((errorMessage, i) => {
-      errors[fields[i]] = errorMessage;
-      if (errorMessage !== '') {
-        foundErrors = true;
-      }
-    });
+  //   const errorMessages = await Promise.all(
+  //     fields.map(field => validateField(field, this.state[field]))
+  //   );
+  //   errorMessages.forEach((errorMessage, i) => {
+  //     errors[fields[i]] = errorMessage;
+  //     if (errorMessage !== '') {
+  //       foundErrors = true;
+  //     }
+  //   });
 
-    this.setState({
-      errors
-    });
+  //   this.setState({
+  //     errors
+  //   });
 
-    if (!foundErrors) {
-      this.setState({
-        status: SENDING_STATUS,
-        showModal: false,
-        showSuccessModal: true
-      });
-      const pledgeInviteId = await inviteMember(newPledgeInvite);
+  //   if (!foundErrors) {
+  //     this.setState({
+  //       status: SENDING_STATUS,
+  //       showModal: false,
+  //       showSuccessModal: true
+  //     });
+  //     const pledgeInviteId = await inviteMember(newPledgeInvite);
 
-      if (pledgeInviteId === '') {
-        this.setState({
-          status: 'An error occurent when sending the invitation.'
-        });
-      }
+  //     if (pledgeInviteId === '') {
+  //       this.setState({
+  //         status: 'An error occurent when sending the invitation.'
+  //       });
+  //     }
 
-      const emailStatus = await triggerEmail(pledgeInviteId);
-      if (emailStatus === 'error') {
-        this.setState({
-          status: 'An error occurent when sending the invitation.'
-        });
-      } else {
-        this.setState({
-          status: emailStatus
-        });
-      }
-    }
-  };
+  //     const emailStatus = await triggerEmail(pledgeInviteId);
+  //     if (emailStatus === 'error') {
+  //       this.setState({
+  //         status: 'An error occurent when sending the invitation.'
+  //       });
+  //     } else {
+  //       this.setState({
+  //         status: emailStatus
+  //       });
+  //     }
+  //   }
+  // };
 
   validateContactAndSubmitData = async () => {
     const {
@@ -226,21 +226,21 @@ class AdminDashboard extends React.Component {
   // };
 
   /* open/close modal logic */
-  handleOpenModal = modal => {
-    switch (modal) {
-      case 'invite':
-        this.setState({ showModal: true });
-        break;
-      case 'success':
-        this.setState({ showSuccessModal: true });
-        break;
-      case 'admin':
-        this.setState({ showAdminModal: true });
-        break;
-      default:
-        break;
-    }
-  };
+  // handleOpenModal = modal => {
+  //   switch (modal) {
+  //     case 'invite':
+  //       this.setState({ showModal: true });
+  //       break;
+  //     case 'success':
+  //       this.setState({ showSuccessModal: true });
+  //       break;
+  //     case 'admin':
+  //       this.setState({ showAdminModal: true });
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
   handleCloseModal = modal => {
     switch (modal) {
@@ -324,13 +324,13 @@ class AdminDashboard extends React.Component {
               <h4 className="admin-members-text">
                 Members <span className="admin-number ">({owners.length})</span>
               </h4>
-              <button
+              {/* <button
                 type="button"
                 className="btn btn--square btn--pink btn--size16 btn--weight600 invite-button"
                 onClick={() => this.handleOpenModal('invite')}
               >
                 Invite
-              </button>
+              </button> */}
             </div>
             <div className="admin-card-holder">
               {owners.length >= 1 ? (
@@ -352,15 +352,15 @@ class AdminDashboard extends React.Component {
           </div>
         </div>
         {/* Modal for Inviting a memeber */}
-        <Modal
+        {/* <Modal
           isOpen={showModal}
           contentLabel="onRequestClose Example"
           onRequestClose={() => this.handleCloseModal('invite')}
           className="admin-modal"
           overlayClassName="admin-modal-overlay"
-        >
-          {/* <h3>Invite a Member to {projectGroup.name}</h3> */}
-          <div className="admin-invite-form">
+        > */}
+        {/* <h3>Invite a Member to {projectGroup.name}</h3> */}
+        {/* <div className="admin-invite-form">
             <form onSubmit={this.handleSubmit}>
               <div className="admin-invite-form-row">
                 <div className="">
@@ -506,16 +506,16 @@ class AdminDashboard extends React.Component {
               </div>
             </form>
           </div>
-        </Modal>
+        </Modal> */}
         {/* Success modal for invite  */}
-        <Modal
+        {/* <Modal
           isOpen={showSuccessModal}
           onRequestClose={() => this.handleCloseModal('success')}
           className="invite-success-modal"
           overlayClassName="admin-modal-overlay"
-        >
-          {/* eslint-disable-next-line no-nested-ternary */}
-          {status === SENDING_STATUS ? (
+        > */}
+        {/* eslint-disable-next-line no-nested-ternary */}
+        {/* {status === SENDING_STATUS ? (
             <div>
               <LoadingComponent />
             </div>
@@ -552,7 +552,7 @@ class AdminDashboard extends React.Component {
               </h2>
             </div>
           )}
-        </Modal>
+        </Modal> */}
         {/* Modal for admin card */}
         {displayAdminInfo ? (
           <Modal

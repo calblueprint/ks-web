@@ -1,10 +1,10 @@
 /* eslint-disable no-await-in-loop */
-import {
-  // updateProjectGroup,
-  // getProjectGroupById,
-  createPledgeInvite
-  // getOwnersByIds
-} from './airtable/request';
+// import {
+//   updateProjectGroup,
+//   getProjectGroupById,
+//   createPledgeInvite
+//   getOwnersByIds
+// } from './airtable/request';
 import { refreshUserData } from './redux/userData';
 import {
   validateExistence,
@@ -111,9 +111,9 @@ export async function removeOwner() {
 // }
 
 // Invite a member to a project group. Takes in a pledge invite Record
-export async function inviteMember(pledgeInvite) {
-  return createPledgeInvite(pledgeInvite);
-}
+// export async function inviteMember(pledgeInvite) {
+//   return createPledgeInvite(pledgeInvite);
+// }
 
 // Calls a backend function that sends an email to the invited user with the pledge invite
 export async function triggerEmail(pledgeInviteId) {
