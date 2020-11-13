@@ -51,13 +51,13 @@ class About extends React.PureComponent {
               <p>
                 We prioritize decentralized governance because it builds people
                 power, creates resiliency, and fosters a strong sense of
-                ownership, activating people to build and steward our energy
+                usership, activating people to build and steward our energy
                 resources in the long-term. To offer a visual explanation of
                 what decentralization under People Power looks like: If People
                 Power were a galaxy, many Project Groups and other activities
                 within People Power would be solar systems within that galaxy,
-                and the owners involved in that project would be planets
-                orbiting these solar systems.
+                and the users involved in that project would be planets orbiting
+                these solar systems.
               </p>
               <br />
               <br />

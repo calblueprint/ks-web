@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   isAdmin,
-  // isSubscriberOwner,
-  // isGeneralOwner,
+  // isSubscriberUser,
+  // isGeneralUser,
   isSignedIn,
   isOnboarding,
   getCredentials
@@ -15,8 +15,8 @@ import SettingsDropdown from './SettingsDropdown';
 
 class NavBar extends React.PureComponent {
   render() {
-    const { owner, pathname, history } = this.props;
-    const credentials = getCredentials(owner);
+    const { user, pathname, history } = this.props;
+    const credentials = getCredentials(user);
 
     // if onboarding
     if (isOnboarding(credentials)) {
@@ -64,8 +64,8 @@ class NavBar extends React.PureComponent {
               >
                 <Link to="/">Dashboard</Link>
               </li>
-              {/* {isGeneralOwner(credentials) && ()} */}
-              {/* isSubscriberOwner(credentials) && (
+              {/* {isGeneralUser(credentials) && ()} */}
+              {/* isSubscriberUser(credentials) && (
                 <li
                   className={`${
                     pathname === '/billing' ? 'nav-item-selected' : 'nav-item'
@@ -96,7 +96,7 @@ class NavBar extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
+  user: state.userData.user,
   pathname: state.router.location.pathname
 });
 export default connect(mapStateToProps)(NavBar);

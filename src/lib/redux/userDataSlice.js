@@ -11,7 +11,7 @@ const initialState = {
   authenticated: false,
   isLoading: false,
   authKey: null,
-  owner: null
+  user: null
   // projectGroup: null,
   // solarProjects: null
 };
@@ -24,8 +24,8 @@ const userDataSlice = createSlice({
       state.isLoading = true;
     },
     saveUserData(state, action) {
-      const { owner } = action.payload;
-      state.owner = owner;
+      const { user } = action.payload;
+      state.user = user;
       // state.projectGroup = projectGroup;
       // state.solarProjects = solarProjects;
       state.isLoading = false;

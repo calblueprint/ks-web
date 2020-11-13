@@ -1,25 +1,25 @@
 import React from 'react';
 import '../../../styles/main.css';
 import { getCredentials, isAdmin } from '../../../lib/credentials';
-import { removeOwner } from '../../../lib/adminUtils';
+import { removeUser } from '../../../lib/adminUtils';
 
 class AdminDashboardCard extends React.PureComponent {
   render() {
-    const { owner, handleAdminChange } = this.props;
-    const { ownerTypes, dateCreated } = owner;
-    const credentials = getCredentials(owner);
-    const isAdminOwner = isAdmin(credentials);
+    const { user, handleAdminChange } = this.props;
+    const { userTypes, dateCreated } = user;
+    const credentials = getCredentials(user);
+    const isAdminUser = isAdmin(credentials);
 
-    if (isAdminOwner) {
-      ownerTypes.push('Admin');
+    if (isAdminUser) {
+      userTypes.push('Admin');
     }
 
-    const ownerTags = ownerTypes.map(function(type) {
+    const userTags = userTypes.map(function(type) {
       switch (type) {
         case 'General':
           return (
             <div key={type} className="admin-pp-tag pp-tag-general">
-              General Owner
+              General User
             </div>
           );
         case 'Admin':
@@ -47,20 +47,20 @@ class AdminDashboardCard extends React.PureComponent {
         className="admin-card"
         type="button"
         name="admin"
-        onClick={() => handleAdminChange(owner)}
+        onClick={() => handleAdminChange(user)}
       >
         <div className="card-name">
-          <h3>{owner.name}</h3>
-          <div className="card-tags">{ownerTags}</div>
+          <h3>{user.name}</h3>
+          <div className="card-tags">{userTags}</div>
         </div>
         <div className="flex justify-content-space">
           <div className="member-since-text">
             Member since {dateCreated.substring(0, 4)}
           </div>
-          {!isAdminOwner && (
+          {!isAdminUser && (
             <button
               type="button"
-              onClick={() => removeOwner(owner)}
+              onClick={() => removeUser(user)}
               className="card-button"
             >
               Remove

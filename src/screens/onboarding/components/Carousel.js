@@ -109,7 +109,7 @@ class Carousel extends Component {
                 }
                 key={slide}
                 src={slides[activeIndex]}
-                alt="This is the Owner Agreement"
+                alt="This is the User Agreement"
               />
             ))}
           </div>

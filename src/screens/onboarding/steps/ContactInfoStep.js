@@ -40,7 +40,7 @@ class ContactInfoStep extends React.PureComponent {
   render() {
     const { showModal } = this.state;
     const {
-      owner,
+      user,
       errors,
       onSubmit,
       handleChange,
@@ -59,7 +59,7 @@ class ContactInfoStep extends React.PureComponent {
                 name="permanentStreet1"
                 placeholder="Street 1"
                 onChange={handleChange}
-                defaultValue={owner.permanentStreet1}
+                defaultValue={user.permanentStreet1}
                 className={`input-white ${toggleValidColor(
                   errors.permanentStreet1,
                   0
@@ -74,7 +74,7 @@ class ContactInfoStep extends React.PureComponent {
                 name="permanentStreet2"
                 placeholder="Street 2"
                 onChange={handleChange}
-                defaultValue={owner.permanentStreet2}
+                defaultValue={user.permanentStreet2}
                 className="input-white"
               />
             </div>
@@ -98,7 +98,7 @@ class ContactInfoStep extends React.PureComponent {
                 name="permanentCity"
                 placeholder="City"
                 onChange={handleChange}
-                defaultValue={owner.permanentCity}
+                defaultValue={user.permanentCity}
                 className={`input-white ${toggleValidColor(
                   errors.permanentCity,
                   0
@@ -114,7 +114,7 @@ class ContactInfoStep extends React.PureComponent {
                 name="permanentState"
                 placeholder="State"
                 onChange={handleChange}
-                defaultValue={owner.permanentState}
+                defaultValue={user.permanentState}
                 className={`input-white ${toggleValidColor(
                   errors.permanentState,
                   0
@@ -129,7 +129,7 @@ class ContactInfoStep extends React.PureComponent {
                 name="permanentZipcode"
                 placeholder="Zipcode"
                 onChange={handleChange}
-                defaultValue={owner.permanentZipcode}
+                defaultValue={user.permanentZipcode}
                 className={`input-white ${toggleValidColor(
                   errors.permanentZipcode,
                   0
@@ -172,7 +172,7 @@ class ContactInfoStep extends React.PureComponent {
                 name="phoneNumber"
                 placeholder="Phone"
                 onChange={handleChange}
-                defaultValue={owner.phoneNumber}
+                defaultValue={user.phoneNumber}
                 className={`input-white ${toggleValidColor(
                   errors.phoneNumber,
                   0
@@ -193,7 +193,7 @@ class ContactInfoStep extends React.PureComponent {
                 type="checkbox"
                 name="certifyPermanentAddress"
                 onClick={handleChange}
-                defaultChecked={owner.certifyPermanentAddress}
+                defaultChecked={user.certifyPermanentAddress}
               />
               <span className="checkmark" />
             </label>
@@ -219,13 +219,13 @@ class ContactInfoStep extends React.PureComponent {
                 type="checkbox"
                 name="mailingAddressSame"
                 onClick={handleChange}
-                defaultChecked={owner.mailingAddressSame}
+                defaultChecked={user.mailingAddressSame}
                 onChange={handleChange}
               />
               <span className="checkmark" />
             </label>
           </div>
-          <div style={{ display: owner.mailingAddressSame ? 'none' : 'block' }}>
+          <div style={{ display: user.mailingAddressSame ? 'none' : 'block' }}>
             <div className="flex onboarding-row">
               <div className="w-80 c">
                 <label className="onboarding-label">
@@ -235,7 +235,7 @@ class ContactInfoStep extends React.PureComponent {
                   name="mailingStreet1"
                   placeholder="Address"
                   onChange={handleChange}
-                  defaultValue={owner.mailingStreet1}
+                  defaultValue={user.mailingStreet1}
                   className={`input-white ${toggleValidColor(
                     errors.mailingStreet1,
                     0
@@ -248,7 +248,7 @@ class ContactInfoStep extends React.PureComponent {
                   name="mailingStreet2"
                   placeholder="Street 2"
                   onChange={handleChange}
-                  defaultValue={owner.mailingStreet2}
+                  defaultValue={user.mailingStreet2}
                   className="input-white"
                 />
               </div>
@@ -272,7 +272,7 @@ class ContactInfoStep extends React.PureComponent {
                   name="mailingCity"
                   placeholder="City"
                   onChange={handleChange}
-                  defaultValue={owner.mailingCity}
+                  defaultValue={user.mailingCity}
                   className={`input-white ${toggleValidColor(
                     errors.mailingCity,
                     0
@@ -288,7 +288,7 @@ class ContactInfoStep extends React.PureComponent {
                   name="mailingState"
                   placeholder="State"
                   onChange={handleChange}
-                  defaultValue={owner.mailingState}
+                  defaultValue={user.mailingState}
                   className={`input-white ${toggleValidColor(
                     errors.mailingState,
                     0
@@ -303,7 +303,7 @@ class ContactInfoStep extends React.PureComponent {
                   name="mailingZipcode"
                   placeholder="Zipcode"
                   onChange={handleChange}
-                  defaultValue={owner.mailingZipcode}
+                  defaultValue={user.mailingZipcode}
                   className={`input-white ${toggleValidColor(
                     errors.mailingZipcode,
                     0

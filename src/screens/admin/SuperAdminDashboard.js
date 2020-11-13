@@ -53,7 +53,7 @@ const SuperAdminDashboard = () => {
 };
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
+  user: state.userData.user,
   userLogin: state.userData.userLogin
   // projectGroup: state.userData.projectGroup
 });

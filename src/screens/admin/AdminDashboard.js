@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AdminDashboardCard from './components/AdminDashboardCard';
 // import {
-//   getOwnerRecordsForProjectGroup,
+//   getUserRecordsForProjectGroup,
 //   inviteMember,
 //   triggerEmail,
 //   toggleValidColor,
@@ -16,7 +16,7 @@ import '../../styles/main.css';
 import '../../styles/AdminDashboard.css';
 import { isSuperAdmin, getCredentials } from '../../lib/credentials';
 // import Success from '../../assets/success.png';
-// import { updateOwner } from '../../lib/airtable/request';
+// import { updateUser } from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
 
 // const SENDING_STATUS = 'Sending';
@@ -28,7 +28,7 @@ class AdminDashboard extends React.Component {
     super(props);
     this.state = {
       adminEditMode: false,
-      owners: [],
+      users: [],
       showModal: false,
       showSuccessModal: false,
       showAdminModal: false,
@@ -53,14 +53,14 @@ class AdminDashboard extends React.Component {
   }
 
   componentDidMount() {
-    // this.fetchOwnerRecords();
+    // this.fetchUserRecords();
     this.setState({ loading: false });
   }
 
   // componentDidUpdate(prevProps) {
   //   const { projectGroup } = this.props;
   //   if (prevProps.projectGroup !== projectGroup) {
-  //     this.fetchOwnerRecords();
+  //     this.fetchUserRecords();
   //   }
   //   this.setState({
   //     loading: false
@@ -75,18 +75,18 @@ class AdminDashboard extends React.Component {
     });
   };
 
-  handleAdminChange = owner => {
+  handleAdminChange = user => {
     const { displayAdmin } = this.state;
 
     this.setState({
-      displayAdminInfo: owner,
-      updatedEmail: owner.email,
-      updatedPhoneNumber: owner.phoneNumber,
-      updatedStreet1: owner.permanentStreet1,
-      updatedStreet2: owner.permanentStreet2,
-      updatedCity: owner.permanentCity,
-      updatedState: owner.permanentState,
-      updatedZipcode: owner.permanentZipcode,
+      displayAdminInfo: user,
+      updatedEmail: user.email,
+      updatedPhoneNumber: user.phoneNumber,
+      updatedStreet1: user.permanentStreet1,
+      updatedStreet2: user.permanentStreet2,
+      updatedCity: user.permanentCity,
+      updatedState: user.permanentState,
+      updatedZipcode: user.permanentZipcode,
       showAdminModal: !displayAdmin
     });
   };
@@ -176,7 +176,7 @@ class AdminDashboard extends React.Component {
   //     updatedZipcode,
   //     displayAdminInfo
   //   } = this.state;
-  //   const newOwner = {
+  //   const newUser = {
   //     phoneNumber: updatedPhoneNumber,
   //     email: updatedEmail,
   //     permanentStreet1: updatedStreet1,
@@ -211,16 +211,16 @@ class AdminDashboard extends React.Component {
   //   });
 
   //   if (!foundErrors) {
-  //     await updateOwner(displayAdminInfo.id, newOwner);
+  //     await updateUser(displayAdminInfo.id, newUser);
   //     this.setState({ adminEditMode: false });
   //   }
   // };
 
-  // fetchOwnerRecords = async () => {
+  // fetchUserRecords = async () => {
   //   const { projectGroup } = this.props;
-  //   const ownerRecords = [];
+  //   const userRecords = [];
   //   this.setState({
-  //     owners: ownerRecords,
+  //     users: userRecords,
   //     loading: false
   //   });
   // };
@@ -275,14 +275,14 @@ class AdminDashboard extends React.Component {
   // };
 
   render() {
-    const { owner } = this.props;
-    const credentials = getCredentials(owner);
+    const { user } = this.props;
+    const credentials = getCredentials(user);
     const {
       // showModal,
       // showSuccessModal,
       // showAdminModal,
       // displayAdminInfo,
-      owners,
+      users,
       // inviteFirstName,
       // inviteLastName,
       // invitePhoneNumber,
@@ -322,7 +322,7 @@ class AdminDashboard extends React.Component {
           <div className="admin-holder">
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <h4 className="admin-members-text">
-                Members <span className="admin-number ">({owners.length})</span>
+                Members <span className="admin-number ">({users.length})</span>
               </h4>
               {/* <button
                 type="button"
@@ -333,19 +333,19 @@ class AdminDashboard extends React.Component {
               </button> */}
             </div>
             <div className="admin-card-holder">
-              {owners.length >= 1 ? (
-                owners.map(o => {
+              {users.length >= 1 ? (
+                users.map(o => {
                   return (
                     <AdminDashboardCard
                       key={o.id}
-                      owner={o}
+                      user={o}
                       handleAdminChange={this.handleAdminChange}
                     />
                   );
                 })
               ) : (
                 <div className="white-text">
-                  No owners to be displayed in this project group
+                  No users to be displayed in this project group
                 </div>
               )}
             </div>
@@ -565,10 +565,10 @@ class AdminDashboard extends React.Component {
               <div className="admin-contact-container-top">
                 <h2 className="admin-contact-name">{displayAdminInfo.name}</h2>
                 <div className="admin-contact-types">
-                  {displayAdminInfo.ownerTypes.map((type, index) => (
+                  {displayAdminInfo.userTypes.map((type, index) => (
                     <div className="">
-                      {type === 'General' ? 'General Owner' : type}
-                      {index === displayAdminInfo.ownerTypes.length - 1
+                      {type === 'General' ? 'General User' : type}
+                      {index === displayAdminInfo.userTypes.length - 1
                         ? null
                         : ',\xa0'}
                     </div>
@@ -768,7 +768,7 @@ class AdminDashboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner,
+  user: state.userData.user,
   userLogin: state.userData.userLogin
   // projectGroup: state.userData.projectGroup
 });

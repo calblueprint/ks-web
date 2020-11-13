@@ -86,7 +86,7 @@ export default class ProgressBarHeader extends React.PureComponent {
                 points="39,28 30,38 25,33"
               />
             </svg>
-            <div className="progressbar-step-text">Owner Agreement</div>
+            <div className="progressbar-step-text">User Agreement</div>
           </div>
           <div
             className={`${

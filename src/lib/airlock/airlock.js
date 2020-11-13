@@ -10,7 +10,7 @@ const AUTHENTICATION_ERR_STRING = 'AUTHENTICATION_REQUIRED';
 
 // Given a table and a record object, create a record on Airtable.
 const signupUser = async (email, password, record) => {
-  const transformedRecord = toAirtableFormat(record, Tables.Owner);
+  const transformedRecord = toAirtableFormat(record, Tables.User);
   const res = await base.register({
     username: email,
     password,

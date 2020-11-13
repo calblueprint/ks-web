@@ -9,7 +9,7 @@ class BasicInfoStep extends React.PureComponent {
 
   render() {
     const {
-      owner,
+      user,
       errors,
       onSubmit,
       handleChange,
@@ -31,7 +31,7 @@ class BasicInfoStep extends React.PureComponent {
               name="firstName"
               placeholder="First name"
               onChange={handleChange}
-              defaultValue={owner.firstName}
+              defaultValue={user.firstName}
               className={` input-gray ${toggleValidColor(errors.firstName, 0)}`}
             />
           </div>
@@ -41,7 +41,7 @@ class BasicInfoStep extends React.PureComponent {
               name="lastName"
               placeholder="Last name"
               onChange={handleChange}
-              defaultValue={owner.lastName}
+              defaultValue={user.lastName}
               className={` input-gray ${toggleValidColor(errors.lastName, 0)}`}
             />
           </div>
@@ -62,7 +62,7 @@ class BasicInfoStep extends React.PureComponent {
             name="email"
             placeholder="Enter your primary email address"
             onChange={handleChange}
-            defaultValue={owner.email}
+            defaultValue={user.email}
             className={`input-gray ${toggleValidColor(errors.email, 0)}`}
           />
           <div className=" validation">{toggleValidColor(errors.email, 1)}</div>
@@ -80,7 +80,7 @@ class BasicInfoStep extends React.PureComponent {
             name="alternateEmail"
             placeholder="Enter an alternate email address"
             onChange={handleChange}
-            defaultValue={owner.alternateEmail}
+            defaultValue={user.alternateEmail}
             className={`input-gray ${toggleValidColor(
               errors.alternateEmail,
               0
@@ -99,7 +99,7 @@ class BasicInfoStep extends React.PureComponent {
             type="password"
             placeholder="Create a password"
             onChange={handleChange}
-            defaultValue={owner.password}
+            defaultValue={user.password}
             className={`input-gray ${toggleValidColor(errors.password, 0)}`}
           />
           <div className=" validation">
