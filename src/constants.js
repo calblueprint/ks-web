@@ -25,9 +25,11 @@ export default {
   // INVITE TYPES
   // PLEDGE_INVITE_USED: 'Used',
 
+  /*
   // BILL GENERATION
   BILL_ACTIVE_STATUS: 'Active',
   TRANSACTION_DATE_FORMAT: 'M/DD/YYYY',
+  */
 
   // EQUIVALENCY DATA
   // Numbers and functions sourced from

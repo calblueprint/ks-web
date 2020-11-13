@@ -235,6 +235,7 @@ export const getAllOwners = async (filterByFormula = '', sort = []) => {
 //   return getAllRecords(Tables.SolarProject, filterByFormula, sort);
 // };
 
+/*
 export const getSubscriberBillById = async id => {
   return getRecordById(Tables.SubscriberBill, id);
 };
@@ -249,6 +250,7 @@ export const getSubscriberBillsByIds = async (
   return getAllRecords(Tables.SubscriberBill, formula, sort);
 };
 
+
 export const getAllSubscriberBills = async (
   filterByFormula = '',
   sort = []
@@ -259,6 +261,7 @@ export const getAllSubscriberBills = async (
 export const getRateScheduleById = async id => {
   return getRecordById(Tables.RateSchedule, id);
 };
+*/
 
 export const getRateSchedulesByIds = async (
   ids,
@@ -395,6 +398,7 @@ export const updateManyOwners = async recordUpdates => {
 //   return Promise.all(updatePromises);
 // };
 
+/*
 export const updateSubscriberBill = async (id, recordUpdates) => {
   return updateRecord(Tables.SubscriberBill, id, recordUpdates);
 };
@@ -409,6 +413,7 @@ export const updateManySubscriberBills = async recordUpdates => {
   }
   return Promise.all(updatePromises);
 };
+*/
 
 export const updateRateSchedule = async (id, recordUpdates) => {
   return updateRecord(Tables.RateSchedule, id, recordUpdates);
@@ -486,9 +491,11 @@ export const deleteOwner = async id => {
 // export const deleteSolarProject = async id => {
 //   return deleteRecord(Tables.SolarProject, id);
 // };
+/*
 export const deleteSubscriberBill = async id => {
   return deleteRecord(Tables.SubscriberBill, id);
 };
+*/
 export const deleteRateSchedule = async id => {
   return deleteRecord(Tables.RateSchedule, id);
 };
