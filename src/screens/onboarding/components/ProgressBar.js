@@ -111,7 +111,7 @@ export default class ProgressBarHeader extends React.PureComponent {
                 points="39,28 30,38 25,33"
               />
             </svg>
-            <div className="progressbar-step-text">Payment</div>
+            {/* <div className="progressbar-step-text">Payment</div> */}
           </div>
           <div className="progressbar-line progressbar-line-white" />
         </div>
