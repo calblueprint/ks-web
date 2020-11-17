@@ -78,6 +78,11 @@ class App extends React.Component {
           <NavBar history={history} />
           <Switch>
             <PPRoute exact path="/" component={HomeComponent} />
+
+            {/* TEMP ROUTES */}
+            <PPRoute exact path="/farms" component={HomeComponent} />
+            <PPRoute exact path="/farm/:id" component={SuperAdminDashboard} />
+
             <PPRoute exact path="/about" component={About} />
             <AuthenticatedRoute path="/profile" component={UserProfile} />
 
