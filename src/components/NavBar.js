@@ -64,6 +64,20 @@ class NavBar extends React.PureComponent {
               >
                 <Link to="/">Dashboard</Link>
               </li>
+              <li
+                className={`${
+                  pathname === '/' ? 'nav-item-selected' : 'nav-item'
+                } nav-item-styling`}
+              >
+                <Link to="/farms">Farms</Link>
+              </li>
+              <li
+                className={`${
+                  pathname === '/' ? 'nav-item-selected' : 'nav-item'
+                } nav-item-styling`}
+              >
+                <Link to="/farm/asdf">Farm Profile</Link>
+              </li>
               {/* {isGeneralUser(credentials) && ()} */}
               {/* isSubscriberUser(credentials) && (
                 <li
