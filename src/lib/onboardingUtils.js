@@ -3,14 +3,14 @@ import React from 'react';
 import USStates from '../assets/usStates.json';
 import {
   // getAllProjectGroups,
-  updateOwner,
-  deleteOwner
+  updateUser,
+  deleteUser
 } from './airtable/request';
 import { refreshUserData, clearUserData } from './redux/userData';
 import ErrorIcon from '../assets/error.svg';
 import { signupUser } from './airlock/airlock';
 
-// Helper functions to validate owner record fields
+// Helper functions to validate user record fields
 
 // Ensure value exists
 // Allows custom error message
@@ -198,32 +198,32 @@ const validateFieldSync = (name, value) => {
 //   return { selectableGroups, defaultGroup };
 // };
 
-// Update or Create the owner with the given fields
-const updateOwnerFields = async (owner, fields) => {
+// Update or Create the user with the given fields
+const updateUserFields = async (user, fields) => {
   // Ensure that only the fields that are supposed to be updated are updated
-  const ownerUpdate = fields.reduce(
-    (value, field) => ({ ...value, [field]: owner[field] }),
-    { onboardingStep: owner.onboardingStep } // 1 field constant throughout all
+  const userUpdate = fields.reduce(
+    (value, field) => ({ ...value, [field]: user[field] }),
+    { onboardingStep: user.onboardingStep } // 1 field constant throughout all
   );
 
-  // If owner exists, update it, else, create.
-  if (owner.id) {
-    await updateOwner(owner.id, ownerUpdate);
-    refreshUserData(owner.id);
+  // If user exists, update it, else, create.
+  if (user.id) {
+    await updateUser(user.id, userUpdate);
+    refreshUserData(user.id);
   } else {
     // TODO: Error Handling
     const id = await signupUser(
-      ownerUpdate.email,
-      ownerUpdate.password,
-      { ...ownerUpdate, password: undefined } // Remove password from owner update
+      userUpdate.email,
+      userUpdate.password,
+      { ...userUpdate, password: undefined } // Remove password from user update
     );
     refreshUserData(id);
   }
 };
 
 // Delete user and return to homepage. This is used if the user does not live in california
-const returnToHomepage = owner => {
-  deleteOwner(owner.id);
+const returnToHomepage = user => {
+  deleteUser(user.id);
   clearUserData();
 };
 
@@ -231,7 +231,7 @@ export {
   validateField,
   validateFieldSync,
   // getAvailableProjectGroups,
-  updateOwnerFields,
+  updateUserFields,
   returnToHomepage,
   toggleValidColor,
   validateEmail,

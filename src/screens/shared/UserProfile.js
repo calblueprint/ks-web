@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateOwner } from '../../lib/airtable/request';
+import { updateUser } from '../../lib/airtable/request';
 import { refreshUserData } from '../../lib/redux/userData';
 import { validateField } from '../../lib/onboardingUtils';
 import '../../styles/UserProfilePage.css';
@@ -24,19 +24,19 @@ class UserProfile extends React.Component {
   }
 
   componentDidMount() {
-    this.populateOwnerInformation('both');
+    this.populateUserInformation('both');
   }
 
   componentDidUpdate(prevProps) {
-    const { owner } = this.props;
-    if (owner !== prevProps.owner) {
-      this.populateOwnerInformation('both');
+    const { user } = this.props;
+    if (user !== prevProps.user) {
+      this.populateUserInformation('both');
     }
   }
 
   handleCancel = type => {
     this.setState({ [`${type}EditMode`]: false });
-    this.populateOwnerInformation(type);
+    this.populateUserInformation(type);
   };
 
   handleChange = event => {
@@ -47,14 +47,14 @@ class UserProfile extends React.Component {
     });
   };
 
-  validateAndSubmitData = async (newOwner, type) => {
-    const { owner } = this.props;
+  validateAndSubmitData = async (newUser, type) => {
+    const { user } = this.props;
     const errors = {};
     let foundErrors = false;
-    const fields = Object.keys(newOwner);
+    const fields = Object.keys(newUser);
 
     const errorMessages = await Promise.all(
-      fields.map(field => validateField(field, newOwner[field]))
+      fields.map(field => validateField(field, newUser[field]))
     );
     errorMessages.forEach((errorMessage, i) => {
       const fieldName = `update${fields[i].charAt(0).toUpperCase() +
@@ -70,9 +70,9 @@ class UserProfile extends React.Component {
     });
 
     if (!foundErrors) {
-      // Update owner and refresh local cache
-      await updateOwner(owner.id, newOwner);
-      await refreshUserData(owner.id);
+      // Update user and refresh local cache
+      await updateUser(user.id, newUser);
+      await refreshUserData(user.id);
 
       // Update Visual state
       const { generalEditMode, contactEditMode } = this.state;
@@ -135,23 +135,23 @@ class UserProfile extends React.Component {
     }
   };
 
-  populateOwnerInformation = type => {
-    const { owner } = this.props;
+  populateUserInformation = type => {
+    const { user } = this.props;
 
     if (type === 'contact' || type === 'both') {
       this.setState({
-        updatePhoneNumber: owner.phoneNumber,
-        updatePermanentStreet1: owner.permanentStreet1,
-        updatePermanentStreet2: owner.permanentStreet2,
-        updatePermanentCity: owner.permanentCity,
-        updatePermanentState: owner.permanentState,
-        updatePermanentZipcode: owner.permanentZipcode
+        updatePhoneNumber: user.phoneNumber,
+        updatePermanentStreet1: user.permanentStreet1,
+        updatePermanentStreet2: user.permanentStreet2,
+        updatePermanentCity: user.permanentCity,
+        updatePermanentState: user.permanentState,
+        updatePermanentZipcode: user.permanentZipcode
       });
     }
     if (type === 'general' || type === 'both') {
       this.setState({
-        updateFirstName: owner.firstName,
-        updateLastName: owner.lastName
+        updateFirstName: user.firstName,
+        updateLastName: user.lastName
       });
     }
   };
@@ -186,7 +186,7 @@ class UserProfile extends React.Component {
       contactEditMode
     } = this.state;
 
-    const { owner } = this.props;
+    const { user } = this.props;
 
     return (
       <div className="dashboard settings">
@@ -197,7 +197,7 @@ class UserProfile extends React.Component {
           <div className="row">
             <div className="user-icon">
               <h3>{`${updateFirstName} ${updateLastName}`}</h3>
-              <h4>General Owner</h4>
+              <h4>General User</h4>
             </div>
             <div
               className={`user-profile-general-form settings-edit-${
@@ -243,7 +243,7 @@ class UserProfile extends React.Component {
                   <p>
                     <label htmlFor="updateEmail">
                       Email
-                      <label className="settings-label">{owner.email}</label>
+                      <label className="settings-label">{user.email}</label>
                     </label>
                   </p>
                 </div>
@@ -359,7 +359,7 @@ class UserProfile extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner
+  user: state.userData.user
   // projectGroup: state.userData.projectGroup
 });
 export default connect(mapStateToProps)(UserProfile);

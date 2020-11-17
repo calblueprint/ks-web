@@ -3,7 +3,7 @@
 //   updateProjectGroup,
 //   getProjectGroupById,
 //   createPledgeInvite
-//   getOwnersByIds
+//   getUsersByIds
 // } from './airtable/request';
 import { refreshUserData } from './redux/userData';
 import {
@@ -85,29 +85,29 @@ export async function validateField(name, value) {
   return '';
 }
 
-// Remove owner from project group
+// Remove user from project group
 // TODO: What is the UX for the user when they try and log back in?
-export async function removeOwner() {
-  // const projectGroup = await getProjectGroupById(owner.projectGroupId);
+export async function removeUser() {
+  // const projectGroup = await getProjectGroupById(user.projectGroupId);
 
-  // const newOwnerIds = projectGroup.ownerIds.filter(id => id !== owner.id);
+  // const newUserIds = projectGroup.userIds.filter(id => id !== user.id);
 
   // await updateProjectGroup(projectGroup.id, {
-  //   ownerIds: newOwnerIds
+  //   userIds: newUserIds
   // });
 
-  // Refresh local copy of data after updating owners
-  const { owner: loggedInOwner } = store.getState().userData;
-  await refreshUserData(loggedInOwner.id);
+  // Refresh local copy of data after updating users
+  const { user: loggedInUser } = store.getState().userData;
+  await refreshUserData(loggedInUser.id);
 }
 
-// Get all owner records for a given project group
+// Get all user records for a given project group
 // This filters out users that are currently onboarding
-// export async function getOwnerRecordsForProjectGroup(projectGroup) {
-//   const allOwners = await getOwnersByIds(projectGroup.ownerIds);
+// export async function getUserRecordsForProjectGroup(projectGroup) {
+//   const allUsers = await getUsersByIds(projectGroup.userIds);
 
 //   // Ensure onboarding users aren't considered
-//   return allOwners.filter(o => o.onboardingStep === -1);
+//   return allUsers.filter(o => o.onboardingStep === -1);
 // }
 
 // Invite a member to a project group. Takes in a pledge invite Record

@@ -36,7 +36,7 @@ class SubscriberDashboard extends React.Component {
 }
 
 const mapStateToProps = () => ({
-  // owner: state.userData.owner,
+  // user: state.userData.user,
   // projectGroup: state.userData.projectGroup,
   // solarProjects: state.userData.solarProjects
 });

@@ -1,12 +1,12 @@
 {
-  "Owner": {
+  "User": {
     "columns": [
       { "type": "formula", "name": "Primary Key" },
       { "type": "formula", "name": "Date Created" },
       { "type": "formula", "name": "Date Updated" },
       { "type": "foreignKey", "name": "Project Group" },
       { "type": "foreignKey", "name": "Payments" },
-      { "type": "multiSelect", "name": "Owner Types" },
+      { "type": "multiSelect", "name": "User Types" },
       { "type": "formula", "name": "ID" },
       { "type": "foreignKey", "name": "Subscriber Bills" },
       { "type": "foreignKey", "name": "Admin Of" },
@@ -49,7 +49,7 @@
   "Project Group": {
     "columns": [
       { "type": "formula", "name": "Primary Key" },
-      { "type": "foreignKey", "name": "Owners" },
+      { "type": "foreignKey", "name": "Users" },
       { "type": "formula", "name": "Date Created" },
       { "type": "formula", "name": "Date Updated" },
       { "type": "checkbox", "name": "Is Public?" },
@@ -167,7 +167,7 @@
       { "type": "text", "name": "Email" },
       { "type": "formula", "name": "ID" },
       { "type": "foreignKey", "name": "Project Group" },
-      { "type": "foreignKey", "name": "Owner" },
+      { "type": "foreignKey", "name": "User" },
       { "type": "select", "name": "Status" }
     ]
   },
@@ -176,7 +176,7 @@
       { "type": "formula", "name": "Primary Key" },
       { "type": "formula", "name": "Date Created" },
       { "type": "formula", "name": "Date Updated" },
-      { "type": "foreignKey", "name": "Owner" },
+      { "type": "foreignKey", "name": "User" },
       { "type": "text", "name": "Status" },
       { "type": "select", "name": "Type" },
       { "type": "number", "name": "Amount" },

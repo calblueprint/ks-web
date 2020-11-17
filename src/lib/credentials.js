@@ -17,35 +17,35 @@ const Credentials = {
   SUPERADMIN: 'X'
 };
 
-// Gets credentials for a given owner
-function getCredentials(owner) {
+// Gets credentials for a given user
+function getCredentials(user) {
   let credentials = '';
 
-  if (owner == null) {
+  if (user == null) {
     return credentials;
   }
 
-  if (owner.onboardingStep !== -1) {
+  if (user.onboardingStep !== -1) {
     credentials += Credentials.ONBOARDING;
     return credentials;
   }
 
-  // Assumes that admin is only owner of one project group
-  if (owner.adminOfId && owner.adminOfId.length >= 0) {
+  // Assumes that admin is only user of one project group
+  if (user.adminOfId && user.adminOfId.length >= 0) {
     credentials += Credentials.ADMIN;
   }
 
-  if (owner.isSuperAdmin) {
+  if (user.isSuperAdmin) {
     credentials += Credentials.SUPERADMIN;
   }
 
-  const { ownerTypes } = owner;
+  const { userTypes } = user;
 
-  if (ownerTypes.includes(SUBSCRIBER_OWNER)) {
+  if (userTypes.includes(SUBSCRIBER_OWNER)) {
     credentials += Credentials.SUBSCRIBER;
   }
 
-  if (ownerTypes.includes(GENERAL_OWNER)) {
+  if (userTypes.includes(GENERAL_OWNER)) {
     credentials += Credentials.GENERAL;
   }
 
@@ -65,11 +65,11 @@ function isAdmin(credentials) {
   return credentials.includes(Credentials.ADMIN);
 }
 
-function isSubscriberOwner(credentials) {
+function isSubscriberUser(credentials) {
   return credentials.includes(Credentials.SUBSCRIBER);
 }
 
-function isGeneralOwner(credentials) {
+function isGeneralUser(credentials) {
   return credentials.includes(Credentials.GENERAL);
 }
 
@@ -80,8 +80,8 @@ function isSuperAdmin(credentials) {
 export {
   getCredentials,
   isAdmin,
-  isSubscriberOwner,
-  isGeneralOwner,
+  isSubscriberUser,
+  isGeneralUser,
   isSuperAdmin,
   isSignedIn,
   isOnboarding,

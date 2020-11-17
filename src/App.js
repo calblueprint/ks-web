@@ -17,8 +17,8 @@ import './styles/App.css';
 import { refreshUserData, clearUserData } from './lib/redux/userData';
 import { history } from './lib/redux/store';
 import {
-  isGeneralOwner,
-  isSubscriberOwner,
+  isGeneralUser,
+  isSubscriberUser,
   isSignedIn,
   Credentials,
   isOnboarding,
@@ -28,18 +28,18 @@ import AuthenticatedRoute from './components/AuthenticatedRoute';
 import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
 import PPRoute from './components/PPRoute';
 import FeedbackButton from './components/FeedbackButton';
-import { getOwnerById } from './lib/airtable/request';
+import { getUserById } from './lib/airtable/request';
 
 class App extends React.Component {
   async componentDidMount() {
-    const { owner } = this.props;
+    const { user } = this.props;
     // TODO: check that airlock session token is valid
 
     // If userLogin info is in Redux, fetch latest version
-    if (owner) {
+    if (user) {
       try {
-        await getOwnerById(owner.id);
-        refreshUserData(owner.id);
+        await getUserById(user.id);
+        refreshUserData(user.id);
       } catch (e) {
         console.log('Session Expired');
         clearUserData();
@@ -50,12 +50,12 @@ class App extends React.Component {
 
   // Figure out component to be shown at root based on user credentials
   getHomeComponent() {
-    const { owner } = this.props;
-    const credentials = getCredentials(owner);
+    const { user } = this.props;
+    const credentials = getCredentials(user);
     const onboarding = isOnboarding(credentials);
     const signedIn = isSignedIn(credentials);
-    const isGeneral = isGeneralOwner(credentials);
-    const isSubscriber = isSubscriberOwner(credentials);
+    const isGeneral = isGeneralUser(credentials);
+    const isSubscriber = isSubscriberUser(credentials);
     let homeComponent;
     if (onboarding) {
       homeComponent = () => <Redirect to={{ pathname: '/onboarding' }} />;
@@ -106,7 +106,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner
+  user: state.userData.user
 });
 
 export default connect(mapStateToProps)(App);

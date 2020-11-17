@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import '../../styles/GeneralOwnerDashboard.css';
+import '../../styles/GeneralUserDashboard.css';
 import RightArrow from '../../assets/right_arrow.png';
 
-class GeneralOwnerDashboard extends React.PureComponent {
+class GeneralUserDashboard extends React.PureComponent {
   render() {
     return (
       <div className="dashboard">
@@ -32,9 +32,9 @@ class GeneralOwnerDashboard extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner
+  user: state.userData.user
   // projectGroup: state.userData.projectGroup,
   // solarProjects: state.userData.solarProjects
 });
 
-export default connect(mapStateToProps)(GeneralOwnerDashboard);
+export default connect(mapStateToProps)(GeneralUserDashboard);

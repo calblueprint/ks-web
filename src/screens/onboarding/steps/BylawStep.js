@@ -1,6 +1,6 @@
 import React from 'react';
-import OwnerAgreement1 from '../../../assets/ownerAgreement1.png';
-import OwnerAgreement2 from '../../../assets/ownerAgreement2.png';
+import UserAgreement1 from '../../../assets/ownerAgreement1.png';
+import UserAgreement2 from '../../../assets/ownerAgreement2.png';
 import ErrorIcon from '../../../assets/error.svg';
 
 import Carousel from '../components/Carousel';
@@ -11,9 +11,9 @@ class BylawStep extends React.PureComponent {
   }
 
   render() {
-    const { owner, errors, onSubmit, onBack, handleChangeBylaw } = this.props;
+    const { user, errors, onSubmit, onBack, handleChangeBylaw } = this.props;
 
-    const imgs = [OwnerAgreement1, OwnerAgreement2];
+    const imgs = [UserAgreement1, UserAgreement2];
     return (
       <form className="">
         <div>
@@ -22,13 +22,13 @@ class BylawStep extends React.PureComponent {
             <div style={{ display: 'inline', position: 'relative' }}>
               <label className="checkbox-container">
                 I have read, understood, and agree to all that stuff above,
-                especially the part about how being an Owner and investing into
+                especially the part about how being an User and investing into
                 things comes with risks!
                 <input
                   type="checkbox"
                   name="bylaw1"
                   onChange={handleChangeBylaw}
-                  defaultChecked={owner.bylaw1}
+                  defaultChecked={user.bylaw1}
                 />
                 <span
                   className={`checkmark ${
@@ -49,13 +49,13 @@ class BylawStep extends React.PureComponent {
                   >
                     Bylaws for People Power Solar Cooperative, Inc.
                   </a>{' '}
-                  and agree to the terms of being an Owner.
+                  and agree to the terms of being an User.
                 </div>
                 <input
                   type="checkbox"
                   name="bylaw2"
                   onChange={handleChangeBylaw}
-                  defaultChecked={owner.bylaw2}
+                  defaultChecked={user.bylaw2}
                 />
                 <span
                   className={`checkmark ${

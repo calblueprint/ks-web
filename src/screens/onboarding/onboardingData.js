@@ -13,7 +13,7 @@ const OnboardingData = [
       'email',
       'alternateEmail',
       'password',
-      'ownerTypes',
+      'userTypes',
       'isReceivingDividends',
       'numberOfShares'
     ],
@@ -45,7 +45,7 @@ const OnboardingData = [
     component: BylawStep,
     fields: ['bylaw1', 'bylaw2'],
     copy: '',
-    header: 'Owner Agreement and Acknowledgment'
+    header: 'User Agreement and Acknowledgment'
   },
   {
     component: CompleteStep,

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import OnboardingData from './onboardingData';
 import {
   validateField,
-  updateOwnerFields,
+  updateUserFields,
   toggleValidColor,
   validateFieldSync
 } from '../../lib/onboardingUtils';
@@ -22,12 +22,12 @@ class Onboarding extends React.Component {
   constructor(props) {
     super(props);
 
-    // State should contain owner values, error messages
+    // State should contain user values, error messages
     this.state = {
-      owner: {
+      user: {
         onboardingStep: 0,
         inviteToken: '',
-        ownerTypes: [GENERAL_OWNER],
+        userTypes: [GENERAL_OWNER],
         isReceivingDividends: true,
         numberOfShares: 1
       },
@@ -41,21 +41,21 @@ class Onboarding extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { owner } = this.props;
-    if (owner !== prevProps.owner) {
+    const { user } = this.props;
+    if (user !== prevProps.user) {
       this.refreshState();
     }
   }
 
   // Get latest values from props
   refreshState = async () => {
-    const { owner } = this.props;
+    const { user } = this.props;
 
-    // If there is a logged-in owner, copy it to state
-    if (owner) {
+    // If there is a logged-in user, copy it to state
+    if (user) {
       this.setState({
-        owner: {
-          ...owner
+        user: {
+          ...user
         }
       });
       // } else {
@@ -69,8 +69,8 @@ class Onboarding extends React.Component {
       //     const pledgeInvite = await getPledgeInviteById(inviteToken);
       //     if (pledgeInvite && pledgeInvite.status !== PLEDGE_INVITE_USED) {
       //       this.setState(prevState => ({
-      //         owner: {
-      //           ...prevState.owner,
+      //         user: {
+      //           ...prevState.user,
       //           firstName: pledgeInvite.firstName,
       //           lastName: pledgeInvite.lastName,
       //           numberOfShares: pledgeInvite.shareAmount,
@@ -87,9 +87,9 @@ class Onboarding extends React.Component {
     }
   };
 
-  // Validate fields and update owner if no errors
+  // Validate fields and update user if no errors
   nextStep = async event => {
-    const { owner } = this.state;
+    const { user } = this.state;
     if (event) {
       event.preventDefault();
     }
@@ -98,9 +98,9 @@ class Onboarding extends React.Component {
     let foundErrors = false;
 
     // For each field in this onboarding step, validate, and add to errors object
-    const fieldsToValidate = OnboardingData[owner.onboardingStep].fields;
+    const fieldsToValidate = OnboardingData[user.onboardingStep].fields;
     const allErrorMessages = await Promise.all(
-      fieldsToValidate.map(f => validateField(f, owner[f]))
+      fieldsToValidate.map(f => validateField(f, user[f]))
     );
     const newErrors = {};
     allErrorMessages.forEach((errorMessage, i) => {
@@ -113,20 +113,20 @@ class Onboarding extends React.Component {
     this.setState({ errors: newErrors });
     if (!foundErrors) {
       this.setState({ loading: true });
-      // Create/Update specific owner fields
+      // Create/Update specific user fields
       // State should be refreshed when data is successfully pulled from redux
 
-      const newOwner = {
-        ...owner,
-        onboardingStep: owner.onboardingStep + 1
+      const newUser = {
+        ...user,
+        onboardingStep: user.onboardingStep + 1
       };
 
-      // If owner had invite, skip project group step
-      if (newOwner.onboardingStep === 2 && newOwner.pledgeInviteId) {
-        newOwner.onboardingStep += 1;
+      // If user had invite, skip project group step
+      if (newUser.onboardingStep === 2 && newUser.pledgeInviteId) {
+        newUser.onboardingStep += 1;
       }
 
-      const fieldsToUpdate = [...OnboardingData[owner.onboardingStep].fields];
+      const fieldsToUpdate = [...OnboardingData[user.onboardingStep].fields];
 
       // Update extra fields if user has a valid invitation
       // if (inviteToken) {
@@ -136,97 +136,97 @@ class Onboarding extends React.Component {
       //   });
       // }
 
-      await updateOwnerFields(newOwner, fieldsToUpdate);
+      await updateUserFields(newUser, fieldsToUpdate);
       this.setState({ loading: false });
     }
   };
 
   // Decrement step, no validation or airtable update
   prevStep = event => {
-    const { owner } = this.state;
+    const { user } = this.state;
     event.preventDefault();
 
     // Decrement Step
     this.setState({
-      owner: { ...owner, onboardingStep: owner.onboardingStep - 1 }
+      user: { ...user, onboardingStep: user.onboardingStep - 1 }
     });
   };
 
   // Handle a change in a step component
   handleChange = event => {
     const { name, value } = event.target;
-    const { owner } = this.state;
-    const newOwner = { ...owner };
+    const { user } = this.state;
+    const newUser = { ...user };
     switch (name) {
       case 'certifyPermanentAddress':
       case 'bylaw1':
       case 'bylaw2':
-        newOwner[name] = event.target.checked;
+        newUser[name] = event.target.checked;
         break;
       case 'isReceivingDividends':
-        newOwner[name] = value === 'on';
+        newUser[name] = value === 'on';
         break;
       case 'permanentStreet1':
       case 'permanentStreet2':
       case 'permanentCity':
       case 'permanentState':
       case 'permanentZipcode':
-        if (owner.mailingAddressSame) {
+        if (user.mailingAddressSame) {
           const mailingKey = name.replace('permanent', 'mailing');
-          newOwner[mailingKey] = value;
+          newUser[mailingKey] = value;
         }
-        newOwner[name] = value;
+        newUser[name] = value;
 
         break;
       case 'mailingAddressSame':
         if (value) {
-          newOwner.mailingStreet1 = owner.permanentStreet1;
-          newOwner.mailingStreet2 = owner.permanentStreet2;
-          newOwner.mailingCity = owner.permanentCity;
-          newOwner.mailingState = owner.permanentState;
-          newOwner.mailingZipcode = owner.permanentZipcode;
-          newOwner.mailingAddressSame = event.target.checked;
+          newUser.mailingStreet1 = user.permanentStreet1;
+          newUser.mailingStreet2 = user.permanentStreet2;
+          newUser.mailingCity = user.permanentCity;
+          newUser.mailingState = user.permanentState;
+          newUser.mailingZipcode = user.permanentZipcode;
+          newUser.mailingAddressSame = event.target.checked;
         }
         break;
       default:
-        newOwner[name] = value;
+        newUser[name] = value;
     }
-    this.setState({ owner: newOwner });
+    this.setState({ user: newUser });
   };
 
   handleChangeBylaw = async event => {
     const { name } = event.target;
-    const { owner, errors } = this.state;
-    const newOwner = { ...owner };
-    newOwner[name] = event.target.checked;
-    this.setState({ owner: newOwner });
+    const { user, errors } = this.state;
+    const newUser = { ...user };
+    newUser[name] = event.target.checked;
+    this.setState({ user: newUser });
     const fieldsToValidate = ['bylaw1', 'bylaw2'];
     const allErrorMessages = fieldsToValidate.map(f =>
-      validateFieldSync(f, owner[f])
+      validateFieldSync(f, user[f])
     );
     const newErrors = {};
     allErrorMessages.forEach((errorMessage, i) => {
       const field = fieldsToValidate[i];
       newErrors[field] = errorMessage;
     });
-    this.setState({ errors: { ...errors, [name]: newErrors[newOwner[name]] } });
+    this.setState({ errors: { ...errors, [name]: newErrors[newUser[name]] } });
   };
 
   onFinish = () => {
-    const { owner } = this.state;
-    const newOwner = { ...owner, onboardingStep: -1 };
+    const { user } = this.state;
+    const newUser = { ...user, onboardingStep: -1 };
 
     // Should trigger redux refresh navigating user away from onboarding
-    updateOwnerFields(newOwner, []);
+    updateUserFields(newUser, []);
   };
 
   // Render the component based on the user's onboarding step
   render() {
     const { history } = this.props;
-    const { owner, errors, loading } = this.state;
-    const stepData = OnboardingData[owner.onboardingStep];
+    const { user, errors, loading } = this.state;
+    const stepData = OnboardingData[user.onboardingStep];
     const StepComponent = stepData.component;
-    const showStyles = owner.onboardingStep > 0;
+    const showStyles = user.onboardingStep > 0;
     if (loading) {
       return <LoadingComponent />;
     }
@@ -238,11 +238,11 @@ class Onboarding extends React.Component {
           <div className="template-card">
             <h1 className="template-header">{stepData.header}</h1>
             <p className="template-body">{stepData.copy}</p>
-            <ProgressBar step={owner.onboardingStep} />
+            <ProgressBar step={user.onboardingStep} />
           </div>
         )}
         <StepComponent
-          owner={owner}
+          user={user}
           errors={errors}
           onSubmit={this.nextStep}
           onBack={this.prevStep}
@@ -258,6 +258,6 @@ class Onboarding extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  owner: state.userData.owner
+  user: state.userData.user
 });
 export default connect(mapStateToProps)(Onboarding);

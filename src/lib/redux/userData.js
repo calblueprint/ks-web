@@ -1,6 +1,6 @@
 import {
   // getProjectGroupById,
-  getOwnerById
+  getUserById
   // getSolarProjectsByIds
 } from '../airtable/request';
 import { store } from './store';
@@ -10,23 +10,23 @@ import {
   setLoadingForUserData
 } from './userDataSlice';
 
-// Function takes in an ownerId and fetches the latest owner object and all associated user data
-const refreshUserData = async (ownerId, loadSilently = false) => {
+// Function takes in an userId and fetches the latest user object and all associated user data
+const refreshUserData = async (userId, loadSilently = false) => {
   if (!loadSilently) {
     // Save loading status to Redux
     store.dispatch(setLoadingForUserData());
   }
 
-  // Fetch latest version of owner
-  const owner = await getOwnerById(ownerId);
+  // Fetch latest version of user
+  const user = await getUserById(userId);
 
   // Fetch all the data
 
   // let projectGroup = {};
   // let solarProjects = [];
 
-  // if (owner.projectGroupId) {
-  //   projectGroup = await getProjectGroupById(owner.projectGroupId);
+  // if (user.projectGroupId) {
+  //   projectGroup = await getProjectGroupById(user.projectGroupId);
 
   //   const { solarProjectIds } = projectGroup;
   //   if (solarProjectIds) {
@@ -36,7 +36,7 @@ const refreshUserData = async (ownerId, loadSilently = false) => {
 
   // Save fetched user data to the redux store
   const userData = {
-    owner
+    user
     // projectGroup,
     // solarProjects
   };
