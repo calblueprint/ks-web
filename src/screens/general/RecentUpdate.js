@@ -1,25 +1,23 @@
 import React from 'react';
-import Icon from '../../assets/success.png';
 import '../../styles/GeneralUserDashboard.css';
 
 class RecentUpdate extends React.PureComponent {
   render() {
+    const { profilePic, updateDate, updateAuthor, updateText } = this.props;
     return (
       <div className="update">
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <img
-            src={Icon}
+            src={profilePic}
             alt="icon"
             style={{ width: '40px', height: '40px', margin: '16px' }}
           />
           <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <h3>Nick Wong</h3>
-            <p>11/17/20</p>
+            <h3>{updateAuthor}</h3>
+            <p style={{ float: 'right' }}>{updateDate}</p>
           </div>
         </div>
-        <h4 style={{ margin: 0 }}>
-          This is an announcement from your community. Please read this.
-        </h4>
+        <h4 style={{ margin: 0 }}>{updateText}</h4>
       </div>
     );
   }

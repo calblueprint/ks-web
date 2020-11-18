@@ -24,7 +24,7 @@
 /* Remove extra left and right margins, due to padding */
 .row {
   width: 100%;
-  margin: 0 -5px;
+  /* margin: 0 -5px; */
 }
 
 /* Clear floats after the columns */
@@ -47,7 +47,7 @@
 .stat-card {
   padding: 16px;
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 40px;
   background-color: white;
 }
 
@@ -67,10 +67,12 @@
   width: 25%;
   padding: 8px;
   float: right;
+  overflow: scroll;
+  height: 470px;
 }
 
 .chart {
   width: 70%;
-  height: 400px;
+  height: 470px;
   background-color: #eeeeee;
 }
