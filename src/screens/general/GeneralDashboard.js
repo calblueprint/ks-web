@@ -1,31 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import StatCard from './StatCard';
+import RecentUpdate from './RecentUpdate';
 import '../../styles/GeneralUserDashboard.css';
-import RightArrow from '../../assets/right_arrow.png';
 
 class GeneralUserDashboard extends React.PureComponent {
   render() {
     return (
-      <div className="dashboard">
-        <div className="dashboard-box">
-          <div className="dashboard-content">
-            <div className="header-button">
-              <div className="header-only">
-                <h3>Page 1</h3>
-              </div>
-              <div className="right-button">
-                <Link to="/404">
-                  <img
-                    className="button right-arrow-button"
-                    src={RightArrow}
-                    alt="right arrow"
-                  />
-                </Link>
-              </div>
-            </div>
-          </div>
+      <div className="dashboard-container">
+        <h1>Dashboard</h1>
+        <div className="row">
+          <StatCard />
+          <StatCard />
+          <StatCard />
+          <StatCard />
+          <StatCard />
         </div>
+        <div className="updates-box">
+          <h2>Recent Updates</h2>
+          <RecentUpdate />
+          <RecentUpdate />
+          <RecentUpdate />
+        </div>
+        <div className="chart" />
       </div>
     );
   }

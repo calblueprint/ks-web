@@ -10,51 +10,67 @@
   background: white;
 }
 
-.dashboard {
-  margin: 60px;
+.dashboard-container {
+  margin: 10%;
 }
 
-.dashboard-content h3 {
-  color: var(--pp-blue-gray);
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 25px;
+/* Float three columns side by side */
+.column {
+  float: left;
+  width: 20%;
+  padding: 0 10px;
 }
 
-.dashboard-box {
-  border-radius: 5px;
+/* Remove extra left and right margins, due to padding */
+.row {
+  width: 100%;
+  margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Style the counter cards */
+.stat-card {
+  padding: 16px;
+  text-align: center;
+  margin-bottom: 16px;
   background-color: white;
-  padding: 2rem;
-  width: 80%;
-  height: 70vh;
-  display: flex;
-  flex-direction: column;
 }
 
-.header-button {
-  display: flex;
+.update {
+  border-style: solid;
+  border-color: black;
+  border-bottom-width: 1px;
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  background-color: white;
+  padding: 4px;
 }
 
-.right-button {
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: row;
-  align-self: center;
-  width: 90%;
+.updates-box {
+  background-color: #eeeeee;
+  width: 25%;
+  padding: 8px;
+  float: right;
 }
 
-.right-arrow-button {
-  width: 4vh;
-}
-
-.right-arrow-button:hover {
-  opacity: 0.8;
-}
-
-.left-arrow-back {
-  color: var(--pp-blue-gray);
-  font-weight: 800;
-  font-size: 16px;
-  line-height: 22px;
-  margin-left: 10px;
+.chart {
+  width: 70%;
+  height: 400px;
+  background-color: #eeeeee;
 }
