@@ -9,7 +9,7 @@ import {
   isOnboarding,
   getCredentials
 } from '../lib/credentials';
-import Logo from '../assets/PPSC-logo.png';
+import Logo from '../assets/NSEVP-LOGO.svg';
 import '../styles/NavBar.css';
 import SettingsDropdown from './SettingsDropdown';
 
@@ -26,9 +26,13 @@ class NavBar extends React.PureComponent {
             <img
               className="logo"
               src={Logo}
-              alt="People Power Solar Cooperative Logo"
+              alt="North Shore Economic Vitally Partnership Logo"
             />
           </a>
+          <div style={{ width: '100%', marginLeft: '16px' }}>
+            <h3 style={{ margin: '0px' }}>North Shore</h3>
+            <h3 style={{ margin: '0px' }}>EVP</h3>
+          </div>
           <nav>
             {isSignedIn(credentials) && (
               <ul>
@@ -51,9 +55,13 @@ class NavBar extends React.PureComponent {
           <img
             className="logo"
             src={Logo}
-            alt="People Power Solar Cooperative Logo"
+            alt="North Shore Economic Vitally Partnership Logo"
           />
         </a>
+        <div style={{ width: '100%', marginLeft: '16px' }}>
+          <h3 style={{ margin: '0px' }}>North Shore</h3>
+          <h3 style={{ margin: '0px' }}>EVP</h3>
+        </div>
         <nav>
           {isSignedIn(credentials) && (
             <ul>
