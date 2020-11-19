@@ -86,6 +86,21 @@ class NavBar extends React.PureComponent {
               >
                 <Link to="/farm/asdf">Farm Profile</Link>
               </li>
+
+              <li
+                className={`${
+                  pathname === '/' ? 'nav-item-selected' : 'nav-item'
+                } nav-item-styling`}
+                style={{
+                  borderRadius: '5px',
+                  border: '1px solid #4074B0',
+                  padding: '0px 18px'
+                }}
+              >
+                <Link to="/farm/asdf" style={{ color: '#4074B0' }}>
+                  New Farm
+                </Link>
+              </li>
               {/* {isGeneralUser(credentials) && ()} */}
               {/* isSubscriberUser(credentials) && (
                 <li
