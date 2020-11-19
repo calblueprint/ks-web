@@ -84,7 +84,7 @@ class NavBar extends React.PureComponent {
                   pathname === '/' ? 'nav-item-selected' : 'nav-item'
                 } nav-item-styling`}
               >
-                <Link to="/farm/asdf">Farm Profile</Link>
+                <Link to="/supply">Supply</Link>
               </li>
 
               <li
