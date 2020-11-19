@@ -1,31 +1,63 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import StatCard from './StatCard';
+import RecentUpdate from './RecentUpdate';
+import Icon from '../../assets/success.png';
 import '../../styles/GeneralUserDashboard.css';
-import RightArrow from '../../assets/right_arrow.png';
 
 class GeneralUserDashboard extends React.PureComponent {
   render() {
+    const updates = [1, 2, 3, 4, 5];
     return (
-      <div className="dashboard">
-        <div className="dashboard-box">
-          <div className="dashboard-content">
-            <div className="header-button">
-              <div className="header-only">
-                <h3>Page 1</h3>
-              </div>
-              <div className="right-button">
-                <Link to="/404">
-                  <img
-                    className="button right-arrow-button"
-                    src={RightArrow}
-                    alt="right arrow"
-                  />
-                </Link>
-              </div>
-            </div>
-          </div>
+      <div className="dashboard-container">
+        <h1>Dashboard</h1>
+        <div className="row">
+          <StatCard
+            statIcon={Icon}
+            statName="Stat Name"
+            statNumber="99"
+            statDescription="This is the description of the statistic above"
+          />
+          <StatCard
+            statIcon={Icon}
+            statName="Stat Name"
+            statNumber="99"
+            statDescription="This is the description of the statistic above"
+          />
+          <StatCard
+            statIcon={Icon}
+            statName="Stat Name"
+            statNumber="99"
+            statDescription="This is the description of the statistic above"
+          />
+          <StatCard
+            statIcon={Icon}
+            statName="Stat Name"
+            statNumber="99"
+            statDescription="This is the description of the statistic above"
+          />
+          <StatCard
+            statIcon={Icon}
+            statName="Stat Name"
+            statNumber="99"
+            statDescription="This is the description of the statistic above"
+          />
         </div>
+        <div className="updates-box">
+          <h2>Recent Updates</h2>
+          {updates.map(id => {
+            return (
+              <RecentUpdate
+                key={id}
+                profilePic={Icon}
+                updateDate="11/17/20"
+                updateAuthor="Nick Wong"
+                updateText="This is an update. Please read it, it must be quite important ya'know."
+              />
+            );
+          })}
+        </div>
+        <div className="chart" />
       </div>
     );
   }
