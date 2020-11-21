@@ -1,26 +1,28 @@
 import React from 'react';
-import './components/FarmContactCard';
+import FarmContactCard from './components/FarmContactCard';
 import '../../styles/FarmProfile.css';
 
-class FarmProfile extends Component {
-    
-    constructor(props) {
-        super(props);
-        this.state = { 
-            id: null,
-        };
-    }
+class FarmProfile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: null
+    };
+  }
 
-    componentDidMount() {
-        const { id } = this.props.match.params;
-        this.setState({ id: id });
-    }
+  componentDidMount() {
+    const { match } = this.props;
+    const {id} = match.params;
+    this.setState({ id });
+  }
 
-    render() { 
-        return ( 
-            <div>{`Farm id is ${this.state.id}`}</div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <FarmContactCard id="123" farmName="Golden Corn" />
+      </div>
+    );
+  }
 }
- 
+
 export default FarmProfile;
