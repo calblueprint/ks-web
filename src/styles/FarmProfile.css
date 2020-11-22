@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Lato:wght@700&family=Lora:wght@700&display=swap');
+
+.farm-profile {
+  margin: 50px;
+  padding: 50px;
+  height: 155vh;
+  background-color: white;
+}
+
+.farm-profile__header {
+  font-family: 'Lora', serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 36px;
+  letter-spacing: 1px;
+}
+
+.farm-profile__back-button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #8f8f8f;
+}
+
+.farm-profile__body {
+  display: flex;
+}
+
+.farm-profile__body__left {
+  flex: 20%;
+}
+
+.farm-profile__body__right {
+  flex: 80%;
+  margin-left: 50px;
+}
+
+.farm-profile__graph {
+  height: 320px;
+  background: #ffffff;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  padding: 28px 42px;
+}
+
+.farm-contact-card {
+  position: relative;
+}
+
+.farm-contact-card__main {
+  width: 280px;
+  height: 421px;
+  left: 0px;
+  top: 0px;
+
+  background: #ffffff;
+  border-radius: 5px;
+}
+
+.farm-contact-card__main__cover-photo {
+  position: absolute;
+  width: 279px;
+  height: 167px;
+  left: 1px;
+  top: 0px;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.farm-contact-card__main__profile-photo {
+  position: absolute;
+  width: 122px;
+  height: 122px;
+  left: 78px;
+  top: 72px;
+}
+
+.farm-contact-card__main__text {
+  position: absolute;
+  width: 232px;
+  height: 34px;
+  left: 1px;
+  top: 209px;
+  text-align: center;
+  white-space: pre-wrap;
+  padding: 0px 24px;
+}
+
+.farm-contact-card__main__text__details {
+  margin-top: 20px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.282191px;
+  color: rgba(51, 51, 51, 0.5);
+}
+
+.farm-contact-card__main__text__details__certification {
+  color: #000000;
+  margin-top: 30px;
+}
+
+.farm-contact-card__inspector {
+  width: 280px;
+  height: 145px;
+  margin-top: 72px;
+  background: #ffffff;
+  text-align: center;
+  padding-top: 17px;
+}
+
+.farm-contact-card__inspector__body {
+  margin-top: 30px;
+}
+
+.farm-contact-card__certification-icon {
+  width: 23px;
+  height: 22px;
+  margin-right: 10px;
+}
+
+.farm-contact-card__user-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+}
+
+.farm-profile__back-button-icon {
+  width: 24px;
+  padding-right: 10px;
+}
+
+.farm-profile__subheader {
+  font-family: 'Lato', sans-serif;
+  font-size: 24px;
+  line-height: 27px;
+}
+
+.hover-background {
+  box-shadow: -2px 4px 23px rgba(0, 2, 32, 0.0685);
+  border-radius: 5px;
+}
