@@ -11,7 +11,7 @@ class GeneralUserDashboard extends React.PureComponent {
     return (
       <div className="dashboard-container">
         <h1>Dashboard</h1>
-        <div className="row">
+        <div className="stat-card-row">
           <StatCard
             statIcon={Icon}
             statName="Stat Name"
@@ -43,7 +43,7 @@ class GeneralUserDashboard extends React.PureComponent {
             statDescription="This is the description of the statistic above"
           />
         </div>
-        <div className="updates-box">
+        <div className="dashboard-update-box">
           <h2>Recent Updates</h2>
           {updates.map(id => {
             return (
@@ -57,7 +57,7 @@ class GeneralUserDashboard extends React.PureComponent {
             );
           })}
         </div>
-        <div className="chart" />
+        <div className="dashboard-chart" />
       </div>
     );
   }

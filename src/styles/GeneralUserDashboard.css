@@ -15,20 +15,20 @@
 }
 
 /* Float three columns side by side */
-.column {
+.stat-card-column {
   float: left;
   width: 20%;
   padding: 0 10px;
 }
 
 /* Remove extra left and right margins, due to padding */
-.row {
+.stat-card-row {
   width: 100%;
   /* margin: 0 -5px; */
 }
 
 /* Clear floats after the columns */
-.row:after {
+.stat-card-row:after {
   content: '';
   display: table;
   clear: both;
@@ -36,7 +36,7 @@
 
 /* Responsive columns */
 @media screen and (max-width: 600px) {
-  .column {
+  .stat-card-column {
     width: 100%;
     display: block;
     margin-bottom: 20px;
@@ -51,7 +51,7 @@
   background-color: white;
 }
 
-.update {
+.dashboard-update {
   border-style: solid;
   border-color: black;
   border-bottom-width: 1px;
@@ -62,7 +62,7 @@
   padding: 4px;
 }
 
-.updates-box {
+.dashboard-updates-box {
   background-color: #eeeeee;
   width: 25%;
   padding: 8px;
@@ -71,7 +71,7 @@
   height: 470px;
 }
 
-.chart {
+.dashboard-chart {
   width: 70%;
   height: 470px;
   background-color: #eeeeee;
