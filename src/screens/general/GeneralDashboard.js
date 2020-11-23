@@ -43,7 +43,7 @@ class GeneralUserDashboard extends React.PureComponent {
             statDescription="This is the description of the statistic above"
           />
         </div>
-        <div className="dashboard-update-box">
+        <div className="dashboard-updates-box">
           <h2>Recent Updates</h2>
           {updates.map(id => {
             return (
