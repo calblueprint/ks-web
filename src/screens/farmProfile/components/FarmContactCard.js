@@ -9,7 +9,6 @@ import '../../../styles/FarmProfile.css';
 
 class FarmContactCard extends React.PureComponent {
   render() {
-    // const { id, farmName, farmerName, phone, email, address, location, inspector } = this.props;
     const {
       id,
       farmerName,

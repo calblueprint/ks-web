@@ -7,14 +7,14 @@ class FarmProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null
+      farmId: null
     };
   }
 
   componentDidMount() {
     const { match } = this.props;
-    const { id } = match.params;
-    this.setState({ id });
+    const { farmId } = match.params;
+    this.setState({ farmId });
   }
 
   render() {

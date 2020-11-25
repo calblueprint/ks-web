@@ -82,7 +82,7 @@ class App extends React.Component {
 
             {/* TEMP ROUTES */}
             <PPRoute exact path="/farms" component={HomeComponent} />
-            <PPRoute exact path="/farm/:id" component={FarmProfile} />
+            <PPRoute exact path="/farm/:farmId" component={FarmProfile} />
 
             <PPRoute exact path="/about" component={About} />
             <AuthenticatedRoute path="/profile" component={UserProfile} />
