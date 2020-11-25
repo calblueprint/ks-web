@@ -28,6 +28,7 @@ import AuthenticatedRoute from './components/AuthenticatedRoute';
 import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
 import PPRoute from './components/PPRoute';
 import FeedbackButton from './components/FeedbackButton';
+import FarmSearch from './screens/shared/FarmSearch';
 import { getUserById } from './lib/airtable/request';
 
 class App extends React.Component {
@@ -80,7 +81,7 @@ class App extends React.Component {
             <PPRoute exact path="/" component={HomeComponent} />
 
             {/* TEMP ROUTES */}
-            <PPRoute exact path="/farms" component={HomeComponent} />
+            <PPRoute exact path="/farms" component={FarmSearch} />
             <PPRoute exact path="/farm/:id" component={SuperAdminDashboard} />
 
             <PPRoute exact path="/about" component={About} />
