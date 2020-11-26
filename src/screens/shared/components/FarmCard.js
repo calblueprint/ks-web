@@ -15,11 +15,11 @@ class FarmCard extends React.PureComponent {
     return (
       <div className="farm-card">
         <div className="farm-card-top">
-          <button type="button" className="hub-button">
-            {hubApproved}
-          </button>
           <button type="button" className="gap-button">
             {gapApproved}
+          </button>
+          <button type="button" className="hub-button">
+            {hubApproved}
           </button>
         </div>
         <div className="farm-card-bot">

@@ -1,0 +1,20 @@
+.newfarm-card {
+  width: 360px;
+  height: 319px;
+  border: 1px dashed #bdbdbd;
+  box-sizing: border-box;
+  border-radius: 3px;
+  color: #bdbdbd;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  padding-top: 32.5%;
+}
+
+.newfarm-fileIcon {
+  padding: 8px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

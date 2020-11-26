@@ -42,13 +42,6 @@
   position: absolute;
   margin-top: 14px;
 }
-/**    
-margin-left: 30px; 
-margin-right: 24px;
-max-width: 30%;
-border-radius: 16px;
-border: none;
-*/
 
 .farmsearch-filterbox {
   border: 1px solid rgba(51, 51, 51, 0.5);
@@ -66,7 +59,6 @@ border: none;
 .farmsearch-gridcontainer {
   display: grid;
   grid-template-columns: 27.77% 27.77% 27.77%;
-  grid-template-rows: 75% 75%;
   grid-column-gap: 8.02%;
   grid-row-gap: 11%;
 }
@@ -82,24 +74,3 @@ border: none;
     grid-template-columns: repeat(1, 1fr);
   }
 }
-/**
-    grid-template-columns: 29.5% 29.5% 29.5%;
-    grid-column-gap: 105px;
-    grid-row-gap: 65px;
-.farm-row{
-    margin: 0 -5px;
-    width: 100%;
-}
-
-.farm-row:after{
-    content:"";
-    display: table;
-    clear: both;
-}
-
-.column {
-    float: left;
-    width: 20%;
-    padding: 0 10px;
-  }
-  */

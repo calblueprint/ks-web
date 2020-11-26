@@ -2,6 +2,7 @@ import React from 'react';
 
 import '../../styles/FarmSearch.css';
 import FarmCard from './components/FarmCard';
+import NewFarmCard from './components/NewFarmCard';
 import SearchIcon from '../../assets/search-icon.png';
 
 class FarmSearch extends React.PureComponent {
@@ -22,6 +23,7 @@ class FarmSearch extends React.PureComponent {
           </button>
         </div>
         <div className="farmsearch-gridcontainer">
+          <NewFarmCard />
           <FarmCard
             hubApproved="HUB"
             gapApproved="GAP"
@@ -42,6 +44,41 @@ class FarmSearch extends React.PureComponent {
             farmName="Farmville"
             farmerName="The Zuck"
             farmLocation="Facebook"
+          />
+          <FarmCard
+            hubApproved="HUB"
+            gapApproved="GAP"
+            farmName="Toilet"
+            farmerName="Custodian"
+            farmLocation="High School"
+          />
+          <FarmCard
+            hubApproved="HUB"
+            gapApproved="GAP"
+            farmName="Toilet"
+            farmerName="Custodian"
+            farmLocation="High School"
+          />
+          <FarmCard
+            hubApproved="HUB"
+            gapApproved="GAP"
+            farmName="Toilet"
+            farmerName="Custodian"
+            farmLocation="High School"
+          />
+          <FarmCard
+            hubApproved="HUB"
+            gapApproved="GAP"
+            farmName="Toilet"
+            farmerName="Custodian"
+            farmLocation="High School"
+          />
+          <FarmCard
+            hubApproved="HUB"
+            gapApproved="GAP"
+            farmName="Toilet"
+            farmerName="Custodian"
+            farmLocation="High School"
           />
           <FarmCard
             hubApproved="HUB"
