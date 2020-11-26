@@ -3,7 +3,10 @@ import React from 'react';
 import '../../styles/FarmSearch.css';
 import FarmCard from './components/FarmCard';
 import NewFarmCard from './components/NewFarmCard';
+
 import SearchIcon from '../../assets/search-icon.png';
+import farmProfileDefaultCover from '../../assets/farmProfileCover.png';
+import farmProfileDefaultIcon from '../../assets/farmProfilePhoto.png';
 
 class FarmSearch extends React.PureComponent {
   render() {
@@ -11,10 +14,10 @@ class FarmSearch extends React.PureComponent {
       <div className="farmsearch-container">
         <div className="farmsearch-header">
           Farm Search
-          <form className="farmsearch-box">
+          <div className="farmsearch-box">
             <input type="text" placeholder="Search" name="search" />
             <input type="image" src={SearchIcon} alt="searchIcon" />
-          </form>
+          </div>
           <button type="button" className="farmsearch-filterbox">
             GAP Certification Stage
           </button>
@@ -30,62 +33,50 @@ class FarmSearch extends React.PureComponent {
             farmName="Nick's Tomato Farm"
             farmerName="Nick Wong"
             farmLocation="199 Cooley Ct, Wahiawa, Hawaii"
+            farmCover={farmProfileDefaultCover}
+            userIcon={farmProfileDefaultIcon}
           />
           <FarmCard
             hubApproved="HUB"
             gapApproved="GAP"
-            farmName="Andi's Weed Shack"
+            farmName="KS Kapālama"
             farmerName="Andi Halim"
-            farmLocation="420 Snoop Dogg Lane, Pittsburgh, PA"
+            farmLocation="1887 Makuakāne St Honolulu, HI 96817"
+            farmCover={farmProfileDefaultCover}
+            userIcon={farmProfileDefaultIcon}
           />
           <FarmCard
             hubApproved="HUB"
             gapApproved="GAP"
-            farmName="Farmville"
-            farmerName="The Zuck"
-            farmLocation="Facebook"
+            farmName="KS Maui"
+            farmerName="Spring Ma"
+            farmLocation="275 ‘A‘apueo Pkwy
+            Pukalani, HI 96768"
+            farmCover={farmProfileDefaultCover}
+            userIcon={farmProfileDefaultIcon}
           />
           <FarmCard
             hubApproved="HUB"
             gapApproved="GAP"
-            farmName="Toilet"
-            farmerName="Custodian"
-            farmLocation="High School"
+            farmName="KS Hawai‘i"
+            farmerName="Alice Zhao"
+            farmLocation="16-716 Volcano Rd Kea‘au, HI 96749"
+            farmCover={farmProfileDefaultCover}
+            userIcon={farmProfileDefaultIcon}
           />
           <FarmCard
             hubApproved="HUB"
             gapApproved="GAP"
-            farmName="Toilet"
-            farmerName="Custodian"
-            farmLocation="High School"
+            farmName="Kawaiaha‘o Plaza"
+            farmerName="Phoebe Li"
+            farmLocation="567 South King St Honolulu, HI 96813"
+            farmCover={farmProfileDefaultCover}
+            userIcon={farmProfileDefaultIcon}
           />
           <FarmCard
-            hubApproved="HUB"
-            gapApproved="GAP"
-            farmName="Toilet"
-            farmerName="Custodian"
-            farmLocation="High School"
-          />
-          <FarmCard
-            hubApproved="HUB"
-            gapApproved="GAP"
-            farmName="Toilet"
-            farmerName="Custodian"
-            farmLocation="High School"
-          />
-          <FarmCard
-            hubApproved="HUB"
-            gapApproved="GAP"
-            farmName="Toilet"
-            farmerName="Custodian"
-            farmLocation="High School"
-          />
-          <FarmCard
-            hubApproved="HUB"
-            gapApproved="GAP"
-            farmName="Toilet"
-            farmerName="Custodian"
-            farmLocation="High School"
+            farmName="Hawaiian Mana Farm"
+            farmerName="Lebron James"
+            farmLocation="84-5090 Hawaii Belt Rd, Captain Cook, HI 96704"
           />
         </div>
       </div>

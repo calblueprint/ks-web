@@ -5,45 +5,53 @@
 .farm-card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   width: 360px;
-  height: 319px;
+  height: 330px;
 }
 
 .farm-card-top {
+  position: relative;
   background-color: #f0f5fb;
   height: 65%;
 }
 
 .hub-button {
+  position: absolute;
+  right: 55px;
+  top: 0;
   text-align: center;
   color: white;
   background-color: #4074b0;
   padding: 5px;
   border-radius: 5px;
   border: none;
-  float: right;
   margin: 4%;
 }
 
 .gap-button {
+  position: absolute;
+  right: 0;
+  top: 0;
   text-align: center;
   color: white;
   background-color: #4074b0;
   padding: 5px;
   border-radius: 5px;
   border: none;
-  float: right;
   margin: 4%;
 }
 
-/**
-.farm-card-photo{
-    width:100%;
+.farm-card-photo {
+  width: 100%;
 }
 
 .farm-card-icon {
-    position: absolute;
-    margin-bottom: 30px;
-}*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25%;
+  margin-top: 145px;
+  margin-left: 22px;
+}
 
 .farm-card-bot {
   padding-left: 28px;
@@ -54,7 +62,7 @@
 }
 
 .farmname {
-  padding-top: 7.5%;
+  padding-top: 8%;
   color: black;
   font-style: normal;
   font-weight: bold;
