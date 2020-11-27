@@ -4,26 +4,17 @@
 
 .farmsearch-container {
   margin: 5%;
-  /*
-    margin-left: 74px;
-    margin-right: 77px;
-    margin-bottom: 60px;
-    margin-top: 51px;
-    background-color: #FAFAFA;*/
+  height: 100%;
 }
 
 .farmsearch-header {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 3.75%;
-  font-style: normal;
   font-weight: bold;
   font-size: 36px;
   line-height: 100%;
-  /* or 36px */
-  /* letter-spacing: 1px;*/
+  letter-spacing: 1px;
 }
 
 .farmsearch-box {
@@ -37,7 +28,6 @@
   height: 100%;
   border-radius: 16px;
   padding-left: 17px;
-  padding-right: 33px;
   color: #b8b8b8;
   font-size: 15px;
   vertical-align: middle;
@@ -52,23 +42,22 @@
 }
 
 .farmsearch-filterbox {
-  border: 1px solid rgba(51, 51, 51, 0.5);
-  box-sizing: border-box;
-  border-radius: 5px;
   width: 17%;
   height: 40px;
   background-color: #fafafa;
+  border: 1px solid rgba(51, 51, 51, 0.5);
+  border-radius: 5px;
   color: rgba(51, 51, 51, 0.5);
+  font-size: 14px;
   text-align: left;
   padding-left: 15px;
-  font-size: 14px;
 }
 
 .farmsearch-gridcontainer {
   display: grid;
   grid-template-columns: 27.77% 27.77% 27.77%;
-  grid-column-gap: 8.02%;
-  grid-row-gap: 11%;
+  grid-column-gap: 8%;
+  grid-row-gap: 65px;
 }
 
 @media (max-width: 1000px) {
