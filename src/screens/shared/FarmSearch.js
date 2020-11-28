@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Modal from 'react-modal';
 
 import '../../styles/FarmSearch.css';
 import FarmCard from './components/FarmCard';
@@ -8,8 +9,29 @@ import SearchIcon from '../../assets/search-icon.png';
 import farmProfileDefaultCover from '../../assets/farmProfileCover.png';
 import farmProfileDefaultIcon from '../../assets/farmProfilePhoto.png';
 
-class FarmSearch extends React.PureComponent {
+const ROOT_ELEMENT= '#root';
+Modal.setAppElement(ROOT_ELEMENT);
+
+class FarmSearch extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showFarmModal: false
+    };
+  }
+
+  showModal = () => {
+    this.setState({ showFarmModal: true});
+  };
+
+  hideModal = () => {
+    this.setState({ showFarmModal: false});
+  };
+
   render() {
+    const {
+      showFarmModal
+    } = this.state; 
     return (
       <div className="farmsearch-container">
         <div className="farmsearch-header">
@@ -25,16 +47,26 @@ class FarmSearch extends React.PureComponent {
             Sort By:
           </button>
         </div>
+        <button type="button" className="buttontest" onClick={() => this.showModal()}>TEST</button>
+        <Modal 
+          isOpen={showFarmModal}
+          onRequestClose={() => this.hideModal}
+          className="farm-modal"
+          overlayClassName="farm-modal-overlay"
+        >
+        Farm Profile
+        <button type="button" className="buttontest" onClick={() => this.hideModal()}>Close</button>
+        </Modal>
         <div className="farmsearch-gridcontainer">
           <NewFarmCard />
           <FarmCard
-            hubApproved="HUB"
-            gapApproved="GAP"
-            farmName="Nick's Tomato Farm"
-            farmerName="Nick Wong"
-            farmLocation="199 Cooley Ct, Wahiawa, Hawaii"
-            farmCover={farmProfileDefaultCover}
-            userIcon={farmProfileDefaultIcon}
+          hubApproved="HUB"S
+          gapApproved="GAP"
+          farmName="Nick's Tomato Farm"
+          farmerName="Nick Wong"
+          farmLocation="199 Cooley Ct, Wahiawa, Hawaii"
+          farmCover={farmProfileDefaultCover}
+          userIcon={farmProfileDefaultIcon}
           />
           <FarmCard
             hubApproved="HUB"

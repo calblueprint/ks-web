@@ -71,3 +71,28 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
+.farm-modal {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  margin-top: 8%;
+  width: 60%;
+  height: 70%;
+  background-color: #F1F5FA;
+}
+
+.farm-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #C2C2C2; 
+  opacity: 90%;
+}
+
+.buttontest {
+  width: 100px;
+  height: 20px;
+}

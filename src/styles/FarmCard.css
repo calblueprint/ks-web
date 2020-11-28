@@ -78,3 +78,9 @@
   line-height: 143%;
   letter-spacing: 0.282191px;
 }
+
+#overlay {
+  width: 70%;
+  height: 70%;
+  background-color: white;
+}
