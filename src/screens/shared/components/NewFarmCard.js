@@ -12,9 +12,5 @@ class NewFarmCard extends React.PureComponent {
     );
   }
 }
-/** 
-<img src={farmProfileDefaultCover} alt="defaultfarmCover" className="farm-card-photo"/>
-<img src={farmProfileDefaultIcon} alt="defaultFarmProfileIcon" className="farm-card-icon"/>
-*/
 
 export default NewFarmCard;

@@ -9,29 +9,27 @@ import SearchIcon from '../../assets/search-icon.png';
 import farmProfileDefaultCover from '../../assets/farmProfileCover.png';
 import farmProfileDefaultIcon from '../../assets/farmProfilePhoto.png';
 
-const ROOT_ELEMENT= '#root';
+const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);
 
 class FarmSearch extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       showFarmModal: false
     };
   }
 
   showModal = () => {
-    this.setState({ showFarmModal: true});
+    this.setState({ showFarmModal: true });
   };
 
   hideModal = () => {
-    this.setState({ showFarmModal: false});
+    this.setState({ showFarmModal: false });
   };
 
   render() {
-    const {
-      showFarmModal
-    } = this.state; 
+    const { showFarmModal } = this.state;
     return (
       <div className="farmsearch-container">
         <div className="farmsearch-header">
@@ -47,26 +45,44 @@ class FarmSearch extends Component {
             Sort By:
           </button>
         </div>
-        <button type="button" className="buttontest" onClick={() => this.showModal()}>TEST</button>
-        <Modal 
+
+        <button
+          type="button"
+          className="buttontest"
+          onClick={() => this.showModal()}
+        >
+          Overlay Test
+        </button>
+        <Modal
           isOpen={showFarmModal}
           onRequestClose={() => this.hideModal}
           className="farm-modal"
           overlayClassName="farm-modal-overlay"
         >
-        Farm Profile
-        <button type="button" className="buttontest" onClick={() => this.hideModal()}>Close</button>
+          Farm Profile
+          <button
+            type="button"
+            className="buttontest"
+            onClick={() => this.hideModal()}
+          >
+            Close
+          </button>
+          {/* 
+        insert Phoebe's card code here
+        */}
         </Modal>
+
         <div className="farmsearch-gridcontainer">
           <NewFarmCard />
           <FarmCard
-          hubApproved="HUB"S
-          gapApproved="GAP"
-          farmName="Nick's Tomato Farm"
-          farmerName="Nick Wong"
-          farmLocation="199 Cooley Ct, Wahiawa, Hawaii"
-          farmCover={farmProfileDefaultCover}
-          userIcon={farmProfileDefaultIcon}
+            hubApproved="HUB"
+            S
+            gapApproved="GAP"
+            farmName="Nick's Tomato Farm"
+            farmerName="Nick Wong"
+            farmLocation="199 Cooley Ct, Wahiawa, Hawaii"
+            farmCover={farmProfileDefaultCover}
+            userIcon={farmProfileDefaultIcon}
           />
           <FarmCard
             hubApproved="HUB"
@@ -112,18 +128,6 @@ class FarmSearch extends Component {
           />
         </div>
       </div>
-      /**
-            <div className="farmsearch-container">
-                <div className="farmsearch-header">
-                    <h1>Farm Search</h1>
-                    <div className="farmsearch-box">
-                        <input type="text" placeholder="Search" />
-                    </div>
-                </div>
-                <div className="farm-row">
-                </div>
-        </div>
-        */
     );
   }
 }
