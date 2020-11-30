@@ -5,7 +5,7 @@ class RecentUpdate extends React.PureComponent {
   render() {
     const { profilePic, updateDate, updateAuthor, updateText } = this.props;
     return (
-      <div className="update">
+      <div className="dashboard-update">
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <img
             src={profilePic}

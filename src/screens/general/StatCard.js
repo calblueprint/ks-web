@@ -5,7 +5,7 @@ class StatCard extends React.PureComponent {
   render() {
     const { statIcon, statName, statNumber, statDescription } = this.props;
     return (
-      <div className="column">
+      <div className="stat-card-column">
         <div className="stat-card">
           <img src={statIcon} alt="icon" />
           <h3>{statName}</h3>
