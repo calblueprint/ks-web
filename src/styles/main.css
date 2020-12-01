@@ -1,4 +1,30 @@
 :root {
+  /* Blues */
+  --ks-dark-blue: #4074b0;
+  --ks-medium-dark-blue: #4c83c0;
+  --ks-medium-blue: #749dce;
+  --ks-medium-light-blue: #9cb8dc;
+  --ks-light-blue: #d4e3f5;
+  --ks-lightest-blue: #f1f5fa;
+
+  /* Grey */
+  --ks-dark-grey: rgba(51, 51, 51, 0.5);
+  --ks-medium-dark-grey: #c2c2c2;
+  --ks-medium-light-grey: #dedede;
+  --ks-light-grey: #fafafa;
+
+  --ks-white: #ffffff;
+
+  /* Font Colors */
+  --ks-font-dark: rgba(51, 51, 51, 1.0);
+  --ks-font-medium: rgba(51, 51, 51, 0.75);
+  --ks-font-light: rgba(51, 51, 51, 0.5);
+  --ks-font-lightest: rgba(51, 51, 51, 0.25);
+
+  /* Modal Background Colors */
+  --ks-modal-background: rgba(196, 196, 196, 0.7);
+
+  /* Old People Power Styles */
   --pp-blue: #395578;
   --pp-blue-gray: #7387a2;
 
