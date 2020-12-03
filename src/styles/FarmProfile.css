@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Lato:wght@700&family=Lora:wght@700&display=swap');
-
 .farm-profile {
   margin: 50px;
   padding: 50px;
@@ -25,7 +24,7 @@
   align-items: center;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  color: #8f8f8f;
+  color: var(--ks-font-light);
 }
 
 .farm-profile__body {
@@ -58,7 +57,6 @@
   height: 421px;
   left: 0px;
   top: 0px;
-
   background: #ffffff;
   border-radius: 5px;
 }
@@ -98,19 +96,29 @@
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.282191px;
-  color: rgba(51, 51, 51, 0.5);
+  color: var(--ks-font-light);
 }
 
 .farm-contact-card__main__text__details__certification {
-  color: #000000;
+  width: 247px;
+  height: 40px;
+  position: absolute;
+  left: 16px;
+  top: 118px;
+  background: var(--ks-light-grey);
+  border-radius: 20px;
+  color: var(--ks-font-medium);
   margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .farm-contact-card__inspector {
   width: 280px;
   height: 145px;
   margin-top: 72px;
-  background: #ffffff;
+  background: white;
   text-align: center;
   padding-top: 17px;
 }

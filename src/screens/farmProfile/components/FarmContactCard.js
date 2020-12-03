@@ -40,23 +40,21 @@ class FarmContactCard extends React.PureComponent {
               <div>{`Phone: ${phone}`}</div>
               <div>{`Email: ${email}`}</div>
               <div>{`Address: ${address}`}</div>
-              <div className="farm-contact-card__main__text__details__certification">
-                {gapCertified ? (
-                  <div>
-                    <img
-                      className="farm-contact-card__certification-icon"
-                      src={checkIcon}
-                      alt="certification"
-                    />
-                    {`GAP Certified since ${certificationDate}`}
-                  </div>
-                ) : (
-                  <div>
-                    <img src={cancelIcon} alt="certification" />
-                    Not GAP Certified
-                  </div>
-                )}
-              </div>
+              {gapCertified ? (
+                <div className="farm-contact-card__main__text__details__certification">
+                  <img
+                    className="farm-contact-card__certification-icon"
+                    src={checkIcon}
+                    alt="certification"
+                  />
+                  {`GAP Certified since ${certificationDate}`}
+                </div>
+              ) : (
+                <div className="farm-contact-card__main__text__details__certification">
+                  <img src={cancelIcon} alt="certification" />
+                  Not GAP Certified
+                </div>
+              )}
             </div>
           </div>
         </div>
