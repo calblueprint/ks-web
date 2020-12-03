@@ -1,5 +1,6 @@
 import React from 'react';
 import FarmContactCard from './components/FarmContactCard';
+import FarmGraph from './components/FarmGraph';
 import leftArrow from '../../assets/left_arrow.png';
 import '../../styles/FarmProfile.css';
 
@@ -45,9 +46,13 @@ class FarmProfile extends React.Component {
           </div>
 
           <div className="farm-profile__body__right">
-            <div className="farm-profile__graph hover-background">Data</div>
-            <div className="farm-profile__graph hover-background">Data</div>
-            <div className="farm-profile__graph hover-background">Data</div>
+            <FarmGraph title="Top 5 Items" data={null} />
+            <div className="divider" />
+            <FarmGraph title="Recent Harvests" data={null} />
+            <div className="divider" />
+            <FarmGraph title="Recent Harvest Logs" data={null} />
+            <div className="divider" />
+            <FarmGraph title="GAP Certification Status" data={null} />
           </div>
         </div>
       </div>

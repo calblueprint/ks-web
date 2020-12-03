@@ -22,7 +22,7 @@ class FarmContactCard extends React.PureComponent {
 
     return (
       <div className="farm-contact-card" id={id}>
-        <div className="farm-contact-card__main hover-background">
+        <div className="farm-contact-card__main">
           <img
             className="farm-contact-card__main__cover-photo"
             src={farmProfileCover}
@@ -59,8 +59,8 @@ class FarmContactCard extends React.PureComponent {
           </div>
         </div>
 
-        <div className="farm-contact-card__inspector hover-background">
-          <div className="farm-profile__subheader">NSEVP Inspector</div>
+        <div className="farm-contact-card__inspector">
+          <div className="farm-profile__subheader">Group GAP Contact</div>
           <div className="farm-contact-card__inspector__body">
             <img
               className="farm-contact-card__user-icon"
