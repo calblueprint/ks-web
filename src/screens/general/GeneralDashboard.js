@@ -2,7 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import StatCard from './StatCard';
 import RecentUpdate from './RecentUpdate';
-import Icon from '../../assets/success.png';
+import TotalHarvestIcon from '../../assets/totalHarvestStat.png';
+import GapCertificationIcon from '../../assets/gapCertificationStat.png';
+import HarvestingFarmIcon from '../../assets/harvestingFarmStat.png';
+import NorthShoreGapIcon from '../../assets/northShoreGapStat.png';
+import TrainingFarmsIcon from '../../assets/trainingFarmsStat.png';
+import Icon from '../../assets/userIcon.png';
 import '../../styles/GeneralUserDashboard.css';
 
 class GeneralUserDashboard extends React.PureComponent {
@@ -13,34 +18,39 @@ class GeneralUserDashboard extends React.PureComponent {
         <h1>Dashboard</h1>
         <div className="stat-card-row">
           <StatCard
-            statIcon={Icon}
-            statName="Stat Name"
-            statNumber="99"
-            statDescription="This is the description of the statistic above"
+            statIcon={TotalHarvestIcon}
+            statName="Total Harvest"
+            statNumber="17,000"
+            statUnit=" lbs"
+            statDescription="of harvest to date"
           />
           <StatCard
-            statIcon={Icon}
-            statName="Stat Name"
-            statNumber="99"
-            statDescription="This is the description of the statistic above"
+            statIcon={GapCertificationIcon}
+            statName="GAP Certification"
+            statNumber="40"
+            statUnit="%"
+            statDescription="of farms in Food Hub are GAP Certified"
           />
           <StatCard
-            statIcon={Icon}
-            statName="Stat Name"
-            statNumber="99"
-            statDescription="This is the description of the statistic above"
+            statIcon={HarvestingFarmIcon}
+            statName="Harvesting Farms"
+            statNumber="10"
+            statUnit=" farms"
+            statDescription="are harvesting this week"
           />
           <StatCard
-            statIcon={Icon}
-            statName="Stat Name"
-            statNumber="99"
-            statDescription="This is the description of the statistic above"
+            statIcon={NorthShoreGapIcon}
+            statName="North Shore GAP"
+            statNumber="20"
+            statUnit="%"
+            statDescription="of all GAP-certified farms in North Shore are NSEVP"
           />
           <StatCard
-            statIcon={Icon}
-            statName="Stat Name"
-            statNumber="99"
-            statDescription="This is the description of the statistic above"
+            statIcon={TrainingFarmsIcon}
+            statName="Training Farms"
+            statNumber="20"
+            statUnit=" farms"
+            statDescription="are currently in a Group GAP cohort"
           />
         </div>
         <div className="dashboard-updates-box">
