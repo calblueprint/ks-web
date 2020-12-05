@@ -22,7 +22,7 @@ class RecentUpdate extends React.PureComponent {
             <p style={{ marginLeft: '64px' }}>{updateDate}</p>
           </div>
         </div>
-        <p style={{ margin: 0 }}>{updateText}</p>
+        <p style={{ margin: '8px' }}>{updateText}</p>
       </div>
     );
   }
