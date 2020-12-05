@@ -16,6 +16,7 @@
 
 .farm-card__photo {
   width: 100%;
+  cursor: pointer;
 }
 
 .farm-card__btn-gap {

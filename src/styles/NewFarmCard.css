@@ -1,4 +1,4 @@
-.newfarm-card {
+.new-farm-card {
   width: 360px;
   height: 319px;
   border: 1px dashed #bdbdbd;
@@ -10,9 +10,10 @@
   font-size: 16px;
   text-align: center;
   padding-top: 35%;
+  cursor: pointer;
 }
 
-.newfarm-fileIcon {
+.new-farm-card__file-icon {
   padding: 8px;
   display: block;
   margin-left: auto;
