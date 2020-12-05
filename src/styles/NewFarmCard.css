@@ -1,0 +1,21 @@
+.new-farm-card {
+  width: 360px;
+  height: 319px;
+  border: 1px dashed var(--ks-medium-dark-grey);
+  box-sizing: border-box;
+  border-radius: 3px;
+  color: #bdbdbd;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  padding-top: 35%;
+  cursor: pointer;
+}
+
+.new-farm-card__file-icon {
+  padding: 8px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
