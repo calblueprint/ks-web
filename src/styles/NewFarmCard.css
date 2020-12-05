@@ -1,7 +1,7 @@
 .new-farm-card {
   width: 360px;
   height: 319px;
-  border: 1px dashed #bdbdbd;
+  border: 1px dashed var(--ks-medium-dark-grey);
   box-sizing: border-box;
   border-radius: 3px;
   color: #bdbdbd;
