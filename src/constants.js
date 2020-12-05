@@ -1,10 +1,14 @@
 export default {
   // TYPES
-  SUBSCRIBER_OWNER: 'Subscriber',
-  GENERAL_OWNER: 'General',
+  KS_USER: 'KS',
+  NSEVP_USER: 'NSEVP',
+  SUPERADMIN: 'Super Admin',
 
-  PAYPAL_TRANSACTION_FEE_FRACTION: 0.029,
-  PAYPAL_TRANSACTION_FLAT_FEE_IN_DOLLARS: 0.3,
+  // SUBSCRIBER_OWNER: 'Subscriber',
+  // GENERAL_OWNER: 'General',
+
+  // PAYPAL_TRANSACTION_FEE_FRACTION: 0.029,
+  // PAYPAL_TRANSACTION_FLAT_FEE_IN_DOLLARS: 0.3,
 
   // PAYPAL PAYMENT TYPES
   // BILL_PAYMENT_TYPE: 'Bill Payment',
@@ -20,7 +24,7 @@ export default {
 
   // ROUTES
   HOME_ROUTE: '/',
-  SIGNUP_ROUTE: '/onboarding',
+  SIGNUP_ROUTE: '/onboarding'
 
   // INVITE TYPES
   // PLEDGE_INVITE_USED: 'Used',
@@ -34,10 +38,10 @@ export default {
   // EQUIVALENCY DATA
   // Numbers and functions sourced from
   // https://www.epa.gov/energy/greenhouse-gases-equivalencies-calculator-calculations-and-references
-  KWH_TO_COAL: energyInKwH =>
-    (energyInKwH * 7.07 * 10 ** -4) / (9.08 * 10 ** -4),
-  KWH_TO_TRASH_BAGS: energyInKwH =>
-    (energyInKwH * 7.07 * 10 ** -4) / (2.35 * 10 ** -2),
-  KWH_TO_VEHICLE_MILES: energyInKwH =>
-    (energyInKwH * 7.07 * 10 ** -4) / (4.03 * 10 ** -4)
+  // KWH_TO_COAL: energyInKwH =>
+  //   (energyInKwH * 7.07 * 10 ** -4) / (9.08 * 10 ** -4),
+  // KWH_TO_TRASH_BAGS: energyInKwH =>
+  //   (energyInKwH * 7.07 * 10 ** -4) / (2.35 * 10 ** -2),
+  // KWH_TO_VEHICLE_MILES: energyInKwH =>
+  //   (energyInKwH * 7.07 * 10 ** -4) / (4.03 * 10 ** -4)
 };
