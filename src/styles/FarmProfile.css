@@ -1,0 +1,165 @@
+.farm-profile {
+  margin: 50px;
+  padding: 50px;
+  height: min-content;
+  background-color: white;
+}
+
+.farm-profile__back-button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--ks-font-light);
+}
+
+.farm-profile__body {
+  display: flex;
+}
+
+.farm-profile__body__left {
+  flex: 20%;
+}
+
+.farm-profile__body__right {
+  flex: 80%;
+  margin-left: 50px;
+}
+
+.farm-contact-card {
+  position: relative;
+}
+
+.farm-contact-card__main {
+  width: 280px;
+  height: 421px;
+  left: 0px;
+  top: 0px;
+  background: #ffffff;
+  border-radius: 5px;
+  border: 2px solid rgba(51, 51, 51, 0.07);
+}
+
+.farm-contact-card__main__cover-photo {
+  position: absolute;
+  width: 280px;
+  height: 167px;
+  left: 2px;
+  top: 2px;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.farm-contact-card__main__profile-photo {
+  position: absolute;
+  width: 122px;
+  height: 122px;
+  left: 78px;
+  top: 72px;
+}
+
+.farm-contact-card__main__text {
+  position: absolute;
+  width: 232px;
+  height: 34px;
+  left: 1px;
+  top: 209px;
+  text-align: center;
+  white-space: pre-wrap;
+  padding: 0px 24px;
+}
+
+.farm-contact-card__main__text__details {
+  margin-top: 20px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.282191px;
+  color: var(--ks-font-light);
+}
+
+.farm-contact-card__main__text__details__certification {
+  width: 247px;
+  height: 40px;
+  position: absolute;
+  left: 16px;
+  top: 118px;
+  background: var(--ks-light-grey);
+  border-radius: 20px;
+  color: var(--ks-font-medium);
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.farm-contact-card__inspector {
+  width: 280px;
+  height: 145px;
+  margin-top: 24px;
+  padding-top: 17px;
+  background: white;
+  text-align: center;
+  border: 2px solid rgba(51, 51, 51, 0.07);
+}
+
+.farm-contact-card__inspector__body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.farm-contact-card__certification-icon {
+  width: 23px;
+  height: 22px;
+  margin-right: 10px;
+}
+
+.farm-contact-card__user-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+}
+
+.farm-profile__back-button-icon {
+  width: 24px;
+  padding-right: 10px;
+}
+
+.farm-profile__subheader {
+  font-family: 'Lato', sans-serif;
+  font-size: 24px;
+  line-height: 27px;
+}
+
+.farm-graph-container {
+  width: 100%;
+  height: 260px;
+  position: relative;
+}
+
+.farm-graph {
+  width: 765px;
+  height: 161px;
+  background: white;
+}
+
+.farm-graph--no-data {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--ks-lightest-blue);
+  color: var(--ks-font-lightest);
+}
+
+.divider {
+  position: relative;
+  margin-top: 30px;
+  border-top: 0.7px solid var(--ks-medium-light-grey);
+}
