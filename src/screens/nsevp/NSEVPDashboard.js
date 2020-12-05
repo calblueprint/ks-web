@@ -55,7 +55,7 @@ class NSEVPUserDashboard extends React.PureComponent {
           />
         </div>
         <div className="dashboard-updates-box">
-          <h2>Recent Updates</h2>
+          <h2 style={{ marginLeft: '16px' }}>Recent Updates</h2>
           {updates.map(id => {
             return (
               <RecentUpdate
