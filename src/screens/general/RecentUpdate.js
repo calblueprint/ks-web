@@ -14,7 +14,7 @@ class RecentUpdate extends React.PureComponent {
           />
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <h3>{updateAuthor}</h3>
-            <p style={{ float: 'right' }}>{updateDate}</p>
+            <p style={{ marginLeft: '64px' }}>{updateDate}</p>
           </div>
         </div>
         <h4 style={{ margin: 0 }}>{updateText}</h4>
