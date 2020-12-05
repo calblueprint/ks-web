@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DashboardSection from './components/DashboardSection';
-import '../../styles/SubscriberDashboard.css';
+import '../../styles/KSDashboard.css';
 import '../../styles/Community.css';
 
-class SubscriberDashboard extends React.Component {
+class KSDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,9 +23,9 @@ class SubscriberDashboard extends React.Component {
 
   render() {
     return (
-      <div className="subscriber-page ">
-        <div className="subscriber-main">
-          <div className="subscriber-section">
+      <div className="ks-page ">
+        <div className="ks-main">
+          <div className="ks-section">
             <DashboardSection />
           </div>
         </div>
@@ -41,4 +41,4 @@ const mapStateToProps = () => ({
   // solarProjects: state.userData.solarProjects
 });
 
-export default connect(mapStateToProps)(SubscriberDashboard);
+export default connect(mapStateToProps)(KSDashboard);

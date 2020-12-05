@@ -16,10 +16,10 @@ class AdminDashboardCard extends React.PureComponent {
 
     const userTags = userTypes.map(function(type) {
       switch (type) {
-        case 'General':
+        case 'NSEVP':
           return (
             <div key={type} className="admin-pp-tag pp-tag-general">
-              General User
+              NSEVP User
             </div>
           );
         case 'Admin':
@@ -28,7 +28,7 @@ class AdminDashboardCard extends React.PureComponent {
               {type}
             </div>
           );
-        case 'Subscriber':
+        case 'KS':
           return (
             <div key={type} className="admin-pp-tag pp-tag-subscriber">
               {type}

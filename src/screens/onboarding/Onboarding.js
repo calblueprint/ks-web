@@ -16,7 +16,7 @@ import Constants from '../../constants';
 // } from '../../lib/airtable/request';
 import LoadingComponent from '../../components/LoadingComponent';
 
-const { GENERAL_OWNER } = Constants;
+const { NSEVP_USER } = Constants;
 
 class Onboarding extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class Onboarding extends React.Component {
       user: {
         onboardingStep: 0,
         inviteToken: '',
-        userTypes: [GENERAL_OWNER],
+        userTypes: [NSEVP_USER],
         isReceivingDividends: true,
         numberOfShares: 1
       },

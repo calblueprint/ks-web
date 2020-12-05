@@ -9,9 +9,9 @@ import NorthShoreGapIcon from '../../assets/northShoreGapStat.png';
 import TrainingFarmsIcon from '../../assets/trainingFarmsStat.png';
 import Icon from '../../assets/userIcon.png';
 import DashboardGraph from '../../assets/dashboardGraph.png';
-import '../../styles/GeneralUserDashboard.css';
+import '../../styles/NSEVPUserDashboard.css';
 
-class GeneralUserDashboard extends React.PureComponent {
+class NSEVPUserDashboard extends React.PureComponent {
   render() {
     const updates = [1, 2, 3, 4, 5];
     return (
@@ -84,4 +84,4 @@ const mapStateToProps = state => ({
   // solarProjects: state.userData.solarProjects
 });
 
-export default connect(mapStateToProps)(GeneralUserDashboard);
+export default connect(mapStateToProps)(NSEVPUserDashboard);

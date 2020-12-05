@@ -7,13 +7,15 @@
 
 import constants from '../constants';
 
-const { SUBSCRIBER_OWNER, GENERAL_OWNER } = constants;
+const { KS_USER, NSEVP_USER } = constants;
 
 const Credentials = {
-  ADMIN: 'A',
-  GENERAL: 'G',
-  SUBSCRIBER: 'S',
+  KS: 'K',
+  NSEVP: 'N',
   ONBOARDING: 'O',
+  ADMIN: 'A',
+  // GENERAL: 'G',
+  // SUBSCRIBER: 'S',
   SUPERADMIN: 'X'
 };
 
@@ -41,12 +43,12 @@ function getCredentials(user) {
 
   const { userTypes } = user;
 
-  if (userTypes.includes(SUBSCRIBER_OWNER)) {
-    credentials += Credentials.SUBSCRIBER;
+  if (userTypes.includes(KS_USER)) {
+    credentials += Credentials.KS;
   }
 
-  if (userTypes.includes(GENERAL_OWNER)) {
-    credentials += Credentials.GENERAL;
+  if (userTypes.includes(NSEVP_USER)) {
+    credentials += Credentials.NSEVP;
   }
 
   return credentials;
@@ -65,12 +67,12 @@ function isAdmin(credentials) {
   return credentials.includes(Credentials.ADMIN);
 }
 
-function isSubscriberUser(credentials) {
-  return credentials.includes(Credentials.SUBSCRIBER);
+function isKSUser(credentials) {
+  return credentials.includes(Credentials.KS);
 }
 
-function isGeneralUser(credentials) {
-  return credentials.includes(Credentials.GENERAL);
+function isNSEVPUser(credentials) {
+  return credentials.includes(Credentials.NSEVP);
 }
 
 function isSuperAdmin(credentials) {
@@ -80,8 +82,8 @@ function isSuperAdmin(credentials) {
 export {
   getCredentials,
   isAdmin,
-  isSubscriberUser,
-  isGeneralUser,
+  isKSUser,
+  isNSEVPUser,
   isSuperAdmin,
   isSignedIn,
   isOnboarding,
