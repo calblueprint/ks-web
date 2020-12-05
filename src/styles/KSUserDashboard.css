@@ -18,7 +18,7 @@ h3 {
   font-weight: bolder;
 }
 
-.subscriber-header {
+.ks-header {
   font-weight: bolder;
   color: var(--pp-black);
 }
@@ -46,7 +46,7 @@ h3 {
   margin: 0 auto 1.5vw auto;
 }
 
-.subscriber-header {
+.ks-header {
   font-weight: bolder;
   color: var(--pp-black);
 }

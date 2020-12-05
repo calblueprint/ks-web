@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DashboardSection from './components/DashboardSection';
-import '../../styles/SubscriberDashboard.css';
+import '../../styles/KSDashboard.css';
 import '../../styles/Community.css';
 
 class KSDashboard extends React.Component {
@@ -23,9 +23,9 @@ class KSDashboard extends React.Component {
 
   render() {
     return (
-      <div className="subscriber-page ">
-        <div className="subscriber-main">
-          <div className="subscriber-section">
+      <div className="ks-page ">
+        <div className="ks-main">
+          <div className="ks-section">
             <DashboardSection />
           </div>
         </div>

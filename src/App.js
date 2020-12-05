@@ -55,16 +55,16 @@ class App extends React.Component {
     const credentials = getCredentials(user);
     const onboarding = isOnboarding(credentials);
     const signedIn = isSignedIn(credentials);
-    const isNSVEP = isNSEVPUser(credentials);
-    const isSubscriber = isSubscriberUser(credentials);
+    const isNSEVP = isNSEVPUser(credentials);
+    const isKS = isKSUser(credentials);
     let homeComponent;
     if (onboarding) {
       homeComponent = () => <Redirect to={{ pathname: '/onboarding' }} />;
     } else if (!signedIn) {
       homeComponent = Login;
-    } else if (isSubscriber) {
-      // Dashboard for both subscriber and subscriber ownrers (subscribers with shares)
-      homeComponent = SubscriberDashboard;
+    } else if (isKS) {
+      // Dashboard for both ks and ks ownrers (ks with shares)
+      homeComponent = KSDashboard;
     } else if (isNSEVP) {
       homeComponent = NSEVPDashboard;
     }
