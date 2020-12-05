@@ -8,6 +8,7 @@ import HarvestingFarmIcon from '../../assets/harvestingFarmStat.png';
 import NorthShoreGapIcon from '../../assets/northShoreGapStat.png';
 import TrainingFarmsIcon from '../../assets/trainingFarmsStat.png';
 import Icon from '../../assets/userIcon.png';
+import DashboardGraph from '../../assets/dashboardGraph.png';
 import '../../styles/GeneralUserDashboard.css';
 
 class GeneralUserDashboard extends React.PureComponent {
@@ -67,7 +68,11 @@ class GeneralUserDashboard extends React.PureComponent {
             );
           })}
         </div>
-        <div className="dashboard-chart" />
+        <img
+          src={DashboardGraph}
+          style={{ width: '70%' }}
+          alt="farm production history"
+        />
       </div>
     );
   }
