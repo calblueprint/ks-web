@@ -15,7 +15,7 @@ class StatCard extends React.PureComponent {
         <div className="stat-card">
           <img src={statIcon} alt="icon" style={{ paddingTop: '20px' }} />
           <h3>{statName}</h3>
-          <h1>{statNumber + statUnit}</h1>
+          <h2>{statNumber + statUnit}</h2>
           <p>{statDescription}</p>
         </div>
       </div>
