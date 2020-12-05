@@ -7,18 +7,18 @@ import { ConnectedRouter } from 'connected-react-router';
 import NavBar from './components/NavBar';
 import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
-import SubscriberDashboard from './screens/subscriber/SubscriberDashboard';
-import GeneralDashboard from './screens/general/GeneralDashboard';
+import KSDashboard from './screens/ks/KSDashboard';
+import NSEVPDashboard from './screens/nsevp/NSEVPDashboard';
 import AdminDashboard from './screens/admin/AdminDashboard';
 import UserProfile from './screens/shared/UserProfile';
 import About from './screens/shared/About';
-import ErrorPage from './screens/general/ErrorPage';
+import ErrorPage from './screens/nsevp/ErrorPage';
 import './styles/App.css';
 import { refreshUserData, clearUserData } from './lib/redux/userData';
 import { history } from './lib/redux/store';
 import {
-  isGeneralUser,
-  isSubscriberUser,
+  isNSEVPUser,
+  isKSUser,
   isSignedIn,
   Credentials,
   isOnboarding,
@@ -55,7 +55,7 @@ class App extends React.Component {
     const credentials = getCredentials(user);
     const onboarding = isOnboarding(credentials);
     const signedIn = isSignedIn(credentials);
-    const isGeneral = isGeneralUser(credentials);
+    const isNSVEP = isNSEVPUser(credentials);
     const isSubscriber = isSubscriberUser(credentials);
     let homeComponent;
     if (onboarding) {
@@ -65,8 +65,8 @@ class App extends React.Component {
     } else if (isSubscriber) {
       // Dashboard for both subscriber and subscriber ownrers (subscribers with shares)
       homeComponent = SubscriberDashboard;
-    } else if (isGeneral) {
-      homeComponent = GeneralDashboard;
+    } else if (isNSEVP) {
+      homeComponent = NSEVPDashboard;
     }
     return homeComponent;
   }

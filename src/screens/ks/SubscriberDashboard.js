@@ -4,7 +4,7 @@ import DashboardSection from './components/DashboardSection';
 import '../../styles/SubscriberDashboard.css';
 import '../../styles/Community.css';
 
-class SubscriberDashboard extends React.Component {
+class KSDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,4 +41,4 @@ const mapStateToProps = () => ({
   // solarProjects: state.userData.solarProjects
 });
 
-export default connect(mapStateToProps)(SubscriberDashboard);
+export default connect(mapStateToProps)(KSDashboard);
