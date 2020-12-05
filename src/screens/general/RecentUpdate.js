@@ -10,14 +10,19 @@ class RecentUpdate extends React.PureComponent {
           <img
             src={profilePic}
             alt="icon"
-            style={{ width: '40px', height: '40px', margin: '16px' }}
+            style={{
+              width: '40px',
+              height: '40px',
+              margin: '16px',
+              marginLeft: '0'
+            }}
           />
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <h3>{updateAuthor}</h3>
             <p style={{ marginLeft: '64px' }}>{updateDate}</p>
           </div>
         </div>
-        <h4 style={{ margin: 0 }}>{updateText}</h4>
+        <p style={{ margin: 0 }}>{updateText}</p>
       </div>
     );
   }

@@ -54,13 +54,13 @@
 
 .dashboard-update {
   border-style: solid;
-  border-color: black;
+  border-color: var(--ks-medium-dark-grey);
   border-bottom-width: 1px;
   border-top-width: 0;
   border-left-width: 0;
   border-right-width: 0;
   background-color: white;
-  padding: 4px;
+  padding: 16px;
 }
 
 .dashboard-updates-box {
