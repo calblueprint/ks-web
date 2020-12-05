@@ -34,8 +34,13 @@
 .nav-bar nav ul a,
 span {
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
 }
 
 .nav-item a {
