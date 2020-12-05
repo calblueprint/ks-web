@@ -6,7 +6,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Lato:wght@700&family=Lora:wght@700&display=swap');
 
-
 /* KS FONT STYLES */
 h1 {
   font-family: 'Lora';
@@ -68,7 +67,10 @@ body {
   height: 100%;
   background-color: var(--pp-bg-white);
   margin: 0;
-  font-family: 'Avenir', 'Sofia Pro', -apple-system, BlinkMacSystemFont,
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: 'Inter', 'Avenir', 'Sofia Pro', -apple-system, BlinkMacSystemFont,
     'Ubuntu', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
