@@ -124,7 +124,7 @@ class Login extends React.Component {
           <div className=" t-center">
             <button
               type="submit"
-              className="btn btn--rounded btn--pink btn--size12 login-button"
+              className="btn btn--rounded btn--ks-blue btn--size12 login-button"
             >
               Login
             </button>
