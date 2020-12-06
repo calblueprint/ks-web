@@ -1,14 +1,8 @@
 # Kamehameha Schools x NSEVP x Blueprint
 
-_Last updated: Oct 7, 2020 (by Nick)_
+_Last updated: Dec 5, 2020 (by Nick Wong)_
 
 The web client for NSEVP's Food Hub Platform
-
-
-#  == Outdated ==
- 
-- For the live app (master), visit https://peoplepower.netlify.com
-- For peoplepower-node (server) repo, go to https://github.com/calblueprint/peoplepower-node
 
 ## 1. Quickstart
 
@@ -21,10 +15,12 @@ The web client for NSEVP's Food Hub Platform
 
 The project uses a number of secrets that are passed via a `.env` file (for security reasons). We need to set this `.env` file now.
 
-1. In your top level directory (`/peoplepower-web`, the same directory containing the src folder, `package.json` and a couple of other files), create a file called `.env`.
+1. In your top level directory (`/ks-web`, the same directory containing the src folder, `package.json` and a couple of other files), create a file called `.env`.
 
 _❗️NOTE: Any code in the that is enclosed in `{` `}` is meant to be replaced. Hence, if your API Key is "abcd", `REACT_APP_AIRTABLE_API_KEY={YOUR API KEY HERE} yarn start` is supposed to become `REACT_APP_AIRTABLE_API_KEY=abcd yarn start`. Note that the `{` `}` is replaced as well_
 
+#  == OUTDATED APP SECRETS ==
+Talk to a dev on the team to get the updated project secrets.
 2. Copy and paste the following into `.env`:
 
 ```
