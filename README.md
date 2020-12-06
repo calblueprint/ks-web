@@ -1,6 +1,6 @@
 # Kamehameha Schools x NSEVP x Blueprint
 
-_Last updated: Oct 7, 2020 (by Nick)_
+_Last updated: Dec 5, 2020 (by Nick Wong)_
 
 The web client for NSEVP's Food Hub Platform
 
