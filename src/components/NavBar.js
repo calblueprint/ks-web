@@ -12,6 +12,7 @@ import {
 import Logo from '../assets/NSEVP-LOGO.svg';
 import '../styles/NavBar.css';
 import SettingsDropdown from './SettingsDropdown';
+import NavBarDefaultUserIcon from '../assets/NavBarDefaultUserIcon.png';
 
 class NavBar extends React.PureComponent {
   render() {
@@ -58,59 +59,58 @@ class NavBar extends React.PureComponent {
             alt="North Shore Economic Vitally Partnership Logo"
           />
         </a>
-        <div style={{ width: '100%', marginLeft: '16px' }}>
+        <div style={{ marginLeft: '16px' }}>
           <h3 style={{ margin: '0px' }}>North Shore</h3>
           <h3 style={{ margin: '0px' }}>EVP</h3>
         </div>
         <nav>
           {isSignedIn(credentials) && (
             <ul>
-              <li
-                className={`${
-                  pathname === '/' ? 'nav-item-selected' : 'nav-item'
-                } nav-item-styling`}
-              >
-                <Link to="/">Dashboard</Link>
-              </li>
-              <li
-                className={`${
-                  pathname === '/' ? 'nav-item-selected' : 'nav-item'
-                } nav-item-styling`}
-              >
-                <Link to="/farms">Farms</Link>
-              </li>
-              <li
-                className={`${
-                  pathname === '/' ? 'nav-item-selected' : 'nav-item'
-                } nav-item-styling`}
-              >
-                <Link to="/supply">Supply</Link>
-              </li>
-
-              <li
-                className={`${
-                  pathname === '/' ? 'nav-item-selected' : 'nav-item'
-                } nav-item-styling`}
-                style={{
-                  borderRadius: '5px',
-                  border: '1px solid #4074B0',
-                  padding: '0px 18px'
-                }}
-              >
-                <Link to="/farm/asdf" style={{ color: '#4074B0' }}>
-                  New Farm
-                </Link>
-              </li>
-              {/* {isGeneralUser(credentials) && ()} */}
-              {/* isSubscriberUser(credentials) && (
+              <div className="nav-left-container">
                 <li
                   className={`${
-                    pathname === '/billing' ? 'nav-item-selected' : 'nav-item'
+                    pathname === '/' ? 'nav-item-selected' : 'nav-item'
                   } nav-item-styling`}
                 >
-                  <Link to="/billing">Billing</Link>
+                  <Link to="/">Dashboard</Link>
                 </li>
-              ) */}
+                <li
+                  className={`${
+                    pathname === '/' ? 'nav-item-selected' : 'nav-item'
+                  } nav-item-styling`}
+                >
+                  <Link to="/farms">Farms</Link>
+                </li>
+                <li
+                  className={`${
+                    pathname === '/' ? 'nav-item-selected' : 'nav-item'
+                  } nav-item-styling`}
+                >
+                  <Link to="/forecast">Forecast</Link>
+                </li>
+              </div>
+
+              <div className="nav-right-container">
+                <button type="button" className="nav-button">
+                  <div className="nav-button-container">
+                    <img
+                      src={NavBarDefaultUserIcon}
+                      alt="NavBarIcon"
+                      className="nav-button-user-icon"
+                    />
+                    Kevin Kelly
+                  </div>
+                </button>
+
+                <div className="dropdown-safety-box" />
+                <li className="nav-item dropdown-container">
+                  <SettingsDropdown history={history} />
+                </li>
+              </div>
+
+              {/*  
+              not shown on page yet 
+
               {isAdmin(credentials) && (
                 <li
                   className={`${
@@ -120,10 +120,7 @@ class NavBar extends React.PureComponent {
                   <Link to="/admin">Admin</Link>
                 </li>
               )}
-              <div className="dropdown-safety-box" />
-              <li className="nav-item dropdown-container">
-                <SettingsDropdown history={history} />
-              </li>
+              */}
             </ul>
           )}
         </nav>
