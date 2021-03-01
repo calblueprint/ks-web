@@ -29,7 +29,7 @@ export const Columns = {
   Farm: {
     farmName: { name: `Farm Name`, type: `text` },
     photo: { name: `Photo`, type: `multipleAttachment` },
-    address: { name: `Address`, type: `text` },
+    address: { name: `Address`, type: `formula` },
     created: { name: `Created`, type: `formula` },
     lastModified: { name: `Last Modified`, type: `formula` },
     contactFirstName: { name: `Contact First Name`, type: `text` },
@@ -40,7 +40,6 @@ export const Columns = {
     gapCertified: { name: `GAP Certified`, type: `checkbox` },
     gapCertificationDate: { name: `GAP Certification Date`, type: `date` },
     foodHubParticipant: { name: `Food Hub Participant`, type: `checkbox` },
-    farmerName: { name: `Farmer Name`, type: `text` },
     inspectorName: { name: `Inspector Name`, type: `lookup` },
     commentIds: { name: `Comments`, type: `foreignKey-many` },
     farmId: { name: `Farm ID`, type: `formula` },
@@ -52,7 +51,19 @@ export const Columns = {
     mockRecall: { name: `Mock Recall`, type: `select` },
     internalAudit1: { name: `Internal Audit (1)`, type: `select` },
     internalAudit2: { name: `Internal Audit (2)`, type: `select` },
-    foodHubAffiliation: { name: `Food Hub Affiliation`, type: `select` }
+    foodHubAffiliation: { name: `Food Hub Affiliation`, type: `select` },
+    ksAffiliated: { name: `KS Affiliated`, type: `checkbox` },
+    physicalStreet1: { name: `Physical Street 1`, type: `text` },
+    physicalStreet2: { name: `Physical Street 2`, type: `text` },
+    physicalCity: { name: `Physical City`, type: `text` },
+    physicalState: { name: `Physical State`, type: `text` },
+    physicalZipcode: { name: `Physical Zipcode`, type: `text` },
+    mailingAddress: { name: `Mailing Address`, type: `formula` },
+    mailingStreet1: { name: `Mailing Street 1`, type: `text` },
+    mailingStreet2: { name: `Mailing Street 2`, type: `text` },
+    mailingCity: { name: `Mailing City`, type: `text` },
+    mailingState: { name: `Mailing State`, type: `text` },
+    mailingZipcode: { name: `Mailing Zipcode`, type: `text` }
   },
   Comments: {
     id: { name: `ID`, type: `formula` },
