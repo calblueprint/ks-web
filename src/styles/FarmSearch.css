@@ -37,10 +37,6 @@
   vertical-align: middle;
 }
 
-.farm-search__search input[type='image'] {
-  border-radius: 16px;
-}
-
 .farm-search__filter {
   width: 17%;
   height: 40px;
