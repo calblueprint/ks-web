@@ -78,33 +78,35 @@ class App extends React.Component {
       <ConnectedRouter history={history}>
         <div className="app-container">
           <NavBar history={history} />
-          <Switch>
-            <PPRoute exact path="/" component={HomeComponent} />
+          <div className="route-container">
+            <Switch>
+              <PPRoute exact path="/" component={HomeComponent} />
 
-            {/* TEMP ROUTES */}
-            <PPRoute exact path="/farms" component={FarmSearch} />
-            <PPRoute exact path="/farm/:farmId" component={FarmProfile} />
+              {/* TEMP ROUTES */}
+              <PPRoute exact path="/farms" component={FarmSearch} />
+              <PPRoute exact path="/farm/:farmId" component={FarmProfile} />
 
-            <PPRoute exact path="/about" component={About} />
-            <AuthenticatedRoute path="/profile" component={UserProfile} />
+              <PPRoute exact path="/about" component={About} />
+              <AuthenticatedRoute path="/profile" component={UserProfile} />
 
-            <AuthenticatedRoute
-              onboarding // Signed out/Onboarding Users Only
-              path="/onboarding"
-              component={Onboarding}
-            />
-            <AuthenticatedRoute
-              credential={Credentials.ADMIN} // Admins only
-              path="/admin"
-              component={AdminDashboard}
-            />
-            <AuthenticatedRoute
-              credential={Credentials.SUPERADMIN} // Admins only
-              path="/superadmin"
-              component={SuperAdminDashboard}
-            />
-            <PPRoute path="*" component={ErrorPage} />
-          </Switch>
+              <AuthenticatedRoute
+                onboarding // Signed out/Onboarding Users Only
+                path="/onboarding"
+                component={Onboarding}
+              />
+              <AuthenticatedRoute
+                credential={Credentials.ADMIN} // Admins only
+                path="/admin"
+                component={AdminDashboard}
+              />
+              <AuthenticatedRoute
+                credential={Credentials.SUPERADMIN} // Admins only
+                path="/superadmin"
+                component={SuperAdminDashboard}
+              />
+              <PPRoute path="*" component={ErrorPage} />
+            </Switch>
+          </div>
           <FeedbackButton history={history} />
         </div>
       </ConnectedRouter>
