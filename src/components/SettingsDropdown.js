@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Gear from '../assets/settings.png';
+import Gear from '../assets/new-settingsIcon.png';
 import { logoutUser } from '../lib/airlock/airlock';
 
 class SettingsDropdown extends React.PureComponent {

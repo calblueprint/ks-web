@@ -16,7 +16,7 @@ import NavBarDefaultUserIcon from '../assets/NavBarDefaultUserIcon.png';
 
 class NavBar extends React.PureComponent {
   render() {
-    const { user, pathname, history } = this.props;
+    const { user, pathname, history, userName } = this.props;
     const credentials = getCredentials(user);
 
     // if onboarding
@@ -92,14 +92,12 @@ class NavBar extends React.PureComponent {
 
               <div className="nav-right-container">
                 <button type="button" className="nav-button">
-                  <div className="nav-button-container">
-                    <img
-                      src={NavBarDefaultUserIcon}
-                      alt="NavBarIcon"
-                      className="nav-button-user-icon"
-                    />
-                    Kevin Kelly
-                  </div>
+                  <img
+                    src={NavBarDefaultUserIcon}
+                    alt="NavBarIcon"
+                    className="nav-button__user-icon"
+                  />
+                  <div className="nav-button__name">Kevin Kelly</div>
                 </button>
 
                 <div className="dropdown-safety-box" />

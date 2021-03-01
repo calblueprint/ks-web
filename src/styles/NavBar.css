@@ -24,6 +24,7 @@
   display: flex;
   flex-direction: row;
   padding: 0px;
+  justify-content: space-between;
 }
 
 .nav-bar nav li {
@@ -46,8 +47,6 @@ span {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  margin-left: auto;
 }
 
 .nav-item a {
@@ -72,7 +71,6 @@ span {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
 }
 
 .nav-button {
@@ -81,45 +79,29 @@ span {
   border: 1px solid rgba(51, 51, 51, 0.25);
   box-sizing: border-box;
   border-radius: 30px;
-}
-
-.nav-button-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  text-align: center;
-  font-size: 14px;
-  font-family: 'Inter';
-  padding: 5%;
-
-  /**
-  justify-content:space-between;
-  align-content: space-between;
-  */
+  padding-top: 3%;
+  padding-bottom: 3%;
+  padding-left: 4%;
+  padding-right: 6%;
 }
 
-.nav-button-user-icon {
-  width: 100%;
-  height: auto;
-  padding-right: 25%;
+.nav-button:hover {
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-/**
-.nav-button-text {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: center;
-  font-size: 14px;
-  font-family: 'Inter';
-  padding: 5%;
-  justify-content:space-between;
-  align-content: space-between;
+.nav-button__user-icon {
+  padding-right: 5%;
 }
-*/
+.nav-button__name {
+  padding-left: 5%;
+  white-space: nowrap;
+}
 
 .nav-item-gear {
-  height: 3vh;
+  height: 4vh;
   display: flex;
 }
 
