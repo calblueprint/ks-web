@@ -56,7 +56,7 @@ class NavBar extends React.PureComponent {
           <img
             className="logo"
             src={Logo}
-            alt="North Shore Economic Vitally Partnership Logo"
+            alt="North Shore Economic Vitality Partnership Logo"
           />
         </a>
         <div style={{ marginLeft: '16px' }}>

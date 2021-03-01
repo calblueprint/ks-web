@@ -3,11 +3,6 @@
   justify-content: flex-start;
   margin: 20px 0px 0px 0px;
 }
-/* hello */
-.settings .cont {
-  /*  width: 100%;*/
-  margin: 0px;
-}
 
 .settings-edit-disabled input {
   float: right;
@@ -28,6 +23,31 @@
   font-size: 16px;
 }
 
+.user-profile-settings-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-profile-settings-header h2 {
+  color: var(--pp-blue);
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 49px;
+}
+
+.user-profile-settings-refresh {
+  background: var(--ks-medium-dark-blue);
+  border-radius: 2.5px;
+  color: white;
+  border-color: var(--ks-medium-dark-blue);
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-right: 2.5%;
+  padding-left: 2.5%;
+}
+
 .user-icon {
   display: flex;
   flex-direction: column;
@@ -36,6 +56,29 @@
   width: 300px;
   background: white;
   border-radius: 5px;
+  padding-bottom: 4.5%;
+}
+
+.user-icon__photo {
+  width: 100%;
+  height: auto;
+  padding-top: 15%;
+  padding-right: 25%;
+  padding-left: 25%;
+}
+
+.user-icon h3 {
+  font-weight: 600;
+  color: #333333;
+}
+
+.user-icon h4 {
+  font-weight: normal;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: #24364d;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .user-profile-general-form {
@@ -53,6 +96,7 @@
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 .user-profile-general-form-header-buttons {
@@ -62,6 +106,13 @@
 
 .user-profile-general-form-header-buttons button {
   margin: 8px;
+  border: 1px solid #4074b0;
+  box-sizing: border-box;
+  border-radius: 2.5px;
+  background-color: white;
+  color: var(--ks-dark-blue);
+  padding-top: 5%;
+  padding-bottom: 5%;
 }
 
 .user-profile-contact-form-header-buttons {
@@ -71,6 +122,13 @@
 
 .user-profile-contact-form-header-buttons button {
   margin: 8px;
+  border: 1px solid #4074b0;
+  box-sizing: border-box;
+  border-radius: 2.5px;
+  background-color: white;
+  color: var(--ks-dark-blue);
+  padding-top: 5%;
+  padding-bottom: 5%;
 }
 
 .user-profile-general-form-header h2 {
@@ -78,7 +136,7 @@
   margin-bottom: 0px;
   font-weight: 800;
   font-size: 18px;
-  color: var(--pp-blue);
+  color: var(--ks-dark-blue);
   line-height: 25px;
 }
 
@@ -103,6 +161,7 @@
   justify-content: space-between;
   margin-top: 20px;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 .user-profile-contact-form-header h2 {
@@ -111,7 +170,7 @@
   font-weight: 800;
   font-size: 18px;
   line-height: 25px;
-  color: var(--pp-blue);
+  color: var(--ks-dark-blue);
 }
 
 .user-profile-contact-form-header button {
@@ -129,11 +188,4 @@
   background: var(--pp-pink);
   border: 0px !important;
   color: white;
-}
-
-.user-profile-settings-header h2 {
-  color: var(--pp-blue);
-  font-weight: 900;
-  font-size: 36px;
-  line-height: 49px;
 }
