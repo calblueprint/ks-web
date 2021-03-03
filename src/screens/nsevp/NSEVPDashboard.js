@@ -13,11 +13,11 @@ import '../../styles/NSEVPUserDashboard.css';
 
 class NSEVPUserDashboard extends React.PureComponent {
   render() {
-    const updates = [1, 2, 3, 4, 5];
+    const numUpdates = 5;
     return (
       <div className="dashboard__container">
         <h1>Dashboard</h1>
-        <div className="dashboard__primary-row">
+        <div className="dashboard__stat-card-row">
           <StatCard
             statIcon={TotalHarvestIcon}
             statName="Total Harvest"
@@ -59,8 +59,8 @@ class NSEVPUserDashboard extends React.PureComponent {
             <img src={DashboardGraph} alt="farm production history" />
           </div>
           <div className="dashboard__updates-container">
-            <h2 style={{ marginLeft: '16px' }}>Recent Updates</h2>
-            {updates.map(id => {
+            <h2>Recent Updates</h2>
+            {[...Array(numUpdates)].map(id => {
               return (
                 <RecentUpdate
                   key={id}
