@@ -1,16 +1,34 @@
 import React from 'react';
-
 import '../../styles/FarmSearch.css';
 import FarmCard from './components/FarmCard';
 import NewFarmCard from './components/NewFarmCard';
-
 import SearchIcon from '../../assets/search-icon.png';
 import farmProfileDefaultCover from '../../assets/farmProfileCover.png';
 import farmProfileDefaultIcon from '../../assets/farmProfilePhoto.png';
+import getAllFarmsForFarmSearch from '../../lib/farmUtils';
 
 class FarmSearch extends React.PureComponent {
+  // lifecycle methods
+  // functional vs class components in react
+  // react "hooks"
+  // javascript promises
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      farms: []
+    };
+  }
+
+  async componentDidMount() {
+    const farms = await getAllFarmsForFarmSearch();
+    this.setState({
+      farms: farms
+    });
+  }
+
   render() {
-    const details = [1, 2, 3, 4, 5, 6, 7, 8];
+    const { farms } = this.state;
     return (
       <div className="farm-search__body">
         <div className="farm-search__header">
@@ -29,15 +47,27 @@ class FarmSearch extends React.PureComponent {
 
         <div className="farm-search__grid">
           <NewFarmCard />
-          {details.map(id => {
+          {farms.map(farm => {
+            const {
+              farmId,
+              foodHubAffiliation,
+              farmName,
+              contactFirstName,
+              contactLastName,
+              address: farmAddress
+            } = farm;
+            const hubParticipant = Boolean(foodHubAffiliation);
+            const farmerName = `${contactFirstName} ${contactLastName}`;
             return (
               <FarmCard
-                key={id}
-                hubApproved={Boolean(1)}
+                key={farmId}
+                // TODO: refactor hubApproved => hubParticipant
+                hubApproved={hubParticipant}
+                // TODO: add this to schema!
                 gapApproved={Boolean(1)}
-                farmName="Nick's Tomato Farm"
-                farmerName="Nick Wong"
-                farmLocation="199 Cooley Ct, Wahiawa, Hawaii"
+                farmName={farmName}
+                farmerName={farmerName}
+                farmLocation={farmAddress}
                 farmCover={farmProfileDefaultCover}
                 userIcon={farmProfileDefaultIcon}
               />

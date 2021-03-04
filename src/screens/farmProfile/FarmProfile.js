@@ -3,16 +3,21 @@ import FarmContactCard from './components/FarmContactCard';
 import FarmGraph from './components/FarmGraph';
 import leftArrow from '../../assets/left_arrow.png';
 import '../../styles/FarmProfile.css';
+import getSingleFarm from '../../lib/farmUtils.js';
 
 class FarmProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      farmId: null
+      farmId: null,
+      farnName: ''
     };
   }
 
   componentDidMount() {
+    //     this.props.match.params.farmId
+    // const farm = await getSingleFarm(url parameter goes here) // this returns a farm object
+
     const { match } = this.props;
     const { farmId } = match.params;
     this.setState({ farmId });
@@ -34,9 +39,9 @@ class FarmProfile extends React.Component {
         <div className="farm-profile__body">
           <div className="farm-profile__body__left">
             <FarmContactCard
-              id="123"
-              farmerName="Farmer Name"
-              phone="(xxx) - xxx - xxxx"
+              id="23"
+              farmerName="SANDRA"
+              phone="123"
               email="farmerfarmer@farmer.com"
               address="xxxxx Farmer Lane Kauai, HI, xxxxx"
               gapCertified
