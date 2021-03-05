@@ -1,7 +1,9 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 import FarmContactCard from './components/FarmContactCard';
 import FarmGraph from './components/FarmGraph';
-import leftArrow from '../../assets/left_arrow.png';
 import '../../styles/FarmProfile.css';
 
 class FarmProfile extends React.Component {
@@ -22,13 +24,12 @@ class FarmProfile extends React.Component {
     return (
       <div className="farm-profile">
         <div className="farm-profile__back-button">
-          <img
-            className="farm-profile__back-button-icon"
-            src={leftArrow}
-            alt="back arrow"
-          />
-          Back to Farm Search
+          <Button>
+            <ArrowBackIcon />
+            Back to Farm Search
+          </Button>
         </div>
+
         <h1 className="farm-profile__header">Farm Name</h1>
 
         <div className="farm-profile__body">
