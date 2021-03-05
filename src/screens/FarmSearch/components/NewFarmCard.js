@@ -6,7 +6,7 @@ class NewFarmCard extends React.PureComponent {
   render() {
     return (
       <div className="new-farm-card">
-        New Farm Profile
+        <h2>New Farm Profile</h2>
         <img
           src={fileIcon}
           className="new-farm-card__file-icon"

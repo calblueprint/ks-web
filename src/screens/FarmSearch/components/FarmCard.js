@@ -45,26 +45,25 @@ class FarmCard extends Component {
             className="farm-card__photo"
             onClick={this.showModal}
           />
-          {gapApproved ? (
-            <button type="button" className="farm-card__btn-gap">
-              GAP
-            </button>
-          ) : null}
-          {hubApproved ? (
-            <button type="button" className="farm-card__btn-hub">
-              HUB
-            </button>
-          ) : null}
+          <div className="farm-card__button-row">
+            {gapApproved ? (
+              <button type="button" className="farm-card__button">
+                GAP
+              </button>
+            ) : null}
+            {hubApproved ? (
+              <button type="button" className="farm-card__button">
+                HUB
+              </button>
+            ) : null}
+          </div>
           <img src={userIcon} alt="userIcon" className="farm-card__icon" />
         </div>
 
         <div className="farm-card__bot">
-          <div className="farm-card__farm-name">{farmName}</div>
-          <div className="farm-card__farm-details">
-            {farmerName}
-            <br />
-            {farmLocation}
-          </div>
+          <h2 className="farm-card__farm-name">{farmName}</h2>
+          <p className="farm-card__farm-details">{farmerName}</p>
+          <p className="farm-card__farm-details"> {farmLocation}</p>
         </div>
 
         <Modal
