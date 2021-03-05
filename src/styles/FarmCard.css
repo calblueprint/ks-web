@@ -45,6 +45,7 @@
 }
 
 .farm-card__bot {
+  background-color: var(--ks-white);
   display: flex;
   flex-direction: column;
   height: 100%;
