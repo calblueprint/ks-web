@@ -58,17 +58,17 @@ export const createManyFarms = async records => {
   return Promise.all(createPromises);
 };
 
-export const createGAPStatu = async record => {
-  return createRecord(Tables.GAPStatus, record);
+export const createComment = async record => {
+  return createRecord(Tables.Comments, record);
 };
 
-export const createManyGAPStatus = async records => {
+export const createManyComments = async records => {
   const createPromises = [];
   const numCalls = Math.ceil(records.length / 10);
   for (let i = 0; i < numCalls; i += 1) {
     const subset = records.slice(i * 10, (i + 1) * 10);
     if (subset.length > 0)
-      createPromises.push(createRecords(Tables.GAPStatus, subset));
+      createPromises.push(createRecords(Tables.Comments, subset));
   }
   return Promise.all(createPromises);
 };
@@ -105,22 +105,22 @@ export const getAllFarms = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.Farm, filterByFormula, sort);
 };
 
-export const getGAPStatuById = async id => {
-  return getRecordById(Tables.GAPStatus, id);
+export const getCommentById = async id => {
+  return getRecordById(Tables.Comments, id);
 };
 
-export const getGAPStatusByIds = async (
+export const getCommentsByIds = async (
   ids,
   filterByFormula = '',
   sort = []
 ) => {
   let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
   formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
-  return getAllRecords(Tables.GAPStatus, formula, sort);
+  return getAllRecords(Tables.Comments, formula, sort);
 };
 
-export const getAllGAPStatus = async (filterByFormula = '', sort = []) => {
-  return getAllRecords(Tables.GAPStatus, filterByFormula, sort);
+export const getAllComments = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.Comments, filterByFormula, sort);
 };
 
 /*
@@ -157,17 +157,17 @@ export const updateManyFarms = async recordUpdates => {
   return Promise.all(updatePromises);
 };
 
-export const updateGAPStatu = async (id, recordUpdates) => {
-  return updateRecord(Tables.GAPStatus, id, recordUpdates);
+export const updateComment = async (id, recordUpdates) => {
+  return updateRecord(Tables.Comments, id, recordUpdates);
 };
 
-export const updateManyGAPStatus = async recordUpdates => {
+export const updateManyComments = async recordUpdates => {
   const updatePromises = [];
   const numCalls = Math.ceil(recordUpdates.length / 10);
   for (let i = 0; i < numCalls; i += 1) {
     const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
     if (subset.length > 0)
-      updatePromises.push(updateRecords(Tables.GAPStatus, subset));
+      updatePromises.push(updateRecords(Tables.Comments, subset));
   }
   return Promise.all(updatePromises);
 };
@@ -182,6 +182,6 @@ export const deleteUser = async id => {
 export const deleteFarm = async id => {
   return deleteRecord(Tables.Farm, id);
 };
-export const deleteGAPStatu = async id => {
-  return deleteRecord(Tables.GAPStatus, id);
+export const deleteComment = async id => {
+  return deleteRecord(Tables.Comments, id);
 };

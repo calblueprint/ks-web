@@ -6,7 +6,7 @@
 export const Tables = {
   User: 'User',
   Farm: 'Farm',
-  GAPStatus: 'GAP Status'
+  Comments: 'Comments'
 };
 
 export const Columns = {
@@ -23,12 +23,13 @@ export const Columns = {
     name: { name: `Name`, type: `formula` },
     farmIds: { name: `Farm`, type: `foreignKey-many` },
     profilePicture: { name: `Profile Picture`, type: `multipleAttachment` },
-    onboardingStep: { name: `Onboarding Step`, type: `number` }
+    onboardingStep: { name: `Onboarding Step`, type: `number` },
+    commentIds: { name: `Comments`, type: `foreignKey-many` }
   },
   Farm: {
     farmName: { name: `Farm Name`, type: `text` },
     photo: { name: `Photo`, type: `multipleAttachment` },
-    address: { name: `Address`, type: `text` },
+    address: { name: `Address`, type: `formula` },
     created: { name: `Created`, type: `formula` },
     lastModified: { name: `Last Modified`, type: `formula` },
     contactFirstName: { name: `Contact First Name`, type: `text` },
@@ -36,22 +37,38 @@ export const Columns = {
     phone: { name: `Phone`, type: `phone` },
     inspectorIds: { name: `Inspector`, type: `foreignKey-many` },
     farmEmail: { name: `Farm Email`, type: `text` },
-    foodHub: { name: `Food Hub`, type: `formula` },
-    gapStatuIds: { name: `GAP Status`, type: `foreignKey-many` },
-    statusfromGapStatus: { name: `Status (from GAP Status)`, type: `lookup` },
-    createdfromGapStatus: { name: `Created (from GAP Status)`, type: `lookup` },
-    farmerName: { name: `Farmer Name`, type: `text` },
-    primaryKeyfromInspector: {
-      name: `Primary Key (from Inspector)`,
-      type: `lookup`
-    },
-    emailfromInspector: { name: `Email (from Inspector)`, type: `lookup` }
+    gapCertified: { name: `GAP Certified`, type: `checkbox` },
+    gapCertificationDate: { name: `GAP Certification Date`, type: `date` },
+    foodHubParticipant: { name: `Food Hub Participant`, type: `checkbox` },
+    inspectorName: { name: `Inspector Name`, type: `lookup` },
+    commentIds: { name: `Comments`, type: `foreignKey-many` },
+    farmId: { name: `Farm ID`, type: `formula` },
+    farmReferred: { name: `Farm Referred`, type: `select` },
+    farmApplied: { name: `Farm Applied`, type: `select` },
+    farmAccepted: { name: `Farm Accepted`, type: `select` },
+    farmFoodSafetyPlan: { name: `Farm Food Safety Plan`, type: `select` },
+    riskAssessment: { name: `Risk Assessment`, type: `select` },
+    mockRecall: { name: `Mock Recall`, type: `select` },
+    internalAudit1: { name: `Internal Audit (1)`, type: `select` },
+    internalAudit2: { name: `Internal Audit (2)`, type: `select` },
+    foodHubAffiliation: { name: `Food Hub Affiliation`, type: `select` },
+    ksAffiliated: { name: `KS Affiliated`, type: `checkbox` },
+    physicalStreet1: { name: `Physical Street 1`, type: `text` },
+    physicalStreet2: { name: `Physical Street 2`, type: `text` },
+    physicalCity: { name: `Physical City`, type: `text` },
+    physicalState: { name: `Physical State`, type: `text` },
+    physicalZipcode: { name: `Physical Zipcode`, type: `text` },
+    mailingAddress: { name: `Mailing Address`, type: `formula` },
+    mailingStreet1: { name: `Mailing Street 1`, type: `text` },
+    mailingStreet2: { name: `Mailing Street 2`, type: `text` },
+    mailingCity: { name: `Mailing City`, type: `text` },
+    mailingState: { name: `Mailing State`, type: `text` },
+    mailingZipcode: { name: `Mailing Zipcode`, type: `text` }
   },
-  'GAP Status': {
-    gapUpdate: { name: `Gap Update`, type: `formula` },
+  Comments: {
+    id: { name: `ID`, type: `formula` },
+    authorId: { name: `Author`, type: `foreignKey-one` },
     farmId: { name: `Farm`, type: `foreignKey-one` },
-    status: { name: `Status`, type: `select` },
-    created: { name: `Created`, type: `formula` },
-    farmNamefromFarm: { name: `Farm Name (from Farm)`, type: `lookup` }
+    comment: { name: `Comment`, type: `multilineText` }
   }
 };
