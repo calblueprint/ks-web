@@ -13,7 +13,6 @@ class Login extends React.Component {
     this.state = {
       email: '',
       passwordHash: '',
-      loading: false,
       showLoginError: false,
       showForgetPasswordModal: false
     };
@@ -33,7 +32,6 @@ class Login extends React.Component {
   };
 
   handleSubmit = async evt => {
-    this.setState({ loading: true });
     const { email, passwordHash } = this.state;
     evt.preventDefault();
     try {
@@ -42,12 +40,10 @@ class Login extends React.Component {
         this.segueToHome(evt);
       } else {
         this.setState({
-          showLoginError: true,
-          loading: false
+          showLoginError: true
         });
       }
     } catch (err) {
-      this.setState({ loading: false });
       console.error(err);
     }
   };

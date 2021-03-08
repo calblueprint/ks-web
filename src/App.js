@@ -1,36 +1,45 @@
 /* eslint react/jsx-props-no-spreading: 0 */
 
-import React from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import NavBar from './components/NavBar';
-import Onboarding from './screens/onboarding/Onboarding';
-import Login from './screens/auth/Login';
-import KSDashboard from './screens/ks/KSDashboard';
-import NSEVPDashboard from './screens/nsevp/NSEVPDashboard';
-import AdminDashboard from './screens/admin/AdminDashboard';
-import UserProfile from './screens/shared/UserProfile';
-import About from './screens/shared/About';
-import ErrorPage from './screens/nsevp/ErrorPage';
-import './styles/App.css';
+
+import { getUserById } from './lib/airtable/request';
 import { refreshUserData, clearUserData } from './lib/redux/userData';
 import { history } from './lib/redux/store';
 import {
   isNSEVPUser,
   isKSUser,
   isSignedIn,
-  Credentials,
   isOnboarding,
   getCredentials
 } from './lib/credentials';
+
 import AuthenticatedRoute from './components/AuthenticatedRoute';
-import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
-import PPRoute from './components/PPRoute';
 import FeedbackButton from './components/FeedbackButton';
-import FarmSearch from './screens/FarmSearch/FarmSearch';
-import { getUserById } from './lib/airtable/request';
-import FarmProfile from './screens/farmProfile/FarmProfile';
+import NavBar from './components/NavBar';
+import LoadingComponent from './components/LoadingComponent';
+
+import './styles/App.css';
+
+// import Onboarding from './screens/onboarding/Onboarding';
+// import Login from './screens/auth/Login';
+// import KSDashboard from './screens/ks/KSDashboard'
+// import NSEVPDashboard from './screens/nsevp/NSEVPDashboard'
+// import UserProfile from './screens/shared/UserProfile'
+// import About from './screens/shared/About'
+// import ErrorPage from './screens/nsevp/ErrorPage'
+
+const About = lazy(() => import('./screens/shared/About'));
+const ErrorPage = lazy(() => import('./screens/nsevp/ErrorPage'));
+const FarmProfile = lazy(() => import('./screens/farmProfile/FarmProfile'));
+const FarmSearch = lazy(() => import('./screens/FarmSearch/FarmSearch'));
+const KSDashboard = lazy(() => import('./screens/ks/KSDashboard'));
+const Login = lazy(() => import('./screens/auth/Login'));
+const NSEVPDashboard = lazy(() => import('./screens/nsevp/NSEVPDashboard'));
+const Onboarding = lazy(() => import('./screens/onboarding/Onboarding'));
+const UserProfile = lazy(() => import('./screens/shared/UserProfile'));
 
 class App extends React.Component {
   async componentDidMount() {
@@ -58,6 +67,7 @@ class App extends React.Component {
     const signedIn = isSignedIn(credentials);
     const isNSEVP = isNSEVPUser(credentials);
     const isKS = isKSUser(credentials);
+
     let homeComponent;
     if (onboarding) {
       homeComponent = () => <Redirect to={{ pathname: '/onboarding' }} />;
@@ -79,33 +89,24 @@ class App extends React.Component {
         <div className="app-container">
           <NavBar history={history} />
           <div className="route-container">
-            <Switch>
-              <PPRoute exact path="/" component={HomeComponent} />
+            <Suspense fallback={<LoadingComponent />}>
+              <Switch>
+                <Route exact path="/" component={HomeComponent} />
 
-              {/* TEMP ROUTES */}
-              <PPRoute exact path="/farms" component={FarmSearch} />
-              <PPRoute exact path="/farm/:farmId" component={FarmProfile} />
+                {/* TEMP ROUTES */}
+                <Route exact path="/farms" component={FarmSearch} />
+                <Route exact path="/farm/:farmId" component={FarmProfile} />
+                <Route exact path="/about" component={About} />
 
-              <PPRoute exact path="/about" component={About} />
-              <AuthenticatedRoute path="/profile" component={UserProfile} />
-
-              <AuthenticatedRoute
-                onboarding // Signed out/Onboarding Users Only
-                path="/onboarding"
-                component={Onboarding}
-              />
-              <AuthenticatedRoute
-                credential={Credentials.ADMIN} // Admins only
-                path="/admin"
-                component={AdminDashboard}
-              />
-              <AuthenticatedRoute
-                credential={Credentials.SUPERADMIN} // Admins only
-                path="/superadmin"
-                component={SuperAdminDashboard}
-              />
-              <PPRoute path="*" component={ErrorPage} />
-            </Switch>
+                <AuthenticatedRoute path="/profile" component={UserProfile} />
+                <AuthenticatedRoute
+                  onboarding // Signed out/Onboarding Users Only
+                  path="/onboarding"
+                  component={Onboarding}
+                />
+                <Route path="*" component={ErrorPage} />
+              </Switch>
+            </Suspense>
           </div>
           <FeedbackButton history={history} />
         </div>
