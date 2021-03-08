@@ -5,18 +5,6 @@
   background-color: white;
 }
 
-.farm-profile__back-button {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  display: flex;
-  align-items: center;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  color: var(--ks-font-light);
-}
-
 .farm-profile__body {
   display: flex;
 }
@@ -124,11 +112,6 @@
   width: 40px;
   height: 40px;
   margin-right: 20px;
-}
-
-.farm-profile__back-button-icon {
-  width: 24px;
-  padding-right: 10px;
 }
 
 .farm-profile__subheader {
