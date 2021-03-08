@@ -14,7 +14,7 @@ class FarmSearch extends React.PureComponent {
     return (
       <div className="farm-search__body">
         <div className="farm-search__header">
-          Farm Search
+          <h1>Farm Search</h1>
           <div className="farm-search__search">
             <input type="text" placeholder="Search" name="search" />
             <input type="image" src={SearchIcon} alt="searchIcon" />
