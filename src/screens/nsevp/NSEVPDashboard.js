@@ -13,11 +13,11 @@ import '../../styles/NSEVPUserDashboard.css';
 
 class NSEVPUserDashboard extends React.PureComponent {
   render() {
-    const updates = [1, 2, 3, 4, 5];
+    const numUpdates = 5;
     return (
-      <div className="dashboard-container">
+      <div className="dashboard__container">
         <h1>Dashboard</h1>
-        <div className="stat-card-row">
+        <div className="dashboard__stat-card-row">
           <StatCard
             statIcon={TotalHarvestIcon}
             statName="Total Harvest"
@@ -54,25 +54,25 @@ class NSEVPUserDashboard extends React.PureComponent {
             statDescription="are currently in a Group GAP cohort"
           />
         </div>
-        <div className="dashboard-updates-box">
-          <h2 style={{ marginLeft: '16px' }}>Recent Updates</h2>
-          {updates.map(id => {
-            return (
-              <RecentUpdate
-                key={id}
-                profilePic={Icon}
-                updateDate="11/17/20"
-                updateAuthor="Nick Wong"
-                updateText="This is an update. Please read it, it must be quite important ya'know."
-              />
-            );
-          })}
+        <div className="dashboard__secondary-row">
+          <div className="dashboard__production-container">
+            <img src={DashboardGraph} alt="farm production history" />
+          </div>
+          <div className="dashboard__updates-container">
+            <h2>Recent Updates</h2>
+            {[...Array(numUpdates)].map(id => {
+              return (
+                <RecentUpdate
+                  key={id}
+                  profilePic={Icon}
+                  updateDate="11/17/20"
+                  updateAuthor="Nick Wong"
+                  updateText="This is an update. Please read it, it must be quite important ya'know."
+                />
+              );
+            })}
+          </div>
         </div>
-        <img
-          src={DashboardGraph}
-          style={{ width: '70%' }}
-          alt="farm production history"
-        />
       </div>
     );
   }

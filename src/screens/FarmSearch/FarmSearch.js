@@ -10,31 +10,34 @@ import farmProfileDefaultIcon from '../../assets/farmProfilePhoto.png';
 
 class FarmSearch extends React.PureComponent {
   render() {
-    const details = [1, 2, 3, 4, 5, 6, 7, 8];
+    const numDetails = 16;
     return (
       <div className="farm-search__body">
         <div className="farm-search__header">
-          <h1>Farm Search</h1>
-          <div className="farm-search__search">
-            <input type="text" placeholder="Search" name="search" />
-            <input type="image" src={SearchIcon} alt="searchIcon" />
+          <div className="farm-search__header-left-column">
+            <h1>Farm Search</h1>
+            <div className="farm-search__input">
+              <input type="text" placeholder="Search" name="search" />
+              <img type="image" src={SearchIcon} alt="searchIcon" />
+            </div>
           </div>
-          <button type="button" className="farm-search__filter">
-            GAP Certification Stage
-          </button>
-          <button type="button" className="farm-search__filter">
-            Sort By
-          </button>
+          <div className="farm-search__header-right-column">
+            <button type="button" className="farm-search__filter">
+              GAP Certification Stage
+            </button>
+            <button type="button" className="farm-search__filter">
+              Sort By
+            </button>
+          </div>
         </div>
-
         <div className="farm-search__grid">
           <NewFarmCard />
-          {details.map(id => {
+          {[...Array(numDetails)].map(id => {
             return (
               <FarmCard
                 key={id}
-                hubApproved={Boolean(1)}
-                gapApproved={Boolean(1)}
+                hubApproved
+                gapApproved
                 farmName="Nick's Tomato Farm"
                 farmerName="Nick Wong"
                 farmLocation="199 Cooley Ct, Wahiawa, Hawaii"

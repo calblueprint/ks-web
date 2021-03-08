@@ -5,24 +5,17 @@ class RecentUpdate extends React.PureComponent {
   render() {
     const { profilePic, updateDate, updateAuthor, updateText } = this.props;
     return (
-      <div className="dashboard-update">
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <img
-            src={profilePic}
-            alt="icon"
-            style={{
-              width: '40px',
-              height: '40px',
-              margin: '16px',
-              marginLeft: '0'
-            }}
-          />
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <h3>{updateAuthor}</h3>
-            <p style={{ marginLeft: '64px' }}>{updateDate}</p>
-          </div>
+      <div className="update">
+        <div>
+          <img className="update__profile-pic" src={profilePic} alt="icon" />
         </div>
-        <p style={{ margin: '8px' }}>{updateText}</p>
+        <div>
+          <div className="update__title">
+            <h3>{updateAuthor}</h3>
+            <p>{updateDate}</p>
+          </div>
+          <p className="update__body">{updateText}</p>
+        </div>
       </div>
     );
   }

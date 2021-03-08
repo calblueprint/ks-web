@@ -50,6 +50,16 @@ body {
   min-height: 100vh;
   background-color: var(--pp-bg-blue);
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.route-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
 }
 
 /* A global css style that sets the margin of the left gutter. */
