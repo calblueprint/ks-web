@@ -3,14 +3,13 @@ import FarmContactCard from './components/FarmContactCard';
 import FarmGraph from './components/FarmGraph';
 import leftArrow from '../../assets/left_arrow.png';
 import '../../styles/FarmProfile.css';
-import getSingleFarm from '../../lib/farmUtils.js';
 
 class FarmProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       farmId: null,
-      farnName: ''
+      farmName: ''
     };
   }
 

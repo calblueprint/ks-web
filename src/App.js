@@ -28,7 +28,7 @@ import AuthenticatedRoute from './components/AuthenticatedRoute';
 import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
 import PPRoute from './components/PPRoute';
 import FeedbackButton from './components/FeedbackButton';
-import FarmSearch from './screens/farmSearch/FarmSearch';
+import FarmSearch from './screens/FarmSearch/FarmSearch';
 import { getUserById } from './lib/airtable/request';
 import FarmProfile from './screens/farmProfile/FarmProfile';
 

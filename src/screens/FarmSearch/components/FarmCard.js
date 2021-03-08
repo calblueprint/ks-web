@@ -2,6 +2,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import farmCover from '../../../assets/farmProfileCover.png';
+import userIcon from '../../../assets/farmProfilePhoto.png';
 
 import '../../../styles/FarmCard.css';
 
@@ -27,14 +29,15 @@ class FarmCard extends Component {
   render() {
     const { showFarmModal } = this.state;
     const {
-      hubApproved,
-      gapApproved,
+      foodHubAffiliation,
       farmName,
-      farmerName,
-      farmLocation,
-      farmCover,
-      userIcon
-    } = this.props;
+      contactFirstName,
+      contactLastName,
+      address: farmAddress
+    } = this.props.farm;
+    const gapApproved = true;
+    const hubApproved = Boolean(foodHubAffiliation);
+    const farmerName = `${contactFirstName} ${contactLastName}`;
 
     return (
       <div className="farm-card">
@@ -63,7 +66,7 @@ class FarmCard extends Component {
           <div className="farm-card__farm-details">
             {farmerName}
             <br />
-            {farmLocation}
+            {farmAddress}
           </div>
         </div>
 

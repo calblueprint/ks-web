@@ -1,5 +1,4 @@
 /* eslint-disable no-await-in-loop */
-import React from 'react';
 import { getAllFarms, getFarmById } from './airtable/request';
 
 // Helper functions
