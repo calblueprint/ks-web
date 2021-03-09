@@ -4,7 +4,7 @@ import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import NavBar from './components/NavBar';
+import NavBar from './route/NavBar';
 import Login from './screens/auth/Login';
 import KSDashboard from './screens/ks/KSDashboard';
 import NSEVPDashboard from './screens/nsevp/NSEVPDashboard';
@@ -21,9 +21,9 @@ import {
   isOnboarding,
   getCredentials
 } from './lib/credentials';
-import AuthenticatedRoute from './components/AuthenticatedRoute';
-import SuspenseRoute from './components/SuspenseRoute';
-import FeedbackButton from './components/FeedbackButton';
+import AuthenticatedRoute from './route/AuthenticatedRoute';
+import SuspenseRoute from './route/SuspenseRoute';
+import FeedbackButton from './route/FeedbackButton';
 import FarmSearch from './screens/FarmSearch/FarmSearch';
 import { getUserById } from './lib/airtable/request';
 import FarmProfile from './screens/farmProfile/FarmProfile';

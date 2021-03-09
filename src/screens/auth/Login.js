@@ -5,7 +5,7 @@ import '../../styles/Login.css';
 
 import Constants from '../../constants';
 import ErrorIcon from '../../assets/error.svg';
-import LoadingComponent from '../../components/Loading';
+import LoadingComponent from '../../route/Loading';
 
 class Login extends React.Component {
   constructor(props) {
