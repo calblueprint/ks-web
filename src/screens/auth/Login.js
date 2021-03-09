@@ -1,11 +1,10 @@
 import React from 'react';
 import { loginUser } from '../../lib/airlock/airlock';
 import '../../styles/Login.css';
-import '../../styles/main.css';
+import '../../styles/Main.css';
 import Constants from '../../constants';
 import ErrorIcon from '../../assets/error.svg';
-import LoadingComponent from '../../components/LoadingComponent';
-import PPModal from '../../components/PPModal';
+import LoadingComponent from '../../components/Loading';
 
 class Login extends React.Component {
   constructor(props) {
@@ -14,8 +13,7 @@ class Login extends React.Component {
       email: '',
       passwordHash: '',
       loading: false,
-      showLoginError: false,
-      showForgetPasswordModal: false
+      showLoginError: false
     };
   }
 
@@ -52,14 +50,6 @@ class Login extends React.Component {
     }
   };
 
-  forgotPassword = () => {
-    this.setState({ showForgetPasswordModal: true });
-  };
-
-  handleCloseModal = () => {
-    this.setState({ showForgetPasswordModal: false });
-  };
-
   segueToHome(evt) {
     const { history } = this.props;
 
@@ -73,26 +63,14 @@ class Login extends React.Component {
   }
 
   render() {
-    const {
-      email,
-      passwordHash,
-      showLoginError,
-      loading,
-      showForgetPasswordModal
-    } = this.state;
+    const { email, passwordHash, showLoginError, loading } = this.state;
 
     if (loading) {
       return <LoadingComponent />;
     }
     return (
       <div className="center card flex column">
-        <PPModal
-          showModal={showForgetPasswordModal}
-          body="Contact an administrator to reset your account."
-          header="Forgot Your Password?"
-          actionName="Ok"
-          handleCloseModal={this.handleCloseModal}
-        />
+        {/* TODO: Replace PPModal for Forgot Password */}
         <h1 className="t-center login-header">Welcome back!</h1>
         <br />
         <form onSubmit={this.handleSubmit} className="flex column ">

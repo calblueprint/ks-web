@@ -5,11 +5,9 @@ import { Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import NavBar from './components/NavBar';
-import Onboarding from './screens/onboarding/Onboarding';
 import Login from './screens/auth/Login';
 import KSDashboard from './screens/ks/KSDashboard';
 import NSEVPDashboard from './screens/nsevp/NSEVPDashboard';
-import AdminDashboard from './screens/admin/AdminDashboard';
 import UserProfile from './screens/shared/UserProfile';
 import About from './screens/shared/About';
 import ErrorPage from './screens/nsevp/ErrorPage';
@@ -20,13 +18,11 @@ import {
   isNSEVPUser,
   isKSUser,
   isSignedIn,
-  Credentials,
   isOnboarding,
   getCredentials
 } from './lib/credentials';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
-import SuperAdminDashboard from './screens/admin/SuperAdminDashboard';
-import PPRoute from './components/PPRoute';
+import SuspenseRoute from './components/SuspenseRoute';
 import FeedbackButton from './components/FeedbackButton';
 import FarmSearch from './screens/FarmSearch/FarmSearch';
 import { getUserById } from './lib/airtable/request';
@@ -80,31 +76,20 @@ class App extends React.Component {
           <NavBar history={history} />
           <div className="route-container">
             <Switch>
-              <PPRoute exact path="/" component={HomeComponent} />
+              <SuspenseRoute exact path="/" component={HomeComponent} />
 
               {/* TEMP ROUTES */}
-              <PPRoute exact path="/farms" component={FarmSearch} />
-              <PPRoute exact path="/farm/:farmId" component={FarmProfile} />
+              <SuspenseRoute exact path="/farms" component={FarmSearch} />
+              <SuspenseRoute
+                exact
+                path="/farm/:farmId"
+                component={FarmProfile}
+              />
 
-              <PPRoute exact path="/about" component={About} />
+              <SuspenseRoute exact path="/about" component={About} />
               <AuthenticatedRoute path="/profile" component={UserProfile} />
 
-              <AuthenticatedRoute
-                onboarding // Signed out/Onboarding Users Only
-                path="/onboarding"
-                component={Onboarding}
-              />
-              <AuthenticatedRoute
-                credential={Credentials.ADMIN} // Admins only
-                path="/admin"
-                component={AdminDashboard}
-              />
-              <AuthenticatedRoute
-                credential={Credentials.SUPERADMIN} // Admins only
-                path="/superadmin"
-                component={SuperAdminDashboard}
-              />
-              <PPRoute path="*" component={ErrorPage} />
+              <SuspenseRoute path="*" component={ErrorPage} />
             </Switch>
           </div>
           <FeedbackButton history={history} />

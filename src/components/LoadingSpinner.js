@@ -1,7 +1,7 @@
 import React from 'react';
-import '../styles/PPLoadingSpinner.css';
+import '../styles/LoadingSpinner.css';
 
-class PPLoadingSpinner extends React.PureComponent {
+class LoadingSpinner extends React.PureComponent {
   render() {
     return (
       <div className="pp-loading-spinner">
@@ -14,4 +14,4 @@ class PPLoadingSpinner extends React.PureComponent {
   }
 }
 
-export default PPLoadingSpinner;
+export default LoadingSpinner;

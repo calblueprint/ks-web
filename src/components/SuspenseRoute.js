@@ -2,9 +2,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import LoadingComponent from './LoadingComponent';
+import LoadingComponent from './Loading';
 
-const PPRoute = ({ isLoadingUserData, ...rest }) => {
+const SuspenseRoute = ({ isLoadingUserData, ...rest }) => {
+  // TODO: Replace loading spinner with suspense fallback
   const loading = isLoadingUserData;
   return loading ? <LoadingComponent /> : <Route {...rest} />;
 };
@@ -12,4 +13,4 @@ const PPRoute = ({ isLoadingUserData, ...rest }) => {
 const mapStateToProps = state => ({
   isLoadingUserData: state.userData.isLoading
 });
-export default connect(mapStateToProps)(PPRoute);
+export default connect(mapStateToProps)(SuspenseRoute);
