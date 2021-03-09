@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/App.css';
+import '@styles/App.css';
 
 class FeedbackButton extends React.PureComponent {
   constructor(props) {

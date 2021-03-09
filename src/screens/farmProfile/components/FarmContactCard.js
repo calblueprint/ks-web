@@ -1,11 +1,11 @@
 import React from 'react';
-import farmProfileCover from '../../../assets/farmProfileCover.png';
-import farmProfilePhoto from '../../../assets/farmProfilePhoto.png';
-import checkIcon from '../../../assets/checkIcon.png';
-import cancelIcon from '../../../assets/cancelIcon.png';
-import userIcon from '../../../assets/userIcon.png';
+import farmProfileCover from '@assets/farmProfileCover.png';
+import farmProfilePhoto from '@assets/farmProfilePhoto.png';
+import checkIcon from '@assets/checkIcon.png';
+import cancelIcon from '@assets/cancelIcon.png';
+import userIcon from '@assets/userIcon.png';
 
-import '../../../styles/FarmProfile.css';
+import '@styles/FarmProfile.css';
 
 class FarmContactCard extends React.PureComponent {
   render() {

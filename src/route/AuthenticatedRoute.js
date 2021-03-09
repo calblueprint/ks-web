@@ -2,7 +2,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { isSignedIn, isOnboarding, getCredentials } from '../lib/credentials';
+import { isSignedIn, isOnboarding, getCredentials } from '@lib/credentials';
 import SuspenseRoute from './SuspenseRoute';
 
 class AuthenticatedRoute extends React.PureComponent {

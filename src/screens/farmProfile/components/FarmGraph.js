@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../styles/FarmProfile.css';
+import '@styles/FarmProfile.css';
 
 class FarmGraph extends React.PureComponent {
   render() {

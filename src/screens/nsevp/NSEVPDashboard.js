@@ -1,15 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import StatCard from './StatCard';
+import TotalHarvestIcon from '@assets/totalHarvestStat.png';
+import GapCertificationIcon from '@assets/gapCertificationStat.png';
+import HarvestingFarmIcon from '@assets/harvestingFarmStat.png';
+import NorthShoreGapIcon from '@assets/northShoreGapStat.png';
+import TrainingFarmsIcon from '@assets/trainingFarmsStat.png';
+import Icon from '@assets/userIcon.png';
+import DashboardGraph from '@assets/dashboardGraph.png';
+import '@styles/NSEVPUserDashboard.css';
+
 import RecentUpdate from './RecentUpdate';
-import TotalHarvestIcon from '../../assets/totalHarvestStat.png';
-import GapCertificationIcon from '../../assets/gapCertificationStat.png';
-import HarvestingFarmIcon from '../../assets/harvestingFarmStat.png';
-import NorthShoreGapIcon from '../../assets/northShoreGapStat.png';
-import TrainingFarmsIcon from '../../assets/trainingFarmsStat.png';
-import Icon from '../../assets/userIcon.png';
-import DashboardGraph from '../../assets/dashboardGraph.png';
-import '../../styles/NSEVPUserDashboard.css';
+import StatCard from './StatCard';
 
 class NSEVPUserDashboard extends React.PureComponent {
   render() {

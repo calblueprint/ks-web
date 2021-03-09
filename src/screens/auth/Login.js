@@ -1,11 +1,11 @@
 import React from 'react';
-import { loginUser } from '../../lib/airlock/airlock';
-import '../../styles/Main.css';
-import '../../styles/Login.css';
+import { loginUser } from '@lib/airlock/airlock';
+import '@styles/Main.css';
+import '@styles/Login.css';
 
-import Constants from '../../constants';
-import ErrorIcon from '../../assets/error.svg';
-import LoadingComponent from '../../route/Loading';
+import Constants from '@root/constants';
+import ErrorIcon from '@assets/error.svg';
+import LoadingComponent from '@route/Loading';
 
 class Login extends React.Component {
   constructor(props) {
