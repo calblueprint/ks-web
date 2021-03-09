@@ -1,7 +1,8 @@
 import React from 'react';
 import { loginUser } from '../../lib/airlock/airlock';
-import '../../styles/Login.css';
 import '../../styles/Main.css';
+import '../../styles/Login.css';
+
 import Constants from '../../constants';
 import ErrorIcon from '../../assets/error.svg';
 import LoadingComponent from '../../components/Loading';
