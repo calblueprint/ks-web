@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import DashboardSection from './components/DashboardSection';
+import DashboardSection from './DashboardSection';
 
 class KSDashboard extends React.Component {
   constructor(props) {
