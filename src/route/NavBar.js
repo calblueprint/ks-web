@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import {
   isAdmin,
   // isSubscriberUser,
@@ -16,7 +17,7 @@ import NavBarDefaultUserIcon from '../assets/NavBarDefaultUserIcon.png';
 
 class NavBar extends React.PureComponent {
   render() {
-    const { user, pathname, history, userName } = this.props;
+    const { user, pathname, history } = this.props;
     const credentials = getCredentials(user);
 
     // if onboarding
@@ -97,7 +98,7 @@ class NavBar extends React.PureComponent {
                     alt="NavBarIcon"
                     className="nav-button__user-icon"
                   />
-                  <div className="nav-button__name">Kevin Kelly</div>
+                  <div className="nav-button__name">{this.props.user.name}</div>
                 </button>
 
                 <div className="dropdown-safety-box" />
