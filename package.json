@@ -15,11 +15,14 @@
     "babel-jest": "^24.9.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "connected-react-router": "^6.6.1",
+    "eslint-import-resolver-alias": "^1.1.2",
     "google-maps-react": "^2.0.2",
     "history": "^4.10.1",
     "moment": "^2.24.0",
     "qs": "^6.9.1",
     "react": "^16.10.1",
+    "react-app-rewire-alias": "^1.0.1",
+    "react-app-rewired": "^2.1.8",
     "react-circular-progressbar": "^2.0.3",
     "react-dom": "^16.10.1",
     "react-modal": "^3.11.2",
@@ -35,10 +38,10 @@
     "redux-persist": "^6.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "jest",
-    "eject": "react-scripts eject",
+    "eject": "react-app-rewired eject",
     "generate-schema": "generate-airtable-schema && pretty-quick",
     "deploy": "react-scripts build && mv ./build/index.html ./build/200.html &&surge ./build https://peoplepower.surge.sh"
   },

@@ -1,6 +1,6 @@
 import React from 'react';
 import 'react-table-v6/react-table.css';
-import '../../styles/App.css';
+import '@styles/App.css';
 
 class About extends React.PureComponent {
   render() {

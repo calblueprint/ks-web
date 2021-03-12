@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import '@styles/FarmProfile.css';
 
 import FarmContactCard from './components/FarmContactCard';
 import FarmGraph from './components/FarmGraph';
-import '../../styles/FarmProfile.css';
 
 class FarmProfile extends React.Component {
   constructor(props) {

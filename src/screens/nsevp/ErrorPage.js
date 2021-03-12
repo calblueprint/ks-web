@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ErrorImage from '../../assets/404-01.png';
-import '../../styles/ErrorPage.css';
+import ErrorImage from '@assets/404-01.png';
+import '@styles/ErrorPage.css';
 
 export default class ErrorPage extends React.PureComponent {
   render() {

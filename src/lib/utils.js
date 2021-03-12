@@ -1,13 +1,13 @@
 /* eslint-disable no-await-in-loop */
 import React from 'react';
-import USStates from '../assets/usStates.json';
+import USStates from '@assets/usStates.json';
+import ErrorIcon from '@assets/error.svg';
 import {
   // getAllProjectGroups,
   updateUser,
   deleteUser
 } from './airtable/request';
 import { refreshUserData, clearUserData } from './redux/userData';
-import ErrorIcon from '../assets/error.svg';
 import { signupUser } from './airlock/airlock';
 
 // Helper functions to validate user record fields

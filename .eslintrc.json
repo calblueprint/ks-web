@@ -53,5 +53,20 @@
   "parser": "babel-eslint",
   "env": {
     "jest": true
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@assets", "./src/assets/"],
+          ["@components", "./src/components/"],
+          ["@lib", "./src/lib/"],
+          ["@root", "./src/"],
+          ["@route", "./src/route/"],
+          ["@styles", "./src/styles/"]
+        ],
+        "extensions": [".js", ".css"]
+      }
+    }
   }
 }

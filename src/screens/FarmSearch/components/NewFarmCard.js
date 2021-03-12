@@ -1,6 +1,6 @@
 import React from 'react';
-import '../../../styles/NewFarmCard.css';
-import fileIcon from '../../../assets/file-icon.png';
+import '@styles/NewFarmCard.css';
+import fileIcon from '@assets/file-icon.png';
 
 class NewFarmCard extends React.PureComponent {
   render() {

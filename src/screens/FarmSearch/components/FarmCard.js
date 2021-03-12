@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 
-import '../../../styles/FarmCard.css';
+import '@styles/FarmCard.css';
 
 const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import '../../styles/FarmSearch.css';
-import FarmCard from './components/FarmCard';
-import NewFarmCard from './components/NewFarmCard';
+import '@styles/FarmSearch.css';
 
-import SearchIcon from '../../assets/search-icon.png';
-import farmProfileDefaultCover from '../../assets/farmProfileCover.png';
-import farmProfileDefaultIcon from '../../assets/farmProfilePhoto.png';
+import SearchIcon from '@assets/search-icon.png';
+import farmProfileDefaultCover from '@assets/farmProfileCover.png';
+import farmProfileDefaultIcon from '@assets/farmProfilePhoto.png';
+import NewFarmCard from './components/NewFarmCard';
+import FarmCard from './components/FarmCard';
 
 class FarmSearch extends React.PureComponent {
   render() {

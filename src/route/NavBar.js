@@ -8,9 +8,9 @@ import {
   isSignedIn,
   isOnboarding,
   getCredentials
-} from '../lib/credentials';
-import Logo from '../assets/NSEVP-LOGO.svg';
-import '../styles/NavBar.css';
+} from '@lib/credentials';
+import Logo from '@assets/NSEVP-LOGO.svg';
+import '@styles/NavBar.css';
 import SettingsDropdown from './SettingsDropdown';
 
 class NavBar extends React.PureComponent {
