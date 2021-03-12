@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+import Stepper from '@components/Stepper';
 import '@styles/FarmProfile.css';
 
 import FarmContactCard from './FarmContactCard';
@@ -47,6 +49,7 @@ class FarmProfile extends React.Component {
           </div>
 
           <div className="farm-profile__body__right">
+            <Stepper />
             <FarmGraph title="Top 5 Items" data={null} />
             <div className="divider" />
             <FarmGraph title="Recent Harvests" data={null} />

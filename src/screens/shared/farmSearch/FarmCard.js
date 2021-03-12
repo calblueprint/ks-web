@@ -72,7 +72,7 @@ class FarmCard extends Component {
           className="farm-card__modal"
           overlayClassName="farm-card__modal__overlay"
         >
-          Farm Profile
+          <h1>Farm Profile</h1>
           <button
             type="button"
             className="farm-card__modal__btn-close"
