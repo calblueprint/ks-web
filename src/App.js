@@ -4,29 +4,33 @@ import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import NavBar from './route/NavBar';
-import Login from './screens/auth/Login';
-import KSDashboard from './screens/ks/KSDashboard';
-import NSEVPDashboard from './screens/nsevp/NSEVPDashboard';
-import UserProfile from './screens/shared/UserProfile';
-import About from './screens/shared/About';
-import ErrorPage from './screens/nsevp/ErrorPage';
-import './styles/App.css';
-import { refreshUserData, clearUserData } from './lib/redux/userData';
-import { history } from './lib/redux/store';
+
+import '@styles/App.css';
+
+import KSDashboard from '@ks/dashboard/KSDashboard';
+import NSEVPDashboard from '@nsevp/dashboard/NSEVPDashboard';
+import UserProfile from '@shared/UserProfile';
+import Login from '@shared/auth/Login';
+import About from '@shared/About';
+import ErrorPage from '@shared/ErrorPage';
+import FarmSearch from '@shared/farmSearch/FarmSearch';
+import FarmProfile from '@shared/farmProfile/FarmProfile';
+
+import { getUserById } from '@lib/airtable/request';
+import { refreshUserData, clearUserData } from '@lib/redux/userData';
+import { history } from '@lib/redux/store';
 import {
   isNSEVPUser,
   isKSUser,
   isSignedIn,
   isOnboarding,
   getCredentials
-} from './lib/credentials';
-import AuthenticatedRoute from './route/AuthenticatedRoute';
-import SuspenseRoute from './route/SuspenseRoute';
-import FeedbackButton from './route/FeedbackButton';
-import FarmSearch from './screens/FarmSearch/FarmSearch';
-import { getUserById } from './lib/airtable/request';
-import FarmProfile from './screens/farmProfile/FarmProfile';
+} from '@lib/credentials';
+
+import NavBar from '@route/NavBar';
+import AuthenticatedRoute from '@route/AuthenticatedRoute';
+import SuspenseRoute from '@route/SuspenseRoute';
+import FeedbackButton from '@route/FeedbackButton';
 
 class App extends React.Component {
   async componentDidMount() {
