@@ -188,23 +188,13 @@ const validateFieldSync = (name, value) => {
   return '';
 };
 
-// Get all project groups that are public
-// const getAvailableProjectGroups = async () => {
-//   const projectGroups = await getAllProjectGroups();
-
-//   // TODO: double check this logic
-//   const selectableGroups = projectGroups.filter(group => group.isPublic);
-//   const defaultGroup = projectGroups.find(group => group.isDefault);
-//   return { selectableGroups, defaultGroup };
-// };
-
 // Update or Create the user with the given fields
 const updateUserFields = async (user, fields) => {
   // Ensure that only the fields that are supposed to be updated are updated
-  const userUpdate = fields.reduce(
-    (value, field) => ({ ...value, [field]: user[field] }),
-    { onboardingStep: user.onboardingStep } // 1 field constant throughout all
-  );
+  const userUpdate = fields.reduce((value, field) => ({
+    ...value,
+    [field]: user[field]
+  }));
 
   // If user exists, update it, else, create.
   if (user.id) {
@@ -230,7 +220,6 @@ const returnToHomepage = user => {
 export {
   validateField,
   validateFieldSync,
-  // getAvailableProjectGroups,
   updateUserFields,
   returnToHomepage,
   toggleValidColor,
