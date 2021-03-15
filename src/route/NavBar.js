@@ -1,129 +1,112 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import {
-  isAdmin,
-  // isSubscriberUser,
-  // isGeneralUser,
+  isNSEVPUser,
+  isKSUser,
   isSignedIn,
-  isOnboarding,
   getCredentials
 } from '@lib/credentials';
-import Logo from '@assets/NSEVP-LOGO.svg';
 import '@styles/NavBar.css';
+import NSEVPLogo from '@assets/NSEVP-LOGO.svg';
+import KSLogo from '@assets/KS-LOGO.svg';
+import DefaultUserIcon from '@assets/defaultUserIcon-small.svg';
 import SettingsDropdown from './SettingsDropdown';
 
 class NavBar extends React.PureComponent {
   render() {
     const { user, pathname, history } = this.props;
     const credentials = getCredentials(user);
-
-    // if onboarding
-    if (isOnboarding(credentials)) {
-      return (
-        <div className="nav-bar">
-          <a href="/">
-            <img
-              className="logo"
-              src={Logo}
-              alt="North Shore Economic Vitally Partnership Logo"
-            />
-          </a>
-          <div style={{ width: '100%', marginLeft: '16px' }}>
-            <h3 style={{ margin: '0px' }}>North Shore</h3>
-            <h3 style={{ margin: '0px' }}>EVP</h3>
-          </div>
-          <nav>
-            {isSignedIn(credentials) && (
-              <ul>
-                <div className="dropdown-safety-box" />
-                <li className="nav-item dropdown-container">
-                  <SettingsDropdown history={history} />
-                </li>
-              </ul>
-            )}
-          </nav>
+    let affiliation;
+    if (isNSEVPUser(credentials)) {
+      affiliation = (
+        <div className="nav-bar__title">
+          <h3>North Shore</h3>
+          <h3>EVP</h3>
         </div>
       );
     }
-
-    // else, if is signed in and DONE with onboarding
+    if (isKSUser(credentials)) {
+      affiliation = (
+        <img
+          className="nav-bar__kslogo"
+          src={KSLogo}
+          alt="Kamehameha Schools Logo"
+        />
+      );
+    }
 
     return (
       <div className="nav-bar">
         <a href="/">
           <img
-            className="logo"
-            src={Logo}
-            alt="North Shore Economic Vitally Partnership Logo"
+            className="nav-bar__nsevplogo"
+            src={NSEVPLogo}
+            alt="North Shore Economic Vitality Partnership Logo"
           />
         </a>
-        <div style={{ width: '100%', marginLeft: '16px' }}>
-          <h3 style={{ margin: '0px' }}>North Shore</h3>
-          <h3 style={{ margin: '0px' }}>EVP</h3>
-        </div>
+        {affiliation}
         <nav>
           {isSignedIn(credentials) && (
             <ul>
-              <li
-                className={`${
-                  pathname === '/' ? 'nav-item-selected' : 'nav-item'
-                } nav-item-styling`}
-              >
-                <Link to="/">Dashboard</Link>
-              </li>
-              <li
-                className={`${
-                  pathname === '/' ? 'nav-item-selected' : 'nav-item'
-                } nav-item-styling`}
-              >
-                <Link to="/farms">Farms</Link>
-              </li>
-              <li
-                className={`${
-                  pathname === '/' ? 'nav-item-selected' : 'nav-item'
-                } nav-item-styling`}
-              >
-                <Link to="/supply">Supply</Link>
-              </li>
+              <div className="nav-left-container">
+                <li>
+                  <NavLink
+                    to="/"
+                    exact
+                    className="nav-bar__header"
+                    activeClassName="nav-bar__header-active"
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/farms"
+                    className="nav-bar__header"
+                    activeClassName="nav-bar__header-active"
+                  >
+                    Farms
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/forecast"
+                    className="nav-bar__header"
+                    activeClassName="nav-bar__header-active"
+                  >
+                    Forecast
+                  </NavLink>
+                </li>
+                {isNSEVPUser(credentials) && (
+                  <li>
+                    <NavLink
+                      to="/referrals"
+                      className="nav-bar__header"
+                      activeClassName="nav-bar__header-active"
+                    >
+                      Referrals
+                    </NavLink>
+                  </li>
+                )}
+              </div>
 
-              <li
-                className={`${
-                  pathname === '/' ? 'nav-item-selected' : 'nav-item'
-                } nav-item-styling`}
-                style={{
-                  borderRadius: '5px',
-                  border: '1px solid #4074B0',
-                  padding: '0px 18px'
-                }}
-              >
-                <Link to="/farm/asdf" style={{ color: '#4074B0' }}>
-                  New Farm
-                </Link>
-              </li>
-              {/* {isGeneralUser(credentials) && ()} */}
-              {/* isSubscriberUser(credentials) && (
-                <li
-                  className={`${
-                    pathname === '/billing' ? 'nav-item-selected' : 'nav-item'
-                  } nav-item-styling`}
-                >
-                  <Link to="/billing">Billing</Link>
+              <div className="nav-right-container">
+                <button type="button" className="nav-button">
+                  <img
+                    src={DefaultUserIcon}
+                    alt="NavBarIcon"
+                    className="nav-button__user-icon"
+                  />
+                  <div className="nav-button__name">{this.props.user.name}</div>
+                </button>
+
+                <div className="dropdown-safety-box" />
+                <li className="nav-item dropdown-container">
+                  <SettingsDropdown history={history} />
                 </li>
-              ) */}
-              {isAdmin(credentials) && (
-                <li
-                  className={`${
-                    pathname === '/admin' ? 'nav-item-selected' : 'nav-item'
-                  } nav-item-styling`}
-                >
-                  <Link to="/admin">Admin</Link>
-                </li>
-              )}
-              <div className="dropdown-safety-box" />
-              <li className="nav-item dropdown-container">
-                <SettingsDropdown history={history} />
-              </li>
+              </div>
             </ul>
           )}
         </nav>
