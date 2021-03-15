@@ -1,18 +1,20 @@
 import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
 
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import { makeStyles } from '@material-ui/core/styles';
+import { Step, StepLabel, Stepper } from '@material-ui/core';
+import {
+  ErrorOutline,
+  CheckCircle,
+  Cancel,
+  RadioButtonUnchecked
+} from '@material-ui/icons';
 
 const useStyles = makeStyles({
   root: {
     width: '100%'
+  },
+  connector: {
+    color: 'red'
   },
   stepper: {
     backgroundColor: 'transparent',
@@ -21,57 +23,45 @@ const useStyles = makeStyles({
   },
   label: {
     whiteSpace: 'pre-wrap'
+  },
+  date: {
+    margin: 4,
+    color: 'var(--ks-medium-dark-grey)'
   }
 });
 
-function getSteps() {
-  return [
-    'Farm Referred',
-    'Farm Applied',
-    'Farm Accepted',
-    'Food Safety Plan Complete',
-    'Risk Assessment',
-    'Mock Recall Complete',
-    'Internal Audit Complete (1)',
-    'Internal Audit Complete (2)',
-    'Group GAP Certified!'
-  ];
-}
+const useIconStyles = makeStyles({
+  error: {
+    color: 'var(--ks-error-red)'
+  },
+  active: {
+    color: 'var(--ks-dark-blue)'
+  },
+  inactive: {
+    color: 'var(--ks-medium-dark-grey)'
+  }
+});
 
 function StepIcon(props) {
-  const classes = useStyles();
+  const classes = useIconStyles();
   const { active, completed, error } = props;
-  if (error) {
-    return (
-      <div className={clsx(classes.icon, classes.error)}>
-        <ErrorOutlineIcon />
-      </div>
-    );
-  } else if (active && completed) {
-    return (
-      <div className={clsx(classes.icon, classes.activeCompleted)}>
-        <CheckCircleIcon />
-      </div>
-    );
-  } else if (active) {
-    return (
-      <div className={clsx(classes.icon, classes.active)}>
-        <CancelIcon />
-      </div>
-    );
-  } else if (completed) {
-    return (
-      <div className={clsx(classes.icon, classes.completed)}>
-        <CheckCircleIcon />
-      </div>
-    );
-  } else {
-    return (
-      <div className={clsx(classes.icon, classes.completed)}>
-        <RadioButtonUncheckedIcon />
-      </div>
-    );
-  }
+  let state;
+
+  const icons = {
+    error: [classes.error, <ErrorOutline fontSize="large" />],
+    activeCompleted: [classes.active, <CheckCircle fontSize="large" />],
+    active: [classes.active, <Cancel fontSize="large" />],
+    completed: [classes.inactive, <CheckCircle fontSize="large" />],
+    incompleted: [classes.inactive, <RadioButtonUnchecked fontSize="large" />]
+  };
+
+  if (error) state = icons.error;
+  else if (active && completed) state = icons.activeCompleted;
+  else if (active) state = icons.active;
+  else if (completed) state = icons.completed;
+  else state = icons.incompleted;
+
+  return <div className={state[0]}>{state[1]}</div>;
 }
 
 function getStepStatus(index) {
@@ -88,17 +78,33 @@ function getStepStatus(index) {
   };
 }
 
+function getSteps() {
+  return [
+    'Farm Referred',
+    'Farm Applied',
+    'Farm Accepted',
+    'Food Safety Plan Complete',
+    'Risk Assessment',
+    'Mock Recall Complete',
+    'Internal Audit Complete (1)',
+    'Internal Audit Complete (2)',
+    'Group GAP Certified!'
+  ];
+}
+
 export default function HorizontalLabelPositionBelowStepper() {
   const classes = useStyles();
   const steps = getSteps();
 
   return (
     <div className={classes.root}>
-      <Stepper activeStep={5} className={classes.stepper} alternativeLabel>
+      <Stepper className={classes.stepper} alternativeLabel>
         {steps.map((label, index) => (
           <Step key={label}>
             <StepLabel StepIconComponent={StepIcon} {...getStepStatus(index)}>
               <h3 className={classes.label}>{label}</h3>
+              <h3 className={classes.date}>Date:</h3>
+              <h3 className={classes.date}>3/24/2021</h3>
             </StepLabel>
           </Step>
         ))}
