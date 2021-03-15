@@ -21,6 +21,9 @@
   --ks-font-light: rgba(51, 51, 51, 0.5);
   --ks-font-lightest: rgba(51, 51, 51, 0.25);
 
+  /*KS Misc */
+  --ks-error-red: #e76b6b;
+
   /* Modal Background Colors */
   --ks-modal-background: rgba(196, 196, 196, 0.7);
 

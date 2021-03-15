@@ -1,10 +1,14 @@
 import React from 'react';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
-import DoneIcon from '@material-ui/icons/Done';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 
 const useStyles = makeStyles({
   root: {
@@ -20,25 +24,13 @@ const useStyles = makeStyles({
   }
 });
 
-const useIconStyles = makeStyles({
-  root: {
-    borderRadius: '50%',
-    backgroundColor: 'var(--ks-dark-blue)',
-    width: 36,
-    height: 36,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white'
-  }
-});
-
 function getSteps() {
   return [
     'Farm Referred',
     'Farm Applied',
     'Farm Accepted',
     'Food Safety Plan Complete',
+    'Risk Assessment',
     'Mock Recall Complete',
     'Internal Audit Complete (1)',
     'Internal Audit Complete (2)',
@@ -47,10 +39,53 @@ function getSteps() {
 }
 
 function StepIcon(props) {
-  const classes = useIconStyles();
-  const { completed } = props;
+  const classes = useStyles();
+  const { active, completed, error } = props;
+  if (error) {
+    return (
+      <div className={clsx(classes.icon, classes.error)}>
+        <ErrorOutlineIcon />
+      </div>
+    );
+  } else if (active && completed) {
+    return (
+      <div className={clsx(classes.icon, classes.activeCompleted)}>
+        <CheckCircleIcon />
+      </div>
+    );
+  } else if (active) {
+    return (
+      <div className={clsx(classes.icon, classes.active)}>
+        <CancelIcon />
+      </div>
+    );
+  } else if (completed) {
+    return (
+      <div className={clsx(classes.icon, classes.completed)}>
+        <CheckCircleIcon />
+      </div>
+    );
+  } else {
+    return (
+      <div className={clsx(classes.icon, classes.completed)}>
+        <RadioButtonUncheckedIcon />
+      </div>
+    );
+  }
+}
 
-  return <div className={classes.root}>{completed ? <DoneIcon /> : null}</div>;
+function getStepStatus(index) {
+  /* Mock Data */
+  /* TODO: Mock Airtable Data to Index */
+  const completed = [0, 1, 2, 3, 4];
+  const active = [5];
+  const error = [6, 7];
+
+  return {
+    completed: completed.includes(index),
+    active: active.includes(index),
+    error: error.includes(index)
+  };
 }
 
 export default function HorizontalLabelPositionBelowStepper() {
@@ -60,9 +95,9 @@ export default function HorizontalLabelPositionBelowStepper() {
   return (
     <div className={classes.root}>
       <Stepper activeStep={5} className={classes.stepper} alternativeLabel>
-        {steps.map(label => (
+        {steps.map((label, index) => (
           <Step key={label}>
-            <StepLabel StepIconComponent={StepIcon}>
+            <StepLabel StepIconComponent={StepIcon} {...getStepStatus(index)}>
               <h3 className={classes.label}>{label}</h3>
             </StepLabel>
           </Step>

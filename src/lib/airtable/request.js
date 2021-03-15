@@ -73,6 +73,21 @@ export const createManyComments = async records => {
   return Promise.all(createPromises);
 };
 
+export const createRecentUpdate = async record => {
+  return createRecord(Tables.RecentUpdates, record);
+};
+
+export const createManyRecentUpdates = async records => {
+  const createPromises = [];
+  const numCalls = Math.ceil(records.length / 10);
+  for (let i = 0; i < numCalls; i += 1) {
+    const subset = records.slice(i * 10, (i + 1) * 10);
+    if (subset.length > 0)
+      createPromises.push(createRecords(Tables.RecentUpdates, subset));
+  }
+  return Promise.all(createPromises);
+};
+
 /*
  ******* READ RECORDS *******
  */
@@ -121,6 +136,24 @@ export const getCommentsByIds = async (
 
 export const getAllComments = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.Comments, filterByFormula, sort);
+};
+
+export const getRecentUpdateById = async id => {
+  return getRecordById(Tables.RecentUpdates, id);
+};
+
+export const getRecentUpdatesByIds = async (
+  ids,
+  filterByFormula = '',
+  sort = []
+) => {
+  let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
+  formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
+  return getAllRecords(Tables.RecentUpdates, formula, sort);
+};
+
+export const getAllRecentUpdates = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.RecentUpdates, filterByFormula, sort);
 };
 
 /*
@@ -172,6 +205,21 @@ export const updateManyComments = async recordUpdates => {
   return Promise.all(updatePromises);
 };
 
+export const updateRecentUpdate = async (id, recordUpdates) => {
+  return updateRecord(Tables.RecentUpdates, id, recordUpdates);
+};
+
+export const updateManyRecentUpdates = async recordUpdates => {
+  const updatePromises = [];
+  const numCalls = Math.ceil(recordUpdates.length / 10);
+  for (let i = 0; i < numCalls; i += 1) {
+    const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
+    if (subset.length > 0)
+      updatePromises.push(updateRecords(Tables.RecentUpdates, subset));
+  }
+  return Promise.all(updatePromises);
+};
+
 /*
  ******* DELETE RECORDS *******
  */
@@ -184,4 +232,7 @@ export const deleteFarm = async id => {
 };
 export const deleteComment = async id => {
   return deleteRecord(Tables.Comments, id);
+};
+export const deleteRecentUpdate = async id => {
+  return deleteRecord(Tables.RecentUpdates, id);
 };
