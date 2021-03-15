@@ -28,6 +28,7 @@ class FarmProfile extends React.Component {
       contactLastName,
       address: farmAddress,
       phone,
+      farmName,
       farmEmail: email,
       GroupGapContactIds: inspector,
       certificationDate
@@ -46,7 +47,7 @@ class FarmProfile extends React.Component {
           />
           Back to Farm Search
         </div>
-        <h1 className="farm-profile__header">Farm Name</h1>
+        <h1 className="farm-profile__header">{farmName}</h1>
 
         <div className="farm-profile__body">
           <div className="farm-profile__body__left">
