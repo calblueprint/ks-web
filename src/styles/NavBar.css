@@ -12,9 +12,19 @@
   width: 100%;
 }
 
-.nav-bar .logo {
+.nav-bar__logo {
   margin-left: 47px;
   display: flex;
+}
+
+.nav-bar__title {
+  margin-left: 16px;
+  width: 125px;
+}
+
+.nav-bar__title h3 {
+  margin: 0px;
+  font-weight: 600;
 }
 
 .nav-bar nav ul {
@@ -27,44 +37,31 @@
   justify-content: space-between;
 }
 
-.nav-bar nav li {
-  margin: 0px 40px;
-}
-
-.nav-bar nav ul a,
-span {
-  text-decoration: none;
-  font-weight: 500;
-  white-space: nowrap;
-  font-family: 'Inter';
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 16px;
-  letter-spacing: 0.5px;
-}
-
 .nav-left-container {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.nav-item a {
-  color: var(--pp-blue);
+.nav-bar nav li {
+  margin: 0px 40px;
 }
 
-.nav-item a:hover {
-  opacity: 0.8;
+.nav-bar__header {
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  color: #000000;
 }
 
-.nav-item-styling {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.nav-bar__header:hover {
+  color: var(--ks-dark-blue);
 }
 
-.nav-item-selected a {
-  color: var(--pp-selected-gray);
+.nav-bar__header-active {
+  color: var(--ks-dark-blue);
+  font-weight: 500;
 }
 
 .nav-right-container {
@@ -82,31 +79,34 @@ span {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-top: 3%;
-  padding-bottom: 3%;
-  padding-left: 4%;
-  padding-right: 6%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 10px;
+  padding-right: 12px;
 }
 
 .nav-button:hover {
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .nav-button__user-icon {
   padding-right: 5%;
 }
+
 .nav-button__name {
   padding-left: 5%;
   white-space: nowrap;
 }
 
 .nav-item-gear {
-  height: 4vh;
+  height: 25px;
   display: flex;
 }
 
 .nav-item-gear:hover {
   opacity: 0.8;
+  cursor: pointer;
 }
 
 .settings-dropdown {
@@ -153,6 +153,7 @@ span {
   font-weight: 600;
   color: var(--pp-blue);
   padding: 0px;
+  text-decoration: none;
 }
 
 .settings-dropdown-logout {
