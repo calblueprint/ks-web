@@ -6,6 +6,7 @@ import farmCover from '../../../assets/farmProfileCover.png';
 import userIcon from '../../../assets/farmProfilePhoto.png';
 
 import '../../../styles/FarmCard.css';
+import Link from '@material-ui/core/Link';
 
 const ROOT_ELEMENT = '#root';
 Modal.setAppElement(ROOT_ELEMENT);
@@ -40,52 +41,54 @@ class FarmCard extends Component {
     const farmerName = `${contactFirstName} ${contactLastName}`;
 
     return (
-      <div className="farm-card">
-        <div className="farm-card__top">
-          <img
-            src={farmCover}
-            alt="defaultfarmCover"
-            className="farm-card__photo"
-            onClick={this.showModal}
-          />
-          {gapApproved ? (
-            <button type="button" className="farm-card__btn-gap">
-              GAP
-            </button>
-          ) : null}
-          {hubApproved ? (
-            <button type="button" className="farm-card__btn-hub">
-              HUB
-            </button>
-          ) : null}
-          <img src={userIcon} alt="userIcon" className="farm-card__icon" />
-        </div>
-
-        <div className="farm-card__bot">
-          <div className="farm-card__farm-name">{farmName}</div>
-          <div className="farm-card__farm-details">
-            {farmerName}
-            <br />
-            {farmAddress}
+      <Link to={`/farm/${this.props.key}`}>
+        <div className="farm-card">
+          <div className="farm-card__top">
+            <img
+              src={farmCover}
+              alt="defaultfarmCover"
+              className="farm-card__photo"
+              onClick={this.showModal}
+            />
+            {gapApproved ? (
+              <button type="button" className="farm-card__btn-gap">
+                GAP
+              </button>
+            ) : null}
+            {hubApproved ? (
+              <button type="button" className="farm-card__btn-hub">
+                HUB
+              </button>
+            ) : null}
+            <img src={userIcon} alt="userIcon" className="farm-card__icon" />
           </div>
-        </div>
 
-        <Modal
-          isOpen={showFarmModal}
-          onRequestClose={this.hideModal}
-          className="farm-card__modal"
-          overlayClassName="farm-card__modal__overlay"
-        >
-          Farm Profile
-          <button
-            type="button"
-            className="farm-card__modal__btn-close"
-            onClick={() => this.hideModal()}
+          <div className="farm-card__bot">
+            <div className="farm-card__farm-name">{farmName}</div>
+            <div className="farm-card__farm-details">
+              {farmerName}
+              <br />
+              {farmAddress}
+            </div>
+          </div>
+
+          <Modal
+            isOpen={showFarmModal}
+            onRequestClose={this.hideModal}
+            className="farm-card__modal"
+            overlayClassName="farm-card__modal__overlay"
           >
-            Close
-          </button>
-        </Modal>
-      </div>
+            Farm Profile
+            <button
+              type="button"
+              className="farm-card__modal__btn-close"
+              onClick={() => this.hideModal()}
+            >
+              Close
+            </button>
+          </Modal>
+        </div>
+      </Link>
     );
   }
 }

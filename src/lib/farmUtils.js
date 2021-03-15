@@ -6,7 +6,7 @@ import { getAllFarms, getFarmById } from './airtable/request';
 // TODO: Nick is too lazy to read on the proper way to export this function
 // I don't think I should be using the `default` keyword
 // Returns a list of farms to render for FarmSearch page.
-export default async function getAllFarmsForFarmSearch() {
+export async function getAllFarmsForFarmSearch() {
   const farms = await getAllFarms();
   return farms;
 }
@@ -16,6 +16,7 @@ export async function getSingleFarm(id) {
   return singleFarm;
 }
 
-// export {
-//   getSingleFarm
-// };
+export default {
+  getSingleFarm,
+  getAllFarmsForFarmSearch
+};

@@ -3,26 +3,39 @@ import FarmContactCard from './components/FarmContactCard';
 import FarmGraph from './components/FarmGraph';
 import leftArrow from '../../assets/left_arrow.png';
 import '../../styles/FarmProfile.css';
+import { getSingleFarm } from '../../lib/farmUtils';
 
 class FarmProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      farmId: null,
-      farmName: ''
+      farm: {},
+      farmId: ''
     };
   }
 
-  componentDidMount() {
-    //     this.props.match.params.farmId
-    // const farm = await getSingleFarm(url parameter goes here) // this returns a farm object
-
+  async componentDidMount() {
     const { match } = this.props;
     const { farmId } = match.params;
-    this.setState({ farmId });
+    const farm = await getSingleFarm(farmId);
+    console.log(farm);
+    this.setState({ farm, farmId });
   }
 
   render() {
+    const {
+      contactFirstName,
+      contactLastName,
+      address: farmAddress,
+      phone,
+      farmEmail: email,
+      GroupGapContactIds: inspector,
+      certificationDate
+    } = this.state.farm;
+    const gapApproved = true;
+    const farmerName = `${contactFirstName} ${contactLastName}`;
+    const {farmId} = this.state;
+
     return (
       <div className="farm-profile">
         <div className="farm-profile__back-button">
@@ -38,14 +51,14 @@ class FarmProfile extends React.Component {
         <div className="farm-profile__body">
           <div className="farm-profile__body__left">
             <FarmContactCard
-              id="23"
-              farmerName="SANDRA"
-              phone="123"
-              email="farmerfarmer@farmer.com"
-              address="xxxxx Farmer Lane Kauai, HI, xxxxx"
-              gapCertified
-              certificationDate="xxxx"
-              inspector="Lisa Rhoden"
+              id={farmId}
+              farmerName={farmerName}
+              phone={phone}
+              email={email}
+              address={farmAddress}
+              gapCertified={gapApproved}
+              certificationDate={certificationDate}
+              inspector={inspector}
             />
           </div>
 

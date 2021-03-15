@@ -1,16 +1,12 @@
 import React from 'react';
 import '../../styles/FarmSearch.css';
+import Link from '@material-ui/core/Link';
 import FarmCard from './components/FarmCard';
 import NewFarmCard from './components/NewFarmCard';
 import SearchIcon from '../../assets/search-icon.png';
-import getAllFarmsForFarmSearch from '../../lib/farmUtils';
+import { getAllFarmsForFarmSearch } from '../../lib/farmUtils';
 
 class FarmSearch extends React.PureComponent {
-  // lifecycle methods
-  // functional vs class components in react
-  // react "hooks"
-  // javascript promises
-
   constructor(props) {
     super(props);
     this.state = {
@@ -46,7 +42,9 @@ class FarmSearch extends React.PureComponent {
         <div className="farm-search__grid">
           <NewFarmCard />
           {farms.map(farm => (
-            <FarmCard key={farm.farmId} farm={farm} />
+            <Link href={`/farm/${farm.farmId}`}>
+              <FarmCard key={farm.farmId} farm={farm} />
+            </Link>
           ))}
         </div>
       </div>
