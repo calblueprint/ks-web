@@ -7,10 +7,11 @@ import '@styles/FarmCard.css';
 
 class FarmCard extends React.PureComponent {
   render() {
-    const { farm, id } = this.props;
+    const { farm } = this.props;
     const {
-      foodHubAffiliation,
+      farmId,
       farmName,
+      foodHubAffiliation,
       contactFirstName,
       contactLastName,
       address: farmAddress
@@ -18,9 +19,8 @@ class FarmCard extends React.PureComponent {
     const gapApproved = true;
     const hubApproved = Boolean(foodHubAffiliation);
     const farmerName = `${contactFirstName} ${contactLastName}`;
-
     return (
-      <Link href={`/farm/${id}`} underline="none" color="inherit">
+      <Link href={`/farm/${farmId}`} underline="none" color="inherit">
         <div className="farm-card">
           <div className="farm-card__top">
             <img
