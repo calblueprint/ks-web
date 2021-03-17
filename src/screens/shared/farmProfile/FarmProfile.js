@@ -3,6 +3,7 @@ import React from 'react';
 import { getSingleFarm } from '@lib/farmUtils';
 import { Button } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Link from '@material-ui/core/Link';
 import '@styles/FarmProfile.css';
 
 import FarmContactCard from './FarmContactCard';
@@ -46,10 +47,12 @@ class FarmProfile extends React.Component {
     return (
       <div className="farm-profile">
         <div className="farm-profile__back-button">
-          <Button>
-            <ArrowBackIcon />
-            Back to Farm Search
-          </Button>
+          <Link href="/farms" underline="none" color="inherit">
+            <Button>
+              <ArrowBackIcon />
+              Back to Farm Search
+            </Button>
+          </Link>
         </div>
         <h1 className="farm-profile__header">{farmName}</h1>
         <div className="farm-profile__body">
