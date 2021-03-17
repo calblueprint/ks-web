@@ -13,25 +13,20 @@ class FarmProfile extends React.Component {
     super(props);
     this.state = {
       farm: {},
-      farmId: ''
+      farmId: '',
+      loading: true
     };
-    this._isMounted = false;
   }
 
   async componentDidMount() {
     const { match } = this.props;
     const { farmId } = match.params;
     const farm = await getSingleFarm(farmId);
-    this._isMounted = true;
-    this.setState({ farm, farmId });
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
+    this.setState({ farm, farmId, loading: false });
   }
 
   render() {
-    const { farm, farmId } = this.state;
+    const { farm, farmId, loading } = this.state;
     const {
       contactFirstName,
       contactLastName,
@@ -44,45 +39,44 @@ class FarmProfile extends React.Component {
     } = farm;
     const gapApproved = true;
     const farmerName = `${contactFirstName} ${contactLastName}`;
-    if (this._isMounted) {
-      return (
-        <div className="farm-profile">
-          <div className="farm-profile__back-button">
-            <Button>
-              <ArrowBackIcon />
-              Back to Farm Search
-            </Button>
+
+    if (loading) {
+      return null;
+    }
+    return (
+      <div className="farm-profile">
+        <div className="farm-profile__back-button">
+          <Button>
+            <ArrowBackIcon />
+            Back to Farm Search
+          </Button>
+        </div>
+        <h1 className="farm-profile__header">{farmName}</h1>
+        <div className="farm-profile__body">
+          <div className="farm-profile__body__left">
+            <FarmContactCard
+              id={farmId}
+              farmerName={farmerName}
+              phone={phone}
+              email={email}
+              address={farmAddress}
+              gapCertified={gapApproved}
+              certificationDate={certificationDate}
+              inspector={inspector}
+            />
           </div>
-          <h1 className="farm-profile__header">{farmName}</h1>
-          <div className="farm-profile__body">
-            <div className="farm-profile__body__left">
-              <FarmContactCard
-                id={farmId}
-                farmerName={farmerName}
-                phone={phone}
-                email={email}
-                address={farmAddress}
-                gapCertified={gapApproved}
-                certificationDate={certificationDate}
-                inspector={inspector}
-              />
-            </div>
-            <div className="farm-profile__body__right">
-              <FarmGraph title="Top 5 Items" data={null} />
-              <div className="divider" />
-              <FarmGraph title="Recent Harvests" data={null} />
-              <div className="divider" />
-              <FarmGraph title="Recent Harvest Logs" data={null} />
-              <div className="divider" />
-              <FarmGraph title="GAP Certification Status" data={null} />
-            </div>
+          <div className="farm-profile__body__right">
+            <FarmGraph title="Top 5 Items" data={null} />
+            <div className="divider" />
+            <FarmGraph title="Recent Harvests" data={null} />
+            <div className="divider" />
+            <FarmGraph title="Recent Harvest Logs" data={null} />
+            <div className="divider" />
+            <FarmGraph title="GAP Certification Status" data={null} />
           </div>
         </div>
-      );
-    } 
-      // TODO: Add Suspense Container While Data is Mounting
-      return null;
-    
+      </div>
+    );
   }
 }
 
