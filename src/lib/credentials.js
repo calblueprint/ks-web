@@ -5,7 +5,7 @@
  *
  */
 
-import constants from '../constants';
+import constants from '@root/constants';
 
 const { KS_USER, NSEVP_USER } = constants;
 
