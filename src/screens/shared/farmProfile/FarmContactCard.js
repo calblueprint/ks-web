@@ -1,67 +1,57 @@
 import React from 'react';
 import farmProfileCover from '@assets/farmProfileCover.png';
 import farmProfilePhoto from '@assets/farmProfilePhoto.png';
-import checkIcon from '@assets/checkIcon.png';
-import cancelIcon from '@assets/cancelIcon.png';
 import userIcon from '@assets/userIcon.png';
 
 import '@styles/FarmProfile.css';
 
+import StatusChip from '@components/StatusChip';
+
 class FarmContactCard extends React.PureComponent {
   render() {
+    const { farm } = this.props;
     const {
-      id,
-      farmerName,
-      phone,
-      email,
-      address,
-      gapCertified,
-      certificationDate,
-      inspector
-    } = this.props;
+      farmAddress,
+      contactFirstName,
+      contactLastName,
+      farmEmail: email,
+      GroupGapContactIds: inspector,
+      phone
+    } = farm;
+
+    const gapApproved = true;
+    const farmerName = `${contactFirstName} ${contactLastName}`;
 
     return (
-      <div className="farm-contact-card" id={id}>
-        <div className="farm-contact-card__main">
+      <div>
+        <div className="contact-card">
           <img
-            className="farm-contact-card__main__cover-photo"
+            className="contact-card__cover-photo"
             src={farmProfileCover}
             alt="farm profile cover"
           />
           <img
-            className="farm-contact-card__main__profile-photo"
+            className="contact-card__profile-photo"
             src={farmProfilePhoto}
             alt="farm profile"
           />
-
-          <div className="farm-contact-card__main__text">
-            <div className="farm-profile__subheader">{farmerName}</div>
-            <div className="farm-contact-card__main__text__details">
-              <div>{`Phone: ${phone}`}</div>
-              <div>{`Email: ${email}`}</div>
-              <div>{`Address: ${address}`}</div>
-              {gapCertified ? (
-                <div className="farm-contact-card__main__text__details__certification">
-                  <img
-                    className="farm-contact-card__certification-icon"
-                    src={checkIcon}
-                    alt="certification"
-                  />
-                  {`GAP Certified since ${certificationDate}`}
-                </div>
-              ) : (
-                <div className="farm-contact-card__main__text__details__certification">
-                  <img src={cancelIcon} alt="certification" />
-                  Not GAP Certified
-                </div>
-              )}
+          <div className="contact-card__info">
+            <h2>{farmerName}</h2>
+            <div className="contact-card__info-details">
+              <p>{`Phone: ${phone}`}</p>
+              <p>{`Email: ${email}`}</p>
+              <p>{`Address: ${farmAddress}`}</p>
             </div>
+            <StatusChip
+              type={gapApproved ? 'certified' : 'notCertified'}
+              data={farm}
+            />
           </div>
         </div>
 
-        <div className="farm-contact-card__inspector">
-          <div className="farm-profile__subheader">Group GAP Contact</div>
-          <div className="farm-contact-card__inspector__body">
+        <div className="contact-card__inspector">
+          <h2>Group GAP Contact</h2>
+          <div className="contact-card__inspector-info">
             <img
               className="farm-contact-card__user-icon"
               src={userIcon}

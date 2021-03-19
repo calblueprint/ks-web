@@ -1,62 +1,55 @@
 import React from 'react';
+
+import { getSingleFarm } from '@lib/farmUtils';
 import { Button } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import Stepper from '@components/Stepper';
+import Link from '@material-ui/core/Link';
 import '@styles/FarmProfile.css';
 
 import FarmContactCard from './FarmContactCard';
-import FarmGraph from './FarmGraph';
+import FarmGraphsTable from './FarmGraphsTable';
 
 class FarmProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      farmId: null
+      farm: {},
+      farmId: '',
+      loading: true
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { match } = this.props;
     const { farmId } = match.params;
-    this.setState({ farmId });
+    const farm = await getSingleFarm(farmId);
+    this.setState({ farm, farmId, loading: false });
   }
 
   render() {
+    const { farm, loading } = this.state;
+
+    if (loading) {
+      return null;
+    }
     return (
       <div className="farm-profile">
-        <div className="farm-profile__back-button">
+        <Link href="/farms" underline="none" color="inherit">
           <Button>
             <ArrowBackIcon />
             Back to Farm Search
           </Button>
-        </div>
-
-        <h1 className="farm-profile__header">Farm Name</h1>
-
-        <div className="farm-profile__body">
-          <div className="farm-profile__body__left">
-            <FarmContactCard
-              id="123"
-              farmerName="Farmer Name"
-              phone="(xxx) - xxx - xxxx"
-              email="farmerfarmer@farmer.com"
-              address="xxxxx Farmer Lane Kauai, HI, xxxxx"
-              gapCertified
-              certificationDate="xxxx"
-              inspector="Lisa Rhoden"
-            />
+        </Link>
+        <h1>{farm.farmName}</h1>
+        <div className="farm-profile__section">
+          <div className="farm-profile__left-col">
+            <FarmContactCard farm={farm} />
           </div>
-
-          <div className="farm-profile__body__right">
+          <div className="farm-profile__right-col">
             <Stepper />
-            <FarmGraph title="Top 5 Items" data={null} />
-            <div className="divider" />
-            <FarmGraph title="Recent Harvests" data={null} />
-            <div className="divider" />
-            <FarmGraph title="Recent Harvest Logs" data={null} />
-            <div className="divider" />
-            <FarmGraph title="GAP Certification Status" data={null} />
+            <FarmGraphsTable />
           </div>
         </div>
       </div>
