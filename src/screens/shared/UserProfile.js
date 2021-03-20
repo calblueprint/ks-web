@@ -4,6 +4,7 @@ import { updateUser } from '@lib/airtable/request';
 import { refreshUserData } from '@lib/redux/userData';
 import { validateField } from '@lib/utils';
 import '@styles/UserProfilePage.css';
+import DefaultUserIcon from '@assets/defaultUserIcon-small.svg';
 
 class UserProfile extends React.Component {
   constructor(props) {
