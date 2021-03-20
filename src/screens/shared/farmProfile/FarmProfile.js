@@ -1,10 +1,8 @@
 import React from 'react';
-
 import { getSingleFarm } from '@lib/farmUtils';
-import { Button } from '@material-ui/core';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import Stepper from '@components/Stepper';
+import BackButton from '@components/BackButton';
 import Link from '@material-ui/core/Link';
 import '@styles/FarmProfile.css';
 
@@ -30,19 +28,25 @@ class FarmProfile extends React.Component {
 
   render() {
     const { farm, loading } = this.state;
+    const { match } = this.props;
+    const { farmId } = match.params;
 
     if (loading) {
       return null;
     }
     return (
       <div className="farm-profile">
-        <Link href="/farms" underline="none" color="inherit">
-          <Button>
-            <ArrowBackIcon />
-            Back to Farm Search
-          </Button>
-        </Link>
-        <h1>{farm.farmName}</h1>
+        <BackButton label="Back to Farm Search" href="/farms" />
+        <div className="farm-profile__header">
+          <h1>{farm.farmName}</h1>
+          <Link
+            href={`/farm/${farmId}/edit`}
+            underline="always"
+            color="inherit"
+          >
+            <p className="farm-profile__header-edit">Edit</p>
+          </Link>
+        </div>
         <div className="farm-profile__section">
           <div className="farm-profile__left-col">
             <FarmContactCard farm={farm} />

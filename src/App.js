@@ -15,6 +15,7 @@ import About from '@shared/About';
 import ErrorPage from '@shared/ErrorPage';
 import FarmSearch from '@shared/farmSearch/FarmSearch';
 import FarmProfile from '@shared/farmProfile/FarmProfile';
+import FarmProfileEdit from '@shared/farmProfileEdit/FarmProfileEdit';
 
 import { getUserById } from '@lib/airtable/request';
 import { refreshUserData, clearUserData } from '@lib/redux/userData';
@@ -89,7 +90,11 @@ class App extends React.Component {
                 path="/farm/:farmId"
                 component={FarmProfile}
               />
-
+              <SuspenseRoute
+                exact
+                path="/farm/:farmId/:state"
+                component={FarmProfileEdit}
+              />
               <SuspenseRoute exact path="/about" component={About} />
               <AuthenticatedRoute path="/profile" component={UserProfile} />
 
