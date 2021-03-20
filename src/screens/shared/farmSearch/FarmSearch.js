@@ -1,16 +1,28 @@
 import React from 'react';
 
+import SearchIcon from '@assets/search-icon.png';
+import { getAllFarmsForFarmSearch } from '@lib/farmUtils';
+
 import '@styles/FarmSearch.css';
 
-import SearchIcon from '@assets/search-icon.png';
-import farmProfileDefaultCover from '@assets/farmProfileCover.png';
-import farmProfileDefaultIcon from '@assets/farmProfilePhoto.png';
-import NewFarmCard from './NewFarmCard';
 import FarmCard from './FarmCard';
+import NewFarmCard from './NewFarmCard';
 
 class FarmSearch extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      farms: []
+    };
+  }
+
+  async componentDidMount() {
+    const farms = await getAllFarmsForFarmSearch();
+    this.setState({ farms });
+  }
+
   render() {
-    const numDetails = 16;
+    const { farms } = this.state;
     return (
       <div className="farm-search__body">
         <div className="farm-search__header">
@@ -32,20 +44,9 @@ class FarmSearch extends React.PureComponent {
         </div>
         <div className="farm-search__grid">
           <NewFarmCard />
-          {[...Array(numDetails)].map(id => {
-            return (
-              <FarmCard
-                key={id}
-                hubApproved
-                gapApproved
-                farmName="Nick's Tomato Farm"
-                farmerName="Nick Wong"
-                farmLocation="199 Cooley Ct, Wahiawa, Hawaii"
-                farmCover={farmProfileDefaultCover}
-                userIcon={farmProfileDefaultIcon}
-              />
-            );
-          })}
+          {farms.map(farm => (
+            <FarmCard key={farm.farmId} farm={farm} />
+          ))}
         </div>
       </div>
     );

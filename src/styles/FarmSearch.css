@@ -9,7 +9,7 @@
 .farm-search__header {
   align-items: center;
   display: flex;
-  flex: 1 1 0;
+  flex: 0 1 0;
   justify-content: space-between;
 }
 
@@ -88,4 +88,8 @@
   .farm-search__grid {
     grid-template-columns: 1fr;
   }
+}
+
+.farm-search__link {
+  text-decoration: none;
 }
