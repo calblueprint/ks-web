@@ -10,7 +10,7 @@ function SignUp() {
   });
 
   const handleChange = event => {
-    const name = event.target.name;
+    const {name} = event.target;
     setState({
       ...state,
       [name]: event.target.value
@@ -37,8 +37,8 @@ function SignUp() {
             onChange={handleChange}
           >
             <option aria-label="" value="" />
-            <option value={'KS'}>KS</option>
-            <option value={'NSEVP'}>NSEVP</option>
+            <option value="KS">KS</option>
+            <option value="NSEVP">NSEVP</option>
           </Select>
         </FormControl>
         <TextField
