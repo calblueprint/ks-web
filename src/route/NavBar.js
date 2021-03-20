@@ -96,7 +96,7 @@ class NavBar extends React.PureComponent {
                 {isKSUser(credentials) && (
                   <li>
                     <NavLink
-                      to="/referrals"
+                      to="/referral"
                       className="nav-bar__header"
                       activeClassName="nav-bar__header-active"
                     >

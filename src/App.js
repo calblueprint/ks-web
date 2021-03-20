@@ -90,7 +90,7 @@ class App extends React.Component {
               <SuspenseRoute exact path="/about" component={About} />
               <AuthenticatedRoute path="/profile" component={UserProfile} />
               <AuthenticatedRoute
-                path="/referrals"
+                path="/referral"
                 component={FarmReferralForm}
                 credentialCheck={isKSUser}
               />
