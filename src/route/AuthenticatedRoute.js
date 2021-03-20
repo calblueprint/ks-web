@@ -2,7 +2,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { isSignedIn, isOnboarding, getCredentials } from '@lib/credentials';
+import { isSignedIn, getCredentials } from '@lib/credentials';
 import SuspenseRoute from './SuspenseRoute';
 
 class AuthenticatedRoute extends React.PureComponent {
@@ -22,8 +22,6 @@ class AuthenticatedRoute extends React.PureComponent {
   render() {
     const { component: Component, user, ...rest } = this.props;
     const authorized = this.isAuthorized();
-    const userCredentials = getCredentials(user);
-    const redirectRoute = isOnboarding(userCredentials) ? '/onboarding' : '/';
     return (
       <SuspenseRoute
         {...rest}
@@ -31,9 +29,7 @@ class AuthenticatedRoute extends React.PureComponent {
           authorized ? (
             <Component {...props} />
           ) : (
-            <Redirect
-              to={{ pathname: redirectRoute, state: { from: props.location } }}
-            />
+            <Redirect to={{ pathname: '/', state: { from: props.location } }} />
           )
         }
       />

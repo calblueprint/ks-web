@@ -1,7 +1,7 @@
 /* eslint react/jsx-props-no-spreading: 0 */
 
 import React from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 
@@ -24,7 +24,6 @@ import {
   isNSEVPUser,
   isKSUser,
   isSignedIn,
-  isOnboarding,
   getCredentials
 } from '@lib/credentials';
 
@@ -55,14 +54,11 @@ class App extends React.Component {
   getHomeComponent() {
     const { user } = this.props;
     const credentials = getCredentials(user);
-    const onboarding = isOnboarding(credentials);
     const signedIn = isSignedIn(credentials);
     const isNSEVP = isNSEVPUser(credentials);
     const isKS = isKSUser(credentials);
     let homeComponent;
-    if (onboarding) {
-      homeComponent = () => <Redirect to={{ pathname: '/onboarding' }} />;
-    } else if (!signedIn) {
+    if (!signedIn) {
       homeComponent = Login;
     } else if (isKS) {
       // Dashboard for both ks and ks ownrers (ks with shares)
