@@ -1,14 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  isAdmin,
-  // isSubscriberUser,
-  // isGeneralUser,
-  isSignedIn,
-  isOnboarding,
-  getCredentials
-} from '@lib/credentials';
+import { isAdmin, isSignedIn, getCredentials } from '@lib/credentials';
 import Logo from '@assets/NSEVP-LOGO.svg';
 import '@styles/NavBar.css';
 import SettingsDropdown from './SettingsDropdown';
@@ -17,37 +10,6 @@ class NavBar extends React.PureComponent {
   render() {
     const { user, pathname, history } = this.props;
     const credentials = getCredentials(user);
-
-    // if onboarding
-    if (isOnboarding(credentials)) {
-      return (
-        <div className="nav-bar">
-          <a href="/">
-            <img
-              className="logo"
-              src={Logo}
-              alt="North Shore Economic Vitally Partnership Logo"
-            />
-          </a>
-          <div style={{ width: '100%', marginLeft: '16px' }}>
-            <h3 style={{ margin: '0px' }}>North Shore</h3>
-            <h3 style={{ margin: '0px' }}>EVP</h3>
-          </div>
-          <nav>
-            {isSignedIn(credentials) && (
-              <ul>
-                <div className="dropdown-safety-box" />
-                <li className="nav-item dropdown-container">
-                  <SettingsDropdown history={history} />
-                </li>
-              </ul>
-            )}
-          </nav>
-        </div>
-      );
-    }
-
-    // else, if is signed in and DONE with onboarding
 
     return (
       <div className="nav-bar">
