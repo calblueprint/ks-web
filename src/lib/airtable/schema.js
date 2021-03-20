@@ -24,7 +24,6 @@ export const Columns = {
     name: { name: `Name`, type: `formula` },
     farmIds: { name: `Farm`, type: `foreignKey-many` },
     profilePicture: { name: `Profile Picture`, type: `multipleAttachment` },
-    onboardingStep: { name: `Onboarding Step`, type: `number` },
     commentIds: { name: `Comments`, type: `foreignKey-many` },
     recentUpdateIds: { name: `Recent Updates`, type: `foreignKey-many` }
   },
