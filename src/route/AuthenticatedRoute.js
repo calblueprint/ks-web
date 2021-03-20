@@ -7,25 +7,15 @@ import SuspenseRoute from './SuspenseRoute';
 
 class AuthenticatedRoute extends React.PureComponent {
   isAuthorized() {
-    const { user, credential, onboarding } = this.props;
+    const { user, credentialCheck } = this.props;
     const userCredentials = getCredentials(user);
-    // If user is still onboarding, they can only access onboarding routes
-    if (isOnboarding(userCredentials)) {
-      return onboarding;
+
+    if (credentialCheck) {
+      // If credential check prop exists, ensure they are authorized
+      return credentialCheck(userCredentials);
     }
 
-    if (credential) {
-      // If credential prop exists, ensure they are authorized
-      return userCredentials.includes(credential);
-    }
-
-    // If this is the onboarding route, user must either be signed out
-    // or actively onboarding (handled above)
-    if (onboarding) {
-      return !isSignedIn(userCredentials);
-    }
-
-    // else, just ensure they are signed in
+    // ensure they are signed in
     return isSignedIn(userCredentials);
   }
 

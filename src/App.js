@@ -8,6 +8,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import '@styles/App.css';
 
 import KSDashboard from '@ks/dashboard/KSDashboard';
+import FarmReferralForm from '@ks/FarmReferralForm';
 import NSEVPDashboard from '@nsevp/dashboard/NSEVPDashboard';
 import UserProfile from '@shared/UserProfile';
 import Login from '@shared/auth/Login';
@@ -92,7 +93,11 @@ class App extends React.Component {
 
               <SuspenseRoute exact path="/about" component={About} />
               <AuthenticatedRoute path="/profile" component={UserProfile} />
-
+              <AuthenticatedRoute
+                path="/referrals"
+                component={FarmReferralForm}
+                credentialCheck={isKSUser}
+              />
               <SuspenseRoute path="*" component={ErrorPage} />
             </Switch>
           </div>
