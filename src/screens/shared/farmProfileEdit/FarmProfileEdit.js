@@ -17,13 +17,14 @@ const styles = {
     width: '100%'
   },
   dropdown: {
+    width: '40%'
+  },
+  menuItem: {
     display: 'flex',
     alignItems: 'center',
     '& > div': {
       display: 'inline-flex'
-    },
-    width: '33%',
-    minWidth: 400
+    }
   }
 };
 
@@ -40,7 +41,7 @@ class FarmProfileEdit extends React.Component {
       city: '',
       state: '',
       zip: '',
-      gapStatus: ''
+      gapStatus: 0
     };
   }
 
@@ -74,19 +75,23 @@ class FarmProfileEdit extends React.Component {
         <FarmProfileEditForm handleChange={this.handleChange} />
 
         <h2>Group Gap Contact</h2>
-        <FormControl variant="outlined" className={classes.dropdwn}>
+        <FormControl variant="outlined">
           <Select
             className={classes.dropdown}
             value={this.state.gapContact}
             onChange={this.handleChange}
           >
-            <MenuItem value="">None</MenuItem>
+            <MenuItem className={classes.menuItem} value="">
+              None
+            </MenuItem>
             {contacts.map((name, index) => (
-              <MenuItem className={classes.dropdown} value={index}>
-                <ListItemIcon>
-                  <AccountCircleIcon />
-                </ListItemIcon>
-                {name}
+              <MenuItem className={classes.menuItem} value={index}>
+                <div className={classes.menuItem}>
+                  <ListItemIcon>
+                    <AccountCircleIcon fontSize="large" />
+                  </ListItemIcon>
+                  {name}
+                </div>
               </MenuItem>
             ))}
           </Select>
