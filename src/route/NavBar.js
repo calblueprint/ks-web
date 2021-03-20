@@ -82,6 +82,17 @@ class NavBar extends React.PureComponent {
                     </NavLink>
                   </li>
                 )}
+                {isNSEVPUser(credentials) && (
+                  <li>
+                    <NavLink
+                      to="/error"
+                      className="nav-bar__header"
+                      activeClassName="nav-bar__header-active"
+                    >
+                      Referrals
+                    </NavLink>
+                  </li>
+                )}
                 {isKSUser(credentials) && (
                   <li>
                     <NavLink
@@ -89,7 +100,7 @@ class NavBar extends React.PureComponent {
                       className="nav-bar__header"
                       activeClassName="nav-bar__header-active"
                     >
-                      Referrals
+                      Referral
                     </NavLink>
                   </li>
                 )}
