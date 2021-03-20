@@ -27,8 +27,7 @@ class Login extends React.Component {
   };
 
   handleSignUpOnClick = () => {
-    const { history } = this.props;
-    history.push(Constants.SIGNUP_ROUTE);
+    // TODO
   };
 
   handleSubmit = async evt => {
@@ -71,7 +70,6 @@ class Login extends React.Component {
     }
     return (
       <div className="center card flex column">
-        {/* TODO: Replace PPModal for Forgot Password */}
         <h1 className="t-center login-header">Welcome back!</h1>
         <br />
         <form onSubmit={this.handleSubmit} className="flex column ">

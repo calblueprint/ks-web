@@ -1,13 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import {
   isNSEVPUser,
   isKSUser,
   isSignedIn,
   getCredentials
 } from '@lib/credentials';
+
 import '@styles/NavBar.css';
 import NSEVPLogo from '@assets/NSEVP-LOGO.svg';
 import KSLogo from '@assets/KS-LOGO.svg';
@@ -18,6 +18,7 @@ class NavBar extends React.PureComponent {
   render() {
     const { user, pathname, history } = this.props;
     const credentials = getCredentials(user);
+
     let affiliation;
     if (isNSEVPUser(credentials)) {
       affiliation = (
