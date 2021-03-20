@@ -1,75 +1,95 @@
-* {
-  box-sizing: border-box;
-}
-
 .farm-search__body {
-  margin: 5%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 32px;
+  max-width: 1680px;
 }
 
 .farm-search__header {
+  align-items: center;
   display: flex;
+  flex: 0 1 0;
   justify-content: space-between;
-  margin-bottom: 3.75%;
-  font-weight: bold;
-  font-size: 36px;
-  line-height: 100%;
-  letter-spacing: 1px;
 }
 
-.farm-search__search {
-  position: relative;
-  width: 440px;
-  height: 32px;
+.farm-search__header-left-column {
+  align-items: center;
+  display: flex;
+  flex: 1;
+}
+
+.farm-search__header-right-column {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.farm-search__input {
+  align-items: center;
+  background-color: white;
+  border-radius: 18px;
   color: var(--ks-medium-light-grey);
-}
-.farm-search__search input[type='text'] {
-  border: none;
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;
-  padding-left: 17px;
-  color: var(--ks-dark-grey);
-  font-size: 15px;
-  vertical-align: middle;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  height: 36px;
+  justify-content: space-between;
+  margin-left: 48px;
+  max-width: 600px;
+  min-width: 200px;
 }
 
-.farm-search__search input[type='image'] {
-  position: absolute;
-  right: 0;
-  top: 0;
-  margin-top: 15px;
-  margin-right: 10px;
+.farm-search__input [type='text'] {
+  border: none;
+  color: var(--ks-dark-grey);
+  font-family: 'Inter';
+  font-size: 14px;
+  height: 100%;
+  margin-left: 16px;
+  width: 100%;
+}
+
+.farm-search__input [type='image'] {
+  height: 16px;
+  margin-right: 16px;
+  width: 16px;
 }
 
 .farm-search__filter {
-  width: 17%;
-  height: 40px;
+  align-items: center;
   background-color: var(--ks-light-grey);
-  border: 1px solid var(--ks-font-light);
   border-radius: 5px;
+  border: 1px solid var(--ks-font-light);
   color: var(--ks-font-light);
+  display: flex;
   font-size: 14px;
-  text-align: left;
-  padding-left: 15px;
-  margin-left: 20px;
+  height: 44px;
+  justify-content: center;
+  margin-left: 16px;
+  padding: 16px;
 }
 
 .farm-search__grid {
   display: grid;
-  grid-template-columns: 27.77% 27.77% 27.77%;
-  grid-column-gap: 8%;
-  grid-row-gap: 65px;
+  gap: 48px;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 24px;
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 1100px) {
   .farm-search__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .farm-search__grid {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
   }
+}
+
+.farm-search__link {
+  text-decoration: none;
 }

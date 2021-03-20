@@ -74,14 +74,46 @@ w-100 {
   margin-right: auto;
 }
 
-.mt-15 {
-  margin-top: 1.5rem;
-}
-.mr-1 {
-  margin-right: 1rem;
+.b-is-valid {
+  border: none;
 }
 
-.error-text {
-  color: var(--pp-invalid);
-  font-size: 14px;
+.b-is-not-valid {
+  border: 1.5px solid var(--pp-invalid);
+}
+
+.input-gray {
+  background-color: #f6f7f9;
+  color: var(--pp-black);
+  border-radius: 2.5px;
+  box-shadow: none;
+  margin: 0.1rem 0.1rem;
+  padding: 0.4rem 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+  border: none;
+}
+
+.input-gray ::placeholder {
+  color: #9ba3ad;
+}
+
+.input-gray ::-ms-input-placeholder {
+  color: #9ba3ad;
+}
+
+.input-gray ::-ms-input-placeholder {
+  color: #9ba3ad;
+}
+
+.onboarding-col {
+  flex-direction: column;
+}
+
+.card {
+  background-color: white !important;
+  padding: 3rem 3rem !important;
+  border-radius: 15px;
+  width: 20rem !important;
 }

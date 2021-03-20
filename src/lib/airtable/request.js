@@ -43,32 +43,47 @@ export const createManyUsers = async records => {
   return Promise.all(createPromises);
 };
 
-export const createRateSchedule = async record => {
-  return createRecord(Tables.RateSchedule, record);
+export const createFarm = async record => {
+  return createRecord(Tables.Farm, record);
 };
 
-export const createManyRateSchedules = async records => {
+export const createManyFarms = async records => {
   const createPromises = [];
   const numCalls = Math.ceil(records.length / 10);
   for (let i = 0; i < numCalls; i += 1) {
     const subset = records.slice(i * 10, (i + 1) * 10);
     if (subset.length > 0)
-      createPromises.push(createRecords(Tables.RateSchedule, subset));
+      createPromises.push(createRecords(Tables.Farm, subset));
   }
   return Promise.all(createPromises);
 };
 
-export const createInvestmentBreakdown = async record => {
-  return createRecord(Tables.InvestmentBreakdown, record);
+export const createComment = async record => {
+  return createRecord(Tables.Comments, record);
 };
 
-export const createManyInvestmentBreakdowns = async records => {
+export const createManyComments = async records => {
   const createPromises = [];
   const numCalls = Math.ceil(records.length / 10);
   for (let i = 0; i < numCalls; i += 1) {
     const subset = records.slice(i * 10, (i + 1) * 10);
     if (subset.length > 0)
-      createPromises.push(createRecords(Tables.InvestmentBreakdown, subset));
+      createPromises.push(createRecords(Tables.Comments, subset));
+  }
+  return Promise.all(createPromises);
+};
+
+export const createRecentUpdate = async record => {
+  return createRecord(Tables.RecentUpdates, record);
+};
+
+export const createManyRecentUpdates = async records => {
+  const createPromises = [];
+  const numCalls = Math.ceil(records.length / 10);
+  for (let i = 0; i < numCalls; i += 1) {
+    const subset = records.slice(i * 10, (i + 1) * 10);
+    if (subset.length > 0)
+      createPromises.push(createRecords(Tables.RecentUpdates, subset));
   }
   return Promise.all(createPromises);
 };
@@ -91,43 +106,54 @@ export const getAllUsers = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.User, filterByFormula, sort);
 };
 
-export const getRateScheduleById = async id => {
-  return getRecordById(Tables.RateSchedule, id);
+export const getFarmById = async id => {
+  return getRecordById(Tables.Farm, id);
 };
 
-export const getRateSchedulesByIds = async (
+export const getFarmsByIds = async (ids, filterByFormula = '', sort = []) => {
+  let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
+  formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
+  return getAllRecords(Tables.Farm, formula, sort);
+};
+
+export const getAllFarms = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.Farm, filterByFormula, sort);
+};
+
+export const getCommentById = async id => {
+  return getRecordById(Tables.Comments, id);
+};
+
+export const getCommentsByIds = async (
   ids,
   filterByFormula = '',
   sort = []
 ) => {
   let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
   formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
-  return getAllRecords(Tables.RateSchedule, formula, sort);
+  return getAllRecords(Tables.Comments, formula, sort);
 };
 
-export const getAllRateSchedules = async (filterByFormula = '', sort = []) => {
-  return getAllRecords(Tables.RateSchedule, filterByFormula, sort);
+export const getAllComments = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.Comments, filterByFormula, sort);
 };
 
-export const getInvestmentBreakdownById = async id => {
-  return getRecordById(Tables.InvestmentBreakdown, id);
+export const getRecentUpdateById = async id => {
+  return getRecordById(Tables.RecentUpdates, id);
 };
 
-export const getInvestmentBreakdownsByIds = async (
+export const getRecentUpdatesByIds = async (
   ids,
   filterByFormula = '',
   sort = []
 ) => {
   let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
   formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
-  return getAllRecords(Tables.InvestmentBreakdown, formula, sort);
+  return getAllRecords(Tables.RecentUpdates, formula, sort);
 };
 
-export const getAllInvestmentBreakdowns = async (
-  filterByFormula = '',
-  sort = []
-) => {
-  return getAllRecords(Tables.InvestmentBreakdown, filterByFormula, sort);
+export const getAllRecentUpdates = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.RecentUpdates, filterByFormula, sort);
 };
 
 /*
@@ -149,32 +175,47 @@ export const updateManyUsers = async recordUpdates => {
   return Promise.all(updatePromises);
 };
 
-export const updateRateSchedule = async (id, recordUpdates) => {
-  return updateRecord(Tables.RateSchedule, id, recordUpdates);
+export const updateFarm = async (id, recordUpdates) => {
+  return updateRecord(Tables.Farm, id, recordUpdates);
 };
 
-export const updateManyRateSchedules = async recordUpdates => {
+export const updateManyFarms = async recordUpdates => {
   const updatePromises = [];
   const numCalls = Math.ceil(recordUpdates.length / 10);
   for (let i = 0; i < numCalls; i += 1) {
     const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
     if (subset.length > 0)
-      updatePromises.push(updateRecords(Tables.RateSchedule, subset));
+      updatePromises.push(updateRecords(Tables.Farm, subset));
   }
   return Promise.all(updatePromises);
 };
 
-export const updateInvestmentBreakdown = async (id, recordUpdates) => {
-  return updateRecord(Tables.InvestmentBreakdown, id, recordUpdates);
+export const updateComment = async (id, recordUpdates) => {
+  return updateRecord(Tables.Comments, id, recordUpdates);
 };
 
-export const updateManyInvestmentBreakdowns = async recordUpdates => {
+export const updateManyComments = async recordUpdates => {
   const updatePromises = [];
   const numCalls = Math.ceil(recordUpdates.length / 10);
   for (let i = 0; i < numCalls; i += 1) {
     const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
     if (subset.length > 0)
-      updatePromises.push(updateRecords(Tables.InvestmentBreakdown, subset));
+      updatePromises.push(updateRecords(Tables.Comments, subset));
+  }
+  return Promise.all(updatePromises);
+};
+
+export const updateRecentUpdate = async (id, recordUpdates) => {
+  return updateRecord(Tables.RecentUpdates, id, recordUpdates);
+};
+
+export const updateManyRecentUpdates = async recordUpdates => {
+  const updatePromises = [];
+  const numCalls = Math.ceil(recordUpdates.length / 10);
+  for (let i = 0; i < numCalls; i += 1) {
+    const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
+    if (subset.length > 0)
+      updatePromises.push(updateRecords(Tables.RecentUpdates, subset));
   }
   return Promise.all(updatePromises);
 };
@@ -186,9 +227,12 @@ export const updateManyInvestmentBreakdowns = async recordUpdates => {
 export const deleteUser = async id => {
   return deleteRecord(Tables.User, id);
 };
-export const deleteRateSchedule = async id => {
-  return deleteRecord(Tables.RateSchedule, id);
+export const deleteFarm = async id => {
+  return deleteRecord(Tables.Farm, id);
 };
-export const deleteInvestmentBreakdown = async id => {
-  return deleteRecord(Tables.InvestmentBreakdown, id);
+export const deleteComment = async id => {
+  return deleteRecord(Tables.Comments, id);
+};
+export const deleteRecentUpdate = async id => {
+  return deleteRecord(Tables.RecentUpdates, id);
 };

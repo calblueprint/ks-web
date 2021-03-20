@@ -1,79 +1,100 @@
-/*
-  Is setthe height of the component this way good practice? 
-  How am i supposed to set the height of the screen otherwise? 
-  Setting height 100% pushes the div below the fold due to the nav taking up room. 
-*/
-
-.is-loading-div {
-  height: 200px;
-  border-radius: 5px;
-  background: white;
+.dashboard__container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 32px;
+  max-width: 1680px;
 }
 
-.dashboard-container {
-  margin: 5%;
+.dashboard__stat-card-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 -16px;
 }
 
-/* Float three columns side by side */
-.stat-card-column {
-  float: left;
-  width: 18%;
-  padding: 0 10px;
+.dashboard__secondary-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 -16px;
+  min-width: 256px;
 }
 
-/* Remove extra left and right margins, due to padding */
-.stat-card-row {
-  width: 100%;
-  /* margin: 0 -5px; */
-}
-
-/* Clear floats after the columns */
-.stat-card-row:after {
-  content: '';
-  display: table;
-  clear: both;
-}
-
-/* Responsive columns */
-@media screen and (max-width: 600px) {
-  .stat-card-column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
-}
-
-/* Style the counter cards */
 .stat-card {
-  padding: 16px;
-  text-align: center;
-  margin-bottom: 40px;
+  align-items: center;
   background-color: white;
-  height: 240px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  margin: 16px;
+  min-width: 256px;
+  padding: 24px;
+  text-align: center;
 }
 
-.dashboard-update {
-  border-style: solid;
-  border-color: var(--ks-medium-dark-grey);
+.stat-card__icon {
+  padding: 20px;
+}
+
+.dashboard__updates-container {
+  background-color: white;
+  flex: 1;
+  height: 512px;
+  margin: 16px;
+  min-width: 256px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 12px 24px 24px 24px;
+}
+
+.update {
+  align-items: center;
+  align-items: flex-start;
+  background-color: white;
   border-bottom-width: 1px;
-  border-top-width: 0;
+  border-color: var(--ks-medium-dark-grey);
   border-left-width: 0;
   border-right-width: 0;
-  background-color: white;
-  padding: 16px;
+  border-style: solid;
+  border-top-width: 0;
+  display: flex;
+  flex-direction: row;
+  padding: 12px 0px;
 }
 
-.dashboard-updates-box {
-  background-color: white;
-  width: 25%;
-  padding: 8px;
-  float: right;
-  overflow: scroll;
-  height: 470px;
+.update__profile-pic {
+  margin: 16px 16px 16px 0px;
+  width: 48px;
 }
 
-.dashboard-chart {
-  width: 70%;
-  height: 470px;
-  background-color: #eeeeee;
+.update__title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.update__title > * {
+  margin-bottom: 0px;
+}
+.update__body {
+  width: 80%;
+}
+
+/* Filler for aesthetic */
+.dashboard__production-container {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex: 2.25;
+  height: 512px;
+  justify-content: center;
+  margin: 16px;
+  min-width: 512px;
+}
+
+.dashboard__production-container img {
+  max-width: 100%;
 }

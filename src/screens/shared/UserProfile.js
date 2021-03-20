@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateUser } from '../../lib/airtable/request';
-import { refreshUserData } from '../../lib/redux/userData';
-import { validateField } from '../../lib/onboardingUtils';
-import '../../styles/UserProfilePage.css';
-import DefaultUserIcon from '../../assets/DefaultUserIcon-Large.png';
+import { updateUser } from '@lib/airtable/request';
+import { refreshUserData } from '@lib/redux/userData';
+import { validateField } from '@lib/utils';
+import '@styles/UserProfilePage.css';
 
 class UserProfile extends React.Component {
   constructor(props) {

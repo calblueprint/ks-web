@@ -53,5 +53,24 @@
   "parser": "babel-eslint",
   "env": {
     "jest": true
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@assets", "./src/assets/"],
+          ["@components", "./src/components/"],
+          ["@components", "./src/components"],
+          ["@ks", "./src/screens/ks"],
+          ["@lib", "./src/lib/"],
+          ["@nsevp", "./src/screens/nsevp"],
+          ["@root", "./src/"],
+          ["@route", "./src/route/"],
+          ["@shared", "./src/screens/shared"],
+          ["@styles", "./src/styles/"]
+        ],
+        "extensions": [".js", ".css"]
+      }
+    }
   }
 }
