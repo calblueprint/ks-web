@@ -11,14 +11,7 @@ class UserProfile extends React.Component {
     super(props);
     this.state = {
       updateName: '',
-      updatePhoneNumber: '',
-      updatePermanentStreet1: '',
-      updatePermanentStreet2: '',
-      updatePermanentCity: '',
-      updatePermanentState: '',
-      updatePermanentZipcode: '',
       generalEditMode: false,
-      contactEditMode: false,
       errors: {}
     };
   }
@@ -75,36 +68,8 @@ class UserProfile extends React.Component {
       await refreshUserData(user.id);
 
       // Update Visual state
-      const { generalEditMode, contactEditMode } = this.state;
-      if (type === 'general') {
-        this.setState({ generalEditMode: !generalEditMode });
-      } else if (type === 'contact') {
-        this.setState({ contactEditMode: !contactEditMode });
-      }
-    }
-  };
-
-  onContactButtonPressed = async () => {
-    const {
-      contactEditMode,
-      updatePhoneNumber,
-      updatePermanentStreet1
-    } = this.state;
-
-    if (contactEditMode) {
-      // Validate data
-      this.validateAndSubmitData(
-        {
-          phoneNumber: updatePhoneNumber,
-          permanentStreet1: updatePermanentStreet1
-        },
-        'contact'
-      );
-    } else {
-      // Change visual state
-      this.setState({
-        contactEditMode: true
-      });
+      const { generalEditMode } = this.state;
+      this.setState({ generalEditMode: !generalEditMode });
     }
   };
 
@@ -128,17 +93,6 @@ class UserProfile extends React.Component {
 
   populateUserInformation = type => {
     const { user } = this.props;
-
-    if (type === 'contact' || type === 'both') {
-      this.setState({
-        updatePhoneNumber: user.phoneNumber,
-        updatePermanentStreet1: user.permanentStreet1,
-        updatePermanentStreet2: user.permanentStreet2,
-        updatePermanentCity: user.permanentCity,
-        updatePermanentState: user.permanentState,
-        updatePermanentZipcode: user.permanentZipcode
-      });
-    }
     if (type === 'general' || type === 'both') {
       this.setState({
         updateName: user.Name
@@ -169,7 +123,7 @@ class UserProfile extends React.Component {
   }
 
   render() {
-    const { updateName, generalEditMode, contactEditMode } = this.state;
+    const { updateName, generalEditMode } = this.state;
 
     const { user } = this.props;
 
@@ -241,54 +195,7 @@ class UserProfile extends React.Component {
                 </div>
                 <div>
                   <p className="user-profile__company">
-                    <label htmlFor="updateCompany">Company</label>
-                  </p>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div className="row">
-            <div
-              className={`contact-info-form settings-edit-${
-                contactEditMode ? 'enabled' : 'disabled'
-              }`}
-            >
-              <div className="user-profile-contact-form-header">
-                <h2>Contact Information</h2>
-                <div className="user-profile-contact-form-header-buttons">
-                  <button type="button" onClick={this.onContactButtonPressed}>
-                    {contactEditMode ? 'Save' : 'Edit'}
-                  </button>
-                  <button
-                    style={{ display: contactEditMode ? '' : 'none' }}
-                    type="button"
-                    onClick={() => this.handleCancel('contact')}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-              <form>
-                <div>
-                  <p>
-                    <label htmlFor="updatePhone">
-                      Phone Number:
-                      {this.renderInputLabel(
-                        'updatePhoneNumber',
-                        contactEditMode
-                      )}
-                    </label>
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <label htmlFor="updateAddress">
-                      Address:
-                      {this.renderInputLabel(
-                        'updatePermanentStreet1',
-                        contactEditMode
-                      )}
-                    </label>
+                    <label htmlFor="updateCompany">Organization</label>
                   </p>
                 </div>
               </form>
