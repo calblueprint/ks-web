@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { updateUser } from '@lib/airtable/request';
 import { refreshUserData } from '@lib/redux/userData';
 import { validateField } from '@lib/utils';
+import { getUser } from '@lib/userUtils';
 import '@styles/UserProfilePage.css';
 import DefaultUserIcon from '@assets/defaultUserIcon-small.svg';
 
@@ -12,66 +13,11 @@ class UserProfile extends React.Component {
     this.state = {
       updateName: '',
       generalEditMode: false,
-      errors: {}
+      errors: {},
+      userId: '',
+      userType: ''
     };
   }
-
-  componentDidMount() {
-    this.populateUserInformation('both');
-  }
-
-  componentDidUpdate(prevProps) {
-    const { user } = this.props;
-    if (user !== prevProps.user) {
-      this.populateUserInformation('both');
-    }
-  }
-
-  handleCancel = type => {
-    this.setState({ [`${type}EditMode`]: false });
-    this.populateUserInformation(type);
-  };
-
-  handleChange = event => {
-    const target = event.target.name;
-
-    this.setState({
-      [target]: event.target.value
-    });
-  };
-
-  validateAndSubmitData = async (newUser, type) => {
-    const { user } = this.props;
-    const errors = {};
-    let foundErrors = false;
-    const fields = Object.keys(newUser);
-
-    const errorMessages = await Promise.all(
-      fields.map(field => validateField(field, newUser[field]))
-    );
-    errorMessages.forEach((errorMessage, i) => {
-      const fieldName = `update${fields[i].charAt(0).toUpperCase() +
-        fields[i].slice(1)}`;
-      errors[fieldName] = errorMessage;
-      if (errorMessage !== '') {
-        foundErrors = true;
-      }
-    });
-
-    this.setState({
-      errors
-    });
-
-    if (!foundErrors) {
-      // Update user and refresh local cache
-      await updateUser(user.id, newUser);
-      await refreshUserData(user.id);
-
-      // Update Visual state
-      const { generalEditMode } = this.state;
-      this.setState({ generalEditMode: !generalEditMode });
-    }
-  };
 
   onGeneralButtonPressed = async () => {
     const { generalEditMode, updateName } = this.state;
@@ -87,15 +33,6 @@ class UserProfile extends React.Component {
       // Change visual state
       this.setState({
         generalEditMode: true
-      });
-    }
-  };
-
-  populateUserInformation = type => {
-    const { user } = this.props;
-    if (type === 'general' || type === 'both') {
-      this.setState({
-        updateName: user.Name
       });
     }
   };
@@ -144,10 +81,7 @@ class UserProfile extends React.Component {
                 alt="DefaultUserIcon"
                 className="user-icon__photo"
               />
-              <h3>Kevin Kelly</h3>
-              {/**
-               * {`${updateName}`}
-               * */}
+              <h3>{user.name}</h3>
               <h4>CEO</h4>
             </div>
 
@@ -176,6 +110,7 @@ class UserProfile extends React.Component {
                   <p>
                     <label htmlFor="updateName">
                       Name
+                      <label className="settings-label">{user.name}</label>
                       {this.renderInputLabel('updateName', generalEditMode)}
                     </label>
                   </p>
@@ -194,7 +129,7 @@ class UserProfile extends React.Component {
                   </p>
                 </div>
                 <div>
-                  <p className="user-profile__company">
+                  <p>
                     <label htmlFor="updateCompany">Organization</label>
                   </p>
                 </div>
@@ -211,3 +146,73 @@ const mapStateToProps = state => ({
   user: state.userData.user
 });
 export default connect(mapStateToProps)(UserProfile);
+
+/**
+  componentDidMount() {
+    this.populateUserInformation('general');
+  }
+
+  componentDidUpdate(prevProps) {
+    const { user } = this.props;
+    if (user !== prevProps.user) {
+      this.populateUserInformation('general');
+    }
+  }
+  
+
+  handleCancel = type => {
+    this.setState({ [`${type}EditMode`]: false });
+    this.populateUserInformation(type);
+  };
+
+  handleChange = event => {
+    const target = event.target.name;
+
+    this.setState({
+      [target]: event.target.value
+    });
+  };
+
+  validateAndSubmitData = async (newUser, type) => {
+    const { user } = this.props;
+    const errors = {};
+    let foundErrors = false;
+    const fields = Object.keys(newUser);
+
+    const errorMessages = await Promise.all(
+      fields.map(field => validateField(field, newUser[field]))
+    );
+    errorMessages.forEach((errorMessage, i) => {
+      const fieldName = `update${fields[i].charAt(0).toUpperCase() +
+        fields[i].slice(1)}`;
+      errors[fieldName] = errorMessage;
+      if (errorMessage !== '') {
+        foundErrors = true;
+      }
+    });
+
+    this.setState({
+      errors
+    });
+
+    if (!foundErrors) {
+      // Update user and refresh local cache
+      await updateUser(user.id, newUser);
+      await refreshUserData(user.id);
+
+      // Update Visual state
+      const { generalEditMode } = this.state;
+      this.setState({ generalEditMode: !generalEditMode });
+    }
+  };
+
+  populateUserInformation = type => {
+    const { user } = this.props;
+    if (type === 'general') {
+      this.setState({
+        updateName: user.Name
+      });
+    }
+  };
+
+  */

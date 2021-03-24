@@ -115,22 +115,6 @@
   padding-bottom: 5%;
 }
 
-.user-profile-contact-form-header-buttons {
-  display: flex;
-  flex-direction: row;
-}
-
-.user-profile-contact-form-header-buttons button {
-  margin: 8px;
-  border: 1px solid #4074b0;
-  box-sizing: border-box;
-  border-radius: 2.5px;
-  background-color: white;
-  color: var(--ks-dark-blue);
-  padding-top: 5%;
-  padding-bottom: 5%;
-}
-
 .user-profile-general-form-header h2 {
   margin-top: 0px;
   margin-bottom: 0px;
@@ -141,39 +125,6 @@
 }
 
 .user-profile-general-form-header button {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.contact-info-form {
-  background: white;
-  float: right;
-  border-radius: 5px;
-  font-size: 16px;
-  padding: 32px;
-  width: 100%;
-  margin-bottom: 30px;
-}
-
-.user-profile-contact-form-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  align-items: center;
-}
-
-.user-profile-contact-form-header h2 {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  font-weight: 800;
-  font-size: 18px;
-  line-height: 25px;
-  color: var(--ks-dark-blue);
-}
-
-.user-profile-contact-form-header button {
   padding-left: 20px;
   padding-right: 20px;
 }
