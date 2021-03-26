@@ -16,7 +16,7 @@ import SettingsDropdown from './SettingsDropdown';
 
 class NavBar extends React.PureComponent {
   render() {
-    const { user, pathname, history } = this.props;
+    const { user, history } = this.props;
     const credentials = getCredentials(user);
 
     let affiliation;
@@ -100,7 +100,7 @@ class NavBar extends React.PureComponent {
                     alt="NavBarIcon"
                     className="nav-button__user-icon"
                   />
-                  <div className="nav-button__name">{this.props.user.name}</div>
+                  <div className="nav-button__name">{user.name}</div>
                 </button>
 
                 <div className="dropdown-safety-box" />

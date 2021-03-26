@@ -1,5 +1,5 @@
 import React from 'react';
-import '@styles/NSEVPUserDashboard.css';
+import '@styles/Dashboard.css';
 
 class StatCard extends React.PureComponent {
   render() {
