@@ -1,103 +1,114 @@
 import React from 'react';
 
-import { TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import FieldInput from '@components/FieldInput';
+import Dropdown from '@components/Dropdown';
 
 const styles = {
   root: {
-    border: '1.75px solid var(--ks-medium-dark-grey)',
-    borderRadius: 10,
-    padding: 48,
+    padding: '0px 24px',
     margin: '24px 0px 48px 0px'
   },
   row: {
     display: 'flex',
     justifyContent: 'center',
-    margin: '24px 0px',
+    alignItems: 'flex-start',
+    margin: '16px 0px',
     width: '100%'
   },
-  input: {
-    margin: '0px 24px'
+  dropdown: {
+    flex: 1,
+    marginTop: -16
   }
 };
-class FarmProfileEditForm extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+class FarmProfileEditForm extends React.PureComponent {
   render() {
-    const { classes, handleChange } = this.props;
-    const fieldProps = {
-      className: classes.input,
-      fullWidth: true,
-      margin: 'normal',
-      InputLabelProps: {
-        shrink: true
-      },
-      variant: 'outlined'
-    };
+    const { values, classes, handleChange } = this.props;
     return (
       <div className={classes.root}>
         <div className={classes.row}>
-          <TextField
-            {...fieldProps}
+          <FieldInput
             label="First Name"
-            placeholder="First Name"
             onChange={handleChange('firstName')}
+            placeholder="Andi"
           />
-          <TextField
-            {...fieldProps}
+          <FieldInput
             label="Last Name"
-            placeholder="Last Name"
             onChange={handleChange('lastName')}
-          />
-          <TextField
-            {...fieldProps}
-            label="Email"
-            placeholder="Email"
-            onChange={handleChange('email')}
+            placeholder="Halim"
           />
         </div>
         <div className={classes.row}>
-          <TextField
-            {...fieldProps}
+          <FieldInput
             label="Farm Name"
-            placeholder="Farm Name"
             onChange={handleChange('farmName')}
+            placeholder="Andi's Potato Farm"
           />
-          <TextField
-            {...fieldProps}
+        </div>
+        <div className={classes.row}>
+          <FieldInput
             label="Cell Phone"
-            placeholder="Cell Phone"
-            onChange={handleChange('phone')}
+            onChange={handleChange('cellPhone')}
+            placeholder="xxx-xxx-xxx"
+          />
+          <FieldInput
+            label="Email"
+            onChange={handleChange('email')}
+            placeholder="farmerfarmer@farmer.com"
           />
         </div>
         <div className={classes.row}>
-          <TextField
-            {...fieldProps}
-            label="Farm Address - Street"
-            placeholder="Address"
-            onChange={handleChange('streetAddress')}
+          <FieldInput
+            label={`Farm Physical Address \u2014 Street`}
+            onChange={handleChange('physicalStreet')}
+            placeholder="xxxx Farmer Lane"
           />
         </div>
         <div className={classes.row}>
-          <TextField
-            {...fieldProps}
+          <FieldInput
             label="City"
-            placeholder="City"
-            onChange={handleChange('city')}
+            onChange={handleChange('physicalCity')}
+            placeholder="Honolulu"
           />
-          <TextField
-            {...fieldProps}
-            label="State"
-            placeholder="State"
-            onChange={handleChange('state')}
-          />
-          <TextField
-            {...fieldProps}
+          <div className={classes.dropdown}>
+            <Dropdown
+              label="State"
+              items={['HI', 'CA']}
+              onChange={handleChange('physicalState')}
+              value={values.physicalState}
+            />
+          </div>
+          <FieldInput
             label="ZIP"
-            placeholder="ZIP"
-            onChange={handleChange('zip')}
+            onChange={handleChange('physicalZip')}
+            placeholder="95070"
+          />
+        </div>
+        <div className={classes.row}>
+          <FieldInput
+            label={`Farm Mailing Address \u2014 Street`}
+            onChange={handleChange('mailStreet')}
+            placeholder="1887 Makuakane St"
+          />
+        </div>
+        <div className={classes.row}>
+          <FieldInput
+            label="City"
+            onChange={handleChange('mailCity')}
+            placeholder="Honolulu"
+          />
+          <div className={classes.dropdown}>
+            <Dropdown
+              label="State"
+              items={['HI', 'CA']}
+              onChange={handleChange('mailState')}
+              value={values.mailState}
+            />
+          </div>
+          <FieldInput
+            label="ZIP"
+            onChange={handleChange('mailZip')}
+            placeholder="95070"
           />
         </div>
       </div>

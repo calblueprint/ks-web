@@ -1,9 +1,9 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Select, FormControl, MenuItem, ListItemIcon } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import BackButton from '@components/BackButton';
+import Dropdown from '@components/Dropdown';
 import FarmProfileEditForm from './FarmProfileEditForm';
 
 const styles = {
@@ -16,15 +16,16 @@ const styles = {
     maxWidth: 1680,
     width: '100%'
   },
-  dropdown: {
-    width: '40%'
-  },
-  menuItem: {
+  row: {
     display: 'flex',
-    alignItems: 'center',
-    '& > div': {
-      display: 'inline-flex'
-    }
+    width: '60%'
+  },
+  rowItem: {
+    width: '100%',
+    marginRight: 48
+  },
+  header: {
+    marginBottom: 36
   }
 };
 
@@ -36,12 +37,17 @@ class FarmProfileEdit extends React.Component {
       lastName: '',
       email: '',
       farmName: '',
-      phone: '',
-      streetAddress: '',
-      city: '',
-      state: '',
-      zip: '',
-      gapStatus: 0
+      cellPhonehone: '',
+      physicalStreet: '',
+      physicalCity: '',
+      physicalState: 0,
+      physicalZip: '',
+      mailStreet: '',
+      mailCity: '',
+      mailState: 0,
+      mailZip: '',
+      gapStatus: 0,
+      foodHubAffiliation: 0
     };
   }
 
@@ -64,6 +70,7 @@ class FarmProfileEdit extends React.Component {
 
   render() {
     const { classes, match } = this.props;
+    const { foodHubAffiliation, gapStatus } = this.state;
     const { farmId } = match.params;
     const contacts = this.getNames();
 
@@ -71,31 +78,32 @@ class FarmProfileEdit extends React.Component {
       <div className={classes.root}>
         <BackButton label="Back to Farm" href={`/farm/${farmId}`} />
         <h1>Edit Information</h1>
-        <h2>Farm Information</h2>
-        <FarmProfileEditForm handleChange={this.handleChange} />
+        <h2>Contact Information</h2>
+        <FarmProfileEditForm
+          values={this.state}
+          handleChange={this.handleChange}
+        />
 
-        <h2>Group Gap Contact</h2>
-        <FormControl variant="outlined">
-          <Select
-            className={classes.dropdown}
-            value={this.state.gapContact}
-            onChange={this.handleChange}
-          >
-            <MenuItem className={classes.menuItem} value="">
-              None
-            </MenuItem>
-            {contacts.map((name, index) => (
-              <MenuItem className={classes.menuItem} value={index}>
-                <div className={classes.menuItem}>
-                  <ListItemIcon>
-                    <AccountCircleIcon fontSize="large" />
-                  </ListItemIcon>
-                  {name}
-                </div>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <div className={classes.row}>
+          <div className={classes.rowItem}>
+            <h2 className={classes.header}> Group Gap Contact</h2>
+            <Dropdown
+              items={contacts}
+              icon={<AccountCircleIcon fontSize="large" />}
+              onChange={this.handleChange('gapStatus')}
+              value={gapStatus}
+            />
+          </div>
+          <div className={classes.rowItem}>
+            <h2 className={classes.header}>Food Hub Affiliation</h2>
+            <Dropdown
+              items={contacts}
+              icon={<AccountCircleIcon fontSize="large" />}
+              onChange={this.handleChange('foodHubAffiliation')}
+              value={foodHubAffiliation}
+            />
+          </div>
+        </div>
       </div>
     );
   }
