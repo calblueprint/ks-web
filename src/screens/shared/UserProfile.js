@@ -11,14 +11,25 @@ class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userName: '',
+      userId: ''
+      /**
       updateName: '',
       generalEditMode: false,
       errors: {},
-      userId: '',
       userType: ''
+      */
     };
   }
 
+  async componentDidMount() {
+    const { match } = this.props;
+    const { userId } = match.params;
+    const user = getUser(userId);
+    this.setState({ user, userId });
+  }
+
+  /** 
   onGeneralButtonPressed = async () => {
     const { generalEditMode, updateName } = this.state;
     if (generalEditMode) {
@@ -58,9 +69,10 @@ class UserProfile extends React.Component {
       </div>
     );
   }
+*/
 
   render() {
-    const { updateName, generalEditMode } = this.state;
+    const { generalEditMode } = this.state;
 
     const { user } = this.props;
 
@@ -92,6 +104,7 @@ class UserProfile extends React.Component {
             >
               <div className="user-profile-general-form-header">
                 <h2>General</h2>
+                {/** 
                 <div className="user-profile-general-form-header-buttons">
                   <button type="button" onClick={this.onGeneralButtonPressed}>
                     {generalEditMode ? 'Save' : 'Edit'}
@@ -104,6 +117,7 @@ class UserProfile extends React.Component {
                     Cancel
                   </button>
                 </div>
+                */}
               </div>
               <form>
                 <div>
@@ -111,7 +125,7 @@ class UserProfile extends React.Component {
                     <label htmlFor="updateName">
                       Name
                       <label className="settings-label">{user.name}</label>
-                      {this.renderInputLabel('updateName', generalEditMode)}
+                      {/**{this.renderInputLabel('updateName', generalEditMode)}*/}
                     </label>
                   </p>
                 </div>

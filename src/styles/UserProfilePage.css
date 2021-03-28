@@ -46,6 +46,7 @@
   padding-bottom: 1%;
   padding-right: 2.5%;
   padding-left: 2.5%;
+  outline: none;
 }
 
 .user-icon {
@@ -113,6 +114,7 @@
   color: var(--ks-dark-blue);
   padding-top: 5%;
   padding-bottom: 5%;
+  outline: none;
 }
 
 .user-profile-general-form-header h2 {
