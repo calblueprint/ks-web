@@ -13,38 +13,34 @@ class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
-      userId: ''
-      /**
-      updateName: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      userTypes: '',
       generalEditMode: false,
-      errors: {},
-      userType: ''
-      */
     };
   }
 
   componentDidMount () {
     const { user } = this.props;
+    // pulling in currently logged user from props (redux) and updating the empty strings.
     this.setState({
-      updateName: user.name,
-      updateEmail: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      userTypes: user.userTypes,
     });
   }
-  
-
 
   render() {
-    const { generalEditMode } = this.state;
-    const { user } = this.props;
-    const credentials = getCredentials(user);
+    const { firstName, lastName, email, userTypes, generalEditMode } = this.state;
 
     return (
       <div className="dashboard settings">
         <div className="content">
           <div className="user-profile-settings-header">
             <h2>Settings</h2>
-            {isNSEVPUser(credentials) && (
+            {userTypes === "NSEVP" && (
               <Button>
                 Refresh Heavy Connect
               </Button>
@@ -62,7 +58,7 @@ class UserProfile extends React.Component {
                 alt="DefaultUserIcon"
                 className="user-icon__photo"
               />
-              <h3>{user.name}</h3>
+              <h3>{firstName}</h3>
               <h4>Position</h4>
             </div>
 
@@ -93,7 +89,7 @@ class UserProfile extends React.Component {
                   <p>
                     <label htmlFor="updateName">
                       Name
-                      <label className="settings-label">{user.name}</label>
+                      <label className="settings-label">{`${firstName} ${lastName}`}</label>
                       {/**{this.renderInputLabel('updateName', generalEditMode)}*/}
                     </label>
                   </p>
@@ -102,7 +98,7 @@ class UserProfile extends React.Component {
                   <p>
                     <label htmlFor="updateEmail">
                       Email
-                      <label className="settings-label">{user.email}</label>
+                      <label className="settings-label">{email}</label>
                     </label>
                   </p>
                 </div>
@@ -110,7 +106,7 @@ class UserProfile extends React.Component {
                   <p>
                     <label htmlFor="updatePassword">
                       Password
-                    <label className="settings-label">{user.id}</label>
+                    <label className="settings-label">Password</label>
                     </label>
                   </p>
                 </div>
@@ -118,7 +114,7 @@ class UserProfile extends React.Component {
                   <p>
                     <label htmlFor="updateCompany">
                       Organization
-                      <label className="settings-label">{user["user types"]}</label>
+                      <label className="settings-label">{userTypes}</label>
                       </label>
                   </p>
                 </div>
