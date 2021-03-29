@@ -61,7 +61,6 @@ class FarmProfileEdit extends React.Component {
       <div className={classes.root}>
         <BackButton label="Back to Farm" href={`/farm/${farmId}`} />
         <h1>Edit Information</h1>
-        <h2>Contact Information</h2>
         <FarmProfileEditForm
           values={this.state}
           handleChange={this.handleChange}
