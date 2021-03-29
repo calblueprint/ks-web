@@ -22,6 +22,8 @@ class FarmProfile extends React.Component {
   async componentDidMount() {
     const { match } = this.props;
     const { farmId } = match.params;
+    console.log(match)
+    console.log(farmId)
     const farm = await getSingleFarm(farmId);
     this.setState({ farm, farmId, loading: false });
   }

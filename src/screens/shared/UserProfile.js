@@ -4,14 +4,16 @@ import { updateUser } from '@lib/airtable/request';
 import { refreshUserData } from '@lib/redux/userData';
 import { validateField } from '@lib/utils';
 import { getUser } from '@lib/userUtils';
+import {getCredentials, isNSEVPUser} from '@lib/credentials'
 import '@styles/UserProfilePage.css';
+import { Button } from '@material-ui/core';
 import DefaultUserIcon from '@assets/defaultUserIcon-small.svg';
 
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: '',
+      user: {},
       userId: ''
       /**
       updateName: '',
@@ -22,68 +24,35 @@ class UserProfile extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    const { match } = this.props;
-    const { userId } = match.params;
-    const user = getUser(userId);
-    this.setState({ user, userId });
+  componentDidMount () {
+    const { user } = this.props;
+    this.setState({
+      updateName: user.name,
+      updateEmail: user.email,
+    });
   }
+  
 
-  /** 
-  onGeneralButtonPressed = async () => {
-    const { generalEditMode, updateName } = this.state;
-    if (generalEditMode) {
-      // Validate data
-      this.validateAndSubmitData(
-        {
-          Name: updateName
-        },
-        'general'
-      );
-    } else {
-      // Change visual state
-      this.setState({
-        generalEditMode: true
-      });
-    }
-  };
-
-  renderInputLabel(name, editable) {
-    const { [name]: value, errors } = this.state;
-    return (
-      <div>
-        {editable ? (
-          <input
-            type="text"
-            name={name}
-            placeholder={value}
-            value={value}
-            onChange={this.handleChange}
-          />
-        ) : (
-          <label className="settings-label">{value}</label>
-        )}
-        {errors[name] && (
-          <label style={{ color: 'red' }}>Error: {errors[name]}</label>
-        )}
-      </div>
-    );
-  }
-*/
 
   render() {
     const { generalEditMode } = this.state;
-
     const { user } = this.props;
+    const credentials = getCredentials(user);
 
     return (
       <div className="dashboard settings">
         <div className="content">
           <div className="user-profile-settings-header">
             <h2>Settings</h2>
-            <button type="button" className="user-profile-settings-refresh">
+            {isNSEVPUser(credentials) && (
+              <Button>
+                Refresh Heavy Connect
+              </Button>
+            )}
+            {/**
+             <button type="button" className="user-profile-settings-refresh">
               Refresh Heavy Connect
-            </button>
+            </button> */}
           </div>
 
           <div className="row">
@@ -94,7 +63,7 @@ class UserProfile extends React.Component {
                 className="user-icon__photo"
               />
               <h3>{user.name}</h3>
-              <h4>CEO</h4>
+              <h4>Position</h4>
             </div>
 
             <div
@@ -139,12 +108,18 @@ class UserProfile extends React.Component {
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="updatePassword">Password</label>
+                    <label htmlFor="updatePassword">
+                      Password
+                    <label className="settings-label">{user.id}</label>
+                    </label>
                   </p>
                 </div>
                 <div>
                   <p>
-                    <label htmlFor="updateCompany">Organization</label>
+                    <label htmlFor="updateCompany">
+                      Organization
+                      <label className="settings-label">{user["user types"]}</label>
+                      </label>
                   </p>
                 </div>
               </form>
@@ -162,6 +137,48 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(UserProfile);
 
 /**
+ * 
+   /** 
+  onGeneralButtonPressed = async () => {
+    const { generalEditMode, updateName } = this.state;
+    if (generalEditMode) {
+      // Validate data
+      this.validateAndSubmitData(
+        {
+          Name: updateName
+        },
+        'general'
+      );
+    } else {
+      // Change visual state
+      this.setState({
+        generalEditMode: true
+      });
+    }
+  };
+
+  renderInputLabel(name, editable) {
+    const { [name]: value, errors } = this.state;
+    return (
+      <div>
+        {editable ? (
+          <input
+            type="text"
+            name={name}
+            placeholder={value}
+            value={value}
+            onChange={this.handleChange}
+          />
+        ) : (
+          <label className="settings-label">{value}</label>
+        )}
+        {errors[name] && (
+          <label style={{ color: 'red' }}>Error: {errors[name]}</label>
+        )}
+      </div>
+    );
+  }
+
   componentDidMount() {
     this.populateUserInformation('general');
   }
@@ -224,9 +241,9 @@ export default connect(mapStateToProps)(UserProfile);
     const { user } = this.props;
     if (type === 'general') {
       this.setState({
-        updateName: user.Name
+        updateName: user.name,
+        updateEmail: user.email,
       });
     }
   };
-
   */

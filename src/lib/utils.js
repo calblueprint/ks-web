@@ -133,20 +133,7 @@ const validatePhoneNumber = value => {
 // Default for all fields: [validateExistence]
 const ValidatorData = {
   email: [validateExistence, validateEmail, validateUniqueEmail],
-  phoneNumber: [validateExistence, validatePhoneNumber],
   password: [validateExistence, validatePassword],
-  permanentState: [validateExistence, ValidateUSState],
-  mailingState: [validateExistence, ValidateUSState],
-  permanentZipcode: [validateExistence, validateNumber, validateZipcode],
-  mailingZipcode: [validateExistence, validateNumber, validateZipcode],
-  numberOfShares: [validateExistence, validateNumber, validateShares],
-  mailingAddressSame: [],
-  alternateEmail: [validateAlternateEmail],
-  permanentStreet2: [],
-  mailingStreet2: [],
-  certifyPermanentAddress: [validateCertifyPermanentAddress],
-  isReceivingDividends: []
-  // projectGroup: [v => validateExistence(v, 'Please choose a group')] // Custom error message
 };
 
 // Asynchronously validate field
