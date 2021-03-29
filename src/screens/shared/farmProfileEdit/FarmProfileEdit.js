@@ -1,10 +1,10 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import BackButton from '@components/BackButton';
-import Dropdown from '@components/Dropdown';
+
 import FarmProfileEditForm from './FarmProfileEditForm';
+import FarmProfileEditDropdown from './FarmProfileEditDropdown';
 
 const styles = {
   root: {
@@ -15,17 +15,6 @@ const styles = {
     backgroundColor: 'white',
     maxWidth: 1680,
     width: '100%'
-  },
-  row: {
-    display: 'flex',
-    width: '60%'
-  },
-  rowItem: {
-    width: '100%',
-    marginRight: 48
-  },
-  header: {
-    marginBottom: 36
   }
 };
 
@@ -63,16 +52,10 @@ class FarmProfileEdit extends React.Component {
     console.log(this.state);
   };
 
-  getNames = () => {
-    // Placeholder, replace with Airtable Data
-    return ['Francesco Sola', 'Ace Chen', 'Andi Halm', 'Alice Zhao'];
-  };
-
   render() {
     const { classes, match } = this.props;
     const { foodHubAffiliation, gapStatus } = this.state;
     const { farmId } = match.params;
-    const contacts = this.getNames();
 
     return (
       <div className={classes.root}>
@@ -83,27 +66,11 @@ class FarmProfileEdit extends React.Component {
           values={this.state}
           handleChange={this.handleChange}
         />
-
-        <div className={classes.row}>
-          <div className={classes.rowItem}>
-            <h2 className={classes.header}> Group Gap Contact</h2>
-            <Dropdown
-              items={contacts}
-              icon={<AccountCircleIcon fontSize="large" />}
-              onChange={this.handleChange('gapStatus')}
-              value={gapStatus}
-            />
-          </div>
-          <div className={classes.rowItem}>
-            <h2 className={classes.header}>Food Hub Affiliation</h2>
-            <Dropdown
-              items={contacts}
-              icon={<AccountCircleIcon fontSize="large" />}
-              onChange={this.handleChange('foodHubAffiliation')}
-              value={foodHubAffiliation}
-            />
-          </div>
-        </div>
+        <FarmProfileEditDropdown
+          foodHubAffiliation={foodHubAffiliation}
+          gapStatus={gapStatus}
+          handleChange={this.handleChange}
+        />
       </div>
     );
   }
