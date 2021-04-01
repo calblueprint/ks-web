@@ -22,8 +22,18 @@ const styles = {
   }
 };
 class FarmProfileEditForm extends React.PureComponent {
+  onChange = prop => event => {
+    const { values, handleChange } = this.props;
+
+    const formValues = {
+      ...values,
+      [prop]: event.target.value
+    };
+    handleChange(formValues);
+  };
+
   render() {
-    const { values, classes, handleChange } = this.props;
+    const { values, classes } = this.props;
     return (
       <div className={classes.root}>
         <h2>Contact Information</h2>
@@ -31,85 +41,85 @@ class FarmProfileEditForm extends React.PureComponent {
           <div className={classes.row}>
             <FieldInput
               label="First Name"
-              onChange={handleChange('firstName')}
+              onChange={this.onChange('firstName')}
               placeholder="Andi"
             />
             <FieldInput
               label="Last Name"
-              onChange={handleChange('lastName')}
+              onChange={this.onChange('lastName')}
               placeholder="Halim"
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="Farm Name"
-              onChange={handleChange('farmName')}
+              onChange={this.onChange('farmName')}
               placeholder="Andi's Potato Farm"
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="Cell Phone"
-              onChange={handleChange('cellPhone')}
+              onChange={this.onChange('cellPhone')}
               placeholder="xxx-xxx-xxx"
             />
             <FieldInput
               label="Email"
-              onChange={handleChange('email')}
+              onChange={this.onChange('email')}
               placeholder="farmerfarmer@farmer.com"
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label={`Farm Physical Address \u2014 Street`}
-              onChange={handleChange('physicalStreet')}
+              onChange={this.onChange('physicalStreet')}
               placeholder="xxxx Farmer Lane"
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="City"
-              onChange={handleChange('physicalCity')}
+              onChange={this.onChange('physicalCity')}
               placeholder="Honolulu"
             />
             <div className={classes.dropdown}>
               <Dropdown
                 label="State"
                 items={['HI', 'CA']}
-                onChange={handleChange('physicalState')}
+                onChange={this.onChange('physicalState')}
                 value={values.physicalState}
               />
             </div>
             <FieldInput
               label="ZIP"
-              onChange={handleChange('physicalZip')}
+              onChange={this.onChange('physicalZip')}
               placeholder="95070"
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label={`Farm Mailing Address \u2014 Street`}
-              onChange={handleChange('mailStreet')}
+              onChange={this.onChange('mailStreet')}
               placeholder="1887 Makuakane St"
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="City"
-              onChange={handleChange('mailCity')}
+              onChange={this.onChange('mailCity')}
               placeholder="Honolulu"
             />
             <div className={classes.dropdown}>
               <Dropdown
                 label="State"
                 items={['HI', 'CA']}
-                onChange={handleChange('mailState')}
+                onChange={this.onChange('mailState')}
                 value={values.mailState}
               />
             </div>
             <FieldInput
               label="ZIP"
-              onChange={handleChange('mailZip')}
+              onChange={this.onChange('mailZip')}
               placeholder="95070"
             />
           </div>

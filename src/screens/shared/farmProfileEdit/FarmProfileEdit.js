@@ -22,30 +22,19 @@ class FarmProfileEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      farmName: '',
-      cellPhonehone: '',
-      physicalStreet: '',
-      physicalCity: '',
-      physicalState: 0,
-      physicalZip: '',
-      mailStreet: '',
-      mailCity: '',
-      mailState: 0,
-      mailZip: '',
-      gapStatus: 0,
-      foodHubAffiliation: 0
+      formValues: {
+        physicalState: 0,
+        mailState: 0
+      },
+      dropdownValues: {
+        gapContact: 0,
+        foodHubAffiliation: 0
+      }
     };
   }
 
-  setValues = state => {
-    this.setState(state);
-  };
-
-  handleChange = prop => event => {
-    this.setValues({ ...this.state, [prop]: event.target.value });
+  handleChange = prop => value => {
+    this.setState({ ...this.state, [prop]: value });
   };
 
   handleSubmit = () => {
@@ -54,21 +43,20 @@ class FarmProfileEdit extends React.Component {
 
   render() {
     const { classes, match } = this.props;
-    const { foodHubAffiliation, gapStatus } = this.state;
     const { farmId } = match.params;
+    const { formValues, dropdownValues } = this.state;
 
     return (
       <div className={classes.root}>
         <BackButton label="Back to Farm" href={`/farm/${farmId}`} />
         <h1>Edit Information</h1>
         <FarmProfileEditForm
-          values={this.state}
-          handleChange={this.handleChange}
+          values={formValues}
+          handleChange={this.handleChange('formValues')}
         />
         <FarmProfileEditDropdown
-          foodHubAffiliation={foodHubAffiliation}
-          gapStatus={gapStatus}
-          handleChange={this.handleChange}
+          values={dropdownValues}
+          handleChange={this.handleChange('dropdownValues')}
         />
       </div>
     );

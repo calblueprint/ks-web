@@ -24,8 +24,19 @@ class FarmProfileEditDropdown extends React.PureComponent {
     return ['Francesco Sola', 'Ace Chen', 'Andi Halm', 'Alice Zhao'];
   };
 
+  onChange = prop => event => {
+    const { values, handleChange } = this.props;
+
+    const dropdownValues = {
+      ...values,
+      [prop]: event.target.value
+    };
+    handleChange(dropdownValues);
+  };
+
   render() {
-    const { classes, foodHubAffiliation, gapStatus, handleChange } = this.props;
+    const { classes, values } = this.props;
+    const { foodHubAffiliation, gapContact } = values;
     const contacts = this.getNames();
 
     return (
@@ -35,8 +46,8 @@ class FarmProfileEditDropdown extends React.PureComponent {
           <Dropdown
             items={contacts}
             icon={<AccountCircleIcon fontSize="large" />}
-            onChange={handleChange('gapStatus')}
-            value={gapStatus}
+            onChange={this.onChange('gapContact')}
+            value={gapContact}
           />
         </div>
         <div className={classes.rowItem}>
@@ -44,7 +55,7 @@ class FarmProfileEditDropdown extends React.PureComponent {
           <Dropdown
             items={contacts}
             icon={<AccountCircleIcon fontSize="large" />}
-            onChange={handleChange('foodHubAffiliation')}
+            onChange={this.onChange('foodHubAffiliation')}
             value={foodHubAffiliation}
           />
         </div>
