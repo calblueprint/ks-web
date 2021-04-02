@@ -6,7 +6,7 @@ import Dropdown from '@components/Dropdown';
 
 const styles = {
   form: {
-    padding: '0px 24px',
+    padding: '0px 48px',
     margin: '48px 0px 48px 0px'
   },
   row: {
@@ -18,7 +18,7 @@ const styles = {
   },
   dropdown: {
     flex: 1,
-    marginTop: -16
+    margin: '-16px 12px 0px 12px'
   }
 };
 class FarmProfileEditForm extends React.PureComponent {
@@ -43,11 +43,13 @@ class FarmProfileEditForm extends React.PureComponent {
               label="First Name"
               onChange={this.onChange('firstName')}
               placeholder="Andi"
+              variant="outlined"
             />
             <FieldInput
               label="Last Name"
               onChange={this.onChange('lastName')}
               placeholder="Halim"
+              variant="outlined"
             />
           </div>
           <div className={classes.row}>
@@ -55,6 +57,7 @@ class FarmProfileEditForm extends React.PureComponent {
               label="Farm Name"
               onChange={this.onChange('farmName')}
               placeholder="Andi's Potato Farm"
+              variant="outlined"
             />
           </div>
           <div className={classes.row}>
@@ -62,11 +65,13 @@ class FarmProfileEditForm extends React.PureComponent {
               label="Cell Phone"
               onChange={this.onChange('cellPhone')}
               placeholder="xxx-xxx-xxx"
+              variant="outlined"
             />
             <FieldInput
               label="Email"
               onChange={this.onChange('email')}
               placeholder="farmerfarmer@farmer.com"
+              variant="outlined"
             />
           </div>
           <div className={classes.row}>
@@ -74,6 +79,7 @@ class FarmProfileEditForm extends React.PureComponent {
               label={`Farm Physical Address \u2014 Street`}
               onChange={this.onChange('physicalStreet')}
               placeholder="xxxx Farmer Lane"
+              variant="outlined"
             />
           </div>
           <div className={classes.row}>
@@ -81,6 +87,7 @@ class FarmProfileEditForm extends React.PureComponent {
               label="City"
               onChange={this.onChange('physicalCity')}
               placeholder="Honolulu"
+              variant="outlined"
             />
             <div className={classes.dropdown}>
               <Dropdown
@@ -94,6 +101,7 @@ class FarmProfileEditForm extends React.PureComponent {
               label="ZIP"
               onChange={this.onChange('physicalZip')}
               placeholder="95070"
+              variant="outlined"
             />
           </div>
           <div className={classes.row}>
@@ -101,6 +109,7 @@ class FarmProfileEditForm extends React.PureComponent {
               label={`Farm Mailing Address \u2014 Street`}
               onChange={this.onChange('mailStreet')}
               placeholder="1887 Makuakane St"
+              variant="outlined"
             />
           </div>
           <div className={classes.row}>
@@ -108,6 +117,7 @@ class FarmProfileEditForm extends React.PureComponent {
               label="City"
               onChange={this.onChange('mailCity')}
               placeholder="Honolulu"
+              variant="outlined"
             />
             <div className={classes.dropdown}>
               <Dropdown
@@ -121,6 +131,7 @@ class FarmProfileEditForm extends React.PureComponent {
               label="ZIP"
               onChange={this.onChange('mailZip')}
               placeholder="95070"
+              variant="outlined"
             />
           </div>
         </div>

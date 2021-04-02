@@ -5,6 +5,7 @@ import BackButton from '@components/BackButton';
 
 import FarmProfileEditForm from './FarmProfileEditForm';
 import FarmProfileEditDropdown from './FarmProfileEditDropdown';
+import FarmProfileEditGapStatus from './FarmProfileEditGapStatus';
 
 const styles = {
   root: {
@@ -29,12 +30,23 @@ class FarmProfileEdit extends React.Component {
       dropdownValues: {
         gapContact: 0,
         foodHubAffiliation: 0
+      },
+      gapCertificationValues: {
+        referred: 0,
+        applied: 0,
+        accepted: 0,
+        safetyPlan: 0,
+        riskAssessment: 0,
+        mockRecall: 0,
+        internalAudit1: 0,
+        internalAudit2: 0,
+        gapCertified: 0
       }
     };
   }
 
   handleChange = prop => value => {
-    this.setState({ ...this.state, [prop]: value });
+    this.setState(prevState => ({ ...prevState, [prop]: value }));
   };
 
   handleSubmit = () => {
@@ -44,7 +56,7 @@ class FarmProfileEdit extends React.Component {
   render() {
     const { classes, match } = this.props;
     const { farmId } = match.params;
-    const { formValues, dropdownValues } = this.state;
+    const { formValues, dropdownValues, gapCertificationValues } = this.state;
 
     return (
       <div className={classes.root}>
@@ -57,6 +69,10 @@ class FarmProfileEdit extends React.Component {
         <FarmProfileEditDropdown
           values={dropdownValues}
           handleChange={this.handleChange('dropdownValues')}
+        />
+        <FarmProfileEditGapStatus
+          values={gapCertificationValues}
+          handleChange={this.handleChange('gapCertificationValues')}
         />
       </div>
     );

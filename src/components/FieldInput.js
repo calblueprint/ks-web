@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    margin: '0px 24px',
+    margin: '0px 12px',
     flex: 4
   },
   label: {
@@ -17,16 +17,16 @@ const useStyles = makeStyles({
 });
 
 export default function FieldInput(props) {
-  const { label, onChange, placeholder } = props;
+  const { label, onChange, placeholder, variant } = props;
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <h3 className={classes.label}>{label}</h3>
+      {label ? <h3 className={classes.label}>{label}</h3> : null}
       <TextField
         fullWidth
         margin="normal"
-        variant="outlined"
+        variant={variant || 'standard'}
         placeholder={placeholder}
         onChange={onChange}
       />

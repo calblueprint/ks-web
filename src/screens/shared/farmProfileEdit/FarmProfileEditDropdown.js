@@ -6,11 +6,12 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Dropdown from '@components/Dropdown';
 
 const styles = {
-  row: {
+  root: {
     display: 'flex',
-    width: '60%'
+    width: '60%',
+    marginBottom: 64
   },
-  rowItem: {
+  column: {
     width: '100%',
     marginRight: 48
   },
@@ -19,7 +20,7 @@ const styles = {
   }
 };
 class FarmProfileEditDropdown extends React.PureComponent {
-  getNames = () => {
+  getContacts = () => {
     // Placeholder, replace with Airtable Data
     return ['Francesco Sola', 'Ace Chen', 'Andi Halm', 'Alice Zhao'];
   };
@@ -37,11 +38,11 @@ class FarmProfileEditDropdown extends React.PureComponent {
   render() {
     const { classes, values } = this.props;
     const { foodHubAffiliation, gapContact } = values;
-    const contacts = this.getNames();
+    const contacts = this.getContacts();
 
     return (
-      <div className={classes.row}>
-        <div className={classes.rowItem}>
+      <div className={classes.root}>
+        <div className={classes.column}>
           <h2 className={classes.header}> Group Gap Contact</h2>
           <Dropdown
             items={contacts}
@@ -50,7 +51,7 @@ class FarmProfileEditDropdown extends React.PureComponent {
             value={gapContact}
           />
         </div>
-        <div className={classes.rowItem}>
+        <div className={classes.column}>
           <h2 className={classes.header}>Food Hub Affiliation</h2>
           <Dropdown
             items={contacts}
