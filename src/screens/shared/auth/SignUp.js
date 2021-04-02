@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 
 import '@styles/SignUp.css';
-import { validateField, updateUserFields } from '@lib/utils';
+import { updateUserFields } from '@lib/utils';
 import { getAllFarmsForFarmSearch } from '@lib/farmUtils';
 
 class SignUp extends React.PureComponent {
@@ -21,18 +21,23 @@ class SignUp extends React.PureComponent {
       lastName: '',
       email: '',
       password: '',
-      organization: '',
+      userTypes: '',
       groupGapContact: false,
+      farms: [],
       errors: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.createAccount = this.createAccount.bind(this);
   }
 
+  async componentDidMount() {
+    const farms = await getAllFarmsForFarmSearch();
+    this.setState({ farms });
+  }
+
   handleChange(name) {
     return event => {
       this.setState({
-        ...this.state,
         [name]: event.target.value
       });
     };
@@ -42,17 +47,18 @@ class SignUp extends React.PureComponent {
     // TODO not working
     // check all fields are correct
     // Keep track of whether we've found any errors
-    let foundErrors = false;
+    const foundErrors = false;
 
     // For each field in this onboarding step, validate, and add to errors object
     const fieldsToValidate = [
       'firstName',
       'lastName',
       'email',
-      'organization',
+      'userTypes',
       'password'
     ];
 
+    // TODO validate
     // const allErrorMessages = await Promise.all(
     //   fieldsToValidate.map(f => validateField(f, this.state[f]))
     // );
@@ -73,12 +79,24 @@ class SignUp extends React.PureComponent {
     // this.setState({ errors: newErrors });
     // create account
     if (!foundErrors) {
+      // quick fix for multi-select
+      this.setState({ userTypes: [this.state.userTypes] });
       this.setState({ errors: {} });
       updateUserFields(this.state, fieldsToValidate);
     }
   }
 
   render() {
+    const {
+      firstName,
+      lastName,
+      email,
+      userTypes,
+      password,
+      farms,
+      errors
+    } = this.state;
+
     return (
       <div>
         <h1>Create an Account</h1>
@@ -86,30 +104,30 @@ class SignUp extends React.PureComponent {
         <form>
           <div>
             <TextField
-              error={this.state.errors['firstName']}
+              error={errors.firstName}
               required
               label="First Name"
               variant="outlined"
-              defaultValue={this.state.firstName}
+              defaultValue={firstName}
               onChange={this.handleChange('firstName')}
             />
             <TextField
-              error={this.state.errors['lastName']}
+              error={errors.lastName}
               required
               label="Last Name"
               variant="outlined"
-              defaultValue={this.state.lastName}
+              defaultValue={lastName}
               onChange={this.handleChange('lastName')}
             />
           </div>
           <div>
             {/* TODO add validation of email */}
             <TextField
-              error={this.state.errors['email']}
+              error={errors.email}
               required
               label="Email"
               variant="outlined"
-              defaultValue={this.state.email}
+              defaultValue={email}
               onChange={this.handleChange('email')}
             />
           </div>
@@ -118,24 +136,28 @@ class SignUp extends React.PureComponent {
               <InputLabel>Organization</InputLabel>
               <Select
                 native
-                error={this.state.errors['organization']}
+                error={errors.userTypes}
                 label="Organization"
-                defaultValue={this.state.organization}
-                onChange={this.handleChange('organization')}
+                defaultValue={userTypes}
+                onChange={this.handleChange('userTypes')}
               >
                 <option aria-label="" value="" />
-                <option value="KS">KS</option>
-                <option value="NSEVP">NSEVP</option>
+                <option aria-label="KS" value="KS">
+                  KS
+                </option>
+                <option aria-label="NSEVP" value="NSEVP">
+                  NSEVP
+                </option>
               </Select>
             </FormControl>
             <TextField
-              error={this.state.errors['password']}
+              error={errors.password}
               required
               label="Password"
               type="password"
               autoComplete="current-password"
               variant="outlined"
-              defaultValue={this.state.password}
+              defaultValue={password}
               onChange={this.handleChange('password')}
             />
           </div>
@@ -143,21 +165,21 @@ class SignUp extends React.PureComponent {
         <div>
           <h2>Additional Information</h2>
           Are you a Group GAP contact?
-          <Checkbox onChange={this.handleChange('groupGapContact')}></Checkbox>
-          <br></br>
+          <Checkbox onChange={this.handleChange('groupGapContact')} />
+          <br />
           Which farm are you a Group GAP Contact for?
-          {/* <Select
+          <Select
             native
-            error={this.state.errors['farm']}
+            error={errors.farm}
             label="Farm"
-            defaultValue={this.state.organization}
-            onChange={this.handleChange("farm_contact")}
+            defaultValue={userTypes}
+            onChange={this.handleChange('farm_contact')}
           >
             <option aria-label="" value="" />
-            {this.state.farms.map(f => (
+            {farms.map(f => (
               <option value={f.name} />
             ))}
-          </Select> */}
+          </Select>
         </div>
 
         <Button

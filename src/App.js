@@ -98,14 +98,12 @@ class App extends React.Component {
                 credentialCheck={isKSUser}
               />
 
-              {
-                <AuthenticatedRoute
-                  credentialCheck={credentials => !isSignedIn(credentials)}
-                  exact
-                  path={Constants.SIGNUP_ROUTE}
-                  component={SignUp}
-                />
-              }
+              <AuthenticatedRoute
+                credentialCheck={credentials => !isSignedIn(credentials)}
+                exact
+                path={Constants.SIGNUP_ROUTE}
+                component={SignUp}
+              />
 
               <SuspenseRoute path="*" component={ErrorPage} />
             </Switch>
