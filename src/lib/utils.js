@@ -1,7 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import React from 'react';
 import USStates from '@assets/usStates.json';
-import ErrorIcon from '@assets/error.svg';
 import {
   // getAllProjectGroups,
   updateUser,
@@ -141,9 +139,8 @@ const validateFieldSync = (name, value) => {
 const updateUserFields = async (user, fields) => {
   // Ensure that only the fields that are supposed to be updated are updated
   const userUpdate = {};
-  fields.reduce((value, field) => (userUpdate[field] = user[field]));
+  fields.map((field) => (userUpdate[field] = user[field]));
 
-  console.log(userUpdate);
   // If user exists, update it, else, create.
   if (user.id) {
     await updateUser(user.id, userUpdate);
