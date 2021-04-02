@@ -27,7 +27,7 @@ class FarmProfileEditGapStatus extends React.PureComponent {
     handleChange(gapCertificationValues);
   };
 
-  mapPropsToSteps = () => {
+  mapPropsToLabels = () => {
     return {
       referred: 'Farm Referred',
       applied: 'Farm Applied',
@@ -43,9 +43,9 @@ class FarmProfileEditGapStatus extends React.PureComponent {
 
   render() {
     const { classes, values } = this.props;
-    const steps = this.mapPropsToSteps();
-    const keys = Object.keys(steps);
-    const labels = Object.values(steps);
+    const map = this.mapPropsToLabels();
+    const steps = Object.keys(map);
+    const labels = Object.values(map);
 
     const marker = 5;
 
@@ -54,20 +54,20 @@ class FarmProfileEditGapStatus extends React.PureComponent {
         <h2>Gap Certification Progress</h2>
         <div className={classes.row}>
           <div className={classes.column}>
-            {labels.slice(0, marker).map((label, index) => (
+            {steps.slice(0, marker).map((step, index) => (
               <EditGapStatusDropdown
                 index={index + 1}
-                label={label}
-                value={values[keys[index]]}
+                label={labels[index]}
+                value={values[step]}
               />
             ))}
           </div>
           <div className={classes.column}>
-            {labels.slice(marker).map((label, index) => (
+            {steps.slice(marker).map((step, index) => (
               <EditGapStatusDropdown
                 index={marker + index + 1}
-                label={label}
-                value={values[keys[index]]}
+                label={labels[index]}
+                value={values[step]}
               />
             ))}
           </div>
