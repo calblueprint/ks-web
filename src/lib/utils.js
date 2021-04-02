@@ -29,34 +29,9 @@ const toggleValidColor = (input, type) => {
   return !input ? '\u00A0' : input;
 };
 
-// User must check this box
-const validateCertifyPermanentAddress = value => {
-  return value ? (
-    ''
-  ) : (
-    <div className="error-container">
-      <img src={ErrorIcon} alt="error" className="mr-1" />
-      <div className="error-text">
-        Please certify the above address in order to proceed.
-      </div>
-    </div>
-  );
-};
-
 // Ensure valid email using regex
 const validateEmail = value => {
   if (value && value.length === 0) {
-    return '';
-  }
-  // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
-  // eslint-disable-next-line no-useless-escape
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(value) ? '' : 'Please enter a valid email address.';
-};
-
-// Ensure valid alternate email using regex (allowed to be empty)
-const validateAlternateEmail = value => {
-  if (!value || value.length === 0) {
     return '';
   }
   // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
@@ -88,17 +63,6 @@ const validateNumber = value => {
   return !Number.isNaN(value) ? '' : 'Must be a number';
 };
 
-// Ensure shares is a valid number
-const validateShares = value => {
-  if (value > 10) {
-    return 'Max number of shares is 10';
-  }
-  if (value < 1) {
-    return 'Min number of shares is 1';
-  }
-  return '';
-};
-
 // Ensure State is a real state (either abbreivation or full name)
 const ValidateUSState = value => {
   const upperCaseValue = value.toUpperCase();
@@ -109,11 +73,6 @@ const ValidateUSState = value => {
     return '';
   }
   return 'Invalid State';
-};
-
-// Ensure Zipcode is of valid length
-const validateZipcode = value => {
-  return value.length === 5 ? '' : 'Must be 5 digits';
 };
 
 const validatePhoneNumber = value => {
@@ -136,17 +95,7 @@ const ValidatorData = {
   phoneNumber: [validateExistence, validatePhoneNumber],
   password: [validateExistence, validatePassword],
   permanentState: [validateExistence, ValidateUSState],
-  mailingState: [validateExistence, ValidateUSState],
-  permanentZipcode: [validateExistence, validateNumber, validateZipcode],
-  mailingZipcode: [validateExistence, validateNumber, validateZipcode],
-  numberOfShares: [validateExistence, validateNumber, validateShares],
-  mailingAddressSame: [],
-  alternateEmail: [validateAlternateEmail],
-  permanentStreet2: [],
-  mailingStreet2: [],
-  certifyPermanentAddress: [validateCertifyPermanentAddress],
-  isReceivingDividends: []
-  // projectGroup: [v => validateExistence(v, 'Please choose a group')] // Custom error message
+  mailingState: [validateExistence, ValidateUSState]
 };
 
 // Asynchronously validate field
@@ -191,11 +140,10 @@ const validateFieldSync = (name, value) => {
 // Update or Create the user with the given fields
 const updateUserFields = async (user, fields) => {
   // Ensure that only the fields that are supposed to be updated are updated
-  const userUpdate = fields.reduce((value, field) => ({
-    ...value,
-    [field]: user[field]
-  }));
+  const userUpdate = {};
+  fields.reduce((value, field) => (userUpdate[field] = user[field]));
 
+  console.log(userUpdate);
   // If user exists, update it, else, create.
   if (user.id) {
     await updateUser(user.id, userUpdate);
@@ -226,6 +174,5 @@ export {
   validateEmail,
   validateUniqueEmail,
   validateNumber,
-  validateExistence,
-  validateZipcode
+  validateExistence
 };
