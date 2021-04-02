@@ -7,7 +7,7 @@ import {
 } from './userDataSlice';
 
 // Function takes in an userId and fetches the latest user object and all associated user data
-const refreshUserData = async (userId, loadSilently = false) => {
+const refreshUserData = async (userId, loadSilently = true) => {
   if (!loadSilently) {
     // Save loading status to Redux
     store.dispatch(setLoadingForUserData());
