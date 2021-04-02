@@ -39,8 +39,6 @@ class FarmSearch extends React.PureComponent {
             .toLowerCase()
             .includes(keyword.toLowerCase()))
     );
-    console.log(filteredFarms);
-    console.log('this is filter farms');
     this.setState({ filteredFarms });
   };
 
