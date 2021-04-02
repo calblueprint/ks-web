@@ -30,14 +30,19 @@ class FarmProfileEditGapStatus extends React.PureComponent {
   };
 
   render() {
-    const { index, label, classes, value } = this.props;
+    const { index, label, onChange, classes, value } = this.props;
     const items = this.getItems();
 
     return (
       <div className={classes.root}>
         <h3 className={classes.label}>{`${index}. ${label}`}</h3>
         <div className={classes.input}>
-          <Dropdown items={items} icon={null} value={value} />
+          <Dropdown
+            items={items}
+            icon={null}
+            value={value}
+            onChange={onChange}
+          />
           <TextField
             className={classes.picker}
             type="date"
