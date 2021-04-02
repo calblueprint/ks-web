@@ -2,9 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateUser } from '@lib/airtable/request';
 import { refreshUserData } from '@lib/redux/userData';
-import { validateField } from '@lib/utils';
-import { getUser } from '@lib/userUtils';
-import {getCredentials, isNSEVPUser} from '@lib/credentials'
+// import { validateField } from '@lib/utils';
+import { getCredentials, isNSEVPUser } from '@lib/credentials';
 import '@styles/UserProfilePage.css';
 import { Button } from '@material-ui/core';
 import DefaultUserIcon from '@assets/defaultUserIcon-small.svg';
@@ -13,135 +12,48 @@ class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      userTypes: '',
-      generalEditMode: false,
+      updatefirstName: '',
+      updatelastName: '',
+      updateemail: '',
+      updateuserTypes: '',
+      generalEditMode: false
     };
   }
 
-  componentDidMount () {
-    const { user } = this.props;
-    // pulling in currently logged user from props (redux) and updating the empty strings.
+  componentDidMount() {
+    this.populateUserInformation();
+  }
+
+  handleCancel() {
+    this.setState({ generalEditMode: false });
+    this.populateUserInformation();
+  }
+
+  handleChange = event => {
+    const target = event.target.name;
     this.setState({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      userTypes: user.userTypes,
+      [target]: event.target.value
     });
-  }
+  };
 
-  render() {
-    const { firstName, lastName, email, userTypes, generalEditMode } = this.state;
+  submitData = async newUser => {
+    const { user } = this.props;
+    // Update owner and refresh local cache
+    await updateUser(user.id, newUser);
+    await refreshUserData(user.id);
+    // Update Visual state
+    const { generalEditMode } = this.state;
+    this.setState({ generalEditMode: !generalEditMode });
+  };
 
-    return (
-      <div className="dashboard settings">
-        <div className="content">
-          <div className="user-profile-settings-header">
-            <h2>Settings</h2>
-            {userTypes === "NSEVP" && (
-              <Button>
-                Refresh Heavy Connect
-              </Button>
-            )}
-            {/**
-             <button type="button" className="user-profile-settings-refresh">
-              Refresh Heavy Connect
-            </button> */}
-          </div>
-
-          <div className="row">
-            <div className="user-icon">
-              <img
-                src={DefaultUserIcon}
-                alt="DefaultUserIcon"
-                className="user-icon__photo"
-              />
-              <h3>{firstName}</h3>
-              <h4>Position</h4>
-            </div>
-
-            <div
-              className={`user-profile-general-form settings-edit-${
-                generalEditMode ? 'enabled' : 'disabled'
-              }`}
-            >
-              <div className="user-profile-general-form-header">
-                <h2>General</h2>
-                {/** 
-                <div className="user-profile-general-form-header-buttons">
-                  <button type="button" onClick={this.onGeneralButtonPressed}>
-                    {generalEditMode ? 'Save' : 'Edit'}
-                  </button>
-                  <button
-                    style={{ display: generalEditMode ? '' : 'none' }}
-                    type="button"
-                    onClick={() => this.handleCancel('general')}
-                  >
-                    Cancel
-                  </button>
-                </div>
-                */}
-              </div>
-              <form>
-                <div>
-                  <p>
-                    <label htmlFor="updateName">
-                      Name
-                      <label className="settings-label">{`${firstName} ${lastName}`}</label>
-                      {/**{this.renderInputLabel('updateName', generalEditMode)}*/}
-                    </label>
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <label htmlFor="updateEmail">
-                      Email
-                      <label className="settings-label">{email}</label>
-                    </label>
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <label htmlFor="updatePassword">
-                      Password
-                    <label className="settings-label">Password</label>
-                    </label>
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <label htmlFor="updateCompany">
-                      Organization
-                      <label className="settings-label">{userTypes}</label>
-                      </label>
-                  </p>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = state => ({
-  user: state.userData.user
-});
-export default connect(mapStateToProps)(UserProfile);
-
-/**
- * 
-   /** 
-  onGeneralButtonPressed = async () => {
-    const { generalEditMode, updateName } = this.state;
+  editButtonPressed = async () => {
+    const { generalEditMode, updatefirstName, updatelastName } = this.state;
     if (generalEditMode) {
       // Validate data
-      this.validateAndSubmitData(
+      this.submitData(
         {
-          Name: updateName
+          firstName: updatefirstName,
+          lastName: updatelastName
         },
         'general'
       );
@@ -153,11 +65,22 @@ export default connect(mapStateToProps)(UserProfile);
     }
   };
 
-  renderInputLabel(name, editable) {
-    const { [name]: value, errors } = this.state;
+  populateUserInformation() {
+    const { user } = this.props;
+    // pulling in currently logged user from props (redux) and updating the empty strings.
+    this.setState({
+      updateFirstName: user.firstName,
+      updateLastName: user.lastName,
+      updateEmail: user.email,
+      updateUserTypes: user.userTypes
+    });
+  }
+
+  renderInputLabel(name, editmode) {
+    const { [name]: value } = this.state;
     return (
       <div>
-        {editable ? (
+        {editmode ? (
           <input
             type="text"
             name={name}
@@ -168,78 +91,115 @@ export default connect(mapStateToProps)(UserProfile);
         ) : (
           <label className="settings-label">{value}</label>
         )}
-        {errors[name] && (
-          <label style={{ color: 'red' }}>Error: {errors[name]}</label>
-        )}
       </div>
     );
   }
 
-  componentDidMount() {
-    this.populateUserInformation('general');
-  }
-
-  componentDidUpdate(prevProps) {
+  render() {
+    const {
+      updateFirstName,
+      updateLastName,
+      updateEmail,
+      updateUserTypes,
+      generalEditMode
+    } = this.state;
     const { user } = this.props;
-    if (user !== prevProps.user) {
-      this.populateUserInformation('general');
-    }
-  }
-  
+    const credentials = getCredentials(user);
 
-  handleCancel = type => {
-    this.setState({ [`${type}EditMode`]: false });
-    this.populateUserInformation(type);
-  };
+    return (
+      <div className="user-profile">
+        <div className="user-profile__header">
+          <h2>Settings</h2>
+          {isNSEVPUser(credentials) ? (
+            <Button> Refresh Heavy Connect </Button>
+          ) : null}
+        </div>
 
-  handleChange = event => {
-    const target = event.target.name;
+        <div className="row">
+          <div className="user-profile__icon">
+            <img
+              src={DefaultUserIcon}
+              alt="DefaultUserIcon"
+              className="user-profile__icon__photo"
+            />
+            <h3>{`${updateFirstName} ${updateLastName}`}</h3>
+          </div>
 
-    this.setState({
-      [target]: event.target.value
-    });
-  };
+          <div
+            className={`user-profile__general-form settings-edit-${
+              generalEditMode ? 'enabled' : 'disabled'
+            }`}
+          >
+            <div className="user-profile__general-form__header">
+              <h2>General</h2>
+              <Button onClick={this.editButtonPressed}>
+                {generalEditMode ? 'Save' : 'Edit'}
+              </Button>
+              <Button onClick={() => this.handleCancel()}>
+                {generalEditMode ? 'Cancel' : null}
+              </Button>
 
-  validateAndSubmitData = async (newUser, type) => {
-    const { user } = this.props;
-    const errors = {};
-    let foundErrors = false;
-    const fields = Object.keys(newUser);
-
-    const errorMessages = await Promise.all(
-      fields.map(field => validateField(field, newUser[field]))
+              {/** 
+              <div className="user-profile__general-form__header__buttons">
+                <button type="button" onClick={this.editButtonPressed}>
+                  {generalEditMode ? 'Save' : 'Edit'}
+                </button>
+                <button
+                  style={{ display: generalEditMode ? '' : 'none' }}
+                  type="button"
+                  onClick={() => this.handleCancel()}
+                >
+                  Cancel
+                </button>
+                
+              </div>
+              */}
+            </div>
+            <form>
+              <div>
+                <p>
+                  <label htmlFor="updateName">
+                    Name
+                    <label className="settings-label">{`${updateFirstName} ${updateLastName}`}</label>
+                    {/** {this.renderInputLabel('updateName', generalEditMode)} */}
+                  </label>
+                </p>
+              </div>
+              <div>
+                <p>
+                  <label htmlFor="updateEmail">
+                    Email
+                    <label className="settings-label">{updateEmail}</label>
+                    {/** {this.renderInputLabel('updateemail', generalEditMode)} */}
+                  </label>
+                </p>
+              </div>
+              <div>
+                <p>
+                  <label htmlFor="updatePassword">
+                    Password
+                    <label className="settings-label">Password</label>
+                  </label>
+                </p>
+              </div>
+              <div>
+                <p>
+                  <label htmlFor="updateCompany">
+                    Organization
+                    <label className="settings-label">{updateUserTypes}</label>
+                    {/** {this.renderInputLabel('updateuserTypes', generalEditMode)} */}
+                  </label>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     );
-    errorMessages.forEach((errorMessage, i) => {
-      const fieldName = `update${fields[i].charAt(0).toUpperCase() +
-        fields[i].slice(1)}`;
-      errors[fieldName] = errorMessage;
-      if (errorMessage !== '') {
-        foundErrors = true;
-      }
-    });
+  }
+}
 
-    this.setState({
-      errors
-    });
-
-    if (!foundErrors) {
-      // Update user and refresh local cache
-      await updateUser(user.id, newUser);
-      await refreshUserData(user.id);
-
-      // Update Visual state
-      const { generalEditMode } = this.state;
-      this.setState({ generalEditMode: !generalEditMode });
-    }
-  };
-
-  populateUserInformation = type => {
-    const { user } = this.props;
-    if (type === 'general') {
-      this.setState({
-        updateName: user.name,
-        updateEmail: user.email,
-      });
-    }
-  };
-  */
+const mapStateToProps = state => ({
+  user: state.userData.user
+});
+export default connect(mapStateToProps)(UserProfile);
