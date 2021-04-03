@@ -7,12 +7,12 @@ import NorthShoreGapIcon from '@assets/northShoreGapStat.png';
 import TrainingFarmsIcon from '@assets/trainingFarmsStat.png';
 import Icon from '@assets/userIcon.png';
 import DashboardGraph from '@assets/dashboardGraph.png';
-import '@styles/NSEVPUserDashboard.css';
+import '@styles/Dashboard.css';
 
-import RecentUpdate from './RecentUpdate';
-import StatCard from './StatCard';
+import RecentUpdate from '@shared/dashboard/RecentUpdate';
+import StatCard from '@shared/dashboard/StatCard';
 
-class NSEVPUserDashboard extends React.PureComponent {
+class NSEVPDashboard extends React.PureComponent {
   render() {
     const numUpdates = 5;
     return (
@@ -81,8 +81,6 @@ class NSEVPUserDashboard extends React.PureComponent {
 
 const mapStateToProps = state => ({
   user: state.userData.user
-  // projectGroup: state.userData.projectGroup,
-  // solarProjects: state.userData.solarProjects
 });
 
-export default connect(mapStateToProps)(NSEVPUserDashboard);
+export default connect(mapStateToProps)(NSEVPDashboard);

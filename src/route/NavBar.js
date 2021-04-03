@@ -16,7 +16,7 @@ import SettingsDropdown from './SettingsDropdown';
 
 class NavBar extends React.PureComponent {
   render() {
-    const { user, pathname, history } = this.props;
+    const { user, history } = this.props;
     const credentials = getCredentials(user);
 
     let affiliation;
@@ -71,23 +71,36 @@ class NavBar extends React.PureComponent {
                     Farms
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    to="/forecast"
-                    className="nav-bar__header"
-                    activeClassName="nav-bar__header-active"
-                  >
-                    Forecast
-                  </NavLink>
-                </li>
                 {isNSEVPUser(credentials) && (
                   <li>
                     <NavLink
-                      to="/referrals"
+                      to="/forecast"
+                      className="nav-bar__header"
+                      activeClassName="nav-bar__header-active"
+                    >
+                      Forecast
+                    </NavLink>
+                  </li>
+                )}
+                {isNSEVPUser(credentials) && (
+                  <li>
+                    <NavLink
+                      to="/error"
                       className="nav-bar__header"
                       activeClassName="nav-bar__header-active"
                     >
                       Referrals
+                    </NavLink>
+                  </li>
+                )}
+                {isKSUser(credentials) && (
+                  <li>
+                    <NavLink
+                      to="/referral"
+                      className="nav-bar__header"
+                      activeClassName="nav-bar__header-active"
+                    >
+                      Referral
                     </NavLink>
                   </li>
                 )}
@@ -100,7 +113,7 @@ class NavBar extends React.PureComponent {
                     alt="NavBarIcon"
                     className="nav-button__user-icon"
                   />
-                  <div className="nav-button__name">{this.props.user.name}</div>
+                  <div className="nav-button__name">{user.name}</div>
                 </button>
 
                 <div className="dropdown-safety-box" />

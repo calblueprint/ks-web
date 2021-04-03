@@ -7,15 +7,15 @@ import SuspenseRoute from './SuspenseRoute';
 
 class AuthenticatedRoute extends React.PureComponent {
   isAuthorized() {
-    const { user, credential } = this.props;
+    const { user, credentialCheck } = this.props;
     const userCredentials = getCredentials(user);
 
-    if (credential) {
-      // If credential prop exists, ensure they are authorized
-      return userCredentials.includes(credential);
+    if (credentialCheck) {
+      // If credential check prop exists, ensure they are authorized
+      return credentialCheck(userCredentials);
     }
 
-    // else, just ensure they are signed in
+    // ensure they are signed in
     return isSignedIn(userCredentials);
   }
 
