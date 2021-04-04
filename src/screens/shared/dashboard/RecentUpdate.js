@@ -1,5 +1,5 @@
 import React from 'react';
-import '@styles/NSEVPUserDashboard.css';
+import '@styles/Dashboard.css';
 
 class RecentUpdate extends React.PureComponent {
   render() {
