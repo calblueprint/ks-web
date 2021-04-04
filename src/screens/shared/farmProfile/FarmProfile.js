@@ -1,13 +1,13 @@
 import React from 'react';
 import { getSingleFarm } from '@lib/farmUtils';
 
-import Stepper from '@components/Stepper';
 import BackButton from '@components/BackButton';
 import Link from '@material-ui/core/Link';
 import '@styles/FarmProfile.css';
 
 import FarmContactCard from './FarmContactCard';
 import FarmGraphsTable from './FarmGraphsTable';
+import FarmCertificationStepper from './FarmCertificationStepper';
 
 class FarmProfile extends React.Component {
   constructor(props) {
@@ -52,7 +52,7 @@ class FarmProfile extends React.Component {
             <FarmContactCard farm={farm} />
           </div>
           <div className="farm-profile__right-col">
-            <Stepper />
+            <FarmCertificationStepper />
             <FarmGraphsTable />
           </div>
         </div>
