@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 
 import '@styles/SignUp.css';
-import { updateUserFields } from '@lib/utils';
+import { validateField, updateUserFields } from '@lib/utils';
 import { getAllFarmsForFarmSearch } from '@lib/farmUtils';
 
 class SignUp extends React.PureComponent {
@@ -47,7 +47,7 @@ class SignUp extends React.PureComponent {
     // TODO not working
     // check all fields are correct
     // Keep track of whether we've found any errors
-    const foundErrors = false;
+    let foundErrors = false;
 
     // For each field in this onboarding step, validate, and add to errors object
     const fieldsToValidate = [
@@ -59,24 +59,22 @@ class SignUp extends React.PureComponent {
     ];
 
     // TODO validate
-    // const allErrorMessages = await Promise.all(
-    //   fieldsToValidate.map(f => validateField(f, this.state[f]))
-    // );
+    const allErrorMessages = await Promise.all(
+      fieldsToValidate.map(f => validateField(f, this.state[f]))
+    );
 
-    // console.log(allErrorMessages)
-
-    // const newErrors = {};
-    // allErrorMessages.forEach((errorMessage, i) => {
-    //   const field = fieldsToValidate[i];
-    //   if (errorMessage !== '') {
-    //     newErrors[field] = errorMessage;
-    //     foundErrors = true;
-    //   } else {
-    //     newErrors[field] = false;
-    //   }
-    // });
-
-    // this.setState({ errors: newErrors });
+    const newErrors = {};
+    fieldsToValidate.forEach((field, i) => {
+      const errorMessage = allErrorMessages[i];
+      if (errorMessage !== '') {
+        newErrors[field] = errorMessage;
+        foundErrors = true;
+      } else {
+        newErrors[field] = false;
+      }
+    });
+    console.log(newErrors);
+    this.setState({ errors: newErrors });
     // create account
     if (!foundErrors) {
       // quick fix for multi-select

@@ -89,7 +89,7 @@ const validatePhoneNumber = value => {
 // Specify special validation functions for fields
 // Default for all fields: [validateExistence]
 const ValidatorData = {
-  email: [validateExistence, validateEmail, validateUniqueEmail],
+  email: [validateExistence, validateEmail],
   phoneNumber: [validateExistence, validatePhoneNumber],
   password: [validateExistence, validatePassword],
   permanentState: [validateExistence, ValidateUSState],
