@@ -1,11 +1,13 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 import BackButton from '@components/BackButton';
 
 import FarmProfileEditForm from './FarmProfileEditForm';
 import FarmProfileEditDropdown from './FarmProfileEditDropdown';
 import FarmProfileEditGapStatus from './FarmProfileEditGapStatus';
+import FarmProfileEditComments from './FarmProfileEditComments';
 
 const styles = {
   root: {
@@ -16,6 +18,15 @@ const styles = {
     backgroundColor: 'white',
     maxWidth: 1680,
     width: '100%'
+  },
+  buttonRow: {
+    display: 'flex',
+    justifyContent: 'flex-end'
+  },
+  button: {
+    width: 96,
+    padding: 8,
+    marginTop: 48
   }
 };
 
@@ -41,7 +52,8 @@ class FarmProfileEdit extends React.Component {
         internalAudit1: 0,
         internalAudit2: 0,
         gapCertified: 0
-      }
+      },
+      comments: ''
     };
   }
 
@@ -56,7 +68,12 @@ class FarmProfileEdit extends React.Component {
   render() {
     const { classes, match } = this.props;
     const { farmId } = match.params;
-    const { formValues, dropdownValues, gapCertificationValues } = this.state;
+    const {
+      formValues,
+      dropdownValues,
+      gapCertificationValues,
+      comments
+    } = this.state;
 
     return (
       <div className={classes.root}>
@@ -74,6 +91,21 @@ class FarmProfileEdit extends React.Component {
           values={gapCertificationValues}
           handleChange={this.handleChange('gapCertificationValues')}
         />
+        <FarmProfileEditComments
+          values={comments}
+          handleChange={this.handleChange('comments')}
+        />
+        <div className={classes.buttonRow}>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            fontSize="large"
+            onClick={this.handleSubmit}
+          >
+            Save
+          </Button>
+        </div>
       </div>
     );
   }
