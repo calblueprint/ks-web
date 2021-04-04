@@ -1,18 +1,25 @@
 import React from 'react';
 
+import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import EditGapStatusDropdown from './components/EditGapStatusDropdown';
 
 const styles = {
   row: {
     display: 'flex',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    marginTop: 48
   },
   column: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '0px 24px',
-    width: '100%'
+    width: '100%',
+    border: '1px solid var(--ks-medium-dark-grey)',
+    borderRadius: 10,
+    padding: 24
+  },
+  leftColumn: {
+    marginRight: 48
   }
 };
 
@@ -52,7 +59,7 @@ class FarmProfileEditGapStatus extends React.PureComponent {
       <div>
         <h2>Gap Certification Progress</h2>
         <div className={classes.row}>
-          <div className={classes.column}>
+          <div className={clsx(classes.column, classes.leftColumn)}>
             {steps.slice(0, marker).map((step, index) => (
               <EditGapStatusDropdown
                 index={index + 1}
