@@ -13,6 +13,7 @@ const styles = {
   column: {
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'center',
     width: '100%',
     border: '1px solid var(--ks-medium-dark-grey)',
     borderRadius: 10,
@@ -54,7 +55,7 @@ class FarmProfileEditGapStatus extends React.PureComponent {
     const steps = Object.keys(map);
     const labels = Object.values(map);
 
-    const marker = 5;
+    const marker = 4;
     return (
       <div>
         <h2>Gap Certification Progress</h2>
@@ -74,8 +75,8 @@ class FarmProfileEditGapStatus extends React.PureComponent {
             {steps.slice(marker).map((step, index) => (
               <EditGapStatusDropdown
                 index={marker + index + 1}
-                key={labels[index]}
-                label={labels[index]}
+                key={labels[marker + index]}
+                label={labels[marker + index]}
                 value={values[step]}
                 onChange={this.onChange(step)}
               />
