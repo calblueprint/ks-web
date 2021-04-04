@@ -71,23 +71,36 @@ class NavBar extends React.PureComponent {
                     Farms
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    to="/forecast"
-                    className="nav-bar__header"
-                    activeClassName="nav-bar__header-active"
-                  >
-                    Forecast
-                  </NavLink>
-                </li>
                 {isNSEVPUser(credentials) && (
                   <li>
                     <NavLink
-                      to="/referrals"
+                      to="/forecast"
+                      className="nav-bar__header"
+                      activeClassName="nav-bar__header-active"
+                    >
+                      Forecast
+                    </NavLink>
+                  </li>
+                )}
+                {isNSEVPUser(credentials) && (
+                  <li>
+                    <NavLink
+                      to="/error"
                       className="nav-bar__header"
                       activeClassName="nav-bar__header-active"
                     >
                       Referrals
+                    </NavLink>
+                  </li>
+                )}
+                {isKSUser(credentials) && (
+                  <li>
+                    <NavLink
+                      to="/referral"
+                      className="nav-bar__header"
+                      activeClassName="nav-bar__header-active"
+                    >
+                      Referral
                     </NavLink>
                   </li>
                 )}
