@@ -1,5 +1,23 @@
 .sign-up-form {
-    width: 100%;
-    background: 'transparent';
-    border: '1px solid #ccc';
+  background: 'transparent';
+  border: '1px solid #ccc';
+  width: 65%;
+}
+
+#sign-up-title {
+  color: var(--pp-blue);
+}
+
+.sign-up-card {
+  width: 1000px;
+  background-color: white !important;
+  padding: 1rem 2rem 2rem 2rem !important;
+  border-radius: 15px;
+  width: 40rem !important;
+}
+
+.submit-button {
+  display: flex;
+  justify-content: right;
+  width: 40rem;
 }

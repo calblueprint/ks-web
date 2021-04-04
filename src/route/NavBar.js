@@ -126,7 +126,7 @@ class NavBar extends React.PureComponent {
         </nav>
       </div>
     ) : (
-      <div></div>
+      <div />
     );
   }
 }

@@ -139,7 +139,9 @@ const validateFieldSync = (name, value) => {
 const updateUserFields = async (user, fields) => {
   // Ensure that only the fields that are supposed to be updated are updated
   const userUpdate = {};
-  fields.map((field) => (userUpdate[field] = user[field]));
+  fields.forEach(field => {
+    userUpdate[field] = user[field];
+  });
 
   // If user exists, update it, else, create.
   if (user.id) {

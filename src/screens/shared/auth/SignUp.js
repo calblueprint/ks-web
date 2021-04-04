@@ -80,7 +80,7 @@ class SignUp extends React.PureComponent {
     // create account
     if (!foundErrors) {
       // quick fix for multi-select
-      this.setState({ userTypes: [this.state.userTypes] });
+      this.setState(prevState => ({ userTypes: [prevState.userTypes] }));
       this.setState({ errors: {} });
       updateUserFields(this.state, fieldsToValidate);
     }
@@ -98,10 +98,10 @@ class SignUp extends React.PureComponent {
     } = this.state;
 
     return (
-      <div>
-        <h1>Create an Account</h1>
-        <h2>Contact Information</h2>
-        <form>
+      <div className="sign-up-form">
+        <h1 id="sign-up-title">Create an Account</h1>
+        <form className="sign-up-card">
+          <h2>Contact Information</h2>
           <div>
             <TextField
               error={errors.firstName}
@@ -162,7 +162,9 @@ class SignUp extends React.PureComponent {
             />
           </div>
         </form>
-        <div>
+        <br />
+        <br />
+        <div className="sign-up-card">
           <h2>Additional Information</h2>
           Are you a Group GAP contact?
           <Checkbox onChange={this.handleChange('groupGapContact')} />
@@ -181,14 +183,18 @@ class SignUp extends React.PureComponent {
             ))}
           </Select>
         </div>
-
-        <Button
-          onClick={this.createAccount}
-          variant="contained"
-          color="primary"
-        >
-          Submit
-        </Button>
+        <br />
+        <br />
+        <div className="submit-button">
+          <Button
+            onClick={this.createAccount}
+            variant="contained"
+            color="primary"
+          >
+            Submit
+          </Button>
+        </div>
+        <br />
       </div>
     );
   }
