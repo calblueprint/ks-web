@@ -13,7 +13,7 @@ const styles = {
   column: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     width: '100%',
     border: '1px solid var(--ks-medium-dark-grey)',
     borderRadius: 10,
