@@ -12,7 +12,6 @@ const { KS_USER, NSEVP_USER } = constants;
 const Credentials = {
   KS: 'K',
   NSEVP: 'N',
-  ONBOARDING: 'O',
   ADMIN: 'A',
   // GENERAL: 'G',
   // SUBSCRIBER: 'S',
@@ -24,11 +23,6 @@ function getCredentials(user) {
   let credentials = '';
 
   if (user == null) {
-    return credentials;
-  }
-
-  if (user.onboardingStep !== -1) {
-    credentials += Credentials.ONBOARDING;
     return credentials;
   }
 
@@ -55,10 +49,6 @@ function getCredentials(user) {
 }
 
 // Helper functions to check whether a user has a certain credential
-
-function isOnboarding(credentials) {
-  return credentials.includes(Credentials.ONBOARDING);
-}
 function isSignedIn(credentials) {
   return credentials !== '';
 }
@@ -86,6 +76,5 @@ export {
   isNSEVPUser,
   isSuperAdmin,
   isSignedIn,
-  isOnboarding,
   Credentials
 };

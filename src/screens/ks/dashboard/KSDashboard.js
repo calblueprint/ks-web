@@ -1,44 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import '@styles/KSDashboard.css';
+import '@styles/Dashboard.css';
 
-import DashboardSection from './DashboardSection';
-
-class KSDashboard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      transactions: [],
-      activeBill: null,
-      effectiveCostData: [],
-      mode: 0
-    };
-  }
-
-  seeAllBills() {
-    this.setState({
-      mode: 1
-    });
-  }
-
+class KSDashboard extends React.PureComponent {
+  // TO-DO: Ensure structure is the same as NSEVP Dashboard, once it is completed
+  // On the above note, it may be possible to just have one shared Dashboard class
   render() {
-    return (
-      <div className="ks-page ">
-        <div className="ks-main">
-          <div className="ks-section">
-            <DashboardSection />
-          </div>
-        </div>
-        {/* <div className="subscriber-side" /> */}
-      </div>
-    );
+    return null;
   }
 }
 
-const mapStateToProps = () => ({
-  // user: state.userData.user,
-  // projectGroup: state.userData.projectGroup,
-  // solarProjects: state.userData.solarProjects
+const mapStateToProps = state => ({
+  user: state.userData.user
 });
 
 export default connect(mapStateToProps)(KSDashboard);

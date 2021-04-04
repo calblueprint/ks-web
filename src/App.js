@@ -1,13 +1,14 @@
 /* eslint react/jsx-props-no-spreading: 0 */
 
 import React from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 
 import '@styles/App.css';
 
 import KSDashboard from '@ks/dashboard/KSDashboard';
+import FarmReferralForm from '@ks/FarmReferralForm';
 import NSEVPDashboard from '@nsevp/dashboard/NSEVPDashboard';
 import UserProfile from '@shared/UserProfile';
 import Login from '@shared/auth/Login';
@@ -24,7 +25,6 @@ import {
   isNSEVPUser,
   isKSUser,
   isSignedIn,
-  isOnboarding,
   getCredentials
 } from '@lib/credentials';
 
@@ -55,14 +55,11 @@ class App extends React.Component {
   getHomeComponent() {
     const { user } = this.props;
     const credentials = getCredentials(user);
-    const onboarding = isOnboarding(credentials);
     const signedIn = isSignedIn(credentials);
     const isNSEVP = isNSEVPUser(credentials);
     const isKS = isKSUser(credentials);
     let homeComponent;
-    if (onboarding) {
-      homeComponent = () => <Redirect to={{ pathname: '/onboarding' }} />;
-    } else if (!signedIn) {
+    if (!signedIn) {
       homeComponent = Login;
     } else if (isKS) {
       // Dashboard for both ks and ks ownrers (ks with shares)
@@ -97,7 +94,11 @@ class App extends React.Component {
               />
               <SuspenseRoute exact path="/about" component={About} />
               <AuthenticatedRoute path="/profile" component={UserProfile} />
-
+              <AuthenticatedRoute
+                path="/referral"
+                component={FarmReferralForm}
+                credentialCheck={isKSUser}
+              />
               <SuspenseRoute path="*" component={ErrorPage} />
             </Switch>
           </div>
