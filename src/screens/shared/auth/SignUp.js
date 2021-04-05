@@ -61,7 +61,9 @@ class SignUp extends React.PureComponent {
     // TODO validate
     const allErrorMessages = await Promise.all(
       fieldsToValidate.map(f => validateField(f, this.state[f]))
-    );
+    ).catch((e) => {
+      console.error(e);
+    })
 
     const newErrors = {};
     fieldsToValidate.forEach((field, i) => {
@@ -160,27 +162,6 @@ class SignUp extends React.PureComponent {
             />
           </div>
         </form>
-        <br />
-        <br />
-        <div className="sign-up-card">
-          <h2>Additional Information</h2>
-          Are you a Group GAP contact?
-          <Checkbox onChange={this.handleChange('groupGapContact')} />
-          <br />
-          Which farm are you a Group GAP Contact for?
-          <Select
-            native
-            error={errors.farm}
-            label="Farm"
-            defaultValue={userTypes}
-            onChange={this.handleChange('farm_contact')}
-          >
-            <option aria-label="" value="" />
-            {farms.map(f => (
-              <option value={f.name} />
-            ))}
-          </Select>
-        </div>
         <br />
         <br />
         <div className="submit-button">
