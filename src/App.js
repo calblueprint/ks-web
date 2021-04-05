@@ -87,7 +87,7 @@ class App extends React.Component {
                 path="/farm/:farmId"
                 component={FarmProfile}
               />
-              <SuspenseRoute
+              <AuthenticatedRoute
                 exact
                 path="/farm/:farmId/:state"
                 component={FarmProfileEdit}
