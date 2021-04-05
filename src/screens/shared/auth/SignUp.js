@@ -148,7 +148,11 @@ class SignUp extends React.PureComponent {
           <Button
             onClick={this.createAccount}
             variant="contained"
-            color="primary"
+            color="inherit"
+            style={{
+              'background-color': 'var(--ks-dark-blue)',
+              color: 'white'
+            }}
           >
             Submit
           </Button>
