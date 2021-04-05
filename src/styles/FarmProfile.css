@@ -1,128 +1,78 @@
 .farm-profile {
+  display: flex;
+  flex-direction: column;
   margin: 50px;
   padding: 50px;
-  height: min-content;
   background-color: white;
+  max-width: 1680px;
 }
 
-.farm-profile__body {
+.farm-profile__section {
   display: flex;
 }
 
-.farm-profile__body__left {
-  flex: 20%;
+.farm-profile__left-col {
+  flex: 1;
+  min-width: 256px;
 }
 
-.farm-profile__body__right {
-  flex: 80%;
-  margin-left: 50px;
+.farm-profile__right-col {
+  flex: 4;
+  margin-left: 48px;
 }
 
-.farm-contact-card {
+.contact-card {
   position: relative;
-}
-
-.farm-contact-card__main {
-  width: 280px;
-  height: 421px;
-  left: 0px;
-  top: 0px;
-  background: #ffffff;
   border-radius: 5px;
-  border: 2px solid rgba(51, 51, 51, 0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.farm-contact-card__main__cover-photo {
-  position: absolute;
-  width: 280px;
-  height: 167px;
-  left: 2px;
-  top: 2px;
-  border-radius: 4px 4px 0px 0px;
-}
-
-.farm-contact-card__main__profile-photo {
-  position: absolute;
-  width: 122px;
-  height: 122px;
-  left: 78px;
-  top: 72px;
-}
-
-.farm-contact-card__main__text {
-  position: absolute;
+.contact-card__cover-photo {
   width: 100%;
-  height: 34px;
-  left: 1px;
-  top: 209px;
-  text-align: center;
-  white-space: pre-wrap;
-  padding: 0px 24px;
+  border-radius: 5px 5px 0px 0px;
 }
 
-.farm-contact-card__main__text__details {
-  margin-top: 20px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.282191px;
-  color: var(--ks-font-light);
-}
-
-.farm-contact-card__main__text__details__certification {
-  width: 247px;
-  height: 40px;
+.contact-card__profile-photo {
   position: absolute;
-  left: 16px;
-  top: 118px;
-  background: var(--ks-light-grey);
-  border-radius: 20px;
-  color: var(--ks-font-medium);
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 125px;
+  height: 125px;
+
+  top: 100px;
 }
 
-.farm-contact-card__inspector {
-  width: 280px;
-  height: 145px;
-  margin-top: 24px;
-  padding-top: 17px;
-  background: white;
+.contact-card__info {
+  margin-top: 48px;
   text-align: center;
-  border: 2px solid rgba(51, 51, 51, 0.07);
 }
 
-.farm-contact-card__inspector__body {
+.contact-card__info-details {
+  margin: 24px 0px;
+}
+
+.contact-card__inspector {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 24px;
+  padding-top: 16px;
 }
 
-.farm-contact-card__certification-icon {
-  width: 23px;
-  height: 22px;
-  margin-right: 10px;
+.contact-card__inspector-info {
+  margin-top: 12px;
+  text-align: center;
 }
 
 .farm-contact-card__user-icon {
-  width: 40px;
-  height: 40px;
-  margin-right: 20px;
-}
-
-.farm-profile__subheader {
-  font-family: 'Lato', sans-serif;
-  font-size: 24px;
-  line-height: 27px;
+  width: 48px;
+  height: 48px;
 }
 
 .farm-graph-container {
   width: 100%;
-  height: 260px;
+  height: 200px;
   position: relative;
 }
 
@@ -142,7 +92,6 @@
 }
 
 .divider {
-  position: relative;
-  margin-top: 30px;
+  margin: 48px 0px;
   border-top: 0.7px solid var(--ks-medium-light-grey);
 }
