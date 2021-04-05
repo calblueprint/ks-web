@@ -1,17 +1,11 @@
 import React from 'react';
 
-import {
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  Button,
-  Checkbox
-} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
+import Dropdown from '@components/Dropdown';
+import FieldInput from '@components/FieldInput';
 import '@styles/SignUp.css';
 import { validateField, updateUserFields } from '@lib/utils';
-import { getAllFarmsForFarmSearch } from '@lib/farmUtils';
 
 class SignUp extends React.PureComponent {
   constructor(props) {
@@ -23,16 +17,10 @@ class SignUp extends React.PureComponent {
       password: '',
       userTypes: '',
       groupGapContact: false,
-      farms: [],
       errors: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.createAccount = this.createAccount.bind(this);
-  }
-
-  async componentDidMount() {
-    const farms = await getAllFarmsForFarmSearch();
-    this.setState({ farms });
   }
 
   handleChange(name) {
@@ -44,8 +32,6 @@ class SignUp extends React.PureComponent {
   }
 
   async createAccount() {
-    // TODO not working
-    // check all fields are correct
     // Keep track of whether we've found any errors
     let foundErrors = false;
 
@@ -58,12 +44,12 @@ class SignUp extends React.PureComponent {
       'password'
     ];
 
-    // TODO validate
+    const {state} = this;
     const allErrorMessages = await Promise.all(
-      fieldsToValidate.map(f => validateField(f, this.state[f]))
-    ).catch((e) => {
+      fieldsToValidate.map(f => validateField(f, state[f]))
+    ).catch(e => {
       console.error(e);
-    })
+    });
 
     const newErrors = {};
     fieldsToValidate.forEach((field, i) => {
@@ -93,7 +79,6 @@ class SignUp extends React.PureComponent {
       email,
       userTypes,
       password,
-      farms,
       errors
     } = this.state;
 
@@ -102,64 +87,53 @@ class SignUp extends React.PureComponent {
         <h1 id="sign-up-title">Create an Account</h1>
         <form className="sign-up-card">
           <h2>Contact Information</h2>
-          <div>
-            <TextField
-              error={errors.firstName}
-              required
-              label="First Name"
-              variant="outlined"
-              defaultValue={firstName}
-              onChange={this.handleChange('firstName')}
-            />
-            <TextField
-              error={errors.lastName}
-              required
-              label="Last Name"
-              variant="outlined"
-              defaultValue={lastName}
-              onChange={this.handleChange('lastName')}
-            />
-          </div>
-          <div>
-            {/* TODO add validation of email */}
-            <TextField
-              error={errors.email}
-              required
-              label="Email"
-              variant="outlined"
-              defaultValue={email}
-              onChange={this.handleChange('email')}
-            />
-          </div>
-          <div>
-            <FormControl variant="outlined">
-              <InputLabel>Organization</InputLabel>
-              <Select
-                native
-                error={errors.userTypes}
+          <div className="flex column">
+            <div className="row">
+              <FieldInput
+                error={errors.firstName}
+                required
+                label="First Name"
+                variant="outlined"
+                defaultValue={firstName}
+                onChange={this.handleChange('firstName')}
+              />
+              <FieldInput
+                error={errors.lastName}
+                required
+                label="Last Name"
+                variant="outlined"
+                placeholder={lastName}
+                onChange={this.handleChange('lastName')}
+              />
+            </div>
+            <div className="row">
+              <FieldInput
+                error={errors.email}
+                required
+                label="Email"
+                variant="outlined"
+                defaultValue={email}
+                onChange={this.handleChange('email')}
+              />
+            </div>
+            <div className="row">
+              <Dropdown
+                items={['KS', 'NSEVP']}
                 label="Organization"
-                defaultValue={userTypes}
                 onChange={this.handleChange('userTypes')}
-              >
-                <option aria-label="" value="" />
-                <option aria-label="KS" value="KS">
-                  KS
-                </option>
-                <option aria-label="NSEVP" value="NSEVP">
-                  NSEVP
-                </option>
-              </Select>
-            </FormControl>
-            <TextField
-              error={errors.password}
-              required
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              variant="outlined"
-              defaultValue={password}
-              onChange={this.handleChange('password')}
-            />
+                value={userTypes}
+              />
+              <FieldInput
+                error={errors.password}
+                required
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+                variant="outlined"
+                defaultValue={password}
+                onChange={this.handleChange('password')}
+              />
+            </div>
           </div>
         </form>
         <br />
