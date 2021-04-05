@@ -28,13 +28,9 @@ class FarmSearch extends React.PureComponent {
     const keyword = e.target.value;
     const filteredFarms = farms.filter(
       farm =>
-        (farm.contactFirstName &&
-          farm.contactFirstName
-            .toLowerCase()
-            .includes(keyword.toLowerCase())) ||
         (farm.farmName &&
           farm.farmName.toLowerCase().includes(keyword.toLowerCase())) ||
-        (`${farm.contactFirstName} ${farm.contactLastName}` &&
+        (farm.contactFirstName && farm.contactLastName &&
           `${farm.contactFirstName} ${farm.contactLastName}`
             .toLowerCase()
             .includes(keyword.toLowerCase()))
@@ -73,7 +69,6 @@ class FarmSearch extends React.PureComponent {
           {filteredFarms.map(farm => (
             <FarmCard key={farm.farmId} farm={farm} />
           ))}
-          {farms.len > 0 && <div>hi</div>}
         </div>
       </div>
     );
