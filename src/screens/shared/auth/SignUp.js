@@ -31,6 +31,15 @@ class SignUp extends React.PureComponent {
     };
   }
 
+  handleDropdownChange(options) {
+    return event => {
+      this.setState({
+        userTypesIndex: event.target.value,
+        userTypes: options[event.target.value]
+      });
+    };
+  }
+
   async createAccount() {
     // Keep track of whether we've found any errors
     let foundErrors = false;
@@ -44,7 +53,7 @@ class SignUp extends React.PureComponent {
       'password'
     ];
 
-    const {state} = this;
+    const { state } = this;
     const allErrorMessages = await Promise.all(
       fieldsToValidate.map(f => validateField(f, state[f]))
     ).catch(e => {
@@ -61,12 +70,9 @@ class SignUp extends React.PureComponent {
         newErrors[field] = false;
       }
     });
-    console.log(newErrors);
     this.setState({ errors: newErrors });
     // create account
     if (!foundErrors) {
-      // quick fix for multi-select
-      this.setState(prevState => ({ userTypes: [prevState.userTypes] }));
       this.setState({ errors: {} });
       updateUserFields(this.state, fieldsToValidate);
     }
@@ -77,7 +83,7 @@ class SignUp extends React.PureComponent {
       firstName,
       lastName,
       email,
-      userTypes,
+      userTypesIndex,
       password,
       errors
     } = this.state;
@@ -90,48 +96,48 @@ class SignUp extends React.PureComponent {
           <div className="flex column">
             <div className="row">
               <FieldInput
-                error={errors.firstName}
-                required
                 label="First Name"
                 variant="outlined"
-                defaultValue={firstName}
+                value={firstName}
                 onChange={this.handleChange('firstName')}
+                error={errors.firstName}
+                tooltip={errors.firstName}
               />
               <FieldInput
-                error={errors.lastName}
-                required
                 label="Last Name"
                 variant="outlined"
-                placeholder={lastName}
+                value={lastName}
                 onChange={this.handleChange('lastName')}
+                error={errors.lastName}
+                tooltip={errors.lastName}
               />
             </div>
             <div className="row">
               <FieldInput
-                error={errors.email}
-                required
                 label="Email"
                 variant="outlined"
-                defaultValue={email}
+                value={email}
                 onChange={this.handleChange('email')}
+                error={errors.email}
+                tooltip={errors.email}
               />
             </div>
             <div className="row">
               <Dropdown
                 items={['KS', 'NSEVP']}
                 label="Organization"
-                onChange={this.handleChange('userTypes')}
-                value={userTypes}
+                onChange={this.handleDropdownChange(['KS', 'NSEVP'])}
+                value={userTypesIndex}
+                error={errors.userTypes}
               />
               <FieldInput
-                error={errors.password}
-                required
                 label="Password"
                 type="password"
-                autoComplete="current-password"
                 variant="outlined"
-                defaultValue={password}
+                value={password}
                 onChange={this.handleChange('password')}
+                error={errors.password}
+                tooltip={errors.password}
               />
             </div>
           </div>

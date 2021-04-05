@@ -25,13 +25,13 @@ const useStyles = makeStyles({
 });
 
 export default function Dropdown(props) {
-  const { items, icon, label, onChange, value } = props;
+  const { items, icon, label, onChange, value, error } = props;
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       {label ? <h3 className={classes.label}>{label}</h3> : null}
-      <FormControl variant="outlined">
+      <FormControl variant="outlined" error={error}>
         <Select value={value} onChange={onChange}>
           {items.map((name, index) => (
             <MenuItem className={classes.menuItem} value={index} key={name}>
