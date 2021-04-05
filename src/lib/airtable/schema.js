@@ -7,7 +7,9 @@ export const Tables = {
   User: 'User',
   Farm: 'Farm',
   Comments: 'Comments',
-  RecentUpdates: 'Recent Updates'
+  RecentUpdates: 'Recent Updates',
+  RecentHarvestLogs: 'Recent Harvest Logs',
+  TotalHarvests: 'Total Harvests'
 };
 
 export const Columns = {
@@ -15,7 +17,7 @@ export const Columns = {
     primaryKey: { name: `Primary Key`, type: `formula` },
     dateCreated: { name: `Date Created`, type: `formula` },
     dateUpdated: { name: `Date Updated`, type: `formula` },
-    userTypes: { name: `User Types`, type: `multiSelect` },
+    userTypes: { name: `User Types`, type: `select` },
     id: { name: `ID`, type: `formula` },
     firstName: { name: `First Name`, type: `text` },
     lastName: { name: `Last Name`, type: `text` },
@@ -73,7 +75,12 @@ export const Columns = {
     riskAssessmentDate: { name: `Risk Assessment Date`, type: `date` },
     mockRecallDate: { name: `Mock Recall Date`, type: `date` },
     internalAudit1Date: { name: `Internal Audit 1 Date`, type: `date` },
-    internalAudit2Date: { name: `Internal Audit 2 Date`, type: `date` }
+    internalAudit2Date: { name: `Internal Audit 2 Date`, type: `date` },
+    recentHarvestLogIds: {
+      name: `Recent Harvest Logs`,
+      type: `foreignKey-many`
+    },
+    totalHarvestIds: { name: `Total Harvests`, type: `foreignKey-many` }
   },
   Comments: {
     id: { name: `ID`, type: `formula` },
@@ -87,5 +94,19 @@ export const Columns = {
     message: { name: `Message`, type: `multilineText` },
     date: { name: `Date`, type: `formula` },
     organization: { name: `Organization`, type: `multiSelect` }
+  },
+  'Recent Harvest Logs': {
+    id: { name: `ID`, type: `formula` },
+    farmId: { name: `Farm`, type: `foreignKey-one` },
+    date: { name: `Date`, type: `date` },
+    crops: { name: `Crops`, type: `text` }
+  },
+  'Total Harvests': {
+    id: { name: `ID`, type: `formula` },
+    farmId: { name: `Farm`, type: `foreignKey-one` },
+    date: { name: `Date`, type: `date` },
+    crops: { name: `Crops`, type: `text` },
+    quantities: { name: `Quantities`, type: `text` },
+    totalProductionPounds: { name: `Total Production Pounds`, type: `number` }
   }
 };
