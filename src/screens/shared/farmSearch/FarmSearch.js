@@ -30,7 +30,8 @@ class FarmSearch extends React.PureComponent {
       farm =>
         (farm.farmName &&
           farm.farmName.toLowerCase().includes(keyword.toLowerCase())) ||
-        (farm.contactFirstName && farm.contactLastName &&
+        (farm.contactFirstName &&
+          farm.contactLastName &&
           `${farm.contactFirstName} ${farm.contactLastName}`
             .toLowerCase()
             .includes(keyword.toLowerCase()))
@@ -39,7 +40,7 @@ class FarmSearch extends React.PureComponent {
   };
 
   render() {
-    const { farms, filteredFarms } = this.state;
+    const { filteredFarms } = this.state;
     return (
       <div className="farm-search__body">
         <div className="farm-search__header">
