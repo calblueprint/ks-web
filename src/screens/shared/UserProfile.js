@@ -70,7 +70,7 @@ class UserProfile extends React.Component {
       await refreshUserData(user.id);
 
       // Update Visual state
-      const { generalEditMode} = this.state;
+      const { generalEditMode } = this.state;
       if (type === 'general') {
         this.setState({ generalEditMode: !generalEditMode });
       }
@@ -78,7 +78,12 @@ class UserProfile extends React.Component {
   };
 
   onGeneralButtonPressed = async () => {
-    const { generalEditMode, updateFirstName, updateLastName, updateEmail } = this.state;
+    const {
+      generalEditMode,
+      updateFirstName,
+      updateLastName,
+      updateEmail
+    } = this.state;
     if (generalEditMode) {
       // Validate data
       this.validateAndSubmitData(
@@ -111,7 +116,7 @@ class UserProfile extends React.Component {
   renderInputLabel(name, editable) {
     const { [name]: value, errors } = this.state;
     return (
-      <div>
+      <span>
         {editable ? (
           <input
             type="text"
@@ -121,99 +126,93 @@ class UserProfile extends React.Component {
             onChange={this.handleChange}
           />
         ) : (
-          <label className="settings-label">{value}</label>
+          <label className="user-profile__general-label">{value}</label>
         )}
         {errors[name] && (
           <label style={{ color: 'red' }}>Error: {errors[name]}</label>
         )}
-      </div>
+      </span>
     );
   }
 
   render() {
-    const {
-      updateFirstName,
-      updateLastName,
-      updateEmail,
-      generalEditMode,
-    } = this.state;
+    const { updateFirstName, updateLastName, generalEditMode } = this.state;
 
     const { user } = this.props;
 
     return (
-        <div className="user-profile">
-          <div className="user-profile__header">
-            <h2>Settings</h2>
+      <div className="user-profile">
+        <div className="user-profile__header">
+          <h2>Settings</h2>
+        </div>
+        <div className="user-profile__content">
+          <div className="user-profile__icon">
+            <img
+              src={DefaultUserIcon}
+              alt="DefaultUserIcon"
+              className="user-profile__icon-photo"
+            />
+            <h3>{`${updateFirstName} ${updateLastName}`}</h3>
           </div>
-          <div className="user-profile__content">
-            <div className="user-profile__icon">
-              <img
-                src={DefaultUserIcon}
-                alt="DefaultUserIcon"
-                className="user-profile__icon-photo"
-              />
-              <h3>{`${updateFirstName} ${updateLastName}`}</h3>
-            </div>
-            <div
-              className={`user-profile__general-form settings-edit-${
-                generalEditMode ? 'enabled' : 'disabled'
-              }`}
-            >
-              <div className="user-profile__general-form-header">
-                <h2>General</h2>
-                <div className="user-profile__general-form-header-buttons">
-                  <button type="button" onClick={this.onGeneralButtonPressed}>
-                    {generalEditMode ? 'Save' : 'Edit'}
-                  </button>
-                  <button
-                    style={{ display: generalEditMode ? '' : 'none' }}
-                    type="button"
-                    onClick={() => this.handleCancel('general')}
-                  >
-                    Cancel
-                  </button>
-                </div>
+          <div
+            className={`user-profile__general edit-${
+              generalEditMode ? 'enabled' : 'disabled'
+            }`}
+          >
+            <div className="user-profile__general-header">
+              <h2>General</h2>
+              <div className="user-profile__general-header-buttons">
+                <button type="button" onClick={this.onGeneralButtonPressed}>
+                  {generalEditMode ? 'Save' : 'Edit'}
+                </button>
+                <button
+                  style={{ display: generalEditMode ? '' : 'none' }}
+                  type="button"
+                  onClick={() => this.handleCancel('general')}
+                >
+                  Cancel
+                </button>
               </div>
-              <form>
-                <div>
-                  <p>
-                    <label htmlFor="updateFirstName">
-                      First Name
-                      {this.renderInputLabel(
-                        'updateFirstName',
-                        generalEditMode
-                      )}
-                    </label>
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <label htmlFor="updateLastName">
-                      Last Name
-                      {this.renderInputLabel('updateLastName', generalEditMode)}
-                    </label>
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <label htmlFor="updateEmail">
-                      Email
-                      {this.renderInputLabel('updateEmail', generalEditMode)}
-                    </label>
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <label htmlFor="updateOrganization">
-                      Organization
-                      <label className="settings-label">{user.userTypes}</label>
-                    </label>
-                  </p>
-                </div>
-              </form>
             </div>
+            <form className="user-profile__general-content">
+              <div>
+                <p>
+                  <label htmlFor="updateFirstName">
+                    First Name
+                    {this.renderInputLabel('updateFirstName', generalEditMode)}
+                  </label>
+                </p>
+              </div>
+              <div>
+                <p>
+                  <label htmlFor="updateLastName">
+                    Last Name
+                    {this.renderInputLabel('updateLastName', generalEditMode)}
+                  </label>
+                </p>
+              </div>
+              <div>
+                <p>
+                  <label htmlFor="updateEmail">
+                    Email
+                    {this.renderInputLabel('updateEmail', generalEditMode)}
+                  </label>
+                </p>
+              </div>
+              <div>
+                <p>
+                  <label htmlFor="updateOrganization">
+                    Organization
+                    <label className="user-profile__general-label">
+                      {user.userTypes}
+                    </label>
+                  </label>
+                </p>
+              </div>
+            </form>
           </div>
         </div>
+      </div>
     );
   }
 }

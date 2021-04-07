@@ -13,6 +13,7 @@
   width: 300px;
   background: white;
   border-radius: 5px;
+  padding-bottom: 25px;
 }
 
 .user-profile__icon-photo {
@@ -29,7 +30,7 @@
   margin: 20px 0px 0px 0px;
 }
 
-.user-profile__general-form {
+.user-profile__general {
   background: white;
   width: 500px;
   float: right;
@@ -39,42 +40,23 @@
   padding: 32px;
 }
 
-.user-profile__general-form-header {
+.user-profile__general-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.user-profile__general-form-header-buttons {
+.user-profile__general-header-buttons {
   display: flex;
   flex-direction: row;
 }
 
-.user-profile__general-form-header-buttons button {
+.user-profile__general-header-buttons button {
   margin: 8px;
 }
 
-.settings-edit-disabled input {
-  float: right;
-  width: 50%;
-  border: 0px;
-  font-size: 16px;
-}
-
-.settings-edit-enabled input {
-  float: right;
-  width: 50%;
-  font-size: 16px;
-}
-
-.settings-label {
-  float: right;
-  width: 50%;
-  font-size: 16px;
-}
-
-.user-profile__general-form-header h2 {
+.user-profile__general-header h2 {
   margin-top: 0px;
   margin-bottom: 0px;
   font-weight: 800;
@@ -83,9 +65,33 @@
   line-height: 25px;
 }
 
-.user-profile__general-form-header button {
+.user-profile__general-header button {
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.user-profile__general-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.user-profile__general-label {
+  float: right;
+  width: 50%;
+}
+
+.edit-disabled input {
+  float: right;
+  width: 50%;
+  border: 0px;
+  font-size: 16px;
+}
+
+.edit-enabled input {
+  float: right;
+  width: 50%;
+  font-size: 16px;
 }
 
 .form-success {
