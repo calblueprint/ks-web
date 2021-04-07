@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { updateUser } from '@lib/airtable/request';
 import { refreshUserData } from '@lib/redux/userData';
 import { validateField } from '@lib/utils';
-import EditButton from '@components/EditButton';
+// import EditButton from '@components/EditButton';
 import '@styles/UserProfilePage.css';
 import DefaultUserIcon from '@assets/defaultUserIcon-small.svg';
 
@@ -79,17 +79,13 @@ class UserProfile extends React.Component {
   };
 
   onGeneralButtonPressed = async () => {
-    const {
-      generalEditMode,
-      updateFirstName,
-      updateLastName,
-    } = this.state;
+    const { generalEditMode, updateFirstName, updateLastName } = this.state;
     if (generalEditMode) {
       // Validate data
       this.validateAndSubmitData(
         {
           firstName: updateFirstName,
-          lastName: updateLastName,
+          lastName: updateLastName
         },
         'general'
       );
@@ -174,25 +170,19 @@ class UserProfile extends React.Component {
                 />
                  */}
 
-                <button 
-                type="button" 
-                onClick={this.onGeneralButtonPressed}
-                >
-                {generalEditMode ? 'Save' : 'Edit'}
+                <button type="button" onClick={this.onGeneralButtonPressed}>
+                  {generalEditMode ? 'Save' : 'Edit'}
                 </button>
-                
-                {generalEditMode ? 
-                <button
-                  type="button"
-                  onClick={() => this.handleCancel('general')}>
-                  Cancel
-                </button>
-                : null
-                }
 
+                {generalEditMode ? (
+                  <button
+                    type="button"
+                    onClick={() => this.handleCancel('general')}
+                  >
+                    Cancel
+                  </button>
+                ) : null}
               </div>
-
-
             </div>
             <form className="user-profile__general-content">
               <div>
