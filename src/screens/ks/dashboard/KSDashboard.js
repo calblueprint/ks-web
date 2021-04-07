@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Dashboard from '@shared/dashboard/Dashboard';
+import CertificationGraph from '../../shared/graphs/CertificationGraph';
 
 class KSDashboard extends React.PureComponent {
   render() {
-    return <Dashboard />;
+    return <Dashboard graph={<CertificationGraph />} />;
   }
 }
 

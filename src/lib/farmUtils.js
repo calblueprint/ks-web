@@ -16,7 +16,22 @@ export async function getSingleFarm(id) {
   return singleFarm;
 }
 
+export function getCertifcationSteps() {
+  return [
+    'Farm Referred',
+    'Farm Applied',
+    'Farm Accepted',
+    'Food Safety Plan Complete',
+    'Risk Assessment',
+    'Mock Recall Complete',
+    'Internal Audit Complete (1)',
+    'Internal Audit Complete (2)',
+    'Group GAP Certified!'
+  ];
+}
+
 export default {
   getSingleFarm,
-  getAllFarmsForFarmSearch
+  getAllFarmsForFarmSearch,
+  getCertifcationSteps
 };

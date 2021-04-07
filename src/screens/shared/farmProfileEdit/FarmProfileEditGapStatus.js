@@ -4,6 +4,8 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import EditGapStatusDropdown from './components/EditGapStatusDropdown';
 
+import { getCertifcationSteps } from '@utils/farmUtils';
+
 const styles = {
   row: {
     display: 'flex',
@@ -47,6 +49,8 @@ class FarmProfileEditGapStatus extends React.PureComponent {
       internalAudit2: 'Internal Audit Complete (2)',
       gapCertified: 'Group GAP Certified!'
     };
+
+    const steps = getCertifcationSteps();
   };
 
   render() {

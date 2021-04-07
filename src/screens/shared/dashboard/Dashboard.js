@@ -38,20 +38,14 @@ const styles = {
 
 class Dashboard extends React.PureComponent {
   render() {
-    const { classes } = this.props;
+    const { classes, graph } = this.props;
 
     return (
       <div className={classes.root}>
         <h1>Dashboard</h1>
         <StatCards />
         <div className={classes.row}>
-          <div className={classes.graph}>
-            <img
-              className={classes.image}
-              src={DashboardGraph}
-              alt="farm production history"
-            />
-          </div>
+          <div className={classes.graph}>{graph}</div>
           <RecentUpdates />
         </div>
       </div>
