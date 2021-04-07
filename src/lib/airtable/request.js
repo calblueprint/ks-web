@@ -118,6 +118,21 @@ export const createManyTotalHarvests = async records => {
   return Promise.all(createPromises);
 };
 
+export const createGapCertification = async record => {
+  return createRecord(Tables.GapCertification, record);
+};
+
+export const createManyGapCertifications = async records => {
+  const createPromises = [];
+  const numCalls = Math.ceil(records.length / 10);
+  for (let i = 0; i < numCalls; i += 1) {
+    const subset = records.slice(i * 10, (i + 1) * 10);
+    if (subset.length > 0)
+      createPromises.push(createRecords(Tables.GapCertification, subset));
+  }
+  return Promise.all(createPromises);
+};
+
 /*
  ******* READ RECORDS *******
  */
@@ -225,6 +240,27 @@ export const getAllTotalHarvests = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.TotalHarvests, filterByFormula, sort);
 };
 
+export const getGapCertificationById = async id => {
+  return getRecordById(Tables.GapCertification, id);
+};
+
+export const getGapCertificationsByIds = async (
+  ids,
+  filterByFormula = '',
+  sort = []
+) => {
+  let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
+  formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
+  return getAllRecords(Tables.GapCertification, formula, sort);
+};
+
+export const getAllGapCertifications = async (
+  filterByFormula = '',
+  sort = []
+) => {
+  return getAllRecords(Tables.GapCertification, filterByFormula, sort);
+};
+
 /*
  ******* UPDATE RECORDS *******
  */
@@ -319,6 +355,21 @@ export const updateManyTotalHarvests = async recordUpdates => {
   return Promise.all(updatePromises);
 };
 
+export const updateGapCertification = async (id, recordUpdates) => {
+  return updateRecord(Tables.GapCertification, id, recordUpdates);
+};
+
+export const updateManyGapCertifications = async recordUpdates => {
+  const updatePromises = [];
+  const numCalls = Math.ceil(recordUpdates.length / 10);
+  for (let i = 0; i < numCalls; i += 1) {
+    const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
+    if (subset.length > 0)
+      updatePromises.push(updateRecords(Tables.GapCertification, subset));
+  }
+  return Promise.all(updatePromises);
+};
+
 /*
  ******* DELETE RECORDS *******
  */
@@ -340,4 +391,7 @@ export const deleteRecentHarvestLog = async id => {
 };
 export const deleteTotalHarvest = async id => {
   return deleteRecord(Tables.TotalHarvests, id);
+};
+export const deleteGapCertification = async id => {
+  return deleteRecord(Tables.GapCertification, id);
 };
