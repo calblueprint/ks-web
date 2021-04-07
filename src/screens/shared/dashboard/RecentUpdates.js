@@ -42,8 +42,22 @@ const styles = {
 };
 
 class RecentUpdates extends React.PureComponent {
+  getRecentUpdates = num => {
+    // TODO: Replace with Airtable Call
+    const placeholder = {
+      profilePic: null,
+      date: '11/17/20',
+      author: 'Nick Wong',
+      text:
+        "This is an update. Please read it, it must be quite important ya'know."
+    };
+    return Array(num).fill(placeholder);
+  };
+
   render() {
-    const { classes, recentUpdates } = this.props;
+    const { classes } = this.props;
+    const recentUpdates = this.getRecentUpdates(5);
+
     return (
       <div className={classes.root}>
         <h2>Recent Updates</h2>
