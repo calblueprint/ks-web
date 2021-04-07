@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { updateUser } from '@lib/airtable/request';
 import { refreshUserData } from '@lib/redux/userData';
 import { validateField } from '@lib/utils';
+import EditButton from '@components/EditButton';
 import '@styles/UserProfilePage.css';
 import DefaultUserIcon from '@assets/defaultUserIcon-small.svg';
 
@@ -159,18 +160,39 @@ class UserProfile extends React.Component {
           >
             <div className="user-profile__general-header">
               <h2>General</h2>
+
               <div className="user-profile__general-header-buttons">
-                <button type="button" onClick={this.onGeneralButtonPressed}>
-                  {generalEditMode ? 'Save' : 'Edit'}
-                </button>
-                <button
-                  style={{ display: generalEditMode ? '' : 'none' }}
-                  type="button"
-                  onClick={() => this.handleCancel('general')}
+                {/**
+                <EditButton 
+                label={generalEditMode ? 'Save' : 'Edit'}
+                onClick={this.onGeneralButtonPressed}
+                />
+
+                <EditButton 
+                label = 'Cancel'
+                onClick={() => this.handleCancel('general')}
+                />
+                 */}
+
+                <button 
+                type="button" 
+                onClick={this.onGeneralButtonPressed}
                 >
+                {generalEditMode ? 'Save' : 'Edit'}
+                </button>
+                
+                {generalEditMode ? 
+                <button
+                  type="button"
+                  onClick={() => this.handleCancel('general')}>
                   Cancel
                 </button>
+                : null
+                }
+
               </div>
+
+
             </div>
             <form className="user-profile__general-content">
               <div>

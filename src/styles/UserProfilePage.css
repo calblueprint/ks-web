@@ -1,5 +1,5 @@
 .user-profile__header h2 {
-  color: var(--pp-blue);
+  color: var(--ks-dark-blue);
   font-weight: 900;
   font-size: 36px;
   line-height: 49px;
@@ -53,7 +53,21 @@
 }
 
 .user-profile__general-header-buttons button {
-  margin: 8px;
+  margin-right: 8px;
+  margin-left: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  border: 1px solid #4074b0;
+  box-sizing: border-box;
+  border-radius: 2.5px;
+  background-color: white;
+  color: var(--ks-dark-blue);
+  outline: none;
+}
+
+.user-profile__general-header-buttons button:active {
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1)
 }
 
 .user-profile__general-header h2 {
@@ -61,13 +75,8 @@
   margin-bottom: 0px;
   font-weight: 800;
   font-size: 18px;
-  color: var(--pp-blue);
+  color: var(--ks-dark-blue);
   line-height: 25px;
-}
-
-.user-profile__general-header button {
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 .user-profile__general-content {
