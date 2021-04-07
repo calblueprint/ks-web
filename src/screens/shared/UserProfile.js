@@ -82,7 +82,6 @@ class UserProfile extends React.Component {
       generalEditMode,
       updateFirstName,
       updateLastName,
-      updateEmail
     } = this.state;
     if (generalEditMode) {
       // Validate data
@@ -90,7 +89,6 @@ class UserProfile extends React.Component {
         {
           firstName: updateFirstName,
           lastName: updateLastName,
-          email: updateEmail
         },
         'general'
       );
@@ -195,7 +193,9 @@ class UserProfile extends React.Component {
                 <p>
                   <label htmlFor="updateEmail">
                     Email
-                    {this.renderInputLabel('updateEmail', generalEditMode)}
+                    <label className="user-profile__general-label">
+                      {user.email}
+                    </label>
                   </label>
                 </p>
               </div>
