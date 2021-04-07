@@ -91,7 +91,7 @@ export const Columns = {
     totalProductionPounds: { name: `Total Production Pounds`, type: `number` }
   },
   'GAP Certification': {
-    name: { name: `Name`, type: `formula` },
+    id: { name: `ID`, type: `formula` },
     farmReferredDate: { name: `Farm Referred Date`, type: `date` },
     farmApplied: { name: `Farm Applied`, type: `select` },
     farmAppliedDate: { name: `Farm Applied Date`, type: `date` },
