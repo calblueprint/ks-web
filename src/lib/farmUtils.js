@@ -36,11 +36,11 @@ export function getCertificationLabels() {
     'Farm\nReferred',
     'Farm\nApplied',
     'Farm\nAccepted',
-    'Food Safety\nPlan Complete',
+    'Farm Food\nSafety Plan',
     'Risk\nAssessment',
-    'Mock Recall\nComplete',
-    'Internal Audit\nComplete (1)',
-    'Internal Audit\nComplete (2)',
+    'Mock\nRecall',
+    'Internal\nAudit (1)',
+    'Internal\nAudit (2)',
     'Group GAP\nCertified!'
   ];
 }

@@ -4,7 +4,7 @@ import Dashboard from '@shared/dashboard/Dashboard';
 
 class NSEVPDashboard extends React.PureComponent {
   render() {
-    return <Dashboard />;
+    return <Dashboard graph="certification" />;
   }
 }
 

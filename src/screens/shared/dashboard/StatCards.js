@@ -17,7 +17,7 @@ const styles = {
     flexDirection: 'column',
     flex: '1 1 0',
     margin: 16,
-    minWidth: 200,
+    minWidth: 144,
     padding: 24,
     textAlign: 'center'
   }

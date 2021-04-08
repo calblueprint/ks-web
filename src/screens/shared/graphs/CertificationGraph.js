@@ -36,7 +36,7 @@ class CertificationGraph extends React.Component {
 
   render() {
     return (
-      <VictoryChart width={600}>
+      <VictoryChart padding={48} height={250} width={600}>
         <VictoryBar
           labels={({ datum }) => datum.y}
           labelComponent={<VictoryLabel dy={-5} />}
