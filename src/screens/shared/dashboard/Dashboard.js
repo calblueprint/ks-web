@@ -1,5 +1,4 @@
 import React from 'react';
-import DashboardGraph from '@assets/dashboardGraph.png';
 import { withStyles } from '@material-ui/core/styles';
 
 import RecentUpdates from '@shared/dashboard/RecentUpdates';

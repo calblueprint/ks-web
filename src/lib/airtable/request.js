@@ -118,17 +118,17 @@ export const createManyTotalHarvests = async records => {
   return Promise.all(createPromises);
 };
 
-export const createGapCertification = async record => {
-  return createRecord(Tables.GapCertification, record);
+export const createGAPCertification = async record => {
+  return createRecord(Tables.GAPCertification, record);
 };
 
-export const createManyGapCertifications = async records => {
+export const createManyGAPCertifications = async records => {
   const createPromises = [];
   const numCalls = Math.ceil(records.length / 10);
   for (let i = 0; i < numCalls; i += 1) {
     const subset = records.slice(i * 10, (i + 1) * 10);
     if (subset.length > 0)
-      createPromises.push(createRecords(Tables.GapCertification, subset));
+      createPromises.push(createRecords(Tables.GAPCertification, subset));
   }
   return Promise.all(createPromises);
 };
@@ -240,25 +240,25 @@ export const getAllTotalHarvests = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.TotalHarvests, filterByFormula, sort);
 };
 
-export const getGapCertificationById = async id => {
-  return getRecordById(Tables.GapCertification, id);
+export const getGAPCertificationById = async id => {
+  return getRecordById(Tables.GAPCertification, id);
 };
 
-export const getGapCertificationsByIds = async (
+export const getGAPCertificationsByIds = async (
   ids,
   filterByFormula = '',
   sort = []
 ) => {
   let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
   formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
-  return getAllRecords(Tables.GapCertification, formula, sort);
+  return getAllRecords(Tables.GAPCertification, formula, sort);
 };
 
-export const getAllGapCertifications = async (
+export const getAllGAPCertifications = async (
   filterByFormula = '',
   sort = []
 ) => {
-  return getAllRecords(Tables.GapCertification, filterByFormula, sort);
+  return getAllRecords(Tables.GAPCertification, filterByFormula, sort);
 };
 
 /*
@@ -355,17 +355,17 @@ export const updateManyTotalHarvests = async recordUpdates => {
   return Promise.all(updatePromises);
 };
 
-export const updateGapCertification = async (id, recordUpdates) => {
-  return updateRecord(Tables.GapCertification, id, recordUpdates);
+export const updateGAPCertification = async (id, recordUpdates) => {
+  return updateRecord(Tables.GAPCertification, id, recordUpdates);
 };
 
-export const updateManyGapCertifications = async recordUpdates => {
+export const updateManyGAPCertifications = async recordUpdates => {
   const updatePromises = [];
   const numCalls = Math.ceil(recordUpdates.length / 10);
   for (let i = 0; i < numCalls; i += 1) {
     const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
     if (subset.length > 0)
-      updatePromises.push(updateRecords(Tables.GapCertification, subset));
+      updatePromises.push(updateRecords(Tables.GAPCertification, subset));
   }
   return Promise.all(updatePromises);
 };
@@ -392,6 +392,6 @@ export const deleteRecentHarvestLog = async id => {
 export const deleteTotalHarvest = async id => {
   return deleteRecord(Tables.TotalHarvests, id);
 };
-export const deleteGapCertification = async id => {
-  return deleteRecord(Tables.GapCertification, id);
+export const deleteGAPCertification = async id => {
+  return deleteRecord(Tables.GAPCertification, id);
 };

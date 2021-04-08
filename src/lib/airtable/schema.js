@@ -10,7 +10,7 @@ export const Tables = {
   RecentUpdates: 'Recent Updates',
   RecentHarvestLogs: 'Recent Harvest Logs',
   TotalHarvests: 'Total Harvests',
-  GapCertification: 'Gap Certification'
+  GAPCertification: 'GAP Certification'
 };
 
 export const Columns = {
@@ -61,7 +61,7 @@ export const Columns = {
       type: `foreignKey-many`
     },
     totalHarvestIds: { name: `Total Harvests`, type: `foreignKey-many` },
-    table7Ids: { name: `Table 7`, type: `foreignKey-many` }
+    gapCertificationIds: { name: `GAP Certification`, type: `foreignKey-many` }
   },
   Comments: {
     id: { name: `ID`, type: `formula` },
@@ -90,8 +90,8 @@ export const Columns = {
     quantities: { name: `Quantities`, type: `text` },
     totalProductionPounds: { name: `Total Production Pounds`, type: `number` }
   },
-  'Gap Certification': {
-    name: { name: `Name`, type: `formula` },
+  'GAP Certification': {
+    id: { name: `ID`, type: `formula` },
     farmReferredDate: { name: `Farm Referred Date`, type: `date` },
     farmApplied: { name: `Farm Applied`, type: `select` },
     farmAppliedDate: { name: `Farm Applied Date`, type: `date` },

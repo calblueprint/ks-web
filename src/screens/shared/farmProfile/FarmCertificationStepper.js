@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Step, StepLabel, Stepper } from '@material-ui/core';
 import StatusIcon from '@components/StatusIcon';
 
-import { getCertifcationSteps } from '@utils/farmUtils';
+import { getCertificationLabels } from '@lib/farmUtils';
 
 const styles = {
   root: {
@@ -44,12 +44,12 @@ class FarmCertificationStepper extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const steps = getCertifcationSteps();
+    const labels = getCertificationLabels();
 
     return (
       <div className={classes.root}>
         <Stepper className={classes.stepper} alternativeLabel>
-          {steps.map((label, index) => (
+          {labels.map((label, index) => (
             <Step key={label}>
               <StepLabel
                 StepIconComponent={StatusIcon}

@@ -2,9 +2,9 @@ import React from 'react';
 
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
+import { mapCertificationStepsToLabels } from '@lib/farmUtils';
 import EditGapStatusDropdown from './components/EditGapStatusDropdown';
 
-import { getCertifcationSteps } from '@utils/farmUtils';
 
 const styles = {
   row: {
@@ -37,25 +37,9 @@ class FarmProfileEditGapStatus extends React.PureComponent {
     handleChange(gapCertificationValues);
   };
 
-  mapPropsToLabels = () => {
-    return {
-      referred: 'Farm Referred',
-      applied: 'Farm Applied',
-      accepted: 'Farm Accepted',
-      safetyPlan: 'Food Safety Plan Complete',
-      riskAssessment: 'Risk Assessment',
-      mockRecall: 'Mock Recall Complete',
-      internalAudit1: 'Internal Audit Complete (1)',
-      internalAudit2: 'Internal Audit Complete (2)',
-      gapCertified: 'Group GAP Certified!'
-    };
-
-    const steps = getCertifcationSteps();
-  };
-
   render() {
     const { classes, values } = this.props;
-    const map = this.mapPropsToLabels();
+    const map = mapCertificationStepsToLabels();
     const steps = Object.keys(map);
     const labels = Object.values(map);
 

@@ -16,22 +16,50 @@ export async function getSingleFarm(id) {
   return singleFarm;
 }
 
-export function getCertifcationSteps() {
+export function getCertificationSteps() {
   return [
-    'Farm Referred',
-    'Farm Applied',
-    'Farm Accepted',
-    'Food Safety Plan Complete',
-    'Risk Assessment',
-    'Mock Recall Complete',
-    'Internal Audit Complete (1)',
-    'Internal Audit Complete (2)',
-    'Group GAP Certified!'
+    'referred',
+    'farmReferred',
+    'farmApplied',
+    'farmAccepted',
+    'farmFoodSafetyPlan',
+    'riskAssessment',
+    'mockRecall',
+    'internalAudit1',
+    'internalAudit2',
+    'gapCertified'
   ];
+}
+
+export function getCertificationLabels() {
+  return [
+    'Farm\nReferred',
+    'Farm\nApplied',
+    'Farm\nAccepted',
+    'Food Safety\nPlan Complete',
+    'Risk\nAssessment',
+    'Mock Recall\nComplete',
+    'Internal Audit\nComplete (1)',
+    'Internal Audit\nComplete (2)',
+    'Group GAP\nCertified!'
+  ];
+}
+
+export function mapCertificationStepsToLabels() {
+  const keys = getCertificationSteps();
+  const values = getCertificationLabels();
+
+  const map = {};
+  keys.forEach((key, idx) => {
+    map[key] = values[idx];
+  });
+  return map;
 }
 
 export default {
   getSingleFarm,
   getAllFarmsForFarmSearch,
-  getCertifcationSteps
+  getCertificationLabels,
+  getCertificationSteps,
+  mapCertificationStepsToLabels
 };
