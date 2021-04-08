@@ -12,7 +12,7 @@ const styles = {
     minWidth: 256,
     overflowX: 'hidden',
     overflowY: 'scroll',
-    padding: '36px 24px 24px 24px',
+    padding: '36px 24px 24px 36px',
     boxSizing: 'border-box'
   },
   update: {
