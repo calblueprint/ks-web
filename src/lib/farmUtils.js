@@ -1,5 +1,10 @@
 /* eslint-disable no-await-in-loop */
-import { getAllFarms, getFarmById } from './airtable/request';
+import {
+  getAllFarms,
+  getFarmById,
+  getUserById,
+  getAllRecentUpdates
+} from './airtable/request';
 
 // Helper functions
 
@@ -16,7 +21,19 @@ export async function getSingleFarm(id) {
   return singleFarm;
 }
 
+export async function getAllRecentUpdatesAndUsers() {
+  let comments = [];
+  comments = await getAllRecentUpdates();
+
+  for (let i = 0; i < comments.length; i += 1) {
+    comments[i].author = await getUserById(comments[i].authorId);
+  }
+
+  return comments;
+}
+
 export default {
   getSingleFarm,
-  getAllFarmsForFarmSearch
+  getAllFarmsForFarmSearch,
+  getAllRecentUpdatesAndUsers
 };

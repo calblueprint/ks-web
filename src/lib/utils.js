@@ -217,6 +217,12 @@ const returnToHomepage = user => {
   clearUserData();
 };
 
+// Format date string returned from airtable
+const formatDate = date => {
+  // TODO
+  return date;
+};
+
 export {
   validateField,
   validateFieldSync,
@@ -227,5 +233,6 @@ export {
   validateUniqueEmail,
   validateNumber,
   validateExistence,
-  validateZipcode
+  validateZipcode,
+  formatDate
 };

@@ -11,10 +11,25 @@ import '@styles/Dashboard.css';
 
 import RecentUpdate from '@shared/dashboard/RecentUpdate';
 import StatCard from '@shared/dashboard/StatCard';
+import { getAllRecentUpdatesAndUsers } from '@lib/farmUtils.js';
+import { formatDate } from '@lib/utils.js';
 
 class NSEVPDashboard extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      recentUpdates: []
+    };
+  }
+
+  async componentDidMount() {
+    const recentUpdates = await getAllRecentUpdatesAndUsers();
+    this.setState({ recentUpdates });
+  }
+
   render() {
-    const numUpdates = 5;
+    const { recentUpdates } = this.state;
+
     return (
       <div className="dashboard__container">
         <h1>Dashboard</h1>
@@ -61,14 +76,14 @@ class NSEVPDashboard extends React.PureComponent {
           </div>
           <div className="dashboard__updates-container">
             <h2>Recent Updates</h2>
-            {[...Array(numUpdates)].map(id => {
+            {recentUpdates.map(update => {
               return (
                 <RecentUpdate
-                  key={id}
+                  key={update.id}
                   profilePic={Icon}
-                  updateDate="11/17/20"
-                  updateAuthor="Nick Wong"
-                  updateText="This is an update. Please read it, it must be quite important ya'know."
+                  updateDate={formatDate(update.date)}
+                  updateAuthor={update.author.name}
+                  updateText={update.message}
                 />
               );
             })}
