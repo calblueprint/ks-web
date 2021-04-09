@@ -21,15 +21,16 @@ export async function getSingleFarm(id) {
   return singleFarm;
 }
 
-export async function getAllRecentUpdatesAndUsers() {
+export async function getAllRecentUpdatesAndUsers(userType) {
   let comments = [];
   comments = await getAllRecentUpdates();
 
   for (let i = 0; i < comments.length; i += 1) {
     comments[i].author = await getUserById(comments[i].authorId);
+    console.log(comments[i].author);
   }
-
-  return comments;
+  console.log(userType);
+  return comments.filter(c => c.organization.includes(userType));
 }
 
 export default {

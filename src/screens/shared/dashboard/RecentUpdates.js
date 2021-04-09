@@ -1,4 +1,5 @@
 import React from 'react';
+import { store } from '@lib/redux/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -55,13 +56,14 @@ class RecentUpdates extends React.PureComponent {
   }
 
   async componentDidMount() {
-    const recentUpdates = await getAllRecentUpdatesAndUsers();
+    const { user } = store.getState().userData;
+    const recentUpdates = await getAllRecentUpdatesAndUsers(user.userTypes);
     this.setState({ recentUpdates });
   }
 
   render() {
     const { classes } = this.props;
-    const {recentUpdates} = this.state;
+    const { recentUpdates } = this.state;
 
     return (
       <div className={classes.root}>
