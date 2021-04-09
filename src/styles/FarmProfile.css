@@ -11,6 +11,15 @@
   display: flex;
 }
 
+.farm-profile__header {
+  display: flex;
+  align-items: center;
+}
+
+.farm-profile__header-edit {
+  margin: 8px 24px 0px 24px;
+}
+
 .farm-profile__left-col {
   flex: 1;
   min-width: 256px;
