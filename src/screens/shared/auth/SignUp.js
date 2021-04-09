@@ -15,32 +15,36 @@ class SignUp extends React.PureComponent {
       lastName: '',
       email: '',
       password: '',
+      userTypesIndex: 0,
       userTypes: '',
-      groupGapContact: false,
-      errors: {}
+      errors: {
+        firstName: false,
+        lastName: false,
+        email: false,
+        password: false,
+        userTypes: false
+      }
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.createAccount = this.createAccount.bind(this);
   }
 
-  handleChange(name) {
+  handleChange = name => {
     return event => {
       this.setState({
         [name]: event.target.value
       });
     };
-  }
+  };
 
-  handleDropdownChange(options) {
+  handleDropdownChange = options => {
     return event => {
       this.setState({
         userTypesIndex: event.target.value,
         userTypes: options[event.target.value]
       });
     };
-  }
+  };
 
-  async createAccount() {
+  createAccount = async () => {
     // Keep track of whether we've found any errors
     let foundErrors = false;
 
@@ -76,7 +80,7 @@ class SignUp extends React.PureComponent {
       this.setState({ errors: {} });
       updateUserFields(this.state, fieldsToValidate);
     }
-  }
+  };
 
   render() {
     const {
@@ -98,17 +102,17 @@ class SignUp extends React.PureComponent {
               <FieldInput
                 label="First Name"
                 variant="outlined"
-                value={firstName}
+                value={firstName || ''}
                 onChange={this.handleChange('firstName')}
-                error={errors.firstName}
+                error={errors.firstName !== false}
                 tooltip={errors.firstName}
               />
               <FieldInput
                 label="Last Name"
                 variant="outlined"
-                value={lastName}
+                value={lastName || ''}
                 onChange={this.handleChange('lastName')}
-                error={errors.lastName}
+                error={errors.lastName !== false}
                 tooltip={errors.lastName}
               />
             </div>
@@ -116,27 +120,27 @@ class SignUp extends React.PureComponent {
               <FieldInput
                 label="Email"
                 variant="outlined"
-                value={email}
+                value={email || ''}
                 onChange={this.handleChange('email')}
-                error={errors.email}
+                error={errors.email !== false}
                 tooltip={errors.email}
               />
             </div>
             <div className="row">
               <Dropdown
-                items={['KS', 'NSEVP']}
+                items={['', 'KS', 'NSEVP']}
                 label="Organization"
-                onChange={this.handleDropdownChange(['KS', 'NSEVP'])}
-                value={userTypesIndex}
-                error={errors.userTypes}
+                onChange={this.handleDropdownChange(['', 'KS', 'NSEVP'])}
+                value={userTypesIndex || 0}
+                error={errors.userTypes !== false}
               />
               <FieldInput
                 label="Password"
                 type="password"
                 variant="outlined"
-                value={password}
+                value={password || ''}
                 onChange={this.handleChange('password')}
-                error={errors.password}
+                error={errors.password !== false}
                 tooltip={errors.password}
               />
             </div>
@@ -150,7 +154,7 @@ class SignUp extends React.PureComponent {
             variant="contained"
             color="inherit"
             style={{
-              'background-color': 'var(--ks-dark-blue)',
+              backgroundColor: 'var(--ks-dark-blue)',
               color: 'white'
             }}
           >
