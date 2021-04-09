@@ -3,6 +3,9 @@ import React from 'react';
 import { Chat, WbSunny, Check, Assignment } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
+import { getAllFarmsForFarmSearch } from '@lib/farmUtils';
+import { getAllGAPCertificationsForStatCard } from '@lib/dashboardUtils';
+
 const styles = {
   root: {
     display: 'flex',
@@ -22,9 +25,46 @@ const styles = {
     textAlign: 'center'
   }
 };
-class StatCards extends React.PureComponent {
+class StatCards extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      farms: [],
+      search: null,
+      filteredFarms: [],
+      gapCertification: []
+    };
+  }
+
+  // async componentDidMount() {
+  //   const farms = await getAllFarmsForFarmSearch();
+  //   this.setState({ farms, filteredFarms: farms });
+  //   console.log(farms);
+  // };
+
+  async componentDidMount() {
+    const farms = await getAllFarmsForFarmSearch();
+    const gapCertification = await getAllGAPCertificationsForStatCard();
+
+    const numGapCertified = gapCertification.filter(farm => farm.gapCertified);
+
+    this.setState({ numGapCertified: numGapCertified });
+    this.setState({ farms: farms });
+    console.log(numGapCertified.length, gapCertification.length);
+    const percentGapCertified = (numGapCertified.length / farms.length) * 100;
+    this.setState({ percentGapCertified });
+    console.log(percentGapCertified);
+    // console.log(gapCertification)
+  }
+
   getCardStats = () => {
     // TODO: Replace with Airtable Call
+    // const gapCertified = gapCertification.filter(
+    //   singleGapCertified =>
+    //   (singleGapCertified.gapCertified === true)
+    // );
+    // this.setState(gapCertified);
+    const percentGapCertified = this.state;
     const iconProps = {
       fontSize: 'large',
       style: { color: 'var(--ks-dark-blue)' }
@@ -33,31 +73,31 @@ class StatCards extends React.PureComponent {
     return [
       {
         icon: <Chat {...iconProps} />,
-        name: 'Total Harvest',
+        name: 'Referrals',
         number: '17,000',
-        unit: ' lbs',
-        description: 'of harvest to date'
+        unit: ' farms',
+        description: 'referred to Group GAP'
       },
       {
         icon: <Check {...iconProps} />,
-        name: 'GAP Certification',
+        name: 'Group GAP Acceptances',
         number: '40',
         unit: '%',
-        description: 'of farms in Food Hub are GAP Certified'
+        description: 'are currently in a Group GAP cohort' //groupgapcontact in farms?
       },
       {
         icon: <WbSunny {...iconProps} />,
-        name: 'Harvesting Farms',
-        number: '10',
-        unit: ' farms',
-        description: 'are harvesting this week'
+        name: 'GAP Certification',
+        number: { percentGapCertified },
+        unit: '%',
+        description: 'of KS farms are GAP certified'
       },
       {
         icon: <Assignment {...iconProps} />,
-        name: 'North Shore GAP',
+        name: 'Group GAP Applications',
         number: '20',
         unit: '%',
-        description: 'of all GAP-certified farms in North Shore are NSEVP'
+        description: 'of referred farms have completed an application'
       }
     ];
   };
