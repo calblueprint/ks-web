@@ -30,41 +30,53 @@ class StatCards extends React.Component {
     super(props);
     this.state = {
       farms: [],
-      search: null,
-      filteredFarms: [],
-      gapCertification: []
+      gapCertification: [],
+      percentGapCertified: '',
+      numFarmReferred: '',
+      numGapAccepted: '',
+      percentGapApplied: ''
     };
   }
-
-  // async componentDidMount() {
-  //   const farms = await getAllFarmsForFarmSearch();
-  //   this.setState({ farms, filteredFarms: farms });
-  //   console.log(farms);
-  // };
 
   async componentDidMount() {
     const farms = await getAllFarmsForFarmSearch();
     const gapCertification = await getAllGAPCertificationsForStatCard();
 
     const numGapCertified = gapCertification.filter(farm => farm.gapCertified);
-
-    this.setState({ numGapCertified: numGapCertified });
-    this.setState({ farms: farms });
-    console.log(numGapCertified.length, gapCertification.length);
     const percentGapCertified = (numGapCertified.length / farms.length) * 100;
-    this.setState({ percentGapCertified });
-    console.log(percentGapCertified);
-    // console.log(gapCertification)
+
+    const numFarmReferred = gapCertification.filter(
+      farm => farm.farmReferred === 'Complete'
+    ).length;
+
+    const numGapAccepted = gapCertification.filter(
+      farm => farm.gapAccepted === 'Complete'
+    );
+    const percentGapAccepted = (numGapAccepted.length / farms.length) * 100;
+
+    const numGapApplied = gapCertification.filter(
+      farm => farm.farmApplied === 'Complete'
+    );
+
+    const percentGapApplied = (numGapApplied.length / farms.length) * 100;
+
+    this.setState({
+      farms,
+      gapCertification,
+      percentGapCertified,
+      numFarmReferred,
+      percentGapAccepted,
+      percentGapApplied
+    });
   }
 
   getCardStats = () => {
-    // TODO: Replace with Airtable Call
-    // const gapCertified = gapCertification.filter(
-    //   singleGapCertified =>
-    //   (singleGapCertified.gapCertified === true)
-    // );
-    // this.setState(gapCertified);
-    const percentGapCertified = this.state;
+    const {
+      percentGapCertified,
+      numFarmReferred,
+      percentGapAccepted,
+      percentGapApplied
+    } = this.state;
     const iconProps = {
       fontSize: 'large',
       style: { color: 'var(--ks-dark-blue)' }
@@ -74,28 +86,28 @@ class StatCards extends React.Component {
       {
         icon: <Chat {...iconProps} />,
         name: 'Referrals',
-        number: '17,000',
+        number: numFarmReferred, // total number of farms referred?
         unit: ' farms',
         description: 'referred to Group GAP'
       },
       {
         icon: <Check {...iconProps} />,
         name: 'Group GAP Acceptances',
-        number: '40',
+        number: percentGapAccepted,
         unit: '%',
-        description: 'are currently in a Group GAP cohort' //groupgapcontact in farms?
+        description: 'are currently in a Group GAP cohort' // groupgapcontact in farms?
       },
       {
         icon: <WbSunny {...iconProps} />,
         name: 'GAP Certification',
-        number: { percentGapCertified },
+        number: percentGapCertified,
         unit: '%',
         description: 'of KS farms are GAP certified'
       },
       {
         icon: <Assignment {...iconProps} />,
         name: 'Group GAP Applications',
-        number: '20',
+        number: percentGapApplied,
         unit: '%',
         description: 'of referred farms have completed an application'
       }
