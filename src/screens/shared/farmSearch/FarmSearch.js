@@ -20,6 +20,7 @@ class FarmSearch extends React.PureComponent {
   async componentDidMount() {
     const farms = await getAllFarmsForFarmSearch();
     this.setState({ farms, filteredFarms: farms });
+    console.log(farms);
   }
 
   searchAndFilter = e => {

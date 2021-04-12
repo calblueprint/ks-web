@@ -1,5 +1,7 @@
 import React from 'react';
 import { getSingleFarm } from '@lib/farmUtils';
+import { getSingleGapCertfication } from '@lib/dashUtils';
+
 
 import BackButton from '@components/BackButton';
 import Link from '@material-ui/core/Link';
@@ -14,6 +16,8 @@ class FarmProfile extends React.Component {
     super(props);
     this.state = {
       farm: {},
+      gapCert:{},
+      gapCertID: '',
       farmId: '',
       loading: true
     };
@@ -23,13 +27,16 @@ class FarmProfile extends React.Component {
     const { match } = this.props;
     const { farmId } = match.params;
     const farm = await getSingleFarm(farmId);
-    this.setState({ farm, farmId, loading: false });
+    //const { gapCertID } = farm.gapCertificationIds[0];
+    //const gapCert = await getSingleGapCertfication(gapCertID)
+    this.setState({ farm, farmId, loading: false }); //gapCert,gapCertID,
   }
 
   render() {
     const { farm, loading } = this.state;
     const { match } = this.props;
     const { farmId } = match.params;
+    console.log(farm.gapCertificationIds);
 
     if (loading) {
       return null;
@@ -52,7 +59,7 @@ class FarmProfile extends React.Component {
             <FarmContactCard farm={farm} />
           </div>
           <div className="farm-profile__right-col">
-            <FarmCertificationStepper />
+            <FarmCertificationStepper farm={farm}/>
             <FarmGraphsTable />
           </div>
         </div>
