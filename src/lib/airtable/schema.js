@@ -61,7 +61,7 @@ export const Columns = {
       type: `foreignKey-many`
     },
     totalHarvestIds: { name: `Total Harvests`, type: `foreignKey-many` },
-    gapCertificationIds: { name: `GAP Certification`, type: `foreignKey-many` }
+    gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` }
   },
   Comments: {
     id: { name: `ID`, type: `formula` },
@@ -74,7 +74,8 @@ export const Columns = {
     authorId: { name: `Author`, type: `foreignKey-one` },
     message: { name: `Message`, type: `multilineText` },
     date: { name: `Date`, type: `formula` },
-    organization: { name: `Organization`, type: `multiSelect` }
+    organization: { name: `Organization`, type: `multiSelect` },
+    namefromAuthor: { name: `Name (from Author)`, type: `lookup` }
   },
   'Recent Harvest Logs': {
     id: { name: `ID`, type: `formula` },

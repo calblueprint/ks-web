@@ -4,7 +4,7 @@ import { store } from '@lib/redux/store';
 import { withStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-import { getAllRecentUpdatesAndUsers } from '@lib/farmUtils.js';
+import { getAllRecentUpdatesByUserType } from '@lib/farmUtils.js';
 
 const styles = {
   root: {
@@ -57,7 +57,7 @@ class RecentUpdates extends React.PureComponent {
 
   async componentDidMount() {
     const { user } = store.getState().userData;
-    const recentUpdates = await getAllRecentUpdatesAndUsers(user.userTypes);
+    const recentUpdates = await getAllRecentUpdatesByUserType(user.userTypes);
     this.setState({ recentUpdates });
   }
 
@@ -82,7 +82,7 @@ class RecentUpdates extends React.PureComponent {
             </div>
             <div className={classes.updateText}>
               <div className={classes.title}>
-                <h3 className={classes.meta}>{update.author.name}</h3>
+                <h3 className={classes.meta}>{update.namefromAuthor}</h3>
                 <p className={classes.meta}>
                   {new Date(update.date).toLocaleDateString()}
                 </p>
