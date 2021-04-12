@@ -73,7 +73,7 @@ class StatCards extends React.Component {
     });
   }
 
-  getCardStats = () => {
+  getCardStats = isNSEVP => {
     const {
       percentGapCertified,
       numFarmReferred,
@@ -118,8 +118,8 @@ class StatCards extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const stats = this.getCardStats();
+    const { classes, isNSEVP } = this.props;
+    const stats = this.getCardStats(isNSEVP);
 
     return (
       <div className={classes.root}>
