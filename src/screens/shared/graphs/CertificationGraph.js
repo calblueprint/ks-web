@@ -15,23 +15,26 @@ const fontProps = {
   color: 'var(--ks-medium-dark-grey)'
 };
 
-class CertificationGraph extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      style: {
-        data: { fill: 'var(--ks-dark-blue)' }
-      }
-    };
-  }
+const barStyles = {
+  data: {
+    fill: 'var(--ks-dark-blue)'
+  },
+  labels: fontProps
+};
 
+const axisStyles = {
+  axis: {
+    stroke: 'none'
+  },
+  tickLabels: fontProps
+};
+
+class CertificationGraph extends React.Component {
   getData = () => {
     const labels = getCertificationLabels();
     const values = [10, 7, 5, 8, 11, 4, 3, 9, 7];
-    const data = [];
 
-    labels.forEach((label, index) => data.push({ x: label, y: values[index] }));
-    return data;
+    return labels.map((label, index) => ({ x: label, y: values[index] }));
   };
 
   render() {
@@ -41,19 +44,11 @@ class CertificationGraph extends React.Component {
           labels={({ datum }) => datum.y}
           labelComponent={<VictoryLabel dy={-5} />}
           dataComponent={<Bar />}
-          style={{
-            data: { fill: 'var(--ks-dark-blue)' },
-            labels: fontProps
-          }}
+          style={barStyles}
           data={this.getData()}
           barRatio={1.25}
         />
-        <VictoryAxis
-          style={{
-            axis: { stroke: 'none' },
-            tickLabels: fontProps
-          }}
-        />
+        <VictoryAxis style={axisStyles} />
       </VictoryChart>
     );
   }
