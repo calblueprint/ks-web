@@ -1,8 +1,13 @@
 import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
-import CertificationGraph from '@shared/graphs/CertificationGraph';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import Dropdown from '@components/Dropdown';
+
+import CertificationGraph from './CertificationGraph';
+import RecentHarvestsGraph from './RecentHarvestsGraph';
+import TopItemsGraph from './TopItemsGraph';
+import HarvestLogsGraph from './HarvestLogsGraph';
 
 const styles = {
   root: {
@@ -39,6 +44,21 @@ class Graph extends React.PureComponent {
           label: 'Gap Certification Progress',
           graph: <CertificationGraph />
         };
+      case 'recentHarvests':
+        return {
+          label: 'Recent Harvests',
+          graph: <RecentHarvestsGraph />
+        };
+      case 'topItems':
+        return {
+          label: 'Top Items',
+          graph: <TopItemsGraph />
+        };
+      case 'harvestLogs':
+        return {
+          label: 'Harvest Logs',
+          graph: <HarvestLogsGraph />
+        };
       default:
         return { label: '', graph: null };
     }
@@ -52,7 +72,12 @@ class Graph extends React.PureComponent {
       <div className={classes.root}>
         <div className={classes.row}>
           <h2 className={classes.header}>{label}</h2>
-          <Dropdown items={['Filter']} value={0} />
+          {/* TODO: Create Custom Menu for Filtering */}
+          <Dropdown
+            items={['Date Filters']}
+            icon={<CalendarTodayIcon />}
+            value={0}
+          />
         </div>
         <div className={classes.graph}>{graph}</div>
       </div>
