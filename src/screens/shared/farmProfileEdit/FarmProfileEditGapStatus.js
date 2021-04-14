@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { mapCertificationStepsToLabels } from '@lib/farmUtils';
 import EditGapStatusDropdown from './components/EditGapStatusDropdown';
 
-
 const styles = {
   row: {
     display: 'flex',

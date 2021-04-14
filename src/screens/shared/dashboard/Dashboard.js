@@ -1,9 +1,9 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
+import Graph from '@shared/graphs/Graph';
 import RecentUpdates from './RecentUpdates';
 import StatCards from './StatCards';
-import Graph from './Graph';
 
 const styles = {
   root: {

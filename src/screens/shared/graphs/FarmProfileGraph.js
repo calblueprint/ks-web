@@ -7,7 +7,7 @@ import {
   VictoryLabel
 } from 'victory';
 
-import { getCertificationLabels } from '@lib/farmUtils';
+import EmptyGraph from './EmptyGraph';
 
 const fontProps = {
   fontSize: 8,
@@ -17,7 +17,7 @@ const fontProps = {
 
 const barStyles = {
   data: {
-    fill: 'var(--ks-dark-blue)'
+    fill: 'var(--ks-medium-light-blue)'
   },
   labels: fontProps
 };
@@ -29,24 +29,27 @@ const axisStyles = {
   tickLabels: fontProps
 };
 
-class CertificationGraph extends React.PureComponent {
+class FarmProfileGraph extends React.PureComponent {
   getData = () => {
-    const labels = getCertificationLabels();
-    const values = [10, 7, 5, 8, 11, 4, 3, 9, 7];
-
+    const { labels, values } = this.props;
     return labels.map((label, index) => ({ x: label, y: values[index] }));
   };
 
   render() {
+    const { barRatio, isEmpty } = this.props;
+
+    if (isEmpty) {
+      return <EmptyGraph />;
+    }
     return (
-      <VictoryChart padding={48} height={250} width={600}>
+      <VictoryChart padding={48} height={150} width={600}>
         <VictoryBar
-          labels={({ datum }) => datum.y}
-          labelComponent={<VictoryLabel dy={-5} />}
+          labels={({ datum }) => `${datum.y} lbs`}
+          labelComponent={<VictoryLabel dy={-10} />}
           dataComponent={<Bar />}
           style={barStyles}
           data={this.getData()}
-          barRatio={1.25}
+          barRatio={barRatio || 1.6}
         />
         <VictoryAxis style={axisStyles} />
       </VictoryChart>
@@ -54,4 +57,4 @@ class CertificationGraph extends React.PureComponent {
   }
 }
 
-export default CertificationGraph;
+export default FarmProfileGraph;
