@@ -12,11 +12,11 @@ const styles = {
     minWidth: 256,
     overflowX: 'hidden',
     overflowY: 'scroll',
-    padding: '12px 24px 24px 24px',
+    padding: '36px 24px 24px 36px',
     boxSizing: 'border-box'
   },
   update: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor: 'white',
     borderWidth: 0,
     borderBottomWidth: 1,
@@ -37,7 +37,11 @@ const styles = {
     marginBottom: 0
   },
   body: {
-    width: '80%'
+    width: '100%'
+  },
+  text: {
+    maxWidth: 512,
+    marginBottom: 24
   }
 };
 
@@ -49,7 +53,7 @@ class RecentUpdates extends React.PureComponent {
       date: '11/17/20',
       author: 'Nick Wong',
       text:
-        "This is an update. Please read it, it must be quite important ya'know."
+        "This is an update. Please read it, it must be quite important ya'know This is an update. Please read it, it must be quite important ya'know."
     };
     return Array(num).fill(placeholder);
   };
@@ -73,12 +77,12 @@ class RecentUpdates extends React.PureComponent {
                 />
               )}
             </div>
-            <div>
+            <div className={classes.body}>
               <div className={classes.title}>
                 <h3 className={classes.meta}>{update.author}</h3>
                 <p className={classes.meta}>{update.date}</p>
               </div>
-              <p className={classes.body}>{update.text}</p>
+              <p className={classes.text}>{update.text}</p>
             </div>
           </div>
         ))}
