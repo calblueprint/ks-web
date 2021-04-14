@@ -26,8 +26,51 @@ export async function getAllRecentUpdatesByUserType(userType) {
   return comments.filter(c => c.organization.includes(userType));
 }
 
+export function getCertificationSteps() {
+  return [
+    'referred',
+    'farmReferred',
+    'farmApplied',
+    'farmAccepted',
+    'farmFoodSafetyPlan',
+    'riskAssessment',
+    'mockRecall',
+    'internalAudit1',
+    'internalAudit2',
+    'gapCertified'
+  ];
+}
+
+export function getCertificationLabels() {
+  return [
+    'Farm\nReferred',
+    'Farm\nApplied',
+    'Farm\nAccepted',
+    'Farm Food\nSafety Plan',
+    'Risk\nAssessment',
+    'Mock\nRecall',
+    'Internal\nAudit (1)',
+    'Internal\nAudit (2)',
+    'Group GAP\nCertified!'
+  ];
+}
+
+export function mapCertificationStepsToLabels() {
+  const keys = getCertificationSteps();
+  const values = getCertificationLabels();
+
+  const map = {};
+  keys.forEach((key, idx) => {
+    map[key] = values[idx];
+  });
+  return map;
+}
+
 export default {
   getSingleFarm,
   getAllFarmsForFarmSearch,
-  getAllRecentUpdatesByUserType
+  getAllRecentUpdatesByUserType,
+  getCertificationLabels,
+  getCertificationSteps,
+  mapCertificationStepsToLabels
 };

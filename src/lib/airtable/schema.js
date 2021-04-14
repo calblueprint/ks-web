@@ -61,7 +61,9 @@ export const Columns = {
       type: `foreignKey-many`
     },
     totalHarvestIds: { name: `Total Harvests`, type: `foreignKey-many` },
-    gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` }
+    gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` },
+    commentfromComments: { name: `Comment (from Comments)`, type: `lookup` },
+    authorfromComments: { name: `Author (from Comments)`, type: `lookup` }
   },
   Comments: {
     id: { name: `ID`, type: `formula` },

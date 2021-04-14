@@ -15,11 +15,11 @@ const styles = {
     minWidth: 256,
     overflowX: 'hidden',
     overflowY: 'scroll',
-    padding: '12px 24px 24px 24px',
+    padding: '36px 24px 24px 36px',
     boxSizing: 'border-box'
   },
   update: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor: 'white',
     borderWidth: 0,
     borderBottomWidth: 1,
@@ -43,7 +43,11 @@ const styles = {
     marginBottom: 0
   },
   body: {
-    width: '80%'
+    width: '100%'
+  },
+  text: {
+    maxWidth: 512,
+    marginBottom: 24
   }
 };
 
