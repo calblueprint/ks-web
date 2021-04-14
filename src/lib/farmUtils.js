@@ -1,5 +1,9 @@
 /* eslint-disable no-await-in-loop */
-import { getAllFarms, getFarmById } from './airtable/request';
+import {
+  getAllFarms,
+  getFarmById,
+  getAllRecentUpdates
+} from './airtable/request';
 
 // Helper functions
 
@@ -14,6 +18,12 @@ export async function getAllFarmsForFarmSearch() {
 export async function getSingleFarm(id) {
   const singleFarm = await getFarmById(id);
   return singleFarm;
+}
+
+export async function getAllRecentUpdatesByUserType(userType) {
+  let comments = [];
+  comments = await getAllRecentUpdates();
+  return comments.filter(c => c.organization.includes(userType));
 }
 
 export function getCertificationSteps() {
@@ -59,6 +69,7 @@ export function mapCertificationStepsToLabels() {
 export default {
   getSingleFarm,
   getAllFarmsForFarmSearch,
+  getAllRecentUpdatesByUserType,
   getCertificationLabels,
   getCertificationSteps,
   mapCertificationStepsToLabels

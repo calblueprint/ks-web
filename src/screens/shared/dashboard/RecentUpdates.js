@@ -1,7 +1,10 @@
 import React from 'react';
+import { store } from '@lib/redux/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
+import { getAllRecentUpdatesByUserType } from '@lib/farmUtils.js';
 
 const styles = {
   root: {
@@ -25,6 +28,9 @@ const styles = {
     display: 'flex',
     padding: '12px 0px'
   },
+  updateText: {
+    width: '100%'
+  },
   profilePic: {
     margin: '16px 16px 16px 0px',
     width: 48
@@ -46,21 +52,22 @@ const styles = {
 };
 
 class RecentUpdates extends React.PureComponent {
-  getRecentUpdates = num => {
-    // TODO: Replace with Airtable Call
-    const placeholder = {
-      profilePic: null,
-      date: '11/17/20',
-      author: 'Nick Wong',
-      text:
-        "This is an update. Please read it, it must be quite important ya'know This is an update. Please read it, it must be quite important ya'know."
+  constructor(props) {
+    super(props);
+    this.state = {
+      recentUpdates: []
     };
-    return Array(num).fill(placeholder);
-  };
+  }
+
+  async componentDidMount() {
+    const { user } = store.getState().userData;
+    const recentUpdates = await getAllRecentUpdatesByUserType(user.userTypes);
+    this.setState({ recentUpdates });
+  }
 
   render() {
     const { classes } = this.props;
-    const recentUpdates = this.getRecentUpdates(5);
+    const { recentUpdates } = this.state;
 
     return (
       <div className={classes.root}>
@@ -77,12 +84,14 @@ class RecentUpdates extends React.PureComponent {
                 />
               )}
             </div>
-            <div className={classes.body}>
+            <div className={classes.updateText}>
               <div className={classes.title}>
-                <h3 className={classes.meta}>{update.author}</h3>
-                <p className={classes.meta}>{update.date}</p>
+                <h3 className={classes.meta}>{update.namefromAuthor}</h3>
+                <p className={classes.meta}>
+                  {new Date(update.date).toLocaleDateString()}
+                </p>
               </div>
-              <p className={classes.text}>{update.text}</p>
+              <p className={classes.body}>{update.message}</p>
             </div>
           </div>
         ))}
