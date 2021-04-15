@@ -17,27 +17,31 @@ export async function getSingleGapCertfication(id) {
   return singleGapCertfication;
 }
 
-// export async function getAllTotalHarvestsForStatCard() {
-//   const AllHarvests = await getAllTotalHarvests();
-//   return AllHarvests;
-// }
+export async function getAllTotalHarvestsForStatCard() {
+  const AllHarvests = await getAllTotalHarvests();
+  return AllHarvests;
+}
 
-// export async function getSingleTotalHarvestById(id) {
-//   const singleGapCertfication = await getTotalHarvestById(id);
-//   return singleGapCertfication;
-// }
+export async function getSingleTotalHarvestById(id) {
+  const singleGapCertfication = await getTotalHarvestById(id);
+  return singleGapCertfication;
+}
 
-// export async function getAllTotalHarvestsForStatCard() {
-//   const AllHarvests = await getAllTotalHarvests();
-//   return AllHarvests;
-// }
+export async function getAllRecentHarvestLogsForStatCard() {
+  const AllHarvests = await getAllRecentHarvestLogs();
+  return AllHarvests;
+}
 
-// export async function getSingleGapCertfication(id) {
-//   const singleGapCertfication = await getGAPCertificationById(id);
-//   return singleGapCertfication;
-// }
+export async function getSingleRecentHarvestLogById(id) {
+  const singleGapCertfication = await getRecentHarvestLogById(id);
+  return singleGapCertfication;
+}
 
 export default {
   getSingleGapCertfication,
-  getAllGAPCertificationsForStatCard
+  getAllGAPCertificationsForStatCard,
+  getAllTotalHarvestsForStatCard,
+  getSingleTotalHarvestById,
+  getAllRecentHarvestLogsForStatCard,
+  getSingleRecentHarvestLogById
 };

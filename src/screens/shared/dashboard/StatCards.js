@@ -1,10 +1,20 @@
 import React from 'react';
 
-import { Chat, WbSunny, Check, Assignment } from '@material-ui/icons';
+import {
+  Chat,
+  WbSunny,
+  Check,
+  Assignment,
+  LocalShipping
+} from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
 import { getAllFarmsForFarmSearch } from '@lib/farmUtils';
-import { getAllGAPCertificationsForStatCard } from '@lib/dashUtils';
+import {
+  getAllGAPCertificationsForStatCard,
+  getAllTotalHarvestsForStatCard,
+  getAllRecentHarvestLogsForStatCard
+} from '@lib/dashUtils';
 
 const styles = {
   root: {
@@ -31,10 +41,16 @@ class StatCards extends React.Component {
     this.state = {
       farms: [],
       ksFarms: [],
+      totalHarvests: [],
+      recentHarvests: [],
       gapCertification: [],
-      percentGapCertified: '',
       numFarmReferred: '',
-      numGapAccepted: '',
+      numKsGapAccepted: '',
+      percentKsGapCertified: '',
+      percentKsGapApplied: '',
+      percentGapCertified: '',
+      nsevpHarvestFarms: '',
+      totalHarvestsPounds: '',
       percentGapApplied: ''
     };
   }
@@ -42,42 +58,78 @@ class StatCards extends React.Component {
   async componentDidMount() {
     const farms = await getAllFarmsForFarmSearch();
     const gapCertification = await getAllGAPCertificationsForStatCard();
-
+    const totalHarvests = await getAllTotalHarvestsForStatCard();
+    const recentHarvests = await getAllRecentHarvestLogsForStatCard();
     const ksFarms = farms.filter(farm => farm.ksAffiliated);
-    const numGapCertified = gapCertification.filter(farm => farm.gapCertified);
-    const percentGapCertified = (numGapCertified.length / ksFarms.length) * 100;
+
+    const numGapCertified = gapCertification.filter(farm => farm.gapCertified); // in gap certification there is no ks affiliated column
 
     const numFarmReferred = gapCertification.filter(
       farm => farm.farmReferred === 'Complete'
     ).length;
 
-    const numGapAccepted = gapCertification.filter(
+    const numKsGapAccepted = gapCertification.filter(
       farm => farm.gapAccepted === 'Complete'
-    );
-    const percentGapAccepted = (numGapAccepted.length / ksFarms.length) * 100;
+    ).length;
 
     const numGapApplied = gapCertification.filter(
       farm => farm.farmApplied === 'Complete'
     );
 
-    const percentGapApplied = (numGapApplied.length / ksFarms.length) * 100;
+    function roundToTwo(num) {
+      return +`${Math.round(`${num}e+2`)}e-2`;
+    }
+
+    function roundToOne(num) {
+      return +`${Math.round(`${num}e+1`)}e-1`;
+    }
+    const percentKsGapCertified = roundToOne(
+      (numGapCertified.length / ksFarms.length) * 100
+    );
+    const percentKsGapApplied = roundToTwo(
+      (numGapApplied.length / ksFarms.length) * 100
+    );
+
+    const percentGapCertified = roundToTwo(
+      (numGapCertified.length / farms.length) * 100
+    );
+    const percentGapApplied = roundToTwo(
+      (numGapApplied.length / farms.length) * 100
+    );
+    const nsevpHarvestFarms = recentHarvests.length;
+
+    let total = 0;
+    for (let i = 0; i < totalHarvests.length; i += 1) {
+      total += totalHarvests[i].totalProductionPounds;
+    }
+    const totalHarvestsPounds = total;
 
     this.setState({
       farms,
       ksFarms,
+      totalHarvests,
+      recentHarvests,
       gapCertification,
-      percentGapCertified,
       numFarmReferred,
-      percentGapAccepted,
+      numKsGapAccepted,
+      percentKsGapCertified,
+      percentKsGapApplied,
+      percentGapCertified,
+      nsevpHarvestFarms,
+      totalHarvestsPounds,
       percentGapApplied
     });
   }
 
   getCardStats = isNSEVP => {
     const {
-      percentGapCertified,
       numFarmReferred,
-      percentGapAccepted,
+      numKsGapAccepted,
+      percentKsGapCertified,
+      percentKsGapApplied,
+      percentGapCertified,
+      nsevpHarvestFarms,
+      totalHarvestsPounds,
       percentGapApplied
     } = this.state;
     const iconProps = {
@@ -85,6 +137,38 @@ class StatCards extends React.Component {
       style: { color: 'var(--ks-dark-blue)' }
     };
 
+    if (isNSEVP) {
+      return [
+        {
+          icon: <Check {...iconProps} />,
+          name: 'GAP Certification',
+          number: percentGapCertified,
+          unit: ' %',
+          description: 'of farms in the Group GAP program are GAP Certified'
+        },
+        {
+          icon: <WbSunny {...iconProps} />,
+          name: 'Harvesting Farms',
+          number: nsevpHarvestFarms,
+          unit: ' farms',
+          description: 'are harvesting this week'
+        },
+        {
+          icon: <LocalShipping {...iconProps} />,
+          name: 'Total Harvest',
+          number: totalHarvestsPounds,
+          unit: ' lbs',
+          description: 'of harvest to date'
+        },
+        {
+          icon: <Assignment {...iconProps} />,
+          name: 'Group GAP Applications',
+          number: percentGapApplied,
+          unit: '%',
+          description: 'of referred farms have completed an application'
+        }
+      ];
+    }
     return [
       {
         icon: <Chat {...iconProps} />,
@@ -94,23 +178,23 @@ class StatCards extends React.Component {
         description: 'referred to Group GAP'
       },
       {
-        icon: <Check {...iconProps} />,
+        icon: <WbSunny {...iconProps} />,
         name: 'Group GAP Acceptances',
-        number: percentGapAccepted,
-        unit: '%',
+        number: numKsGapAccepted,
+        unit: ' farms',
         description: 'are currently in a Group GAP cohort'
       },
       {
-        icon: <WbSunny {...iconProps} />,
+        icon: <Check {...iconProps} />,
         name: 'GAP Certification',
-        number: percentGapCertified,
+        number: percentKsGapCertified,
         unit: '%',
         description: 'of KS farms are GAP certified'
       },
       {
         icon: <Assignment {...iconProps} />,
         name: 'Group GAP Applications',
-        number: percentGapApplied,
+        number: percentKsGapApplied,
         unit: '%',
         description: 'of referred farms have completed an application'
       }

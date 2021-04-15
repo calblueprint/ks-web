@@ -39,10 +39,6 @@ const styles = {
 class Dashboard extends React.PureComponent {
   render() {
     const { classes, isNSEVP } = this.props;
-    //call get credentials; render correct set of stat cards-> add (type prop) to stat cards
-    if (isNSEVP) {
-    } else {
-    }
     return (
       <div className={classes.root}>
         <h1>Dashboard</h1>
