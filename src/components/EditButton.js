@@ -14,12 +14,12 @@ const useStyles = makeStyles({
 */
 
 export default function EditButton(props) {
-  const { label } = props;
+  const { label, onClick } = props;
   // const classes = useStyles();
 
   return (
-    <Button variant="contained">
-        {label}
+    <Button variant="contained" onClick={onClick}>
+      {label}
     </Button>
   );
 }
