@@ -1,12 +1,8 @@
 /* eslint-disable no-await-in-loop */
 import React from 'react';
 import USStates from '@assets/usStates.json';
-import ErrorIcon from '@assets/error.svg';
-import {
-  // getAllProjectGroups,
-  updateUser,
-  deleteUser
-} from './airtable/request';
+// import ErrorIcon from '@assets/error.svg';
+import { updateUser, deleteUser } from './airtable/request';
 import { refreshUserData, clearUserData } from './redux/userData';
 import { signupUser } from './airlock/airlock';
 
@@ -35,7 +31,7 @@ const validateCertifyPermanentAddress = value => {
     ''
   ) : (
     <div className="error-container">
-      <img src={ErrorIcon} alt="error" className="mr-1" />
+      {/** <img src={ErrorIcon} alt="error" className="mr-1" /> */}
       <div className="error-text">
         Please certify the above address in order to proceed.
       </div>
@@ -88,17 +84,6 @@ const validateNumber = value => {
   return !Number.isNaN(value) ? '' : 'Must be a number';
 };
 
-// Ensure shares is a valid number
-const validateShares = value => {
-  if (value > 10) {
-    return 'Max number of shares is 10';
-  }
-  if (value < 1) {
-    return 'Min number of shares is 1';
-  }
-  return '';
-};
-
 // Ensure State is a real state (either abbreivation or full name)
 const ValidateUSState = value => {
   const upperCaseValue = value.toUpperCase();
@@ -113,6 +98,9 @@ const ValidateUSState = value => {
 
 // Ensure Zipcode is of valid length
 const validateZipcode = value => {
+  if (value === undefined) {
+    return 'Must be 5 digits.';
+  }
   return value.length === 5 ? '' : 'Must be 5 digits';
 };
 
@@ -139,13 +127,11 @@ const ValidatorData = {
   mailingState: [validateExistence, ValidateUSState],
   permanentZipcode: [validateExistence, validateNumber, validateZipcode],
   mailingZipcode: [validateExistence, validateNumber, validateZipcode],
-  numberOfShares: [validateExistence, validateNumber, validateShares],
   mailingAddressSame: [],
   alternateEmail: [validateAlternateEmail],
   permanentStreet2: [],
   mailingStreet2: [],
-  certifyPermanentAddress: [validateCertifyPermanentAddress],
-  isReceivingDividends: []
+  certifyPermanentAddress: [validateCertifyPermanentAddress]
   // projectGroup: [v => validateExistence(v, 'Please choose a group')] // Custom error message
 };
 
@@ -227,5 +213,7 @@ export {
   validateUniqueEmail,
   validateNumber,
   validateExistence,
-  validateZipcode
+  validateZipcode,
+  validatePhoneNumber,
+  validateCertifyPermanentAddress
 };

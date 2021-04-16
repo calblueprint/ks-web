@@ -5,6 +5,12 @@ import FieldInput from '@components/FieldInput';
 import Dropdown from '@components/Dropdown';
 
 import { getSingleFarm } from '@lib/farmUtils';
+import {
+  validatePhoneNumber,
+  validateEmail,
+  validateCertifyPermanentAddress,
+  validateZipcode
+} from '@lib/utils';
 
 const styles = {
   form: {
@@ -85,12 +91,14 @@ class FarmProfileEditForm extends React.PureComponent {
               onChange={this.onChange('phone')}
               placeholder={farm.phone}
               variant="outlined"
+              error={validatePhoneNumber(farm.phone)}
             />
             <FieldInput
               label="Email"
               onChange={this.onChange('farmEmail')}
               placeholder={farm.farmEmail}
               variant="outlined"
+              error={validateEmail(farm.farmEmail)}
             />
           </div>
           <div className={classes.row}>
@@ -99,6 +107,7 @@ class FarmProfileEditForm extends React.PureComponent {
               onChange={this.onChange('physicalStreet1')}
               placeholder={farm.physicalStreet1}
               variant="outlined"
+              error={validateCertifyPermanentAddress(farm.physicalStreet1)}
             />
           </div>
           <div className={classes.row}>
@@ -121,6 +130,7 @@ class FarmProfileEditForm extends React.PureComponent {
               onChange={this.onChange('physicalZipcode')}
               placeholder={farm.physicalZipcode}
               variant="outlined"
+              error={validateZipcode(farm.physicalZipcode)}
             />
           </div>
           <div className={classes.row}>
@@ -129,6 +139,7 @@ class FarmProfileEditForm extends React.PureComponent {
               onChange={this.onChange('mailingStreet1')}
               placeholder={farm.mailingStreet1}
               variant="outlined"
+              error={validateCertifyPermanentAddress(farm.mailingStreet1)}
             />
           </div>
           <div className={classes.row}>
@@ -151,6 +162,7 @@ class FarmProfileEditForm extends React.PureComponent {
               onChange={this.onChange('mailingZipcode')}
               placeholder={farm.mailingZipcode}
               variant="outlined"
+              error={validateZipcode(farm.mailingZipcode)}
             />
           </div>
         </div>
