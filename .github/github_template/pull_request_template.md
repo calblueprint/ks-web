@@ -1,1 +1,0 @@
-all teams have nice PR already templates :)
