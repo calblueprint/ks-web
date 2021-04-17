@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 });
 
 export default function FieldInput(props) {
-  const { label, onChange, placeholder, variant } = props;
+  const { label, onChange, placeholder, variant, ...rest } = props;
   const classes = useStyles();
 
   return (
@@ -29,6 +29,7 @@ export default function FieldInput(props) {
         variant={variant || 'standard'}
         placeholder={placeholder}
         onChange={onChange}
+        {...rest}
       />
     </div>
   );

@@ -64,13 +64,13 @@ class FarmReferralForm extends React.PureComponent {
   }
 
   referFarm = () => {
-    const newFarm = Object.assign({}, this.state);
+    const newFarm = { ...this.state };
     delete newFarm.submitted;
     delete newFarm.additionalNotes;
     newFarm.mailingState = states[this.state.mailingState];
     newFarm.physicalState = states[this.state.physicalState];
 
-    const user = this.props.user;
+    const { user } = this.props;
     const newComment = {
       comment: this.state.additionalNotes,
       authorId: user.id
