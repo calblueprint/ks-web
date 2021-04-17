@@ -6,7 +6,6 @@ import '@styles/FarmSearch.css';
 import SearchIcon from '@assets/search-icon.png';
 
 import FarmCard from './FarmCard';
-import NewFarmCard from './NewFarmCard';
 
 class FarmSearch extends React.PureComponent {
   constructor(props) {
@@ -66,7 +65,6 @@ class FarmSearch extends React.PureComponent {
           </div>
         </div>
         <div className="farm-search__grid">
-          <NewFarmCard />
           {filteredFarms.map(farm => (
             <FarmCard key={farm.farmId} farm={farm} />
           ))}
