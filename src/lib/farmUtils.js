@@ -2,7 +2,8 @@
 import {
   getAllFarms,
   getFarmById,
-  getAllRecentUpdates
+  getAllRecentUpdates,
+  getGAPCertificationById
 } from './airtable/request';
 
 // Helper functions
@@ -20,6 +21,11 @@ export async function getSingleFarm(id) {
   return singleFarm;
 }
 
+export async function getGapCertificationStatus(id) {
+  const status = await getGAPCertificationById(id);
+  return status;
+}
+
 export async function getAllRecentUpdatesByUserType(userType) {
   let comments = [];
   comments = await getAllRecentUpdates();
@@ -28,7 +34,6 @@ export async function getAllRecentUpdatesByUserType(userType) {
 
 export function getCertificationSteps() {
   return [
-    'referred',
     'farmReferred',
     'farmApplied',
     'farmAccepted',
@@ -69,6 +74,7 @@ export function mapCertificationStepsToLabels() {
 export default {
   getSingleFarm,
   getAllFarmsForFarmSearch,
+  getGapCertificationStatus,
   getAllRecentUpdatesByUserType,
   getCertificationLabels,
   getCertificationSteps,
