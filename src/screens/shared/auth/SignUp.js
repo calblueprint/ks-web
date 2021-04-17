@@ -94,7 +94,7 @@ class SignUp extends React.PureComponent {
         <form className="sign-up-card">
           <h2>Contact Information</h2>
           <div className="flex column">
-            <div className="row">
+            <div className="flex row">
               <FieldInput
                 label="First Name"
                 variant="outlined"
@@ -112,7 +112,7 @@ class SignUp extends React.PureComponent {
                 tooltip={errors.lastName}
               />
             </div>
-            <div className="row">
+            <div className="flex row">
               <FieldInput
                 label="Email"
                 variant="outlined"
@@ -122,7 +122,7 @@ class SignUp extends React.PureComponent {
                 tooltip={errors.email}
               />
             </div>
-            <div className="row">
+            <div className="flex row">
               <Dropdown
                 items={['KS', 'NSEVP']}
                 label="Organization"
