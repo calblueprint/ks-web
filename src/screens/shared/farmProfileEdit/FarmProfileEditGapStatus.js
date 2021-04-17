@@ -25,7 +25,7 @@ const styles = {
   }
 };
 
-class FarmProfileEditGapStatus extends React.PureComponent {
+class FarmProfileEditGapStatus extends React.Component {
   onChange = prop => event => {
     const { values, handleChange } = this.props;
 

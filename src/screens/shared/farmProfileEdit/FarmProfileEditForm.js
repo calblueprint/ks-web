@@ -6,14 +6,13 @@ import Dropdown from '@components/Dropdown';
 
 const styles = {
   form: {
-    padding: '0px 48px',
     margin: '48px 0px 48px 0px'
   },
   row: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    margin: '16px 0px',
+    margin: '16px -12px',
     width: '100%'
   },
   dropdown: {
