@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { TextField } from '@material-ui/core';
+import { TextField, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -17,10 +16,10 @@ const useStyles = makeStyles({
 });
 
 export default function FieldInput(props) {
-  const { label, onChange, placeholder, variant, ...rest } = props;
+  const { label, onChange, placeholder, variant, tooltip, ...rest } = props;
   const classes = useStyles();
 
-  return (
+  const innerHTML = (
     <div className={classes.root}>
       {label ? <h3 className={classes.label}>{label}</h3> : null}
       <TextField
@@ -33,4 +32,6 @@ export default function FieldInput(props) {
       />
     </div>
   );
+
+  return tooltip ? <Tooltip title={tooltip}>{innerHTML}</Tooltip> : innerHTML;
 }

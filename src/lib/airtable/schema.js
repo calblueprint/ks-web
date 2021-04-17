@@ -28,7 +28,8 @@ export const Columns = {
     farmIds: { name: `Farm`, type: `foreignKey-many` },
     profilePicture: { name: `Profile Picture`, type: `multipleAttachment` },
     commentIds: { name: `Comments`, type: `foreignKey-many` },
-    recentUpdateIds: { name: `Recent Updates`, type: `foreignKey-many` }
+    recentUpdateIds: { name: `Recent Updates`, type: `foreignKey-many` },
+    lastSynced: { name: `Last Synced`, type: `date` }
   },
   Farm: {
     farmName: { name: `Farm Name`, type: `text` },
@@ -61,7 +62,9 @@ export const Columns = {
       type: `foreignKey-many`
     },
     totalHarvestIds: { name: `Total Harvests`, type: `foreignKey-many` },
-    gapCertificationIds: { name: `GAP Certification`, type: `foreignKey-many` }
+    gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` },
+    commentfromComments: { name: `Comment (from Comments)`, type: `lookup` },
+    authorfromComments: { name: `Author (from Comments)`, type: `lookup` }
   },
   Comments: {
     id: { name: `ID`, type: `formula` },
@@ -74,7 +77,8 @@ export const Columns = {
     authorId: { name: `Author`, type: `foreignKey-one` },
     message: { name: `Message`, type: `multilineText` },
     date: { name: `Date`, type: `formula` },
-    organization: { name: `Organization`, type: `multiSelect` }
+    organization: { name: `Organization`, type: `multiSelect` },
+    namefromAuthor: { name: `Name (from Author)`, type: `lookup` }
   },
   'Recent Harvest Logs': {
     id: { name: `ID`, type: `formula` },

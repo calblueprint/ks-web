@@ -27,7 +27,8 @@ class Login extends React.Component {
   };
 
   handleSignUpOnClick = () => {
-    // TODO
+    const { history } = this.props;
+    history.push(Constants.SIGNUP_ROUTE);
   };
 
   handleSubmit = async evt => {

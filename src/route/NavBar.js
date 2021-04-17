@@ -38,7 +38,7 @@ class NavBar extends React.PureComponent {
       );
     }
 
-    return (
+    return affiliation ? (
       <div className="nav-bar">
         <a href="/">
           <img
@@ -125,6 +125,8 @@ class NavBar extends React.PureComponent {
           )}
         </nav>
       </div>
+    ) : (
+      <div />
     );
   }
 }
