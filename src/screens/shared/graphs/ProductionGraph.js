@@ -4,7 +4,7 @@ import {
   VictoryBar,
   Bar,
   VictoryAxis,
-  VictoryLabel
+  VictoryStack
 } from 'victory';
 
 import { getCertificationLabels } from '@lib/farmUtils';
@@ -16,9 +16,6 @@ const fontProps = {
 };
 
 const barStyles = {
-  data: {
-    fill: 'var(--ks-dark-blue)'
-  },
   labels: fontProps
 };
 
@@ -28,6 +25,14 @@ const axisStyles = {
   },
   tickLabels: fontProps
 };
+
+const colors = [
+  'var(--ks-dark-blue)', 
+  'var(--ks-medium-dark-blue)', 
+  'var(--ks-medium-blue)',
+  'var(--ks-medium-light-blue)',
+  'var(--ks-light-blue)',
+]
 
 class ProductionGraph extends React.PureComponent {
   getData = () => {
@@ -40,14 +45,17 @@ class ProductionGraph extends React.PureComponent {
   render() {
     return (
       <VictoryChart padding={48} height={250} width={600}>
-        <VictoryBar
-          labels={({ datum }) => datum.y}
-          labelComponent={<VictoryLabel dy={-5} />}
-          dataComponent={<Bar />}
-          style={barStyles}
-          data={this.getData()}
-          barRatio={1.25}
-        />
+        <VictoryStack colorScale={colors}>
+          {[...Array(4)].map(i => 
+            <VictoryBar
+              dataComponent={<Bar />}
+              style={barStyles}
+              data={this.getData()}
+              barRatio={1.25}
+            />
+          )}
+        </VictoryStack>
+       
         <VictoryAxis style={axisStyles} />
       </VictoryChart>
     );
