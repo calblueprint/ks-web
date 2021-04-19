@@ -5,13 +5,17 @@ import FieldInput from '@components/FieldInput';
 import Dropdown from '@components/Dropdown';
 import { Button } from '@material-ui/core';
 import states from '@assets/usStates';
-import { validateField, createFalseDict } from '@lib/utils';
+import {
+  validateFarmEdit,
+  createFalseDict,
+  farmFieldsToValidate
+} from '@lib/utils';
 import {
   createComment,
   createFarm,
   createGAPCertification
-} from '../../lib/airtable/request';
-import { getDefaultCertificationObj } from '../../lib/farmUtils';
+} from '@lib/airtable/request';
+import { getDefaultCertificationObj } from '@lib/farmUtils';
 
 const styles = {
   root: {
@@ -58,22 +62,6 @@ const styles = {
     borderColor: 'white'
   }
 };
-
-const fieldsToValidate = [
-  'contactFirstName',
-  'contactLastName',
-  'farmName',
-  'phone',
-  'farmEmail',
-  'physicalStreet1',
-  'physicalCity',
-  'physicalState',
-  'physicalZipcode',
-  'mailingStreet1',
-  'mailingCity',
-  'mailingState',
-  'mailingZipcode'
-];
 class FarmReferralForm extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -82,7 +70,7 @@ class FarmReferralForm extends React.PureComponent {
       submitted: false,
       mailingState: '',
       physicalState: '',
-      errors: createFalseDict(fieldsToValidate)
+      errors: createFalseDict(farmFieldsToValidate)
     };
   }
 
@@ -105,30 +93,6 @@ class FarmReferralForm extends React.PureComponent {
     newFarm.mailingState = states[mailingState];
     newFarm.physicalState = states[physicalState];
 
-    // Keep track of whether we've found any errors
-    let foundErrors = false;
-    const allErrorMessages = await Promise.all(
-      fieldsToValidate.map(f => validateField(f, newFarm[f]))
-    ).catch(e => {
-      console.error(e);
-    });
-
-    const newErrors = {};
-    fieldsToValidate.forEach((field, i) => {
-      const errorMessage = allErrorMessages[i];
-      if (errorMessage !== '') {
-        newErrors[field] = errorMessage;
-        foundErrors = true;
-      } else {
-        newErrors[field] = false;
-      }
-    });
-    this.setState({ errors: newErrors });
-
-    if (foundErrors) {
-      return;
-    }
-
     // create farm
     const { user } = this.props;
     const newComment = {
@@ -137,9 +101,15 @@ class FarmReferralForm extends React.PureComponent {
     };
 
     const defaultGAPCertification = getDefaultCertificationObj();
+    const validRed = await validateFarmEdit(newFarm);
+    this.setState({ errors: validRed.errors });
+
+    // dont create farm if validation failed
+    if (!validRed.validated) {
+      return;
+    }
 
     // todo replace with better func call
-    this.setState({ errors: createFalseDict(fieldsToValidate) });
     createFarm(newFarm)
       .then(res => {
         defaultGAPCertification.farmId = res;

@@ -178,6 +178,48 @@ const returnToHomepage = user => {
   clearUserData();
 };
 
+const farmFieldsToValidate = [
+  'contactFirstName',
+  'contactLastName',
+  'farmName',
+  'phone',
+  'farmEmail',
+  'physicalStreet1',
+  'physicalCity',
+  'physicalState',
+  'physicalZipcode',
+  'mailingStreet1',
+  'mailingCity',
+  'mailingState',
+  'mailingZipcode'
+];
+
+const validateFarmEdit = async farm => {
+  // Keep track of whether we've found any errors
+  let foundErrors = false;
+  const allErrorMessages = await Promise.all(
+    farmFieldsToValidate.map(f => validateField(f, farm[f]))
+  ).catch(e => {
+    console.error(e);
+  });
+
+  const newErrors = {};
+  farmFieldsToValidate.forEach((field, i) => {
+    const errorMessage = allErrorMessages[i];
+    if (errorMessage !== '') {
+      newErrors[field] = errorMessage;
+      foundErrors = true;
+    } else {
+      newErrors[field] = false;
+    }
+  });
+
+  if (!foundErrors) {
+    return { errors: createFalseDict(farmFieldsToValidate), validated: true };
+  }
+  return { errors: newErrors, validated: false };
+};
+
 export {
   validateField,
   validateFieldSync,
@@ -189,5 +231,7 @@ export {
   validateNumber,
   validateExistence,
   validateZipcode,
-  createFalseDict
+  createFalseDict,
+  validateFarmEdit,
+  farmFieldsToValidate
 };
