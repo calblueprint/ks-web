@@ -8,6 +8,7 @@ import CertificationGraph from './CertificationGraph';
 import RecentHarvestsGraph from './RecentHarvestsGraph';
 import TopItemsGraph from './TopItemsGraph';
 import HarvestLogsGraph from './HarvestLogsGraph';
+import ProductionGraph from './ProductionGraph';
 
 const styles = {
   root: {
@@ -43,6 +44,11 @@ class Graph extends React.PureComponent {
         return {
           label: 'Gap Certification Progress',
           graph: <CertificationGraph />
+        };
+      case 'production':
+        return {
+          label: 'Farm Production History',
+          graph: <ProductionGraph />
         };
       case 'recentHarvests':
         return {
