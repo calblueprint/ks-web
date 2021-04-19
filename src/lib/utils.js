@@ -1,8 +1,10 @@
 /* eslint-disable no-await-in-loop */
-import React from 'react';
 import USStates from '@assets/usStates.json';
-// import ErrorIcon from '@assets/error.svg';
-import { updateUser, deleteUser } from './airtable/request';
+import {
+  // getAllProjectGroups,
+  updateUser,
+  deleteUser
+} from './airtable/request';
 import { refreshUserData, clearUserData } from './redux/userData';
 import { signupUser } from './airlock/airlock';
 
@@ -25,34 +27,9 @@ const toggleValidColor = (input, type) => {
   return !input ? '\u00A0' : input;
 };
 
-// User must check this box
-const validateCertifyPermanentAddress = value => {
-  return value ? (
-    ''
-  ) : (
-    <div className="error-container">
-      {/** <img src={ErrorIcon} alt="error" className="mr-1" /> */}
-      <div className="error-text">
-        Please certify the above address in order to proceed.
-      </div>
-    </div>
-  );
-};
-
 // Ensure valid email using regex
 const validateEmail = value => {
   if (value && value.length === 0) {
-    return '';
-  }
-  // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
-  // eslint-disable-next-line no-useless-escape
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(value) ? '' : 'Please enter a valid email address.';
-};
-
-// Ensure valid alternate email using regex (allowed to be empty)
-const validateAlternateEmail = value => {
-  if (!value || value.length === 0) {
     return '';
   }
   // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
@@ -96,14 +73,6 @@ const ValidateUSState = value => {
   return 'Invalid State';
 };
 
-// Ensure Zipcode is of valid length
-const validateZipcode = value => {
-  if (value === undefined) {
-    return 'Must be 5 digits.';
-  }
-  return value.length === 5 ? '' : 'Must be 5 digits';
-};
-
 const validatePhoneNumber = value => {
   // validated phone numbers in this form:
   // (123) 456-7890
@@ -124,15 +93,7 @@ const ValidatorData = {
   phoneNumber: [validateExistence, validatePhoneNumber],
   password: [validateExistence, validatePassword],
   permanentState: [validateExistence, ValidateUSState],
-  mailingState: [validateExistence, ValidateUSState],
-  permanentZipcode: [validateExistence, validateNumber, validateZipcode],
-  mailingZipcode: [validateExistence, validateNumber, validateZipcode],
-  mailingAddressSame: [],
-  alternateEmail: [validateAlternateEmail],
-  permanentStreet2: [],
-  mailingStreet2: [],
-  certifyPermanentAddress: [validateCertifyPermanentAddress]
-  // projectGroup: [v => validateExistence(v, 'Please choose a group')] // Custom error message
+  mailingState: [validateExistence, ValidateUSState]
 };
 
 // Asynchronously validate field
@@ -177,10 +138,10 @@ const validateFieldSync = (name, value) => {
 // Update or Create the user with the given fields
 const updateUserFields = async (user, fields) => {
   // Ensure that only the fields that are supposed to be updated are updated
-  const userUpdate = fields.reduce((value, field) => ({
-    ...value,
-    [field]: user[field]
-  }));
+  const userUpdate = {};
+  fields.forEach(field => {
+    userUpdate[field] = user[field];
+  });
 
   // If user exists, update it, else, create.
   if (user.id) {
@@ -212,8 +173,5 @@ export {
   validateEmail,
   validateUniqueEmail,
   validateNumber,
-  validateExistence,
-  validateZipcode,
-  validatePhoneNumber,
-  validateCertifyPermanentAddress
+  validateExistence
 };

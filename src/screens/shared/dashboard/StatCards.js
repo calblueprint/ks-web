@@ -16,9 +16,10 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 0',
+    justifyContent: 'center',
     margin: 16,
-    minWidth: 200,
-    padding: 24,
+    minWidth: 180,
+    padding: 16,
     textAlign: 'center'
   }
 };
