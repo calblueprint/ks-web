@@ -70,9 +70,6 @@ const validateNumber = value => {
 const ValidateUSState = value => {
   const upperCaseValue = value.toUpperCase();
   if (USStates.map(s => s.toUpperCase()).indexOf(upperCaseValue) !== -1) {
-    if (upperCaseValue !== 'CA') {
-      return 'Not California';
-    }
     return '';
   }
   return 'Invalid State';
@@ -100,7 +97,9 @@ const ValidatorData = {
   phone: [validateExistence, validatePhoneNumber],
   password: [validateExistence, validatePassword],
   physicalState: [validateExistence, ValidateUSState],
-  physicalZipcode: [validateExistence, validateZipcode]
+  mailingState: [validateExistence, ValidateUSState],
+  physicalZipcode: [validateExistence, validateZipcode],
+  mailingZipcode: [validateExistence, validateZipcode]
 };
 
 // Asynchronously validate field
@@ -165,6 +164,14 @@ const updateUserFields = async (user, fields) => {
   }
 };
 
+const createFalseDict = keys => {
+  const dict = {};
+  keys.forEach(k => {
+    dict[k] = false;
+  });
+  return dict;
+};
+
 // Delete user and return to homepage. This is used if the user does not live in california
 const returnToHomepage = user => {
   deleteUser(user.id);
@@ -181,5 +188,6 @@ export {
   validateUniqueEmail,
   validateNumber,
   validateExistence,
-  validateZipcode
+  validateZipcode,
+  createFalseDict
 };

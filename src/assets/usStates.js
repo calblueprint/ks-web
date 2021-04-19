@@ -1,4 +1,5 @@
 const states = [
+  '',
   'AL',
   'AK',
   'AS',
