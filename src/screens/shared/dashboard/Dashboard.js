@@ -29,7 +29,8 @@ const styles = {
 
 class Dashboard extends React.PureComponent {
   render() {
-    const { classes, graph, isNSEVP } = this.props;
+    const { classes, isNSEVP } = this.props;
+    const graph = 'certification';
     return (
       <div className={classes.root}>
         <h1>Dashboard</h1>

@@ -37,7 +37,7 @@
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
-    "victory": "^35.5.1"
+    "victory": "^35.4.13"
   },
   "scripts": {
     "start": "react-app-rewired start",

@@ -63,7 +63,7 @@ class StatCards extends React.Component {
     const recentHarvests = await getAllRecentHarvestLogsForStatCard();
     const KSFarms = farms.filter(farm => farm.KSAffiliated);
 
-    const numGAPCertified = GAPCertification.filter(farm => farm.GAPCertified); // in gap certification there is no ks affiliated column
+    const numGAPCertified = GAPCertification.filter(farm => farm.GAPCertified);
 
     const numFarmReferred = GAPCertification.filter(
       farm => farm.farmReferred === 'Complete'
@@ -92,11 +92,10 @@ class StatCards extends React.Component {
     );
     const NSEVPHarvestFarms = recentHarvests.length;
 
-    let total = 0;
+    let totalHarvestsPounds = 0;
     for (let i = 0; i < totalHarvests.length; i += 1) {
-      total += totalHarvests[i].totalProductionPounds;
+      totalHarvestsPounds += totalHarvests[i].totalProductionPounds;
     }
-    const totalHarvestsPounds = total;
 
     this.setState({
       farms,

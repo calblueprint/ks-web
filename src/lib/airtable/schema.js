@@ -28,7 +28,8 @@ export const Columns = {
     farmIds: { name: `Farm`, type: `foreignKey-many` },
     profilePicture: { name: `Profile Picture`, type: `multipleAttachment` },
     commentIds: { name: `Comments`, type: `foreignKey-many` },
-    recentUpdateIds: { name: `Recent Updates`, type: `foreignKey-many` }
+    recentUpdateIds: { name: `Recent Updates`, type: `foreignKey-many` },
+    lastSynced: { name: `Last Synced`, type: `date` }
   },
   Farm: {
     farmName: { name: `Farm Name`, type: `text` },

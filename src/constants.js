@@ -5,5 +5,6 @@ export default {
   SUPERADMIN: 'Super Admin',
 
   // ROUTES
-  HOME_ROUTE: '/'
+  HOME_ROUTE: '/',
+  SIGNUP_ROUTE: '/signup'
 };
