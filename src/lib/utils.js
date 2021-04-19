@@ -27,6 +27,11 @@ const toggleValidColor = (input, type) => {
   return !input ? '\u00A0' : input;
 };
 
+// Ensure Zipcode is of valid length
+const validateZipcode = value => {
+  return value.length === 5 ? '' : 'Must be 5 digits';
+};
+
 // Ensure valid email using regex
 const validateEmail = value => {
   if (value && value.length === 0) {
@@ -90,10 +95,12 @@ const validatePhoneNumber = value => {
 // Default for all fields: [validateExistence]
 const ValidatorData = {
   email: [validateExistence, validateEmail, validateUniqueEmail],
+  farmEmail: [validateExistence, validateEmail],
   phoneNumber: [validateExistence, validatePhoneNumber],
+  phone: [validateExistence, validatePhoneNumber],
   password: [validateExistence, validatePassword],
-  permanentState: [validateExistence, ValidateUSState],
-  mailingState: [validateExistence, ValidateUSState]
+  physicalState: [validateExistence, ValidateUSState],
+  physicalZipcode: [validateExistence, validateZipcode]
 };
 
 // Asynchronously validate field
@@ -173,5 +180,6 @@ export {
   validateEmail,
   validateUniqueEmail,
   validateNumber,
-  validateExistence
+  validateExistence,
+  validateZipcode
 };

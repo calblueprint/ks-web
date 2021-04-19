@@ -5,12 +5,13 @@ import FieldInput from '@components/FieldInput';
 import Dropdown from '@components/Dropdown';
 import { Button } from '@material-ui/core';
 import states from '@assets/usStates';
+import { validateField } from '@lib/utils';
 import {
   createComment,
   createFarm,
   createGAPCertification
 } from '../../lib/airtable/request';
-import { getCertificationSteps } from '../../lib/farmUtils';
+import { getDefaultCertificationObj } from '../../lib/farmUtils';
 
 const styles = {
   root: {
@@ -64,7 +65,8 @@ class FarmReferralForm extends React.PureComponent {
       ksAffiliated: true,
       submitted: false,
       mailingState: '',
-      physicalState: ''
+      physicalState: '',
+      errors: {}
     };
   }
 
@@ -76,7 +78,7 @@ class FarmReferralForm extends React.PureComponent {
     };
   }
 
-  referFarm = () => {
+  referFarm = async () => {
     const newFarm = { ...this.state };
     delete newFarm.submitted;
     delete newFarm.additionalNotes;
@@ -86,34 +88,79 @@ class FarmReferralForm extends React.PureComponent {
     newFarm.mailingState = states[mailingState];
     newFarm.physicalState = states[physicalState];
 
+    // Keep track of whether we've found any errors
+    let foundErrors = false;
+
+    // For each field in this onboarding step, validate, and add to errors object
+    const fieldsToValidate = [
+      'contactFirstName',
+      'contactLastName',
+      'farmName',
+      'phone',
+      'farmEmail',
+      'physicalStreet1',
+      'physicalCity',
+      'physicalState',
+      'physicalZipcode'
+    ];
+
+    const { state } = this;
+    const allErrorMessages = await Promise.all(
+      fieldsToValidate.map(f => validateField(f, state[f]))
+    ).catch(e => {
+      console.error(e);
+    });
+
+    const newErrors = {};
+    fieldsToValidate.forEach((field, i) => {
+      const errorMessage = allErrorMessages[i];
+      if (errorMessage !== '') {
+        newErrors[field] = errorMessage;
+        foundErrors = true;
+      } else {
+        newErrors[field] = false;
+      }
+    });
+    this.setState({ errors: newErrors });
+
+    if (foundErrors) {
+      return;
+    }
+
+    // create farm
     const { user } = this.props;
     const newComment = {
       comment: additionalNotes,
       authorId: user.id
     };
 
-    const defaultGAPCertification = {};
-    getCertificationSteps().forEach(step => {
-      defaultGAPCertification[step] = 'Incomplete';
-    });
-    defaultGAPCertification.gapCertified = false;
-    defaultGAPCertification.farmReferredDate = Date.now();
+    const defaultGAPCertification = getDefaultCertificationObj();
 
-    createFarm(newFarm).then(res => {
-      defaultGAPCertification.farmId = res;
+    // todo replace with better func call
+    this.setState({ errors: {} });
+    createFarm(newFarm)
+      .then(res => {
+        defaultGAPCertification.farmId = res;
+        newComment.farmId = res;
 
-      newComment.farmId = res;
-      createComment(newComment);
-
-      createGAPCertification(defaultGAPCertification).then(
-        this.setState({ submitted: true })
-      );
-    });
+        createComment(newComment).catch(e => {
+          console.error(e);
+        });
+        createGAPCertification(defaultGAPCertification)
+          .then(this.setState({ submitted: true }))
+          .catch(e => {
+            console.error(e);
+          });
+      })
+      .catch(e => {
+        console.error(e);
+      });
   };
 
   render() {
     const { classes } = this.props;
     const values = this.state;
+    const { errors } = this.state;
 
     return values.submitted ? (
       <div>
@@ -132,11 +179,17 @@ class FarmReferralForm extends React.PureComponent {
               label="First Name"
               onChange={this.onChange('contactFirstName')}
               variant="outlined"
+              value={values.contactFirstName}
+              error={errors.contactFirstName}
+              tooltip={errors.contactFirstName}
             />
             <FieldInput
               label="Last Name"
               onChange={this.onChange('contactLastName')}
               variant="outlined"
+              value={values.contactLastName}
+              error={errors.contactLastName}
+              tooltip={errors.contactLastName}
             />
           </div>
           <div className={classes.row}>
@@ -144,6 +197,9 @@ class FarmReferralForm extends React.PureComponent {
               label="Farm Name"
               onChange={this.onChange('farmName')}
               variant="outlined"
+              value={values.farmName}
+              error={errors.farmName}
+              tooltip={errors.farmName}
             />
           </div>
           <div className={classes.row}>
@@ -151,11 +207,17 @@ class FarmReferralForm extends React.PureComponent {
               label="Cell Phone"
               onChange={this.onChange('phone')}
               variant="outlined"
+              value={values.phone}
+              error={errors.phone}
+              tooltip={errors.phone}
             />
             <FieldInput
               label="Email"
               onChange={this.onChange('farmEmail')}
               variant="outlined"
+              value={values.farmEmail}
+              error={errors.farmEmail}
+              tooltip={errors.farmEmail}
             />
           </div>
           <div className={classes.row}>
@@ -163,6 +225,9 @@ class FarmReferralForm extends React.PureComponent {
               label={`Farm Physical Address \u2014 Street`}
               onChange={this.onChange('physicalStreet1')}
               variant="outlined"
+              value={values.physicalStreet1}
+              error={errors.physicalStreet1}
+              tooltip={errors.physicalStreet1}
             />
           </div>
           <div className={classes.row}>
@@ -170,6 +235,9 @@ class FarmReferralForm extends React.PureComponent {
               label="City"
               onChange={this.onChange('physicalCity')}
               variant="outlined"
+              value={values.physicalCity}
+              error={errors.physicalCity}
+              tooltip={errors.physicalCity}
             />
             <div className={classes.dropdown}>
               <Dropdown
@@ -177,25 +245,34 @@ class FarmReferralForm extends React.PureComponent {
                 items={states}
                 onChange={this.onChange('physicalState')}
                 value={values.physicalState}
+                error={errors.physicalState}
+                tooltip={errors.physicalState}
               />
             </div>
             <FieldInput
               label="ZIP"
               onChange={this.onChange('physicalZipcode')}
               variant="outlined"
+              value={values.physicalZipcode}
+              error={errors.physicalZipcode}
+              tooltip={errors.physicalZipcode}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label={`Farm Mailing Address \u2014 Street`}
               onChange={this.onChange('mailingStreet1')}
+              value={values.mailingStreet1}
               variant="outlined"
+              error={errors.physicalZipcode}
+              tooltip={errors.physicalZipcode}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="City"
               onChange={this.onChange('mailingCity')}
+              value={values.mailingCity}
               variant="outlined"
             />
             <div className={classes.dropdown}>
@@ -209,6 +286,7 @@ class FarmReferralForm extends React.PureComponent {
             <FieldInput
               label="ZIP"
               onChange={this.onChange('mailingZipcode')}
+              value={values.mailingZipcode}
               variant="outlined"
             />
           </div>
