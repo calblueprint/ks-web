@@ -3,6 +3,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import FieldInput from '@components/FieldInput';
 import Dropdown from '@components/Dropdown';
+import states from '@assets/usStates';
 
 const styles = {
   form: {
@@ -12,125 +13,145 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    margin: '16px -12px',
+    margin: '16px 0px',
     width: '100%'
   },
   dropdown: {
     flex: 1,
-    margin: '-16px 12px 0px 12px'
+    margin: '0px 32px 0px 12px',
+    '& h3': {
+      margin: '0px 0px 16px 0px'
+    }
   }
 };
 class FarmProfileEditForm extends React.PureComponent {
-  onChange = prop => event => {
-    const { values, handleChange } = this.props;
-
-    const formValues = {
-      ...values,
-      [prop]: event.target.value
-    };
-    handleChange(formValues);
-  };
-
   render() {
-    const { values, classes } = this.props;
+    const { classes, onChange, errors, values } = this.props;
 
     return (
       <div className={classes.root}>
-        <h2>Contact Information</h2>
         <div className={classes.form}>
+          <h2>Contact Information</h2>
           <div className={classes.row}>
             <FieldInput
               label="First Name"
-              onChange={this.onChange('contactFirstName')}
-              placeholder="Andi"
+              onChange={onChange('contactFirstName')}
               variant="outlined"
+              value={values.contactFirstName || ''}
+              error={errors.contactFirstName !== false}
+              tooltip={errors.contactFirstName}
             />
             <FieldInput
               label="Last Name"
-              onChange={this.onChange('contactLastName')}
-              placeholder="Halim"
+              onChange={onChange('contactLastName')}
               variant="outlined"
+              value={values.contactLastName || ''}
+              error={errors.contactLastName !== false}
+              tooltip={errors.contactLastName}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="Farm Name"
-              onChange={this.onChange('farmName')}
-              placeholder="Andi's Potato Farm"
+              onChange={onChange('farmName')}
               variant="outlined"
+              value={values.farmName || ''}
+              error={errors.farmName !== false}
+              tooltip={errors.farmName}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="Cell Phone"
-              onChange={this.onChange('phone')}
-              placeholder="xxx-xxx-xxx"
+              onChange={onChange('phone')}
               variant="outlined"
+              value={values.phone || ''}
+              error={errors.phone !== false}
+              tooltip={errors.phone}
             />
             <FieldInput
               label="Email"
-              onChange={this.onChange('farmEmail')}
-              placeholder="farmerfarmer@farmer.com"
+              onChange={onChange('farmEmail')}
               variant="outlined"
+              value={values.farmEmail || ''}
+              error={errors.farmEmail !== false}
+              tooltip={errors.farmEmail}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label={`Farm Physical Address \u2014 Street`}
-              onChange={this.onChange('physicalStreet1')}
-              placeholder="xxxx Farmer Lane"
+              onChange={onChange('physicalStreet1')}
               variant="outlined"
+              value={values.physicalStreet1 || ''}
+              error={errors.physicalStreet1 !== false}
+              tooltip={errors.physicalStreet1}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="City"
-              onChange={this.onChange('physicalCity')}
-              placeholder="Honolulu"
+              onChange={onChange('physicalCity')}
               variant="outlined"
+              value={values.physicalCity || ''}
+              error={errors.physicalCity !== false}
+              tooltip={errors.physicalCity}
             />
             <div className={classes.dropdown}>
               <Dropdown
                 label="State"
-                items={['HI', 'CA']}
-                onChange={this.onChange('physicalState')}
-                value={values.physicalState}
+                items={states}
+                onChange={onChange('physicalState')}
+                value={values.physicalState || 0}
+                error={errors.physicalState !== false}
+                tooltip={errors.physicalState}
               />
             </div>
             <FieldInput
               label="ZIP"
-              onChange={this.onChange('physicalZipcode')}
-              placeholder="95070"
+              onChange={onChange('physicalZipcode')}
               variant="outlined"
+              value={values.physicalZipcode || ''}
+              error={errors.physicalZipcode !== false}
+              tooltip={errors.physicalZipcode}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label={`Farm Mailing Address \u2014 Street`}
-              onChange={this.onChange('mailingStreet')}
-              placeholder="1887 Makuakane St"
+              onChange={onChange('mailingStreet1')}
+              value={values.mailingStreet1 || ''}
               variant="outlined"
+              error={errors.mailingStreet1 !== false}
+              tooltip={errors.mailingStreet1}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="City"
-              onChange={this.onChange('mailingCity')}
-              placeholder="Honolulu"
+              onChange={onChange('mailingCity')}
+              value={values.mailingCity || ''}
               variant="outlined"
+              error={errors.mailingCity !== false}
+              tooltip={errors.mailingCity}
             />
             <div className={classes.dropdown}>
               <Dropdown
                 label="State"
-                items={['HI', 'CA']}
-                onChange={this.onChange('mailingState')}
-                value={values.mailState}
+                items={states}
+                onChange={onChange('mailingState')}
+                value={values.mailingState || 0}
+                error={errors.mailingState !== false}
+                tooltip={errors.mailingState}
               />
             </div>
             <FieldInput
               label="ZIP"
-              onChange={this.onChange('mailingZipcode')}
+              onChange={onChange('mailingZipcode')}
+              value={values.mailingZipcode || ''}
               variant="outlined"
+              error={errors.mailingZipcode !== false}
+              tooltip={errors.mailingZipcode}
             />
           </div>
         </div>

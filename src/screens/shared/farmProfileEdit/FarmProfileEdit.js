@@ -10,6 +10,13 @@ import FarmProfileEditForm from './FarmProfileEditForm';
 import FarmProfileEditDropdown from './FarmProfileEditDropdown';
 import FarmProfileEditGapStatus from './FarmProfileEditGapStatus';
 import FarmProfileEditComments from './FarmProfileEditComments';
+import {
+  validateFarmEdit,
+  createFalseDict,
+  farmFieldsToValidate
+} from '@lib/utils';
+import { createFarm } from '@lib/airtable/request';
+import states from '@assets/usStates';
 
 const styles = {
   root: {
@@ -29,15 +36,11 @@ const styles = {
     marginTop: 48
   }
 };
-
 class FarmProfileEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formValues: {
-        physicalState: 0,
-        mailState: 0
-      },
+      farm: {},
       dropdownValues: {
         gapContact: 0,
         foodHubAffiliation: 0
@@ -53,7 +56,8 @@ class FarmProfileEdit extends React.Component {
         internalAudit2: 0,
         gapCertified: 0
       },
-      comments: ''
+      comments: '',
+      errors: createFalseDict(farmFieldsToValidate)
     };
   }
 
@@ -66,7 +70,6 @@ class FarmProfileEdit extends React.Component {
       farm = res;
       if (res.gapCertificationId) {
         gapStatus = await getGapCertificationStatus(res.gapCertificationId);
-        farm.gapStatus = gapStatus;
       }
     });
     this.setState({ farm, farmId, gapStatus });
@@ -76,22 +79,62 @@ class FarmProfileEdit extends React.Component {
     this.setState(prevState => ({ ...prevState, [prop]: value }));
   };
 
+  handleChangeForm = name => {
+    return event => {
+      const val = event.target.value;
+      this.setState(prevState => ({
+        ...prevState,
+        farm: { ...prevState.farm, [name]: val }
+      }));
+    };
+  };
+
   handleSubmit = () => {
-    console.log(this.state);
+    this.editFarm();
+  };
+
+  editFarm = async () => {
+    const newFarm = { ...this.state.farm };
+
+    // select value from index provided by select
+    const { mailingState, physicalState } = this.state.farm;
+    newFarm.mailingState = states[mailingState];
+    newFarm.physicalState = states[physicalState];
+
+    // create farm
+    // const { user } = this.props;
+    // const newComment = {
+    //   comment: additionalNotes,
+    //   authorId: user.id
+    // };
+
+    const validRed = await validateFarmEdit(newFarm);
+    this.setState({ errors: validRed.errors });
+
+    // dont create farm if validation failed
+    if (!validRed.validated) {
+      return;
+    }
+
+    // todo replace with better func call
+    createFarm(newFarm).catch(e => {
+      console.error(e);
+    });
   };
 
   render() {
     const { classes, match } = this.props;
     const { farmId } = match.params;
-    const { formValues, dropdownValues, gapStatus, comments } = this.state;
+    const { farm, dropdownValues, gapStatus, comments, errors } = this.state;
 
     return (
       <div className={classes.root}>
         <BackButton label="Back to Farm" href={`/farm/${farmId}`} />
         <h1>Edit Information</h1>
         <FarmProfileEditForm
-          values={formValues}
-          handleChange={this.handleChange('formValues')}
+          values={farm}
+          errors={errors}
+          onChange={this.handleChangeForm}
         />
         <FarmProfileEditDropdown
           values={dropdownValues}
