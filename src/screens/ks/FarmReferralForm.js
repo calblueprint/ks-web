@@ -10,15 +10,20 @@ import {
   createFarm,
   createGAPCertification
 } from '../../lib/airtable/request';
+import { getCertificationSteps } from '../../lib/farmUtils';
 
 const styles = {
+  root: {
+    width: '60%'
+  },
   title: {
     marginTop: '10%'
   },
   form: {
     padding: '10px 48px',
     margin: '48px 0px 48px 0px',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderRadius: '4px'
   },
   row: {
     display: 'flex',
@@ -29,13 +34,21 @@ const styles = {
   },
   dropdown: {
     flex: 1,
-    margin: '-16px 12px 0px 12px'
+    margin: '0px 32px 0px 12px',
+    '& h3': {
+      margin: '0px 0px 16px 0px'
+    }
   },
   additionalNotes: {
     backgroundColor: 'var(--ks-light-grey)',
     'textarea::placeholder': {
       color: '#333333'
     }
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    width: '100%'
   },
   button: {
     marginBottom: '24px',
@@ -67,27 +80,24 @@ class FarmReferralForm extends React.PureComponent {
     const newFarm = { ...this.state };
     delete newFarm.submitted;
     delete newFarm.additionalNotes;
-    newFarm.mailingState = states[this.state.mailingState];
-    newFarm.physicalState = states[this.state.physicalState];
+
+    // select value from index provided by select
+    const { mailingState, physicalState, additionalNotes } = this.state;
+    newFarm.mailingState = states[mailingState];
+    newFarm.physicalState = states[physicalState];
 
     const { user } = this.props;
     const newComment = {
-      comment: this.state.additionalNotes,
+      comment: additionalNotes,
       authorId: user.id
     };
 
-    const defaultGAPCertification = {
-      farmReferred: 'Incomplete',
-      farmApplied: 'Incomplete',
-      farmAccepted: 'Incomplete',
-      farmFoodSafetyPlan: 'Incomplete',
-      riskAssessment: 'Incomplete',
-      mockRecall: 'Incomplete',
-      internalAudit1: 'Incomplete',
-      internalAudit2: 'Incomplete',
-      gapCertified: false,
-      farmReferredDate: Date.now()
-    };
+    const defaultGAPCertification = {};
+    getCertificationSteps().forEach(step => {
+      defaultGAPCertification[step] = 'Incomplete';
+    });
+    defaultGAPCertification.gapCertified = false;
+    defaultGAPCertification.farmReferredDate = Date.now();
 
     createFarm(newFarm).then(res => {
       defaultGAPCertification.farmId = res;
@@ -214,14 +224,16 @@ class FarmReferralForm extends React.PureComponent {
             className={classes.additionalNotes}
           />
         </div>
-        <Button
-          onClick={this.referFarm}
-          className={classes.button}
-          variant="contained"
-          color="inherit"
-        >
-          Submit
-        </Button>
+        <div className={classes.buttonContainer}>
+          <Button
+            onClick={this.referFarm}
+            className={classes.button}
+            variant="contained"
+            color="inherit"
+          >
+            Submit
+          </Button>
+        </div>
       </div>
     );
   }
