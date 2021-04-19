@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Step, StepLabel, Stepper } from '@material-ui/core';
 import StatusIcon from '@components/StatusIcon';
 
+import { getCertificationLabels } from '@lib/farmUtils';
+
 const styles = {
   root: {
     width: '100%'
@@ -26,20 +28,6 @@ const styles = {
 };
 
 class FarmCertificationStepper extends React.Component {
-  getSteps = () => {
-    return [
-      'Farm Referred',
-      'Farm Applied',
-      'Farm Accepted',
-      'Food Safety Plan Complete',
-      'Risk Assessment',
-      'Mock Recall Complete',
-      'Internal Audit Complete (1)',
-      'Internal Audit Complete (2)',
-      'Group GAP Certified!'
-    ];
-  };
-
   getStepStatus = index => {
     /* Mock Data */
     /* TODO: Mock Airtable Data to Index */
@@ -56,12 +44,12 @@ class FarmCertificationStepper extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const steps = this.getSteps();
+    const labels = getCertificationLabels();
 
     return (
       <div className={classes.root}>
         <Stepper className={classes.stepper} alternativeLabel>
-          {steps.map((label, index) => (
+          {labels.map((label, index) => (
             <Step key={label}>
               <StepLabel
                 StepIconComponent={StatusIcon}

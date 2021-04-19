@@ -11,6 +11,15 @@
   display: flex;
 }
 
+.farm-profile__header {
+  display: flex;
+  align-items: center;
+}
+
+.farm-profile__header-edit {
+  margin: 8px 24px 0px 24px;
+}
+
 .farm-profile__left-col {
   flex: 1;
   min-width: 256px;
@@ -68,27 +77,6 @@
 .farm-contact-card__user-icon {
   width: 48px;
   height: 48px;
-}
-
-.farm-graph-container {
-  width: 100%;
-  height: 200px;
-  position: relative;
-}
-
-.farm-graph {
-  width: 765px;
-  height: 161px;
-  background: white;
-}
-
-.farm-graph--no-data {
-  width: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--ks-lightest-blue);
-  color: var(--ks-font-lightest);
 }
 
 .divider {

@@ -58,6 +58,21 @@ export const createManyFarms = async records => {
   return Promise.all(createPromises);
 };
 
+export const createGAPCertification = async record => {
+  return createRecord(Tables.GAPCertification, record);
+};
+
+export const createManyGAPCertifications = async records => {
+  const createPromises = [];
+  const numCalls = Math.ceil(records.length / 10);
+  for (let i = 0; i < numCalls; i += 1) {
+    const subset = records.slice(i * 10, (i + 1) * 10);
+    if (subset.length > 0)
+      createPromises.push(createRecords(Tables.GAPCertification, subset));
+  }
+  return Promise.all(createPromises);
+};
+
 export const createComment = async record => {
   return createRecord(Tables.Comments, record);
 };
@@ -84,6 +99,36 @@ export const createManyRecentUpdates = async records => {
     const subset = records.slice(i * 10, (i + 1) * 10);
     if (subset.length > 0)
       createPromises.push(createRecords(Tables.RecentUpdates, subset));
+  }
+  return Promise.all(createPromises);
+};
+
+export const createRecentHarvestLog = async record => {
+  return createRecord(Tables.RecentHarvestLogs, record);
+};
+
+export const createManyRecentHarvestLogs = async records => {
+  const createPromises = [];
+  const numCalls = Math.ceil(records.length / 10);
+  for (let i = 0; i < numCalls; i += 1) {
+    const subset = records.slice(i * 10, (i + 1) * 10);
+    if (subset.length > 0)
+      createPromises.push(createRecords(Tables.RecentHarvestLogs, subset));
+  }
+  return Promise.all(createPromises);
+};
+
+export const createTotalHarvest = async record => {
+  return createRecord(Tables.TotalHarvests, record);
+};
+
+export const createManyTotalHarvests = async records => {
+  const createPromises = [];
+  const numCalls = Math.ceil(records.length / 10);
+  for (let i = 0; i < numCalls; i += 1) {
+    const subset = records.slice(i * 10, (i + 1) * 10);
+    if (subset.length > 0)
+      createPromises.push(createRecords(Tables.TotalHarvests, subset));
   }
   return Promise.all(createPromises);
 };
@@ -118,6 +163,27 @@ export const getFarmsByIds = async (ids, filterByFormula = '', sort = []) => {
 
 export const getAllFarms = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.Farm, filterByFormula, sort);
+};
+
+export const getGAPCertificationById = async id => {
+  return getRecordById(Tables.GAPCertification, id);
+};
+
+export const getGAPCertificationsByIds = async (
+  ids,
+  filterByFormula = '',
+  sort = []
+) => {
+  let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
+  formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
+  return getAllRecords(Tables.GAPCertification, formula, sort);
+};
+
+export const getAllGAPCertifications = async (
+  filterByFormula = '',
+  sort = []
+) => {
+  return getAllRecords(Tables.GAPCertification, filterByFormula, sort);
 };
 
 export const getCommentById = async id => {
@@ -156,6 +222,45 @@ export const getAllRecentUpdates = async (filterByFormula = '', sort = []) => {
   return getAllRecords(Tables.RecentUpdates, filterByFormula, sort);
 };
 
+export const getRecentHarvestLogById = async id => {
+  return getRecordById(Tables.RecentHarvestLogs, id);
+};
+
+export const getRecentHarvestLogsByIds = async (
+  ids,
+  filterByFormula = '',
+  sort = []
+) => {
+  let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
+  formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
+  return getAllRecords(Tables.RecentHarvestLogs, formula, sort);
+};
+
+export const getAllRecentHarvestLogs = async (
+  filterByFormula = '',
+  sort = []
+) => {
+  return getAllRecords(Tables.RecentHarvestLogs, filterByFormula, sort);
+};
+
+export const getTotalHarvestById = async id => {
+  return getRecordById(Tables.TotalHarvests, id);
+};
+
+export const getTotalHarvestsByIds = async (
+  ids,
+  filterByFormula = '',
+  sort = []
+) => {
+  let formula = `OR(${ids.reduce((f, id) => `${f} {ID}='${id}',`, '')} 1 < 0)`;
+  formula = filterByFormula ? `AND(${filterByFormula}, ${formula})` : formula;
+  return getAllRecords(Tables.TotalHarvests, formula, sort);
+};
+
+export const getAllTotalHarvests = async (filterByFormula = '', sort = []) => {
+  return getAllRecords(Tables.TotalHarvests, filterByFormula, sort);
+};
+
 /*
  ******* UPDATE RECORDS *******
  */
@@ -190,6 +295,21 @@ export const updateManyFarms = async recordUpdates => {
   return Promise.all(updatePromises);
 };
 
+export const updateGAPCertification = async (id, recordUpdates) => {
+  return updateRecord(Tables.GAPCertification, id, recordUpdates);
+};
+
+export const updateManyGAPCertifications = async recordUpdates => {
+  const updatePromises = [];
+  const numCalls = Math.ceil(recordUpdates.length / 10);
+  for (let i = 0; i < numCalls; i += 1) {
+    const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
+    if (subset.length > 0)
+      updatePromises.push(updateRecords(Tables.GAPCertification, subset));
+  }
+  return Promise.all(updatePromises);
+};
+
 export const updateComment = async (id, recordUpdates) => {
   return updateRecord(Tables.Comments, id, recordUpdates);
 };
@@ -220,6 +340,36 @@ export const updateManyRecentUpdates = async recordUpdates => {
   return Promise.all(updatePromises);
 };
 
+export const updateRecentHarvestLog = async (id, recordUpdates) => {
+  return updateRecord(Tables.RecentHarvestLogs, id, recordUpdates);
+};
+
+export const updateManyRecentHarvestLogs = async recordUpdates => {
+  const updatePromises = [];
+  const numCalls = Math.ceil(recordUpdates.length / 10);
+  for (let i = 0; i < numCalls; i += 1) {
+    const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
+    if (subset.length > 0)
+      updatePromises.push(updateRecords(Tables.RecentHarvestLogs, subset));
+  }
+  return Promise.all(updatePromises);
+};
+
+export const updateTotalHarvest = async (id, recordUpdates) => {
+  return updateRecord(Tables.TotalHarvests, id, recordUpdates);
+};
+
+export const updateManyTotalHarvests = async recordUpdates => {
+  const updatePromises = [];
+  const numCalls = Math.ceil(recordUpdates.length / 10);
+  for (let i = 0; i < numCalls; i += 1) {
+    const subset = recordUpdates.slice(i * 10, (i + 1) * 10);
+    if (subset.length > 0)
+      updatePromises.push(updateRecords(Tables.TotalHarvests, subset));
+  }
+  return Promise.all(updatePromises);
+};
+
 /*
  ******* DELETE RECORDS *******
  */
@@ -230,9 +380,18 @@ export const deleteUser = async id => {
 export const deleteFarm = async id => {
   return deleteRecord(Tables.Farm, id);
 };
+export const deleteGAPCertification = async id => {
+  return deleteRecord(Tables.GAPCertification, id);
+};
 export const deleteComment = async id => {
   return deleteRecord(Tables.Comments, id);
 };
 export const deleteRecentUpdate = async id => {
   return deleteRecord(Tables.RecentUpdates, id);
+};
+export const deleteRecentHarvestLog = async id => {
+  return deleteRecord(Tables.RecentHarvestLogs, id);
+};
+export const deleteTotalHarvest = async id => {
+  return deleteRecord(Tables.TotalHarvests, id);
 };

@@ -12,8 +12,6 @@ const initialState = {
   isLoading: false,
   authKey: null,
   user: null
-  // projectGroup: null,
-  // solarProjects: null
 };
 
 const userDataSlice = createSlice({

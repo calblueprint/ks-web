@@ -6,8 +6,11 @@
 export const Tables = {
   User: 'User',
   Farm: 'Farm',
+  GAPCertification: 'GAP Certification',
   Comments: 'Comments',
-  RecentUpdates: 'Recent Updates'
+  RecentUpdates: 'Recent Updates',
+  RecentHarvestLogs: 'Recent Harvest Logs',
+  TotalHarvests: 'Total Harvests'
 };
 
 export const Columns = {
@@ -15,7 +18,7 @@ export const Columns = {
     primaryKey: { name: `Primary Key`, type: `formula` },
     dateCreated: { name: `Date Created`, type: `formula` },
     dateUpdated: { name: `Date Updated`, type: `formula` },
-    userTypes: { name: `User Types`, type: `multiSelect` },
+    userTypes: { name: `User Types`, type: `select` },
     id: { name: `ID`, type: `formula` },
     firstName: { name: `First Name`, type: `text` },
     lastName: { name: `Last Name`, type: `text` },
@@ -25,7 +28,8 @@ export const Columns = {
     farmIds: { name: `Farm`, type: `foreignKey-many` },
     profilePicture: { name: `Profile Picture`, type: `multipleAttachment` },
     commentIds: { name: `Comments`, type: `foreignKey-many` },
-    recentUpdateIds: { name: `Recent Updates`, type: `foreignKey-many` }
+    recentUpdateIds: { name: `Recent Updates`, type: `foreignKey-many` },
+    lastSynced: { name: `Last Synced`, type: `date` }
   },
   Farm: {
     farmName: { name: `Farm Name`, type: `text` },
@@ -38,18 +42,8 @@ export const Columns = {
     phone: { name: `Phone`, type: `phone` },
     groupGapContactIds: { name: `Group GAP Contact`, type: `foreignKey-many` },
     farmEmail: { name: `Farm Email`, type: `text` },
-    gapCertified: { name: `GAP Certified`, type: `checkbox` },
-    gapCertificationDate: { name: `GAP Certification Date`, type: `date` },
     commentIds: { name: `Comments`, type: `foreignKey-many` },
     farmId: { name: `Farm ID`, type: `formula` },
-    farmReferred: { name: `Farm Referred`, type: `select` },
-    farmApplied: { name: `Farm Applied`, type: `select` },
-    farmAccepted: { name: `Farm Accepted`, type: `select` },
-    farmFoodSafetyPlan: { name: `Farm Food Safety Plan`, type: `select` },
-    riskAssessment: { name: `Risk Assessment`, type: `select` },
-    mockRecall: { name: `Mock Recall`, type: `select` },
-    internalAudit1: { name: `Internal Audit (1)`, type: `select` },
-    internalAudit2: { name: `Internal Audit (2)`, type: `select` },
     foodHubAffiliation: { name: `Food Hub Affiliation`, type: `select` },
     ksAffiliated: { name: `KS Affiliated`, type: `checkbox` },
     physicalStreet1: { name: `Physical Street 1`, type: `text` },
@@ -63,17 +57,40 @@ export const Columns = {
     mailingCity: { name: `Mailing City`, type: `text` },
     mailingState: { name: `Mailing State`, type: `text` },
     mailingZipcode: { name: `Mailing Zipcode`, type: `text` },
+    recentHarvestLogIds: {
+      name: `Recent Harvest Logs`,
+      type: `foreignKey-many`
+    },
+    totalHarvestIds: { name: `Total Harvests`, type: `foreignKey-many` },
+    gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` },
+    commentfromComments: { name: `Comment (from Comments)`, type: `lookup` },
+    authorfromComments: { name: `Author (from Comments)`, type: `lookup` }
+  },
+  'GAP Certification': {
+    id: { name: `ID`, type: `formula` },
     farmReferredDate: { name: `Farm Referred Date`, type: `date` },
+    farmApplied: { name: `Farm Applied`, type: `select` },
     farmAppliedDate: { name: `Farm Applied Date`, type: `date` },
+    farmAccepted: { name: `Farm Accepted`, type: `select` },
     farmAcceptedDate: { name: `Farm Accepted Date`, type: `date` },
+    farmFoodSafetyPlan: { name: `Farm Food Safety Plan`, type: `select` },
     farmFoodSafetyPlanDate: {
       name: `Farm Food Safety Plan Date`,
       type: `date`
     },
+    riskAssessment: { name: `Risk Assessment`, type: `select` },
     riskAssessmentDate: { name: `Risk Assessment Date`, type: `date` },
+    mockRecall: { name: `Mock Recall`, type: `select` },
     mockRecallDate: { name: `Mock Recall Date`, type: `date` },
+    internalAudit1: { name: `Internal Audit (1)`, type: `select` },
     internalAudit1Date: { name: `Internal Audit 1 Date`, type: `date` },
-    internalAudit2Date: { name: `Internal Audit 2 Date`, type: `date` }
+    internalAudit2: { name: `Internal Audit (2)`, type: `select` },
+    internalAudit2Date: { name: `Internal Audit 2 Date`, type: `date` },
+    gapCertified: { name: `GAP Certified`, type: `checkbox` },
+    gapCertificationDate: { name: `GAP Certification Date`, type: `date` },
+    farmReferred: { name: `Farm Referred`, type: `select` },
+    farmId: { name: `Farm`, type: `foreignKey-one` },
+    ksAffiliated: { name: `KS Affiliated`, type: `lookup` }
   },
   Comments: {
     id: { name: `ID`, type: `formula` },
@@ -86,6 +103,21 @@ export const Columns = {
     authorId: { name: `Author`, type: `foreignKey-one` },
     message: { name: `Message`, type: `multilineText` },
     date: { name: `Date`, type: `formula` },
-    organization: { name: `Organization`, type: `multiSelect` }
+    organization: { name: `Organization`, type: `multiSelect` },
+    namefromAuthor: { name: `Name (from Author)`, type: `lookup` }
+  },
+  'Recent Harvest Logs': {
+    id: { name: `ID`, type: `formula` },
+    farmId: { name: `Farm`, type: `foreignKey-one` },
+    date: { name: `Date`, type: `date` },
+    crops: { name: `Crops`, type: `text` }
+  },
+  'Total Harvests': {
+    id: { name: `ID`, type: `formula` },
+    farmId: { name: `Farm`, type: `foreignKey-one` },
+    date: { name: `Date`, type: `date` },
+    crops: { name: `Crops`, type: `text` },
+    quantities: { name: `Quantities`, type: `text` },
+    totalProductionPounds: { name: `Total Production Pounds`, type: `number` }
   }
 };

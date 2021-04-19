@@ -26,6 +26,7 @@ const useStyles = makeStyles({
 
 export default function Dropdown(props) {
   const { items, icon, label, onChange, value, error } = props;
+
   const classes = useStyles();
 
   return (
