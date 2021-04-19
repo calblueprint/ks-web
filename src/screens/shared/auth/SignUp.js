@@ -150,7 +150,7 @@ class SignUp extends React.PureComponent {
             variant="contained"
             color="inherit"
             style={{
-              'background-color': 'var(--ks-dark-blue)',
+              'background-color': 'var(--ks-medium-dark-blue)',
               color: 'white'
             }}
           >
