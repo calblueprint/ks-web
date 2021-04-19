@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@components/Button';
 import BackButton from '@components/BackButton';
 
-import { getSingleFarm } from '@lib/farmUtils';
+import { getSingleFarm, getGapCertificationStatus } from '@lib/farmUtils';
 
 import FarmProfileEditForm from './FarmProfileEditForm';
 import FarmProfileEditDropdown from './FarmProfileEditDropdown';
@@ -42,7 +42,7 @@ class FarmProfileEdit extends React.Component {
         gapContact: 0,
         foodHubAffiliation: 0
       },
-      gapCertificationValues: {
+      gapStatus: {
         farmReferred: 0,
         farmApplied: 0,
         farmAccepted: 0,
@@ -60,10 +60,16 @@ class FarmProfileEdit extends React.Component {
   async componentDidMount() {
     const { match } = this.props;
     const { farmId } = match.params;
-    const farm = await getSingleFarm(farmId);
-
-    // TODO: parse data from farm
-    console.log(farm);
+    let gapStatus = false;
+    let farm;
+    await getSingleFarm(farmId).then(async res => {
+      farm = res;
+      if (res.gapCertificationId) {
+        gapStatus = await getGapCertificationStatus(res.gapCertificationId);
+        farm.gapStatus = gapStatus;
+      }
+    });
+    this.setState({ farm, farmId, gapStatus });
   }
 
   handleChange = prop => value => {
@@ -77,19 +83,13 @@ class FarmProfileEdit extends React.Component {
   render() {
     const { classes, match } = this.props;
     const { farmId } = match.params;
-    const {
-      formValues,
-      dropdownValues,
-      gapCertificationValues,
-      comments
-    } = this.state;
+    const { formValues, dropdownValues, gapStatus, comments } = this.state;
 
     return (
       <div className={classes.root}>
         <BackButton label="Back to Farm" href={`/farm/${farmId}`} />
         <h1>Edit Information</h1>
         <FarmProfileEditForm
-          farmId={farmId}
           values={formValues}
           handleChange={this.handleChange('formValues')}
         />
@@ -98,8 +98,8 @@ class FarmProfileEdit extends React.Component {
           handleChange={this.handleChange('dropdownValues')}
         />
         <FarmProfileEditGapStatus
-          values={gapCertificationValues}
-          handleChange={this.handleChange('gapCertificationValues')}
+          values={gapStatus}
+          handleChange={this.handleChange('gapStatus')}
         />
         <FarmProfileEditComments
           values={comments}

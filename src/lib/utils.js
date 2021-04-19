@@ -27,6 +27,11 @@ const toggleValidColor = (input, type) => {
   return !input ? '\u00A0' : input;
 };
 
+// Ensure Zipcode is of valid length
+const validateZipcode = value => {
+  return value.length === 5 ? '' : 'Must be 5 digits';
+};
+
 // Ensure valid email using regex
 const validateEmail = value => {
   if (value && value.length === 0) {
@@ -65,9 +70,6 @@ const validateNumber = value => {
 const ValidateUSState = value => {
   const upperCaseValue = value.toUpperCase();
   if (USStates.map(s => s.toUpperCase()).indexOf(upperCaseValue) !== -1) {
-    if (upperCaseValue !== 'CA') {
-      return 'Not California';
-    }
     return '';
   }
   return 'Invalid State';
@@ -90,10 +92,14 @@ const validatePhoneNumber = value => {
 // Default for all fields: [validateExistence]
 const ValidatorData = {
   email: [validateExistence, validateEmail, validateUniqueEmail],
+  farmEmail: [validateExistence, validateEmail],
   phoneNumber: [validateExistence, validatePhoneNumber],
+  phone: [validateExistence, validatePhoneNumber],
   password: [validateExistence, validatePassword],
-  permanentState: [validateExistence, ValidateUSState],
-  mailingState: [validateExistence, ValidateUSState]
+  physicalState: [validateExistence, ValidateUSState],
+  mailingState: [validateExistence, ValidateUSState],
+  physicalZipcode: [validateExistence, validateZipcode],
+  mailingZipcode: [validateExistence, validateZipcode]
 };
 
 // Asynchronously validate field
@@ -158,10 +164,60 @@ const updateUserFields = async (user, fields) => {
   }
 };
 
+const createFalseDict = keys => {
+  const dict = {};
+  keys.forEach(k => {
+    dict[k] = false;
+  });
+  return dict;
+};
+
 // Delete user and return to homepage. This is used if the user does not live in california
 const returnToHomepage = user => {
   deleteUser(user.id);
   clearUserData();
+};
+
+const farmFieldsToValidate = [
+  'contactFirstName',
+  'contactLastName',
+  'farmName',
+  'phone',
+  'farmEmail',
+  'physicalStreet1',
+  'physicalCity',
+  'physicalState',
+  'physicalZipcode',
+  'mailingStreet1',
+  'mailingCity',
+  'mailingState',
+  'mailingZipcode'
+];
+
+const validateFarmEdit = async farm => {
+  // Keep track of whether we've found any errors
+  let foundErrors = false;
+  const allErrorMessages = await Promise.all(
+    farmFieldsToValidate.map(f => validateField(f, farm[f]))
+  ).catch(e => {
+    console.error(e);
+  });
+
+  const newErrors = {};
+  farmFieldsToValidate.forEach((field, i) => {
+    const errorMessage = allErrorMessages[i];
+    if (errorMessage !== '') {
+      newErrors[field] = errorMessage;
+      foundErrors = true;
+    } else {
+      newErrors[field] = false;
+    }
+  });
+
+  if (!foundErrors) {
+    return { errors: createFalseDict(farmFieldsToValidate), validated: true };
+  }
+  return { errors: newErrors, validated: false };
 };
 
 export {
@@ -173,5 +229,9 @@ export {
   validateEmail,
   validateUniqueEmail,
   validateNumber,
-  validateExistence
+  validateExistence,
+  validateZipcode,
+  createFalseDict,
+  validateFarmEdit,
+  farmFieldsToValidate
 };

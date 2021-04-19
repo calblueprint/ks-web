@@ -4,14 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import FieldInput from '@components/FieldInput';
 import Dropdown from '@components/Dropdown';
 
-import { getSingleFarm } from '@lib/farmUtils';
-import {
-  validatePhoneNumber,
-  validateEmail,
-  validateCertifyPermanentAddress,
-  validateZipcode
-} from '@lib/utils';
-
 const styles = {
   form: {
     margin: '48px 0px 48px 0px'
@@ -29,20 +21,6 @@ const styles = {
   }
 };
 class FarmProfileEditForm extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      farm: {},
-      farmId: ''
-    };
-  }
-
-  async componentDidMount() {
-    const { farmId } = this.props;
-    const farm = await getSingleFarm(farmId);
-    this.setState({ farm, farmId });
-  }
-
   onChange = prop => event => {
     const { values, handleChange } = this.props;
 
@@ -55,8 +33,6 @@ class FarmProfileEditForm extends React.PureComponent {
 
   render() {
     const { values, classes } = this.props;
-    const { farm, farmId } = this.state;
-    console.log(farmId);
 
     return (
       <div className={classes.root}>
@@ -66,13 +42,13 @@ class FarmProfileEditForm extends React.PureComponent {
             <FieldInput
               label="First Name"
               onChange={this.onChange('contactFirstName')}
-              placeholder={farm.contactFirstName}
+              placeholder="Andi"
               variant="outlined"
             />
             <FieldInput
               label="Last Name"
               onChange={this.onChange('contactLastName')}
-              placeholder={farm.contactLastName}
+              placeholder="Halim"
               variant="outlined"
             />
           </div>
@@ -80,7 +56,7 @@ class FarmProfileEditForm extends React.PureComponent {
             <FieldInput
               label="Farm Name"
               onChange={this.onChange('farmName')}
-              placeholder={farm.farmName}
+              placeholder="Andi's Potato Farm"
               variant="outlined"
             />
           </div>
@@ -88,32 +64,29 @@ class FarmProfileEditForm extends React.PureComponent {
             <FieldInput
               label="Cell Phone"
               onChange={this.onChange('phone')}
-              placeholder={farm.phone}
+              placeholder="xxx-xxx-xxx"
               variant="outlined"
-              error={validatePhoneNumber(farm.phone)}
             />
             <FieldInput
               label="Email"
               onChange={this.onChange('farmEmail')}
-              placeholder={farm.farmEmail}
+              placeholder="farmerfarmer@farmer.com"
               variant="outlined"
-              error={validateEmail(farm.farmEmail)}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label={`Farm Physical Address \u2014 Street`}
               onChange={this.onChange('physicalStreet1')}
-              placeholder={farm.physicalStreet1}
+              placeholder="xxxx Farmer Lane"
               variant="outlined"
-              error={validateCertifyPermanentAddress(farm.physicalStreet1)}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="City"
               onChange={this.onChange('physicalCity')}
-              placeholder={farm.physicalCity}
+              placeholder="Honolulu"
               variant="outlined"
             />
             <div className={classes.dropdown}>
@@ -127,25 +100,23 @@ class FarmProfileEditForm extends React.PureComponent {
             <FieldInput
               label="ZIP"
               onChange={this.onChange('physicalZipcode')}
-              placeholder={farm.physicalZipcode}
+              placeholder="95070"
               variant="outlined"
-              error={validateZipcode(farm.physicalZipcode)}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label={`Farm Mailing Address \u2014 Street`}
-              onChange={this.onChange('mailingStreet1')}
-              placeholder={farm.mailingStreet1}
+              onChange={this.onChange('mailingStreet')}
+              placeholder="1887 Makuakane St"
               variant="outlined"
-              error={validateCertifyPermanentAddress(farm.mailingStreet1)}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="City"
               onChange={this.onChange('mailingCity')}
-              placeholder={farm.mailingCity}
+              placeholder="Honolulu"
               variant="outlined"
             />
             <div className={classes.dropdown}>
@@ -159,9 +130,7 @@ class FarmProfileEditForm extends React.PureComponent {
             <FieldInput
               label="ZIP"
               onChange={this.onChange('mailingZipcode')}
-              placeholder={farm.mailingZipcode}
               variant="outlined"
-              error={validateZipcode(farm.mailingZipcode)}
             />
           </div>
         </div>

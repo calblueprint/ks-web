@@ -60,6 +60,16 @@ export function getCertificationLabels() {
   ];
 }
 
+export function getDefaultCertificationObj() {
+  const defaultGAPCertification = {};
+  getCertificationSteps().forEach(step => {
+    defaultGAPCertification[step] = 'Incomplete';
+  });
+  defaultGAPCertification.gapCertified = false;
+  defaultGAPCertification.farmReferredDate = Date.now();
+  return defaultGAPCertification;
+}
+
 export function mapCertificationStepsToLabels() {
   const keys = getCertificationSteps();
   const values = getCertificationLabels();
@@ -78,5 +88,6 @@ export default {
   getAllRecentUpdatesByUserType,
   getCertificationLabels,
   getCertificationSteps,
-  mapCertificationStepsToLabels
+  mapCertificationStepsToLabels,
+  getDefaultCertificationObj
 };
