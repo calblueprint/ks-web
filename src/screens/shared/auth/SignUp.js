@@ -89,7 +89,7 @@ class SignUp extends React.PureComponent {
     } = this.state;
 
     return (
-      <div className="sign-up-form">
+      <div className="sign-up-form flex column">
         <h1 id="sign-up-title">Create an Account</h1>
         <form className="sign-up-card">
           <h2>Contact Information</h2>
@@ -122,7 +122,7 @@ class SignUp extends React.PureComponent {
                 tooltip={errors.email}
               />
             </div>
-            <div className="flex row">
+            <div className="flex row sign-up-dropdown">
               <Dropdown
                 items={['KS', 'NSEVP']}
                 label="Organization"
@@ -150,7 +150,7 @@ class SignUp extends React.PureComponent {
             variant="contained"
             color="inherit"
             style={{
-              'background-color': 'var(--ks-dark-blue)',
+              backgroundColor: 'var(--ks-medium-dark-blue)',
               color: 'white'
             }}
           >

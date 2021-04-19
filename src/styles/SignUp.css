@@ -1,11 +1,16 @@
 .sign-up-form {
   background: 'transparent';
   border: '1px solid #ccc';
-  width: 65%;
+  width: 60rem;
+  justify-content: center;
+  align-items: center;
 }
 
 #sign-up-title {
   color: var(--ks-dark-blue);
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
 }
 
 .sign-up-card {
@@ -13,11 +18,19 @@
   background-color: white !important;
   padding: 1rem 2rem 2rem 2rem !important;
   border-radius: 6px;
-  width: 40rem !important;
+  width: 100%;
 }
 
 .submit-button {
   display: flex;
-  justify-content: right;
-  width: 40rem;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.sign-up-dropdown .makeStyles-root-7 {
+  justify-content: flex-start !important;
+}
+
+.sign-up-dropdown .makeStyles-root-7 h3 {
+  margin-bottom: 16px;
 }
