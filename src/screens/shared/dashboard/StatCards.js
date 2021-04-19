@@ -29,9 +29,10 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 0',
+    justifyContent: 'center',
     margin: 16,
-    minWidth: 200,
-    padding: 24,
+    minWidth: 180,
+    padding: 16,
     textAlign: 'center'
   }
 };
@@ -40,63 +41,56 @@ class StatCards extends React.Component {
     super(props);
     this.state = {
       farms: [],
-      ksFarms: [],
+      KSFarms: [],
       totalHarvests: [],
       recentHarvests: [],
-      gapCertification: [],
+      GAPCertification: [],
       numFarmReferred: '',
-      numKsGapAccepted: '',
-      percentKsGapCertified: '',
-      percentKsGapApplied: '',
-      percentGapCertified: '',
-      nsevpHarvestFarms: '',
+      numKSGAPAccepted: '',
+      percentKSGAPCertified: '',
+      percentKSGAPApplied: '',
+      percentGAPCertified: '',
+      NSEVPHarvestFarms: '',
       totalHarvestsPounds: '',
-      percentGapApplied: ''
+      percentGAPApplied: ''
     };
   }
 
   async componentDidMount() {
     const farms = await getAllFarmsForFarmSearch();
-    const gapCertification = await getAllGAPCertificationsForStatCard();
+    const GAPCertification = await getAllGAPCertificationsForStatCard();
     const totalHarvests = await getAllTotalHarvestsForStatCard();
     const recentHarvests = await getAllRecentHarvestLogsForStatCard();
-    const ksFarms = farms.filter(farm => farm.ksAffiliated);
+    const KSFarms = farms.filter(farm => farm.KSAffiliated);
 
-    const numGapCertified = gapCertification.filter(farm => farm.gapCertified); // in gap certification there is no ks affiliated column
+    const numGAPCertified = GAPCertification.filter(farm => farm.GAPCertified); // in gap certification there is no ks affiliated column
 
-    const numFarmReferred = gapCertification.filter(
+    const numFarmReferred = GAPCertification.filter(
       farm => farm.farmReferred === 'Complete'
     ).length;
 
-    const numKsGapAccepted = gapCertification.filter(
+    const numKSGAPAccepted = GAPCertification.filter(
       farm => farm.gapAccepted === 'Complete'
     ).length;
 
-    const numGapApplied = gapCertification.filter(
+    const numGAPApplied = GAPCertification.filter(
       farm => farm.farmApplied === 'Complete'
     );
 
-    function roundToTwo(num) {
-      return +`${Math.round(`${num}e+2`)}e-2`;
-    }
-
-    function roundToOne(num) {
-      return +`${Math.round(`${num}e+1`)}e-1`;
-    }
-    const percentKsGapCertified = roundToOne(
-      (numGapCertified.length / ksFarms.length) * 100
+    const percentKSGAPCertified = Math.round(
+      (numGAPCertified.length / KSFarms.length) * 100
     );
-    const percentKsGapApplied = roundToTwo(
-      (numGapApplied.length / ksFarms.length) * 100
+    const percentKSGAPApplied = Math.round(
+      (numGAPApplied.length / KSFarms.length) * 100
     );
 
-    const percentGapCertified = roundToTwo(
-      (numGapCertified.length / farms.length) * 100
+    const percentGAPCertified = Math.round(
+      (numGAPCertified.length / farms.length) * 100
     );
-    const percentGapApplied = roundToTwo(
-      (numGapApplied.length / farms.length) * 100
+    const percentGAPApplied = Math.round(
+      (numGAPApplied.length / farms.length) * 100
     );
-    const nsevpHarvestFarms = recentHarvests.length;
+    const NSEVPHarvestFarms = recentHarvests.length;
 
     let total = 0;
     for (let i = 0; i < totalHarvests.length; i += 1) {
@@ -106,31 +100,31 @@ class StatCards extends React.Component {
 
     this.setState({
       farms,
-      ksFarms,
+      KSFarms,
       totalHarvests,
       recentHarvests,
-      gapCertification,
+      GAPCertification,
       numFarmReferred,
-      numKsGapAccepted,
-      percentKsGapCertified,
-      percentKsGapApplied,
-      percentGapCertified,
-      nsevpHarvestFarms,
+      numKSGAPAccepted,
+      percentKSGAPCertified,
+      percentKSGAPApplied,
+      percentGAPCertified,
+      NSEVPHarvestFarms,
       totalHarvestsPounds,
-      percentGapApplied
+      percentGAPApplied
     });
   }
 
   getCardStats = isNSEVP => {
     const {
       numFarmReferred,
-      numKsGapAccepted,
-      percentKsGapCertified,
-      percentKsGapApplied,
-      percentGapCertified,
-      nsevpHarvestFarms,
+      numKSGAPAccepted,
+      percentKSGAPCertified,
+      percentKSGAPApplied,
+      percentGAPCertified,
+      NSEVPHarvestFarms,
       totalHarvestsPounds,
-      percentGapApplied
+      percentGAPApplied
     } = this.state;
     const iconProps = {
       fontSize: 'large',
@@ -142,14 +136,14 @@ class StatCards extends React.Component {
         {
           icon: <Check {...iconProps} />,
           name: 'GAP Certification',
-          number: percentGapCertified,
+          number: percentGAPCertified,
           unit: ' %',
           description: 'of farms in the Group GAP program are GAP Certified'
         },
         {
           icon: <WbSunny {...iconProps} />,
           name: 'Harvesting Farms',
-          number: nsevpHarvestFarms,
+          number: NSEVPHarvestFarms,
           unit: ' farms',
           description: 'are harvesting this week'
         },
@@ -163,7 +157,7 @@ class StatCards extends React.Component {
         {
           icon: <Assignment {...iconProps} />,
           name: 'Group GAP Applications',
-          number: percentGapApplied,
+          number: percentGAPApplied,
           unit: '%',
           description: 'of referred farms have completed an application'
         }
@@ -180,21 +174,21 @@ class StatCards extends React.Component {
       {
         icon: <WbSunny {...iconProps} />,
         name: 'Group GAP Acceptances',
-        number: numKsGapAccepted,
+        number: numKSGAPAccepted,
         unit: ' farms',
         description: 'are currently in a Group GAP cohort'
       },
       {
         icon: <Check {...iconProps} />,
         name: 'GAP Certification',
-        number: percentKsGapCertified,
+        number: percentKSGAPCertified,
         unit: '%',
         description: 'of KS farms are GAP certified'
       },
       {
         icon: <Assignment {...iconProps} />,
         name: 'Group GAP Applications',
-        number: percentKsGapApplied,
+        number: percentKSGAPApplied,
         unit: '%',
         description: 'of referred farms have completed an application'
       }

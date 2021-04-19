@@ -8,13 +8,13 @@ import {
 } from './airtable/request';
 
 export async function getAllGAPCertificationsForStatCard() {
-  const AllGapCertfications = await getAllGAPCertifications();
-  return AllGapCertfications;
+  const AllGAPCertfications = await getAllGAPCertifications();
+  return AllGAPCertfications;
 }
 
-export async function getSingleGapCertfication(id) {
-  const singleGapCertfication = await getGAPCertificationById(id);
-  return singleGapCertfication;
+export async function getSingleGAPCertfication(id) {
+  const singleGAPCertfication = await getGAPCertificationById(id);
+  return singleGAPCertfication;
 }
 
 export async function getAllTotalHarvestsForStatCard() {
@@ -23,8 +23,8 @@ export async function getAllTotalHarvestsForStatCard() {
 }
 
 export async function getSingleTotalHarvestById(id) {
-  const singleGapCertfication = await getTotalHarvestById(id);
-  return singleGapCertfication;
+  const singleHarvest = await getTotalHarvestById(id);
+  return singleHarvest;
 }
 
 export async function getAllRecentHarvestLogsForStatCard() {
@@ -33,12 +33,12 @@ export async function getAllRecentHarvestLogsForStatCard() {
 }
 
 export async function getSingleRecentHarvestLogById(id) {
-  const singleGapCertfication = await getRecentHarvestLogById(id);
-  return singleGapCertfication;
+  const singleRecentHarvest = await getRecentHarvestLogById(id);
+  return singleRecentHarvest;
 }
 
 export default {
-  getSingleGapCertfication,
+  getSingleGAPCertfication,
   getAllGAPCertificationsForStatCard,
   getAllTotalHarvestsForStatCard,
   getSingleTotalHarvestById,
