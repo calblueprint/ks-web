@@ -26,8 +26,10 @@ class FarmProfile extends React.Component {
     let farm;
     await getSingleFarm(farmId).then(async res => {
       farm = res;
-      gapStatus = await getGapCertificationStatus(res.gapCertificationId);
-      farm.gapStatus = gapStatus;
+      if (res.gapCertificationId) {
+        gapStatus = await getGapCertificationStatus(res.gapCertificationId);
+        farm.gapStatus = gapStatus;
+      }
     });
     this.setState({ farm, farmId, loading: false });
   }
