@@ -9,7 +9,9 @@ export default function StatusChip(props) {
       return (
         <Chip
           avatar={<CheckCircle />}
-          label={`Gap Certified since ${data.certificationDate}`}
+          label={`Gap Certified since ${new Date(
+            data.gapCertificationDate
+          ).toLocaleDateString()}`}
         />
       );
     case 'notCertified':

@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSingleFarm } from '@lib/farmUtils';
+import { getSingleFarm, getGapCertificationStatus } from '@lib/farmUtils';
 
 import BackButton from '@components/BackButton';
 import Link from '@material-ui/core/Link';
@@ -22,7 +22,13 @@ class FarmProfile extends React.Component {
   async componentDidMount() {
     const { match } = this.props;
     const { farmId } = match.params;
-    const farm = await getSingleFarm(farmId);
+    let gapStatus = false;
+    let farm;
+    await getSingleFarm(farmId).then(async res => {
+      farm = res;
+      gapStatus = await getGapCertificationStatus(res.gapCertificationId);
+      farm.gapStatus = gapStatus;
+    });
     this.setState({ farm, farmId, loading: false });
   }
 

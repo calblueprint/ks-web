@@ -11,7 +11,7 @@ class FarmContactCard extends React.PureComponent {
   render() {
     const { farm } = this.props;
     const {
-      farmAddress,
+      address,
       contactFirstName,
       contactLastName,
       farmEmail: email,
@@ -19,7 +19,7 @@ class FarmContactCard extends React.PureComponent {
       phone
     } = farm;
 
-    const gapApproved = true;
+    const gapApproved = farm.gapStatus && farm.gapStatus.gapCertified === true;
     const farmerName = `${contactFirstName} ${contactLastName}`;
 
     return (
@@ -40,11 +40,11 @@ class FarmContactCard extends React.PureComponent {
             <div className="contact-card__info-details">
               <p>{`Phone: ${phone}`}</p>
               <p>{`Email: ${email}`}</p>
-              <p>{`Address: ${farmAddress}`}</p>
+              <p>{`Address: ${address}`}</p>
             </div>
             <StatusChip
               type={gapApproved ? 'certified' : 'notCertified'}
-              data={farm}
+              data={farm.gapStatus}
             />
           </div>
         </div>
