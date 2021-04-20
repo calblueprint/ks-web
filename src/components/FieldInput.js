@@ -41,8 +41,8 @@ export default function FieldInput(props) {
         type={type}
         error={error}
         value={value}
-        {...(error && { error: true, helperText: error })}
-        helperText={error}
+        // {...(error && { error: true, helperText: error })}
+        // helperText={error}
       />
     </div>
   );

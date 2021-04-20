@@ -5,12 +5,11 @@ import FieldInput from '@components/FieldInput';
 import Dropdown from '@components/Dropdown';
 
 import { getSingleFarm } from '@lib/farmUtils';
-import {
-  validatePhoneNumber,
-  validateEmail,
-  validateCertifyPermanentAddress,
-  validateZipcode
-} from '@lib/utils';
+import // validatePhoneNumber,
+// validateEmail,
+// validateCertifyPermanentAddress,
+// validateZipcode
+'@lib/utils';
 
 const styles = {
   form: {
@@ -42,7 +41,7 @@ class FarmProfileEditForm extends React.PureComponent {
     const { farmId } = this.props;
     const formValues = await getSingleFarm(farmId);
     // eslint-disable-next-line react/destructuring-assignment
-    this.props.handleChange(formValues); // will have all keys attached to it.
+    this.props.handleChange(formValues);
   }
 
   onChange = prop => event => {
@@ -91,14 +90,14 @@ class FarmProfileEditForm extends React.PureComponent {
               onChange={this.onChange('phone')}
               value={values.phone}
               variant="outlined"
-              error={validatePhoneNumber(values.phone)}
+              // error={validatePhoneNumber(values.phone)}
             />
             <FieldInput
               label="Email"
               onChange={this.onChange('farmEmail')}
               value={values.farmEmail}
               variant="outlined"
-              error={validateEmail(values.farmEmail)}
+              // error={validateEmail(values.farmEmail)}
             />
           </div>
           <div className={classes.row}>
@@ -107,7 +106,7 @@ class FarmProfileEditForm extends React.PureComponent {
               onChange={this.onChange('physicalStreet1')}
               value={values.physicalStreet1}
               variant="outlined"
-              error={validateCertifyPermanentAddress(values.physicalStreet1)}
+              // error={validateCertifyPermanentAddress(values.physicalStreet1)}
             />
           </div>
           <div className={classes.row}>
@@ -130,7 +129,7 @@ class FarmProfileEditForm extends React.PureComponent {
               onChange={this.onChange('physicalZipcode')}
               value={values.physicalZipcode}
               variant="outlined"
-              error={validateZipcode(values.physicalZipcode)}
+              // error={validateZipcode(values.physicalZipcode)}
             />
           </div>
           <div className={classes.row}>
@@ -139,7 +138,7 @@ class FarmProfileEditForm extends React.PureComponent {
               onChange={this.onChange('mailingStreet1')}
               value={values.mailingStreet1}
               variant="outlined"
-              error={validateCertifyPermanentAddress(values.mailingStreet1)}
+              // error={validateCertifyPermanentAddress(values.mailingStreet1)}
             />
           </div>
           <div className={classes.row}>
@@ -162,7 +161,7 @@ class FarmProfileEditForm extends React.PureComponent {
               onChange={this.onChange('mailingZipcode')}
               value={values.mailingZipcode}
               variant="outlined"
-              error={validateZipcode(values.mailingZipcode)}
+              // error={validateZipcode(values.mailingZipcode)}
             />
           </div>
         </div>
