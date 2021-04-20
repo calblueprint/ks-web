@@ -1,5 +1,4 @@
 /* eslint-disable no-await-in-loop */
-import React from 'react';
 import USStates from '@assets/usStates.json';
 // import ErrorIcon from '@assets/error.svg';
 import { updateUser, deleteUser } from './airtable/request';
@@ -42,17 +41,6 @@ const validateCertifyPermanentAddress = value => {
 // Ensure valid email using regex
 const validateEmail = value => {
   if (value && value.length === 0) {
-    return '';
-  }
-  // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
-  // eslint-disable-next-line no-useless-escape
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(value) ? '' : 'Please enter a valid email address.';
-};
-
-// Ensure valid alternate email using regex (allowed to be empty)
-const validateAlternateEmail = value => {
-  if (!value || value.length === 0) {
     return '';
   }
   // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
@@ -128,11 +116,9 @@ const ValidatorData = {
   permanentZipcode: [validateExistence, validateNumber, validateZipcode],
   mailingZipcode: [validateExistence, validateNumber, validateZipcode],
   mailingAddressSame: [],
-  alternateEmail: [validateAlternateEmail],
   permanentStreet2: [],
   mailingStreet2: [],
   certifyPermanentAddress: [validateCertifyPermanentAddress]
-  // projectGroup: [v => validateExistence(v, 'Please choose a group')] // Custom error message
 };
 
 // Asynchronously validate field
@@ -177,10 +163,10 @@ const validateFieldSync = (name, value) => {
 // Update or Create the user with the given fields
 const updateUserFields = async (user, fields) => {
   // Ensure that only the fields that are supposed to be updated are updated
-  const userUpdate = fields.reduce((value, field) => ({
-    ...value,
-    [field]: user[field]
-  }));
+  const userUpdate = {};
+  fields.forEach(field => {
+    userUpdate[field] = user[field];
+  });
 
   // If user exists, update it, else, create.
   if (user.id) {

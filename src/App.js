@@ -5,6 +5,8 @@ import { Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 
+import Constants from '@root/constants';
+
 import '@styles/App.css';
 
 import KSDashboard from '@ks/dashboard/KSDashboard';
@@ -12,6 +14,7 @@ import FarmReferralForm from '@ks/FarmReferralForm';
 import NSEVPDashboard from '@nsevp/dashboard/NSEVPDashboard';
 import UserProfile from '@shared/UserProfile';
 import Login from '@shared/auth/Login';
+import SignUp from '@shared/auth/SignUp';
 import About from '@shared/About';
 import ErrorPage from '@shared/ErrorPage';
 import FarmSearch from '@shared/farmSearch/FarmSearch';
@@ -99,6 +102,14 @@ class App extends React.Component {
                 component={FarmReferralForm}
                 credentialCheck={isKSUser}
               />
+
+              <AuthenticatedRoute
+                credentialCheck={credentials => !isSignedIn(credentials)}
+                exact
+                path={Constants.SIGNUP_ROUTE}
+                component={SignUp}
+              />
+
               <SuspenseRoute path="*" component={ErrorPage} />
             </Switch>
           </div>

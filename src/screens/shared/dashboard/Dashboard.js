@@ -1,9 +1,9 @@
 import React from 'react';
-import DashboardGraph from '@assets/dashboardGraph.png';
 import { withStyles } from '@material-ui/core/styles';
 
-import RecentUpdates from '@shared/dashboard/RecentUpdates';
-import StatCards from '@shared/dashboard/StatCards';
+import Graph from '@shared/graphs/Graph';
+import RecentUpdates from './RecentUpdates';
+import StatCards from './StatCards';
 
 const styles = {
   root: {
@@ -16,20 +16,11 @@ const styles = {
   row: {
     display: 'flex',
     flexWrap: 'wrap',
+    alignItems: 'flex-start',
     justifyContent: 'center',
     margin: '0 -16px',
     minWidth: 256,
-    height: 512
-  },
-  graph: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    display: 'flex',
-    flex: 2.25,
-    height: '100%',
-    justifyContent: 'center',
-    margin: 16,
-    minWidth: 512
+    height: 600
   },
   image: {
     maxWidth: '100%'
@@ -38,20 +29,14 @@ const styles = {
 
 class Dashboard extends React.PureComponent {
   render() {
-    const { classes } = this.props;
+    const { classes, graph } = this.props;
 
     return (
       <div className={classes.root}>
         <h1>Dashboard</h1>
         <StatCards />
         <div className={classes.row}>
-          <div className={classes.graph}>
-            <img
-              className={classes.image}
-              src={DashboardGraph}
-              alt="farm production history"
-            />
-          </div>
+          <Graph type={graph} />
           <RecentUpdates />
         </div>
       </div>

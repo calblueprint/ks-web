@@ -14,14 +14,13 @@ import {
 
 const styles = {
   form: {
-    padding: '0px 48px',
     margin: '48px 0px 48px 0px'
   },
   row: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    margin: '16px 0px',
+    margin: '16px -12px',
     width: '100%'
   },
   dropdown: {
@@ -47,10 +46,10 @@ class FarmProfileEditForm extends React.PureComponent {
   }
   */
 
-  async componentDidMount () {
+  async componentDidMount() {
     const { farmId } = this.props;
     const formValues = await getSingleFarm(farmId);
-    this.props.handleChange(formValues); // will have all keys attached to it. 
+    this.props.handleChange(formValues); // will have all keys attached to it.
     // this.props.formValues.name
   }
 
@@ -66,7 +65,7 @@ class FarmProfileEditForm extends React.PureComponent {
 
   render() {
     const { values, classes } = this.props;
-    console.log(values)
+    console.log(values);
 
     return (
       <div className={classes.root}>
