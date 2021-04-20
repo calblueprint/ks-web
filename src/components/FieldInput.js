@@ -19,11 +19,10 @@ export default function FieldInput(props) {
   const {
     label,
     onChange,
-    placeholder,
     variant,
     required,
     type,
-    error,
+    error = null,
     tooltip,
     value
   } = props;
@@ -37,12 +36,13 @@ export default function FieldInput(props) {
         fullWidth
         margin="normal"
         variant={variant || 'standard'}
-        // value={placeholder}
         onChange={onChange}
         required={required}
         type={type}
         error={error}
         value={value}
+        {...(error && { error: true, helperText: error })}
+        helperText={error}
       />
     </div>
   );

@@ -1,3 +1,4 @@
+import React from 'react';
 /* eslint-disable no-await-in-loop */
 import USStates from '@assets/usStates.json';
 // import ErrorIcon from '@assets/error.svg';

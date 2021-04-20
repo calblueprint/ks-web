@@ -38,19 +38,11 @@ class FarmProfileEditForm extends React.PureComponent {
     };
   }
 
-  /** 
-  async componentDidMount() {
-    const { farmId } = this.props;
-    const farm = await getSingleFarm(farmId);
-    this.setState({ farm, farmId });
-  }
-  */
-
   async componentDidMount() {
     const { farmId } = this.props;
     const formValues = await getSingleFarm(farmId);
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.handleChange(formValues); // will have all keys attached to it.
-    // this.props.formValues.name
   }
 
   onChange = prop => event => {
