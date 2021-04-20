@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 });
 
 export default function FieldInput(props) {
-  const { label, onChange, placeholder, variant, error = null } = props;
+  const { label, onChange, value, variant, error = null } = props;
   const classes = useStyles();
 
   return (
@@ -28,11 +28,10 @@ export default function FieldInput(props) {
         fullWidth
         margin="normal"
         variant={variant || 'standard'}
-        placeholder={placeholder}
+        value={value}
         onChange={onChange}
         {...(error && { error: true, helperText: error })}
         helperText={error}
-        autoComplete
       />
     </div>
   );

@@ -32,16 +32,26 @@ const styles = {
 class FarmProfileEditForm extends React.PureComponent {
   constructor(props) {
     super(props);
+    /** */
     this.state = {
       farm: {},
       farmId: ''
     };
   }
 
+  /** 
   async componentDidMount() {
     const { farmId } = this.props;
     const farm = await getSingleFarm(farmId);
     this.setState({ farm, farmId });
+  }
+  */
+
+  async componentDidMount () {
+    const { farmId } = this.props;
+    const formValues = await getSingleFarm(farmId);
+    this.props.handleChange(formValues); // will have all keys attached to it. 
+    // this.props.formValues.name
   }
 
   onChange = prop => event => {
@@ -56,8 +66,7 @@ class FarmProfileEditForm extends React.PureComponent {
 
   render() {
     const { values, classes } = this.props;
-    const { farm, farmId } = this.state;
-    console.log(farmId);
+    console.log(values)
 
     return (
       <div className={classes.root}>
@@ -67,13 +76,13 @@ class FarmProfileEditForm extends React.PureComponent {
             <FieldInput
               label="First Name"
               onChange={this.onChange('contactFirstName')}
-              placeholder={farm.contactFirstName}
+              value={values.contactFirstName}
               variant="outlined"
             />
             <FieldInput
               label="Last Name"
               onChange={this.onChange('contactLastName')}
-              placeholder={farm.contactLastName}
+              value={values.contactLastName}
               variant="outlined"
             />
           </div>
@@ -81,7 +90,7 @@ class FarmProfileEditForm extends React.PureComponent {
             <FieldInput
               label="Farm Name"
               onChange={this.onChange('farmName')}
-              placeholder={farm.farmName}
+              value={values.farmName}
               variant="outlined"
             />
           </div>
@@ -89,32 +98,32 @@ class FarmProfileEditForm extends React.PureComponent {
             <FieldInput
               label="Cell Phone"
               onChange={this.onChange('phone')}
-              placeholder={farm.phone}
+              value={values.phone}
               variant="outlined"
-              error={validatePhoneNumber(farm.phone)}
+              error={validatePhoneNumber(values.phone)}
             />
             <FieldInput
               label="Email"
               onChange={this.onChange('farmEmail')}
-              placeholder={farm.farmEmail}
+              value={values.farmEmail}
               variant="outlined"
-              error={validateEmail(farm.farmEmail)}
+              error={validateEmail(values.farmEmail)}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label={`Farm Physical Address \u2014 Street`}
               onChange={this.onChange('physicalStreet1')}
-              placeholder={farm.physicalStreet1}
+              value={values.physicalStreet1}
               variant="outlined"
-              error={validateCertifyPermanentAddress(farm.physicalStreet1)}
+              error={validateCertifyPermanentAddress(values.physicalStreet1)}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="City"
               onChange={this.onChange('physicalCity')}
-              placeholder={farm.physicalCity}
+              value={values.physicalCity}
               variant="outlined"
             />
             <div className={classes.dropdown}>
@@ -128,25 +137,25 @@ class FarmProfileEditForm extends React.PureComponent {
             <FieldInput
               label="ZIP"
               onChange={this.onChange('physicalZipcode')}
-              placeholder={farm.physicalZipcode}
+              value={values.physicalZipcode}
               variant="outlined"
-              error={validateZipcode(farm.physicalZipcode)}
+              error={validateZipcode(values.physicalZipcode)}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label={`Farm Mailing Address \u2014 Street`}
               onChange={this.onChange('mailingStreet1')}
-              placeholder={farm.mailingStreet1}
+              value={values.mailingStreet1}
               variant="outlined"
-              error={validateCertifyPermanentAddress(farm.mailingStreet1)}
+              error={validateCertifyPermanentAddress(values.mailingStreet1)}
             />
           </div>
           <div className={classes.row}>
             <FieldInput
               label="City"
               onChange={this.onChange('mailingCity')}
-              placeholder={farm.mailingCity}
+              value={values.mailingCity}
               variant="outlined"
             />
             <div className={classes.dropdown}>
@@ -160,9 +169,9 @@ class FarmProfileEditForm extends React.PureComponent {
             <FieldInput
               label="ZIP"
               onChange={this.onChange('mailingZipcode')}
-              placeholder={farm.mailingZipcode}
+              value={values.mailingZipcode}
               variant="outlined"
-              error={validateZipcode(farm.mailingZipcode)}
+              error={validateZipcode(values.mailingZipcode)}
             />
           </div>
         </div>
