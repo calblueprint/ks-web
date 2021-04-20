@@ -87,7 +87,7 @@ const ValidateUSState = value => {
 
 // Ensure Zipcode is of valid length
 const validateZipcode = value => {
-  if (value === undefined) {
+  if (!value) {
     return 'Must be 5 digits.';
   }
   return value.length === 5 ? '' : 'Must be 5 digits';
