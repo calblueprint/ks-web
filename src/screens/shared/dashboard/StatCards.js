@@ -42,6 +42,7 @@ class StatCards extends React.Component {
     this.state = {
       farms: [],
       KSFarms: [],
+      KSGAP: [],
       totalHarvests: [],
       recentHarvests: [],
       GAPCertification: [],
@@ -61,27 +62,41 @@ class StatCards extends React.Component {
     const GAPCertification = await getAllGAPCertificationsForStatCard();
     const totalHarvests = await getAllTotalHarvestsForStatCard();
     const recentHarvests = await getAllRecentHarvestLogsForStatCard();
-    const KSFarms = farms.filter(farm => farm.KSAffiliated);
+    const KSFarms = farms.filter(farm => farm.ksAffiliated);
+    const KSGAP = [];
+    for (let i = 0; i < GAPCertification.length; i += 1) {
+      if ('ksAffiliated' in GAPCertification[i]) {
+        if (GAPCertification[i].ksAffiliated.includes(true)) {
+          KSGAP.push(GAPCertification[i]);
+        }
+      }
+    }
 
-    const numGAPCertified = GAPCertification.filter(farm => farm.GAPCertified);
+    const numGAPCertified = GAPCertification.filter(farm => farm.gapCertified);
+
+    const numKSGAPCertified = KSGAP.filter(farm => farm.gapCertified);
 
     const numFarmReferred = GAPCertification.filter(
       farm => farm.farmReferred === 'Complete'
     ).length;
 
-    const numKSGAPAccepted = GAPCertification.filter(
-      farm => farm.gapAccepted === 'Complete'
+    const numKSGAPAccepted = KSGAP.filter(
+      farm => farm.farmAccepted === 'Complete'
     ).length;
 
     const numGAPApplied = GAPCertification.filter(
       farm => farm.farmApplied === 'Complete'
     );
 
+    const numKSGAPApplied = KSGAP.filter(
+      farm => farm.farmApplied === 'Complete'
+    );
+
     const percentKSGAPCertified = Math.round(
-      (numGAPCertified.length / KSFarms.length) * 100
+      (numKSGAPCertified.length / KSFarms.length) * 100
     );
     const percentKSGAPApplied = Math.round(
-      (numGAPApplied.length / KSFarms.length) * 100
+      (numKSGAPApplied.length / KSFarms.length) * 100
     );
 
     const percentGAPCertified = Math.round(
@@ -100,6 +115,7 @@ class StatCards extends React.Component {
     this.setState({
       farms,
       KSFarms,
+      KSGAP,
       totalHarvests,
       recentHarvests,
       GAPCertification,
