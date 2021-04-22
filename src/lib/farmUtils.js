@@ -1,4 +1,5 @@
 /* eslint-disable no-await-in-loop */
+import moment from 'moment';
 import {
   getAllFarms,
   getFarmById,
@@ -71,7 +72,17 @@ export function mapCertificationStepsToLabels() {
   return map;
 }
 
+/* eslint-disable no-unused-vars */
+export function getPrevMonths(n) {
+  const date = Date().toLocaleString();
+  const m = moment(date);
+  m.subtract(n, 'months');
+
+  return [...Array(n)].map(_i => m.add(1, 'months').format('MMM[\n]YYYY'));
+}
+
 export default {
+  getPrevMonths,
   getSingleFarm,
   getAllFarmsForFarmSearch,
   getGapCertificationStatus,
