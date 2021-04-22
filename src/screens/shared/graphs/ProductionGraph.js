@@ -6,7 +6,6 @@ import {
   VictoryAxis,
   VictoryStack,
   VictoryTooltip,
-  VictoryVoronoiContainer,
   VictoryLabel
 } from 'victory';
 
@@ -15,7 +14,7 @@ import { getPrevMonths } from '@lib/farmUtils';
 const fontProps = {
   fontSize: 8,
   fontFamily: 'Inter',
-  color: 'blue'
+  fill: 'var(--ks-dark-grey)'
 };
 
 const barStyles = {
@@ -30,8 +29,13 @@ const axisStyles = {
 };
 
 const flyoutStyles = {
-  fill: 'var(--ks-light-grey)',
+  fill: 'var(--ks-dark-grey)',
   stroke: 'none'
+};
+
+const tooltipStyles = {
+  ...fontProps,
+  fill: 'white'
 };
 
 const colors = [
@@ -41,8 +45,6 @@ const colors = [
   'var(--ks-medium-light-blue)',
   'var(--ks-light-blue)'
 ];
-
-const tooltipStyles = colors.map(ca => ({ fill: ca, ...fontProps }));
 
 class ProductionGraph extends React.PureComponent {
   getTopFourItems = () => {
@@ -71,38 +73,17 @@ class ProductionGraph extends React.PureComponent {
 
   formatLabel = datum => {
     const items = this.getTopFourItems();
-    return `\u25a0 ${items[datum._stack - 1]}: ${datum.y} lbs`;
+    return [`${items[datum._stack - 1]}: ${datum.y} lbs`];
   };
 
   setOffset = datum => {
-    return datum._group >= 6 ? -125 : 125;
+    return datum._group >= 6 ? -75 : 75;
   };
 
   render() {
     const data = this.getData();
     return (
-      <VictoryChart
-        padding={48}
-        height={250}
-        width={600}
-        containerComponent={
-          <VictoryVoronoiContainer
-            voronoiDimension="x"
-            labels={({ datum }) => this.formatLabel(datum)}
-            labelComponent={
-              <VictoryTooltip
-                constrainToVisibleArea
-                centerOffset={{ x: ({ datum }) => this.setOffset(datum) }}
-                labelComponent={<VictoryLabel lineHeight={3.5} />}
-                flyoutHeight={150}
-                flyoutPadding={10}
-                flyoutStyle={flyoutStyles}
-                style={tooltipStyles}
-              />
-            }
-          />
-        }
-      >
+      <VictoryChart padding={48} height={250} width={600}>
         <VictoryStack colorScale={colors}>
           {data.map(segment => (
             <VictoryBar
@@ -111,6 +92,23 @@ class ProductionGraph extends React.PureComponent {
               style={barStyles}
               data={segment}
               barRatio={1.25}
+              labels={({ datum }) => this.formatLabel(datum)}
+              labelComponent={
+                <VictoryTooltip
+                  constrainToVisibleArea
+                  flyoutPadding={10}
+                  flyoutStyle={flyoutStyles}
+                  style={tooltipStyles}
+                  pointerLength={0}
+                  centerOffset={{
+                    x: ({ datum }) => this.setOffset(datum),
+                    y: 25
+                  }}
+                  labelComponent={
+                    <VictoryLabel backgroundPadding={2} lineHeight={3.5} />
+                  }
+                />
+              }
             />
           ))}
         </VictoryStack>

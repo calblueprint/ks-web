@@ -72,6 +72,18 @@ export function mapCertificationStepsToLabels() {
   return map;
 }
 
+export function getDateOptions() {
+  return [
+    'Last 60 Days',
+    'Year to Date',
+    'Last Year',
+    'This Year Q1',
+    'This Year Q2',
+    'This Year Q3',
+    'This Year Q4'
+  ];
+}
+
 /* eslint-disable no-unused-vars */
 export function getPrevMonths(n) {
   const date = Date().toLocaleString();
@@ -82,6 +94,7 @@ export function getPrevMonths(n) {
 }
 
 export default {
+  getDateOptions,
   getPrevMonths,
   getSingleFarm,
   getAllFarmsForFarmSearch,
