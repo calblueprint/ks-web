@@ -36,7 +36,7 @@ class FarmProfileEdit extends React.Component {
     this.state = {
       formValues: {
         physicalState: 0,
-        mailState: 0
+        mailingState: 0
       },
       dropdownValues: {
         gapContact: 0,
