@@ -36,7 +36,7 @@ class FarmProfileEdit extends React.Component {
     this.state = {
       formValues: {
         physicalState: 0,
-        mailState: 0
+        mailingState: 0
       },
       dropdownValues: {
         gapContact: 0,
@@ -89,6 +89,7 @@ class FarmProfileEdit extends React.Component {
         <BackButton label="Back to Farm" href={`/farm/${farmId}`} />
         <h1>Edit Information</h1>
         <FarmProfileEditForm
+          farmId={farmId}
           values={formValues}
           handleChange={this.handleChange('formValues')}
         />
