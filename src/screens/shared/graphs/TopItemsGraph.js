@@ -1,8 +1,7 @@
 import React from 'react';
-import {
-  getRecentHarvestLogById,
-  getTotalHarvestById
-} from '@lib/airtable/request';
+import // getRecentHarvestLogById,
+// getTotalHarvestById
+'@lib/airtable/request';
 
 import FarmProfileGraph from './FarmProfileGraph';
 
