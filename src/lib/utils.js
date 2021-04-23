@@ -1,10 +1,8 @@
+import React from 'react';
 /* eslint-disable no-await-in-loop */
 import USStates from '@assets/usStates.json';
-import {
-  // getAllProjectGroups,
-  updateUser,
-  deleteUser
-} from './airtable/request';
+// import ErrorIcon from '@assets/error.svg';
+import { updateUser, deleteUser } from './airtable/request';
 import { refreshUserData, clearUserData } from './redux/userData';
 import { signupUser } from './airlock/airlock';
 
@@ -73,6 +71,14 @@ const ValidateUSState = value => {
     return '';
   }
   return 'Invalid State';
+};
+
+// Ensure Zipcode is of valid length
+const validateZipcode = value => {
+  if (!value) {
+    return 'Must be 5 digits.';
+  }
+  return value.length === 5 ? '' : 'Must be 5 digits';
 };
 
 const validatePhoneNumber = value => {
@@ -234,4 +240,5 @@ export {
   createFalseDict,
   validateFarmEdit,
   farmFieldsToValidate
+  validatePhoneNumber
 };

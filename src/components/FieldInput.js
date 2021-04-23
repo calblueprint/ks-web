@@ -22,11 +22,11 @@ export default function FieldInput(props) {
   const innerHTML = (
     <div className={classes.root}>
       {label ? <h3 className={classes.label}>{label}</h3> : null}
+
       <TextField
         fullWidth
         margin="normal"
         variant={variant || 'standard'}
-        placeholder={placeholder}
         onChange={onChange}
         {...rest}
       />
