@@ -1,7 +1,8 @@
 import React from 'react';
 import farmProfileCover from '@assets/farmProfileCover.png';
 import farmProfilePhoto from '@assets/farmProfilePhoto.png';
-import userIcon from '@assets/userIcon.png';
+import Chip from '@material-ui/core/Chip';
+import { Home, AccountCircle } from '@material-ui/icons';
 
 import '@styles/FarmProfile.css';
 
@@ -11,15 +12,20 @@ class FarmContactCard extends React.PureComponent {
   render() {
     const { farm } = this.props;
     const {
-      farmAddress,
+      address:physicalAddress,
+      mailingAddress,
       contactFirstName,
       contactLastName,
       farmEmail: email,
-      GroupGapContactIds: inspector,
-      phone
+      groupGapContactIds: inspector,
+      phone,
+      foodHubAffiliation: foodHub
     } = farm;
-
-    const gapApproved = true;
+    const { GAP } = this.props;
+    const {
+      gapCertified
+    } = GAP;
+    const { GAPContact } = this.props;
     const farmerName = `${contactFirstName} ${contactLastName}`;
 
     return (
@@ -40,25 +46,29 @@ class FarmContactCard extends React.PureComponent {
             <div className="contact-card__info-details">
               <p>{`Phone: ${phone}`}</p>
               <p>{`Email: ${email}`}</p>
-              <p>{`Address: ${farmAddress}`}</p>
+              <p>{`Physical Address: ${physicalAddress}`}</p>
+              <p>{`Mailing Address: ${mailingAddress}`}</p>
             </div>
             <StatusChip
-              type={gapApproved ? 'certified' : 'notCertified'}
-              data={farm}
+              type={gapCertified ? 'certified' : 'notCertified'}
+              data={GAP}
             />
           </div>
         </div>
 
         <div className="contact-card__inspector">
+        <div className="contact-card__inspector-info">
           <h2>Group GAP Contact</h2>
-          <div className="contact-card__inspector-info">
-            <img
-              className="farm-contact-card__user-icon"
-              src={userIcon}
-              alt="user"
-            />
-            {inspector}
-          </div>
+          <Chip
+          avatar={<AccountCircle />}
+          label={`${GAPContact}`}
+          />
+          </div> 
+          <h2>Food Hub</h2>
+          <Chip
+          avatar={<Home />}
+          label={`${foodHub}`}
+          />
         </div>
       </div>
     );

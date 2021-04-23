@@ -1,5 +1,6 @@
 import React from 'react';
-import { getSingleFarm } from '@lib/farmUtils';
+import { getSingleFarm, getGapCertificationStatus } from '@lib/farmUtils';
+import { getUserById } from '@lib/airtable/request';
 
 import BackButton from '@components/BackButton';
 import Link from '@material-ui/core/Link';
@@ -14,6 +15,9 @@ class FarmProfile extends React.Component {
     super(props);
     this.state = {
       farm: {},
+      GAP: {},
+      GAPId: '',
+      GAPContact: {},
       farmId: '',
       loading: true
     };
@@ -23,11 +27,15 @@ class FarmProfile extends React.Component {
     const { match } = this.props;
     const { farmId } = match.params;
     const farm = await getSingleFarm(farmId);
-    this.setState({ farm, farmId, loading: false });
+    const GAPId = farm.groupGapContactIds[0];
+    const GAPContact = await getUserById(GAPId);
+    const GAP = await getGapCertificationStatus(farm.gapCertificationId);
+    this.setState({ farm, farmId, loading: false , GAP, GAPContact});
+    console.log(farm, GAP,GAPId, farm.groupGapContactIds,GAPContact)
   }
 
   render() {
-    const { farm, loading } = this.state;
+    const { farm, loading, GAP, GAPContact} = this.state;
     const { match } = this.props;
     const { farmId } = match.params;
 
@@ -49,7 +57,7 @@ class FarmProfile extends React.Component {
         </div>
         <div className="farm-profile__section">
           <div className="farm-profile__left-col">
-            <FarmContactCard farm={farm} />
+            <FarmContactCard farm={farm} GAP = {GAP} GAPContact = {GAPContact}/>
           </div>
           <div className="farm-profile__right-col">
             <FarmCertificationStepper />

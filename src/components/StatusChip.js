@@ -1,6 +1,7 @@
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
 import { CheckCircle, Cancel } from '@material-ui/icons';
+import { blueGrey } from '@material-ui/core/colors';
 
 export default function StatusChip(props) {
   const { type, data } = props;
@@ -8,8 +9,7 @@ export default function StatusChip(props) {
     case 'certified':
       return (
         <Chip
-          avatar={<CheckCircle />}
-          label={`Gap Certified since ${data.certificationDate}`}
+          avatar={<CheckCircle style = {{color:blueGrey}}/>} label={`Gap Certified since ${new Date(data.gapCertificationDate).toLocaleDateString()}`}
         />
       );
     case 'notCertified':
