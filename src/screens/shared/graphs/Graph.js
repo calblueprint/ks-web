@@ -37,7 +37,7 @@ const styles = {
 };
 
 class Graph extends React.PureComponent {
-  getGraphProps = type => {
+  getGraphProps = (type, farmId) => {
     switch (type) {
       case 'certification':
         return {
@@ -52,12 +52,12 @@ class Graph extends React.PureComponent {
       case 'topItems':
         return {
           label: 'Top Items',
-          graph: <TopItemsGraph />
+          graph: <TopItemsGraph farmId={farmId} />
         };
       case 'harvestLogs':
         return {
           label: 'Harvest Logs',
-          graph: <HarvestLogsGraph />
+          graph: <HarvestLogsGraph farmId={farmId} />
         };
       default:
         return { label: '', graph: null };
@@ -65,8 +65,9 @@ class Graph extends React.PureComponent {
   };
 
   render() {
-    const { classes, type } = this.props;
-    const { label, graph } = this.getGraphProps(type);
+    const { classes, type, farmId } = this.props;
+    console.log(farmId);
+    const { label, graph } = this.getGraphProps(type, farmId);
 
     return (
       <div className={classes.root}>

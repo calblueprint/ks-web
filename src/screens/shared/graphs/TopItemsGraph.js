@@ -1,14 +1,19 @@
 import React from 'react';
-import { getSingleFarm } from '@lib/farmUtils';
+import {
+  getRecentHarvestLogById,
+  getTotalHarvestById
+} from '@lib/airtable/request';
 
 import FarmProfileGraph from './FarmProfileGraph';
 
 class TopItemsGraph extends React.PureComponent {
   async componentDidMount() {
-    const { match } = this.props;
-    const { farmId } = match.params;
-    const farm = await getSingleFarm(farmId);
-    this.setState({ farm, farmId, loading: false });
+    const { farmId } = this.props;
+    console.log(farmId);
+    // const h = await getRecentHarvestLogById(farmId);
+    // const t = await getTotalHarvestById(farmId);
+    // console.log(h);
+    // console.log(t);
   }
 
   getData = () => {
@@ -20,8 +25,6 @@ class TopItemsGraph extends React.PureComponent {
   };
 
   render() {
-    const { farm, farmId, loading } = this.state;
-
     const { labels, values } = this.getData();
     return <FarmProfileGraph labels={labels} values={values} />;
   }
