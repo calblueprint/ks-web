@@ -66,6 +66,8 @@ class FarmProfileEditGapStatus extends React.PureComponent {
                 label={labels[marker + index]}
                 value={values[step]}
                 onChange={this.onChange(step)}
+                onDateChange={this.onChange(step + 'Date')}
+                date={values[step + 'Date']}
               />
             ))}
           </div>

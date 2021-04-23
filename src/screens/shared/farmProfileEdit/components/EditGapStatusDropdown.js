@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Dropdown from '@components/Dropdown';
 import TextField from '@material-ui/core/TextField';
+import { getPossibleCertificationStates } from '@lib/farmUtils';
 
 const styles = {
   root: {
@@ -24,15 +25,18 @@ const styles = {
   }
 };
 
-class FarmProfileEditGapStatus extends React.PureComponent {
-  getItems = () => {
-    return ['Incomplete', 'Complete', 'Failed', 'Outdated'];
-  };
-
+class EditGapStatusDropdown extends React.PureComponent {
   render() {
-    const { index, label, onChange, classes, value } = this.props;
-    const items = this.getItems();
-
+    const {
+      index,
+      label,
+      onChange,
+      classes,
+      value,
+      onDateChange,
+      date
+    } = this.props;
+    const items = getPossibleCertificationStates();
     return (
       <div className={classes.root}>
         <h3 className={classes.label}>{`${index}. ${label}`}</h3>
@@ -46,7 +50,8 @@ class FarmProfileEditGapStatus extends React.PureComponent {
           <TextField
             className={classes.picker}
             type="date"
-            defaultValue="2017-05-24"
+            value={date || ''}
+            onChange={onDateChange}
           />
         </div>
       </div>
@@ -54,4 +59,4 @@ class FarmProfileEditGapStatus extends React.PureComponent {
   }
 }
 
-export default withStyles(styles)(FarmProfileEditGapStatus);
+export default withStyles(styles)(EditGapStatusDropdown);

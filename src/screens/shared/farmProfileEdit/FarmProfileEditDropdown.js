@@ -47,7 +47,7 @@ class FarmProfileEditDropdown extends React.PureComponent {
     return (
       <div className={classes.root}>
         <div className={classes.column}>
-          <h2 className={classes.header}> Group Gap Contact</h2>
+          <h2 className={classes.header}>Group Gap Contact</h2>
           <Dropdown
             items={contacts}
             icon={<AccountCircle fontSize="large" />}

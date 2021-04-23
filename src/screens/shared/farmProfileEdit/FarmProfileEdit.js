@@ -71,6 +71,8 @@ class FarmProfileEdit extends React.Component {
       if (res.gapCertificationId) {
         gapStatus = await getGapCertificationStatus(res.gapCertificationId);
       }
+      farm.mailingState = states.indexOf(farm.mailingState);
+      farm.physicalState = states.indexOf(farm.physicalState);
     });
     this.setState({ farm, farmId, gapStatus });
   }
@@ -101,6 +103,10 @@ class FarmProfileEdit extends React.Component {
     newFarm.mailingState = states[mailingState];
     newFarm.physicalState = states[physicalState];
 
+    // TODO format the dates for the GAP certification and turn indices into values
+    // TODO format the additional notes object
+    // TODO push all info to airtable
+
     // create farm
     // const { user } = this.props;
     // const newComment = {
@@ -117,9 +123,9 @@ class FarmProfileEdit extends React.Component {
     }
 
     // todo replace with better func call
-    createFarm(newFarm).catch(e => {
-      console.error(e);
-    });
+    // createFarm(newFarm).catch(e => {
+    //   console.error(e);
+    // });
   };
 
   render() {

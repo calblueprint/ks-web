@@ -23,6 +23,19 @@ export async function getSingleFarm(id) {
 
 export async function getGapCertificationStatus(id) {
   const status = await getGAPCertificationById(id);
+  // maps certification value to an index to be compatible with select components
+  const certificationStates = getPossibleCertificationStates();
+  getCertificationSteps().map(k => {
+    status[k] = certificationStates.indexOf(status[k]);
+    status[k + 'Date'] = new Date(status[k + 'Date']).toLocaleDateString(
+      'en-CA'
+    );
+  });
+  delete status['gapCertifiedDate'];
+  status['gapCertificationDate'] = new Date(
+    status['gapCertificationDate']
+  ).toLocaleDateString();
+
   return status;
 }
 
@@ -60,6 +73,10 @@ export function getCertificationLabels() {
   ];
 }
 
+export function getPossibleCertificationStates() {
+  return [' ', 'Incomplete', 'Complete', 'Failed', 'Outdated'];
+}
+
 export function getDefaultCertificationObj() {
   const defaultGAPCertification = {};
   getCertificationSteps().forEach(step => {
@@ -89,5 +106,6 @@ export default {
   getCertificationLabels,
   getCertificationSteps,
   mapCertificationStepsToLabels,
-  getDefaultCertificationObj
+  getDefaultCertificationObj,
+  getPossibleCertificationStates
 };
