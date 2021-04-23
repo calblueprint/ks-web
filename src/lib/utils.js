@@ -1,10 +1,8 @@
+import React from 'react';
 /* eslint-disable no-await-in-loop */
 import USStates from '@assets/usStates.json';
-import {
-  // getAllProjectGroups,
-  updateUser,
-  deleteUser
-} from './airtable/request';
+// import ErrorIcon from '@assets/error.svg';
+import { updateUser, deleteUser } from './airtable/request';
 import { refreshUserData, clearUserData } from './redux/userData';
 import { signupUser } from './airlock/airlock';
 
@@ -25,6 +23,20 @@ const toggleValidColor = (input, type) => {
     return input !== '' && typeof input !== 'undefined' ? 'b-is-not-valid' : '';
   }
   return !input ? '\u00A0' : input;
+};
+
+// User must check this box
+const validateCertifyPermanentAddress = value => {
+  return value ? (
+    ''
+  ) : (
+    <div className="error-container">
+      {/** <img src={ErrorIcon} alt="error" className="mr-1" /> */}
+      <div className="error-text">
+        Please certify the above address in order to proceed.
+      </div>
+    </div>
+  );
 };
 
 // Ensure valid email using regex
@@ -73,6 +85,14 @@ const ValidateUSState = value => {
   return 'Invalid State';
 };
 
+// Ensure Zipcode is of valid length
+const validateZipcode = value => {
+  if (!value) {
+    return 'Must be 5 digits.';
+  }
+  return value.length === 5 ? '' : 'Must be 5 digits';
+};
+
 const validatePhoneNumber = value => {
   // validated phone numbers in this form:
   // (123) 456-7890
@@ -93,7 +113,13 @@ const ValidatorData = {
   phoneNumber: [validateExistence, validatePhoneNumber],
   password: [validateExistence, validatePassword],
   permanentState: [validateExistence, ValidateUSState],
-  mailingState: [validateExistence, ValidateUSState]
+  mailingState: [validateExistence, ValidateUSState],
+  permanentZipcode: [validateExistence, validateNumber, validateZipcode],
+  mailingZipcode: [validateExistence, validateNumber, validateZipcode],
+  mailingAddressSame: [],
+  permanentStreet2: [],
+  mailingStreet2: [],
+  certifyPermanentAddress: [validateCertifyPermanentAddress]
 };
 
 // Asynchronously validate field
@@ -173,5 +199,8 @@ export {
   validateEmail,
   validateUniqueEmail,
   validateNumber,
-  validateExistence
+  validateExistence,
+  validateZipcode,
+  validatePhoneNumber,
+  validateCertifyPermanentAddress
 };
