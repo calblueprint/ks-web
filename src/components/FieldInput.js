@@ -16,32 +16,19 @@ const useStyles = makeStyles({
 });
 
 export default function FieldInput(props) {
-  const {
-    label,
-    onChange,
-    placeholder,
-    variant,
-    required,
-    type,
-    error,
-    tooltip,
-    value
-  } = props;
+  const { label, onChange, placeholder, variant, tooltip, ...rest } = props;
   const classes = useStyles();
 
   const innerHTML = (
     <div className={classes.root}>
       {label ? <h3 className={classes.label}>{label}</h3> : null}
+
       <TextField
         fullWidth
         margin="normal"
         variant={variant || 'standard'}
-        placeholder={placeholder}
         onChange={onChange}
-        required={required}
-        type={type}
-        error={error}
-        value={value}
+        {...rest}
       />
     </div>
   );

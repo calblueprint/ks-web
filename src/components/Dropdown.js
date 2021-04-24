@@ -14,7 +14,6 @@ const useStyles = makeStyles({
   },
   label: {
     margin: '0px'
-
   },
   menuItem: {
     display: 'flex',
