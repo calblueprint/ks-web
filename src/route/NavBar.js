@@ -40,14 +40,16 @@ class NavBar extends React.PureComponent {
 
     return affiliation ? (
       <div className="nav-bar">
-        <a href="/">
+        <NavLink to="/" exact>
           <img
             className="nav-bar__nsevplogo"
             src={NSEVPLogo}
             alt="North Shore Economic Vitality Partnership Logo"
           />
-        </a>
-        {affiliation}
+        </NavLink>
+        <NavLink to="/" exact className="nav-bar__header">
+          {affiliation}
+        </NavLink>
         <nav>
           {isSignedIn(credentials) && (
             <ul>
