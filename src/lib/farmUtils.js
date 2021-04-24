@@ -84,7 +84,6 @@ export function mapCertificationStepsToLabels() {
 
 export function getDateOptions() {
   return [
-    'Date Range',
     'Last 60 Days',
     'Year to Date',
     'Last Year',
