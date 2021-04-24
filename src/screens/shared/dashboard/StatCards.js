@@ -217,7 +217,7 @@ class StatCards extends React.Component {
     return (
       <div className={classes.root}>
         {stats.map(stat => (
-          <div className={classes.card}>
+          <div className={classes.card} key={stat.name}>
             {stat.icon}
             <h3>{stat.name}</h3>
             <h2>{`${stat.number} ${stat.unit}`}</h2>
