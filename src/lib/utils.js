@@ -1,11 +1,6 @@
-import React from 'react';
 /* eslint-disable no-await-in-loop */
 import USStates from '@assets/usStates.json';
-import {
-  // getAllProjectGroups,
-  updateUser,
-  deleteUser
-} from './airtable/request';
+import { updateUser, deleteUser } from './airtable/request';
 import { refreshUserData, clearUserData } from './redux/userData';
 import { signupUser } from './airlock/airlock';
 
@@ -45,7 +40,6 @@ const validateEmail = value => {
 };
 
 // Ensure email is unique
-// TODO: Replace this with a call to the backend
 const validateUniqueEmail = async value => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const url = `${SERVER_URL}/uniqueEmail?email=${value}`;
@@ -234,5 +228,6 @@ export {
   validateZipcode,
   createFalseDict,
   validateFarmEdit,
-  farmFieldsToValidate
+  farmFieldsToValidate,
+  validatePhoneNumber
 };

@@ -9,9 +9,8 @@ import Constants from '@root/constants';
 
 import '@styles/App.css';
 
-import KSDashboard from '@ks/dashboard/KSDashboard';
+import Dashboard from '@shared/dashboard/Dashboard';
 import FarmReferralForm from '@ks/FarmReferralForm';
-import NSEVPDashboard from '@nsevp/dashboard/NSEVPDashboard';
 import UserProfile from '@shared/UserProfile';
 import Login from '@shared/auth/Login';
 import SignUp from '@shared/auth/SignUp';
@@ -54,34 +53,28 @@ class App extends React.Component {
     }
   }
 
-  // Figure out component to be shown at root based on user credentials
-  getHomeComponent() {
+  render() {
     const { user } = this.props;
     const credentials = getCredentials(user);
     const signedIn = isSignedIn(credentials);
     const isNSEVP = isNSEVPUser(credentials);
-    const isKS = isKSUser(credentials);
-    let homeComponent;
+    let HomeComponent = Dashboard;
     if (!signedIn) {
-      homeComponent = Login;
-    } else if (isKS) {
-      // Dashboard for both ks and ks ownrers (ks with shares)
-      homeComponent = KSDashboard;
-    } else if (isNSEVP) {
-      homeComponent = NSEVPDashboard;
+      HomeComponent = Login;
     }
-    return homeComponent;
-  }
 
-  render() {
-    const HomeComponent = this.getHomeComponent();
     return (
       <ConnectedRouter history={history}>
         <div className="app-container">
           <NavBar history={history} />
           <div className="route-container">
             <Switch>
-              <SuspenseRoute exact path="/" component={HomeComponent} />
+              <SuspenseRoute
+                exact
+                path="/"
+                component={HomeComponent}
+                isNSEVP={isNSEVP}
+              />
 
               {/* TEMP ROUTES */}
               <SuspenseRoute exact path="/farms" component={FarmSearch} />
@@ -105,7 +98,7 @@ class App extends React.Component {
               />
 
               <AuthenticatedRoute
-                credentialCheck={credentials => !isSignedIn(credentials)}
+                credentialCheck={c => !isSignedIn(c)}
                 exact
                 path={Constants.SIGNUP_ROUTE}
                 component={SignUp}

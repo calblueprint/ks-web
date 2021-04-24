@@ -84,13 +84,13 @@ class NavBar extends React.PureComponent {
                 )}
                 {isNSEVPUser(credentials) && (
                   <li>
-                    <NavLink
-                      to="/error"
+                    <a
+                      href="https://airtable.com/shrdkcW9b6rA5HMxl"
                       className="nav-bar__header"
                       activeClassName="nav-bar__header-active"
                     >
                       Referrals
-                    </NavLink>
+                    </a>
                   </li>
                 )}
                 {isKSUser(credentials) && (

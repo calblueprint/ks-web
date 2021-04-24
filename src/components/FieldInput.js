@@ -16,16 +16,7 @@ const useStyles = makeStyles({
 });
 
 export default function FieldInput(props) {
-  const {
-    label,
-    onChange,
-    variant,
-    required,
-    type,
-    error = null,
-    tooltip,
-    value
-  } = props;
+  const { label, onChange, variant, tooltip, ...rest } = props;
   const classes = useStyles();
 
   const innerHTML = (
@@ -37,10 +28,7 @@ export default function FieldInput(props) {
         margin="normal"
         variant={variant || 'standard'}
         onChange={onChange}
-        required={required}
-        type={type}
-        error={error}
-        value={value}
+        {...rest}
       />
     </div>
   );
