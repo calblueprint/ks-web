@@ -41,8 +41,8 @@ class FarmProfileEditForm extends React.PureComponent {
 
   render() {
     const { classes, errors, values } = this.props;
-    const onChange = this.onChange;
-    const onDropdownChange = this.onDropdownChange;
+    const {onChange} = this;
+    const {onDropdownChange} = this;
 
     return (
       <div className={classes.root}>

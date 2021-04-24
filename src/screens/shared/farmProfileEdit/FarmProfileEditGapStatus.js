@@ -2,9 +2,9 @@ import React from 'react';
 
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
-import { mapCertificationStepsToLabels } from '@lib/farmUtils';
+import { mapCertificationStepsToLabels , getPossibleCertificationStates } from '@lib/farmUtils';
 import EditGapStatusDropdown from './components/EditGapStatusDropdown';
-import { getPossibleCertificationStates } from '../../../lib/farmUtils';
+
 
 const styles = {
   row: {

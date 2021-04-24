@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@components/Button';
 import BackButton from '@components/BackButton';
 
-import { getSingleFarm, getGapCertificationStatus } from '@lib/farmUtils';
+import { getSingleFarm, getGapCertificationStatus , getSingleFarmAndGapCertification , getAllGroupGapContacts , updateFarmAndCertification } from '@lib/farmUtils';
 
 import {
   validateFarmEdit,
@@ -16,9 +16,9 @@ import FarmProfileEditForm from './FarmProfileEditForm';
 import FarmProfileEditDropdown from './FarmProfileEditDropdown';
 import FarmProfileEditGapStatus from './FarmProfileEditGapStatus';
 import FarmProfileEditComments from './FarmProfileEditComments';
-import { getSingleFarmAndGapCertification } from '@lib/farmUtils';
-import { getAllGroupGapContacts } from '@lib/farmUtils';
-import { updateFarmAndCertification } from '../../../lib/farmUtils';
+
+
+
 
 const styles = {
   root: {
@@ -69,8 +69,8 @@ class FarmProfileEdit extends React.Component {
 
     // farm information and gap certification
     const farmAndGap = await getSingleFarmAndGapCertification(farmId);
-    const farm = farmAndGap['farm'];
-    const gapStatus = farmAndGap['gapStatus'];
+    const {farm} = farmAndGap;
+    const {gapStatus} = farmAndGap;
 
     // group gap information
     const [userIds, userNames] = await getAllGroupGapContacts();

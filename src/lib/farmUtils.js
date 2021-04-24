@@ -32,7 +32,7 @@ export async function getSingleFarmAndGapCertification(id) {
       gapStatus = await getGapCertificationStatus(res.gapCertificationId);
     }
   });
-  return { farm: farm, gapStatus: gapStatus };
+  return { farm, gapStatus };
 }
 
 export async function getGapCertificationStatus(id) {
