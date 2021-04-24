@@ -86,7 +86,7 @@ export function getDateOptions() {
 
 /* eslint-disable no-unused-vars */
 export function getPrevMonths(n) {
-  const date = Date().toLocaleString();
+  const date = new Date();
   const m = moment(date);
   m.subtract(n, 'months');
 
