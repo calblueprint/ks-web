@@ -29,12 +29,12 @@ const styles = {
 
 class Dashboard extends React.PureComponent {
   render() {
-    const { classes, graph } = this.props;
-
+    const { classes, isNSEVP } = this.props;
+    const graph = isNSEVP ? 'production' : 'certification';
     return (
       <div className={classes.root}>
         <h1>Dashboard</h1>
-        <StatCards />
+        <StatCards isNSEVP={isNSEVP} />
         <div className={classes.row}>
           <Graph type={graph} />
           <RecentUpdates />
