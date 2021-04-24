@@ -1,4 +1,5 @@
 /* eslint-disable no-await-in-loop */
+import moment from 'moment';
 import {
   getAllFarms,
   getFarmById,
@@ -81,7 +82,30 @@ export function mapCertificationStepsToLabels() {
   return map;
 }
 
+export function getDateOptions() {
+  return [
+    'Last 60 Days',
+    'Year to Date',
+    'Last Year',
+    'This Year Q1',
+    'This Year Q2',
+    'This Year Q3',
+    'This Year Q4'
+  ];
+}
+
+/* eslint-disable no-unused-vars */
+export function getPrevMonths(n) {
+  const date = new Date();
+  const m = moment(date);
+  m.subtract(n, 'months');
+
+  return [...Array(n)].map(_i => m.add(1, 'months').format('MMM[\n]YYYY'));
+}
+
 export default {
+  getDateOptions,
+  getPrevMonths,
   getSingleFarm,
   getAllFarmsForFarmSearch,
   getGapCertificationStatus,

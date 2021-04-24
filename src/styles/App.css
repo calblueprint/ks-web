@@ -30,6 +30,11 @@ h3 {
   color: var(--ks-dark-grey);
 }
 
+p {
+  font-family: 'Inter';
+  font-size: 14px;
+}
+
 code {
   font-family: source-code-pro, Menlo, monospace;
 }
