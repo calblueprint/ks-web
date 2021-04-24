@@ -47,7 +47,8 @@ class FarmProfileEdit extends React.Component {
       dropdownValues: {},
       gapStatus: {},
       comments: '',
-      errors: createFalseDict(farmFieldsToValidate)
+      errors: createFalseDict(farmFieldsToValidate),
+      success: false
     };
   }
 
@@ -62,10 +63,9 @@ class FarmProfileEdit extends React.Component {
     // group gap information
     const [userIds, userNames] = await getAllGroupGapContacts();
     const dropdownValues = {
-      gapContact: farm.groupGapContactIds[0],
+      gapContact: farm.groupGapContactId,
       contactNames: userNames,
-      contactIds: userIds,
-      foodHubAffiliation: []
+      contactIds: userIds
     };
 
     this.setState({
@@ -82,6 +82,20 @@ class FarmProfileEdit extends React.Component {
     this.setState(prevState => ({ ...prevState, [prop]: value }));
   };
 
+  getSuccessPage() {
+    const { classes, match } = this.props;
+    const { farmId } = match.params;
+
+    return (
+      <div className={classes.success}>
+        <br />
+        <h1>Success!</h1>
+        <p>Your changes have been saved.</p>
+        <BackButton label="Back to Farm" href={`/farm/${farmId}`} />
+      </div>
+    );
+  }
+
   editFarm = async () => {
     const {
       oldFarm,
@@ -94,17 +108,7 @@ class FarmProfileEdit extends React.Component {
     } = this.state;
     const { user } = this.props;
     const newFarm = { ...farm };
-    newFarm.groupGapContactIds = [dropdownValues.gapContact];
-    // TODO format the dates for the GAP certification and turn indices into values
-    // TODO format the additional notes object
-    // TODO push all info to airtable
-
-    // create farm
-    // const { user } = this.props;
-    // const newComment = {
-    //   comment: additionalNotes,
-    //   authorId: user.id
-    // };
+    newFarm.groupGapContactId = dropdownValues.gapContact;
 
     const validRed = await validateFarmEdit(newFarm);
     this.setState({ errors: validRed.errors });
@@ -114,20 +118,37 @@ class FarmProfileEdit extends React.Component {
       return;
     }
 
-    updateFarmAndCertification(oldFarm, newFarm, oldGapStatus, gapStatus);
+    let res = await updateFarmAndCertification(
+      oldFarm,
+      newFarm,
+      oldGapStatus,
+      gapStatus
+    );
 
     const comment = { farmId, comment: comments, authorId: user.id };
     createComment(comment).catch(e => {
       console.error(e);
+      res = false;
     });
+
+    this.setState({ success: res });
   };
 
   render() {
     const { classes, match } = this.props;
     const { farmId } = match.params;
-    const { farm, dropdownValues, gapStatus, comments, errors } = this.state;
+    const {
+      farm,
+      dropdownValues,
+      gapStatus,
+      comments,
+      errors,
+      success
+    } = this.state;
 
-    return (
+    return success ? (
+      this.getSuccessPage()
+    ) : (
       <div className={classes.root}>
         <BackButton label="Back to Farm" href={`/farm/${farmId}`} />
         <h1>Edit Information</h1>

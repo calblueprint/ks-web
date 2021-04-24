@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Home, AccountCircle } from '@material-ui/icons';
 import Dropdown from '@components/Dropdown';
+import FieldInput from '@components/FieldInput';
 
 const styles = {
   root: {
@@ -18,12 +19,6 @@ const styles = {
   }
 };
 class FarmProfileEditDropdown extends React.PureComponent {
-  getFoodHubs = () => {
-    // TODO
-    // Placeholder, replace with Airtable Data
-    return ['Waialua Old Mill Food Hub', "Nick's Secret Food Hub"];
-  };
-
   onChange = (prop, items) => event => {
     const { values, handleChange } = this.props;
 
@@ -36,13 +31,7 @@ class FarmProfileEditDropdown extends React.PureComponent {
 
   render() {
     const { classes, values } = this.props;
-    const {
-      foodHubAffiliation,
-      gapContact,
-      contactNames = [],
-      contactIds = []
-    } = values;
-    const foodHubs = this.getFoodHubs();
+    const { gapContact, contactNames = [], contactIds = [] } = values;
 
     return (
       <div className={classes.root}>
@@ -53,15 +42,6 @@ class FarmProfileEditDropdown extends React.PureComponent {
             icon={<AccountCircle fontSize="large" />}
             onChange={this.onChange('gapContact', contactIds)}
             value={contactIds.indexOf(gapContact)}
-          />
-        </div>
-        <div className={classes.column}>
-          <h2 className={classes.header}>Food Hub Affiliation</h2>
-          <Dropdown
-            items={foodHubs}
-            icon={<Home fontSize="large" />}
-            onChange={this.onChange('foodHubAffiliation', foodHubs)}
-            value={foodHubAffiliation}
           />
         </div>
       </div>

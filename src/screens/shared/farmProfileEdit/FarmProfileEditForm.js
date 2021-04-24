@@ -41,8 +41,8 @@ class FarmProfileEditForm extends React.PureComponent {
 
   render() {
     const { classes, errors, values } = this.props;
-    const {onChange} = this;
-    const {onDropdownChange} = this;
+    const { onChange } = this;
+    const { onDropdownChange } = this;
 
     return (
       <div className={classes.root}>
@@ -170,6 +170,12 @@ class FarmProfileEditForm extends React.PureComponent {
               tooltip={errors.mailingZipcode}
             />
           </div>
+          <FieldInput
+            label="Food Hub"
+            onChange={onChange('foodHubAffiliation')}
+            value={values.foodHubAffiliation || ''}
+            variant="outlined"
+          />
         </div>
       </div>
     );

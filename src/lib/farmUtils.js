@@ -122,7 +122,7 @@ export async function getAllGroupGapContacts() {
   return [ids, names];
 }
 
-export function updateFarmAndCertification(
+export async function updateFarmAndCertification(
   oldFarm,
   newFarm,
   oldGapStatus,
@@ -134,7 +134,10 @@ export function updateFarmAndCertification(
   });
   if (farmDiff) {
     farmDiff = Object.fromEntries(farmDiff);
-    updateFarm(newFarm.farmId, farmDiff);
+    updateFarm(newFarm.farmId, farmDiff).catch(e => {
+      console.error(e);
+      return false;
+    });
   }
 
   let gapDiff = Object.entries(gapStatus).filter(kv => {
@@ -143,8 +146,12 @@ export function updateFarmAndCertification(
   });
   if (gapDiff) {
     gapDiff = Object.fromEntries(gapDiff);
-    updateGAPCertification(newFarm.gapCertificationId, gapDiff);
+    updateGAPCertification(newFarm.gapCertificationId, gapDiff).catch(e => {
+      console.error(e);
+      return false;
+    });
   }
+  return true;
 }
 
 export default {
