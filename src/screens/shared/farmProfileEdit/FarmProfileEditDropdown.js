@@ -2,7 +2,6 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Home, AccountCircle } from '@material-ui/icons';
 import Dropdown from '@components/Dropdown';
-import { getAllGroupGapContacts } from '@lib/farmUtils';
 
 const styles = {
   root: {

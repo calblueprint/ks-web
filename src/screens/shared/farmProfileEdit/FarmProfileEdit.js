@@ -4,21 +4,22 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@components/Button';
 import BackButton from '@components/BackButton';
 
-import { getSingleFarm, getGapCertificationStatus , getSingleFarmAndGapCertification , getAllGroupGapContacts , updateFarmAndCertification } from '@lib/farmUtils';
+import {
+  getSingleFarmAndGapCertification,
+  getAllGroupGapContacts,
+  updateFarmAndCertification
+} from '@lib/farmUtils';
 
 import {
   validateFarmEdit,
   createFalseDict,
   farmFieldsToValidate
 } from '@lib/utils';
-import { createFarm } from '@lib/airtable/request';
+import { createComment } from '@lib/airtable/request';
 import FarmProfileEditForm from './FarmProfileEditForm';
 import FarmProfileEditDropdown from './FarmProfileEditDropdown';
 import FarmProfileEditGapStatus from './FarmProfileEditGapStatus';
 import FarmProfileEditComments from './FarmProfileEditComments';
-
-
-
 
 const styles = {
   root: {
@@ -43,21 +44,8 @@ class FarmProfileEdit extends React.Component {
     super(props);
     this.state = {
       farm: {},
-      dropdownValues: {
-        gapContact: 0,
-        foodHubAffiliation: 0
-      },
-      gapStatus: {
-        farmReferred: 0,
-        farmApplied: 0,
-        farmAccepted: 0,
-        farmFoodSafetyPlan: 0,
-        riskAssessment: 0,
-        mockRecall: 0,
-        internalAudit1: 0,
-        internalAudit2: 0,
-        gapCertified: 0
-      },
+      dropdownValues: {},
+      gapStatus: {},
       comments: '',
       errors: createFalseDict(farmFieldsToValidate)
     };
@@ -68,10 +56,9 @@ class FarmProfileEdit extends React.Component {
     const { farmId } = match.params;
 
     // farm information and gap certification
-    const farmAndGap = await getSingleFarmAndGapCertification(farmId);
-    const {farm} = farmAndGap;
-    const {gapStatus} = farmAndGap;
-
+    const [farm, gapStatus] = await getSingleFarmAndGapCertification(farmId);
+    const oldFarm = farm;
+    const oldGapStatus = gapStatus;
     // group gap information
     const [userIds, userNames] = await getAllGroupGapContacts();
     const dropdownValues = {
@@ -81,7 +68,14 @@ class FarmProfileEdit extends React.Component {
       foodHubAffiliation: []
     };
 
-    this.setState({ farm, farmId, gapStatus, dropdownValues });
+    this.setState({
+      oldFarm,
+      oldGapStatus,
+      farm,
+      farmId,
+      gapStatus,
+      dropdownValues
+    });
   }
 
   handleChange = prop => value => {
@@ -89,9 +83,18 @@ class FarmProfileEdit extends React.Component {
   };
 
   editFarm = async () => {
-    const { gapStatus, comments } = this.state;
-    const newFarm = this.state.farm;
-
+    const {
+      oldFarm,
+      gapStatus,
+      oldGapStatus,
+      comments,
+      dropdownValues,
+      farmId,
+      farm
+    } = this.state;
+    const { user } = this.props;
+    const newFarm = { ...farm };
+    newFarm.groupGapContactIds = [dropdownValues.gapContact];
     // TODO format the dates for the GAP certification and turn indices into values
     // TODO format the additional notes object
     // TODO push all info to airtable
@@ -111,11 +114,12 @@ class FarmProfileEdit extends React.Component {
       return;
     }
 
-    updateFarmAndCertification(newFarm, gapStatus, comments);
-    // todo replace with better func call
-    // createFarm(newFarm).catch(e => {
-    //   console.error(e);
-    // });
+    updateFarmAndCertification(oldFarm, newFarm, oldGapStatus, gapStatus);
+
+    const comment = { farmId, comment: comments, authorId: user.id };
+    createComment(comment).catch(e => {
+      console.error(e);
+    });
   };
 
   render() {

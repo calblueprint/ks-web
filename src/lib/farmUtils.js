@@ -5,7 +5,8 @@ import {
   getAllRecentUpdates,
   getGAPCertificationById,
   getAllUsers,
-  updateFarm
+  updateFarm,
+  updateGAPCertification
 } from './airtable/request';
 
 // Helper functions
@@ -23,40 +24,6 @@ export async function getSingleFarm(id) {
   return singleFarm;
 }
 
-export async function getSingleFarmAndGapCertification(id) {
-  let gapStatus = false;
-  let farm;
-  await getSingleFarm(id).then(async res => {
-    farm = res;
-    if (res.gapCertificationId) {
-      gapStatus = await getGapCertificationStatus(res.gapCertificationId);
-    }
-  });
-  return { farm, gapStatus };
-}
-
-export async function getGapCertificationStatus(id) {
-  const status = await getGAPCertificationById(id);
-  // maps certification value to an index to be compatible with select components
-  getCertificationSteps().map(k => {
-    status[`${k}Date`] = new Date(status[`${k}Date`]).toLocaleDateString(
-      'en-CA'
-    );
-  });
-  delete status.gapCertifiedDate;
-  status.gapCertificationDate = new Date(
-    status.gapCertificationDate
-  ).toLocaleDateString('en-CA');
-
-  return status;
-}
-
-export async function getAllRecentUpdatesByUserType(userType) {
-  let comments = [];
-  comments = await getAllRecentUpdates();
-  return comments.filter(c => c.organization.includes(userType));
-}
-
 export function getCertificationSteps() {
   return [
     'farmReferred',
@@ -69,6 +36,40 @@ export function getCertificationSteps() {
     'internalAudit2',
     'gapCertified'
   ];
+}
+
+export async function getGapCertificationStatus(id) {
+  const status = await getGAPCertificationById(id);
+  // maps certification value to an index to be compatible with select components
+  getCertificationSteps().forEach(k => {
+    status[`${k}Date`] = new Date(status[`${k}Date`]).toLocaleDateString(
+      'en-CA'
+    );
+  });
+  delete status.gapCertifiedDate;
+  status.gapCertificationDate = new Date(
+    status.gapCertificationDate
+  ).toLocaleDateString('en-CA');
+
+  return status;
+}
+
+export async function getSingleFarmAndGapCertification(id) {
+  let gapStatus = false;
+  let farm;
+  await getSingleFarm(id).then(async res => {
+    farm = res;
+    if (res.gapCertificationId) {
+      gapStatus = await getGapCertificationStatus(res.gapCertificationId);
+    }
+  });
+  return [farm, gapStatus];
+}
+
+export async function getAllRecentUpdatesByUserType(userType) {
+  let comments = [];
+  comments = await getAllRecentUpdates();
+  return comments.filter(c => c.organization.includes(userType));
 }
 
 export function getCertificationLabels() {
@@ -121,8 +122,29 @@ export async function getAllGroupGapContacts() {
   return [ids, names];
 }
 
-export function updateFarmAndCertification(newFarm) {
-  return updateFarm(newFarm.id, newFarm);
+export function updateFarmAndCertification(
+  oldFarm,
+  newFarm,
+  oldGapStatus,
+  gapStatus
+) {
+  let farmDiff = Object.entries(newFarm).filter(kv => {
+    const [k, v] = kv;
+    return oldFarm[k] !== v;
+  });
+  if (farmDiff) {
+    farmDiff = Object.fromEntries(farmDiff);
+    updateFarm(newFarm.farmId, farmDiff);
+  }
+
+  let gapDiff = Object.entries(gapStatus).filter(kv => {
+    const [k, v] = kv;
+    return oldGapStatus[k] !== v;
+  });
+  if (gapDiff) {
+    gapDiff = Object.fromEntries(gapDiff);
+    updateGAPCertification(newFarm.gapCertificationId, gapDiff);
+  }
 }
 
 export default {
