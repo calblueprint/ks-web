@@ -1,9 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { isSignedIn, getCredentials } from '@lib/credentials';
-import SuspenseRoute from './SuspenseRoute';
 
 class AuthenticatedRoute extends React.PureComponent {
   isAuthorized() {
@@ -23,7 +22,7 @@ class AuthenticatedRoute extends React.PureComponent {
     const { component: Component, user, ...rest } = this.props;
     const authorized = this.isAuthorized();
     return (
-      <SuspenseRoute
+      <Route
         {...rest}
         render={props =>
           authorized ? (

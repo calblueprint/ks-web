@@ -97,7 +97,7 @@ class App extends React.Component {
               />
 
               <AuthenticatedRoute
-                credentialCheck={!isSignedIn(credentials)}
+                credentialCheck={c => !isSignedIn(c)}
                 exact
                 path={Constants.SIGNUP_ROUTE}
                 component={SignUp}
