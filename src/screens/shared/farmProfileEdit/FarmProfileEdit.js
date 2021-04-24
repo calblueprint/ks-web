@@ -6,17 +6,19 @@ import BackButton from '@components/BackButton';
 
 import { getSingleFarm, getGapCertificationStatus } from '@lib/farmUtils';
 
-import FarmProfileEditForm from './FarmProfileEditForm';
-import FarmProfileEditDropdown from './FarmProfileEditDropdown';
-import FarmProfileEditGapStatus from './FarmProfileEditGapStatus';
-import FarmProfileEditComments from './FarmProfileEditComments';
 import {
   validateFarmEdit,
   createFalseDict,
   farmFieldsToValidate
 } from '@lib/utils';
 import { createFarm } from '@lib/airtable/request';
-import states from '@assets/usStates';
+import FarmProfileEditForm from './FarmProfileEditForm';
+import FarmProfileEditDropdown from './FarmProfileEditDropdown';
+import FarmProfileEditGapStatus from './FarmProfileEditGapStatus';
+import FarmProfileEditComments from './FarmProfileEditComments';
+import { getSingleFarmAndGapCertification } from '@lib/farmUtils';
+import { getAllGroupGapContacts } from '@lib/farmUtils';
+import { updateFarmAndCertification } from '../../../lib/farmUtils';
 
 const styles = {
   root: {
@@ -64,44 +66,31 @@ class FarmProfileEdit extends React.Component {
   async componentDidMount() {
     const { match } = this.props;
     const { farmId } = match.params;
-    let gapStatus = false;
-    let farm;
-    await getSingleFarm(farmId).then(async res => {
-      farm = res;
-      if (res.gapCertificationId) {
-        gapStatus = await getGapCertificationStatus(res.gapCertificationId);
-      }
-      farm.mailingState = states.indexOf(farm.mailingState);
-      farm.physicalState = states.indexOf(farm.physicalState);
-    });
-    this.setState({ farm, farmId, gapStatus });
+
+    // farm information and gap certification
+    const farmAndGap = await getSingleFarmAndGapCertification(farmId);
+    const farm = farmAndGap['farm'];
+    const gapStatus = farmAndGap['gapStatus'];
+
+    // group gap information
+    const [userIds, userNames] = await getAllGroupGapContacts();
+    const dropdownValues = {
+      gapContact: farm.groupGapContactIds[0],
+      contactNames: userNames,
+      contactIds: userIds,
+      foodHubAffiliation: []
+    };
+
+    this.setState({ farm, farmId, gapStatus, dropdownValues });
   }
 
   handleChange = prop => value => {
     this.setState(prevState => ({ ...prevState, [prop]: value }));
   };
 
-  handleChangeForm = name => {
-    return event => {
-      const val = event.target.value;
-      this.setState(prevState => ({
-        ...prevState,
-        farm: { ...prevState.farm, [name]: val }
-      }));
-    };
-  };
-
-  handleSubmit = () => {
-    this.editFarm();
-  };
-
   editFarm = async () => {
-    const newFarm = { ...this.state.farm };
-
-    // select value from index provided by select
-    const { mailingState, physicalState } = this.state.farm;
-    newFarm.mailingState = states[mailingState];
-    newFarm.physicalState = states[physicalState];
+    const { gapStatus, comments } = this.state;
+    const newFarm = this.state.farm;
 
     // TODO format the dates for the GAP certification and turn indices into values
     // TODO format the additional notes object
@@ -122,6 +111,7 @@ class FarmProfileEdit extends React.Component {
       return;
     }
 
+    updateFarmAndCertification(newFarm, gapStatus, comments);
     // todo replace with better func call
     // createFarm(newFarm).catch(e => {
     //   console.error(e);
@@ -140,7 +130,8 @@ class FarmProfileEdit extends React.Component {
         <FarmProfileEditForm
           values={farm}
           errors={errors}
-          onChange={this.handleChangeForm}
+          handleChange={this.handleChange}
+          onDropdownChange={this.handleDropdownChange}
         />
         <FarmProfileEditDropdown
           values={dropdownValues}
@@ -155,7 +146,7 @@ class FarmProfileEdit extends React.Component {
           handleChange={this.handleChange('comments')}
         />
         <div className={classes.buttonRow}>
-          <Button className={classes.button} onClick={this.handleSubmit}>
+          <Button className={classes.button} onClick={this.editFarm}>
             Save
           </Button>
         </div>

@@ -44,7 +44,7 @@ class EditGapStatusDropdown extends React.PureComponent {
           <Dropdown
             items={items}
             icon={null}
-            value={value}
+            value={items.indexOf(value)}
             onChange={onChange}
           />
           <TextField

@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Home, AccountCircle } from '@material-ui/icons';
 import Dropdown from '@components/Dropdown';
+import { getAllGroupGapContacts } from '@lib/farmUtils';
 
 const styles = {
   root: {
@@ -18,30 +19,30 @@ const styles = {
   }
 };
 class FarmProfileEditDropdown extends React.PureComponent {
-  getContacts = () => {
-    // Placeholder, replace with Airtable Data
-    return ['Francesco Sola', 'Ace Chen', 'Andi Halm', 'Alice Zhao'];
-  };
-
   getFoodHubs = () => {
+    // TODO
     // Placeholder, replace with Airtable Data
     return ['Waialua Old Mill Food Hub', "Nick's Secret Food Hub"];
   };
 
-  onChange = prop => event => {
+  onChange = (prop, items) => event => {
     const { values, handleChange } = this.props;
 
     const dropdownValues = {
       ...values,
-      [prop]: event.target.value
+      [prop]: items[event.target.value]
     };
     handleChange(dropdownValues);
   };
 
   render() {
     const { classes, values } = this.props;
-    const { foodHubAffiliation, gapContact } = values;
-    const contacts = this.getContacts();
+    const {
+      foodHubAffiliation,
+      gapContact,
+      contactNames = [],
+      contactIds = []
+    } = values;
     const foodHubs = this.getFoodHubs();
 
     return (
@@ -49,10 +50,10 @@ class FarmProfileEditDropdown extends React.PureComponent {
         <div className={classes.column}>
           <h2 className={classes.header}>Group Gap Contact</h2>
           <Dropdown
-            items={contacts}
+            items={contactNames}
             icon={<AccountCircle fontSize="large" />}
-            onChange={this.onChange('gapContact')}
-            value={gapContact}
+            onChange={this.onChange('gapContact', contactIds)}
+            value={contactIds.indexOf(gapContact)}
           />
         </div>
         <div className={classes.column}>
@@ -60,7 +61,7 @@ class FarmProfileEditDropdown extends React.PureComponent {
           <Dropdown
             items={foodHubs}
             icon={<Home fontSize="large" />}
-            onChange={this.onChange('foodHubAffiliation')}
+            onChange={this.onChange('foodHubAffiliation', foodHubs)}
             value={foodHubAffiliation}
           />
         </div>

@@ -92,8 +92,9 @@ class App extends React.Component {
               />
               <AuthenticatedRoute
                 exact
-                path="/farm/:farmId/:state"
+                path="/farm/:farmId/edit"
                 component={FarmProfileEdit}
+                credentialCheck={isNSEVPUser}
               />
               <SuspenseRoute exact path="/about" component={About} />
               <AuthenticatedRoute path="/profile" component={UserProfile} />

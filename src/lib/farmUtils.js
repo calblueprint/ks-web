@@ -3,7 +3,9 @@ import {
   getAllFarms,
   getFarmById,
   getAllRecentUpdates,
-  getGAPCertificationById
+  getGAPCertificationById,
+  getAllUsers,
+  updateFarm
 } from './airtable/request';
 
 // Helper functions
@@ -21,20 +23,30 @@ export async function getSingleFarm(id) {
   return singleFarm;
 }
 
+export async function getSingleFarmAndGapCertification(id) {
+  let gapStatus = false;
+  let farm;
+  await getSingleFarm(id).then(async res => {
+    farm = res;
+    if (res.gapCertificationId) {
+      gapStatus = await getGapCertificationStatus(res.gapCertificationId);
+    }
+  });
+  return { farm: farm, gapStatus: gapStatus };
+}
+
 export async function getGapCertificationStatus(id) {
   const status = await getGAPCertificationById(id);
   // maps certification value to an index to be compatible with select components
-  const certificationStates = getPossibleCertificationStates();
   getCertificationSteps().map(k => {
-    status[k] = certificationStates.indexOf(status[k]);
-    status[k + 'Date'] = new Date(status[k + 'Date']).toLocaleDateString(
+    status[`${k}Date`] = new Date(status[`${k}Date`]).toLocaleDateString(
       'en-CA'
     );
   });
-  delete status['gapCertifiedDate'];
-  status['gapCertificationDate'] = new Date(
-    status['gapCertificationDate']
-  ).toLocaleDateString();
+  delete status.gapCertifiedDate;
+  status.gapCertificationDate = new Date(
+    status.gapCertificationDate
+  ).toLocaleDateString('en-CA');
 
   return status;
 }
@@ -98,6 +110,21 @@ export function mapCertificationStepsToLabels() {
   return map;
 }
 
+export async function getAllGroupGapContacts() {
+  const users = await getAllUsers("SEARCH('NSEVP', {User Types})");
+  const ids = [];
+  const names = [];
+  users.forEach(u => {
+    ids.push(u.id);
+    names.push(u.name);
+  });
+  return [ids, names];
+}
+
+export function updateFarmAndCertification(newFarm) {
+  return updateFarm(newFarm.id, newFarm);
+}
+
 export default {
   getSingleFarm,
   getAllFarmsForFarmSearch,
@@ -107,5 +134,6 @@ export default {
   getCertificationSteps,
   mapCertificationStepsToLabels,
   getDefaultCertificationObj,
-  getPossibleCertificationStates
+  getPossibleCertificationStates,
+  updateFarmAndCertification
 };

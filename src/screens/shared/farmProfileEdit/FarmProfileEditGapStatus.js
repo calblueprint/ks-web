@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import { mapCertificationStepsToLabels } from '@lib/farmUtils';
 import EditGapStatusDropdown from './components/EditGapStatusDropdown';
+import { getPossibleCertificationStates } from '../../../lib/farmUtils';
 
 const styles = {
   row: {
@@ -36,11 +37,22 @@ class FarmProfileEditGapStatus extends React.PureComponent {
     handleChange(gapCertificationValues);
   };
 
+  onDropdownChange = (prop, items) => event => {
+    const { values, handleChange } = this.props;
+
+    const dropdownValues = {
+      ...values,
+      [prop]: items[event.target.value]
+    };
+    handleChange(dropdownValues);
+  };
+
   render() {
     const { classes, values } = this.props;
     const map = mapCertificationStepsToLabels();
     const steps = Object.keys(map);
     const labels = Object.values(map);
+    const certificationStates = getPossibleCertificationStates();
 
     const marker = 4;
     return (
@@ -54,7 +66,9 @@ class FarmProfileEditGapStatus extends React.PureComponent {
                 key={labels[index]}
                 label={labels[index]}
                 value={values[step]}
-                onChange={this.onChange(step)}
+                onChange={this.onDropdownChange(step, certificationStates)}
+                onDateChange={this.onChange(`${step}Date`)}
+                date={values[`${step}Date`]}
               />
             ))}
           </div>
@@ -65,9 +79,9 @@ class FarmProfileEditGapStatus extends React.PureComponent {
                 key={labels[marker + index]}
                 label={labels[marker + index]}
                 value={values[step]}
-                onChange={this.onChange(step)}
-                onDateChange={this.onChange(step + 'Date')}
-                date={values[step + 'Date']}
+                onChange={this.onDropdownChange(step, certificationStates)}
+                onDateChange={this.onChange(`${step}Date`)}
+                date={values[`${step}Date`]}
               />
             ))}
           </div>

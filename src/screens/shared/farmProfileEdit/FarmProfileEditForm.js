@@ -25,8 +25,24 @@ const styles = {
   }
 };
 class FarmProfileEditForm extends React.PureComponent {
+  onChange = name => {
+    return event => {
+      const val = event.target.value;
+      const { handleChange, values } = this.props;
+      handleChange('farm')({ ...values, [name]: val });
+    };
+  };
+
+  onDropdownChange = (name, items) => event => {
+    const val = items[event.target.value];
+    const { handleChange, values } = this.props;
+    handleChange('farm')({ ...values, [name]: val });
+  };
+
   render() {
-    const { classes, onChange, errors, values } = this.props;
+    const { classes, errors, values } = this.props;
+    const onChange = this.onChange;
+    const onDropdownChange = this.onDropdownChange;
 
     return (
       <div className={classes.root}>
@@ -101,8 +117,8 @@ class FarmProfileEditForm extends React.PureComponent {
               <Dropdown
                 label="State"
                 items={states}
-                onChange={onChange('physicalState')}
-                value={values.physicalState || 0}
+                onChange={onDropdownChange('physicalState', states)}
+                value={states.indexOf(values.physicalState) || 0}
                 error={errors.physicalState !== false}
                 tooltip={errors.physicalState}
               />
@@ -139,8 +155,8 @@ class FarmProfileEditForm extends React.PureComponent {
               <Dropdown
                 label="State"
                 items={states}
-                onChange={onChange('mailingState')}
-                value={values.mailingState || 0}
+                onChange={onDropdownChange('mailingState', states)}
+                value={states.indexOf(values.mailingState) || 0}
                 error={errors.mailingState !== false}
                 tooltip={errors.mailingState}
               />
