@@ -26,6 +26,16 @@ export async function getGapCertificationStatus(id) {
   return status;
 }
 
+export async function getRecentHarvestLogById(id) {
+  const harvestLogs = await getRecentHarvestLogById(id);
+  return harvestLogs;
+}
+
+export async function getTotalHarvestById(id) {
+  const totalHarvest = await getTotalHarvestById(id);
+  return totalHarvest;
+}
+
 export async function getAllRecentUpdatesByUserType(userType) {
   let comments = [];
   comments = await getAllRecentUpdates();
@@ -78,5 +88,7 @@ export default {
   getAllRecentUpdatesByUserType,
   getCertificationLabels,
   getCertificationSteps,
-  mapCertificationStepsToLabels
+  mapCertificationStepsToLabels,
+  getRecentHarvestLogById,
+  getTotalHarvestById
 };

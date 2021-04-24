@@ -63,7 +63,8 @@ export const Columns = {
     },
     totalHarvestIds: { name: `Total Harvests`, type: `foreignKey-many` },
     gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` },
-    commentfromComments: { name: `Comment (from Comments)`, type: `lookup` }
+    commentfromComments: { name: `Comment (from Comments)`, type: `lookup` },
+    dateCreated: { name: `Date Created`, type: `formula` }
   },
   'GAP Certification': {
     id: { name: `ID`, type: `formula` },
