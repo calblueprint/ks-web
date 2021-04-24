@@ -74,6 +74,7 @@ export function mapCertificationStepsToLabels() {
 
 export function getDateOptions() {
   return [
+    'Date Range',
     'Last 60 Days',
     'Year to Date',
     'Last Year',
@@ -86,7 +87,7 @@ export function getDateOptions() {
 
 /* eslint-disable no-unused-vars */
 export function getPrevMonths(n) {
-  const date = Date().toLocaleString();
+  const date = new Date();
   const m = moment(date);
   m.subtract(n, 'months');
 

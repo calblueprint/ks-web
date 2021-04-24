@@ -7,7 +7,7 @@ import RecentHarvestsGraph from './RecentHarvestsGraph';
 import TopItemsGraph from './TopItemsGraph';
 import HarvestLogsGraph from './HarvestLogsGraph';
 import ProductionGraph from './ProductionGraph';
-import GraphFilterMenu from './GraphFilterMenu';
+import DateFilterMenu from '../dateFilterMenu/DateFilterMenu';
 
 const styles = {
   root: {
@@ -88,7 +88,7 @@ class Graph extends React.Component {
       <div className={classes.root}>
         <div className={classes.row}>
           <h2 className={classes.header}>{label}</h2>
-          <GraphFilterMenu onChange={this.setFilterState} />
+          <DateFilterMenu onChange={this.setFilterState} />
         </div>
         <div className={classes.graph}>{graph}</div>
       </div>
