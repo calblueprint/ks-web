@@ -66,7 +66,7 @@ class App extends React.Component {
     return (
       <ConnectedRouter history={history}>
         <div className="app-container">
-          <NavBar history={history} />
+          <NavBar history={history} isNSEVP={isNSEVP} isSignedIn={signedIn} />
           <div className="route-container">
             <Switch>
               <SuspenseRoute
