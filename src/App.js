@@ -77,8 +77,8 @@ class App extends React.Component {
               />
 
               {/* TEMP ROUTES */}
-              <SuspenseRoute exact path="/farms" component={FarmSearch} />
-              <SuspenseRoute
+              <AuthenticatedRoute exact path="/farms" component={FarmSearch} />
+              <AuthenticatedRoute
                 exact
                 path="/farm/:farmId"
                 component={FarmProfile}
@@ -88,7 +88,7 @@ class App extends React.Component {
                 path="/farm/:farmId/:state"
                 component={FarmProfileEdit}
               />
-              <SuspenseRoute exact path="/about" component={About} />
+              <AuthenticatedRoute exact path="/about" component={About} />
               <AuthenticatedRoute path="/profile" component={UserProfile} />
               <AuthenticatedRoute
                 path="/referral"
