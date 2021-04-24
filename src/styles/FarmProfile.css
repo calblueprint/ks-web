@@ -17,7 +17,6 @@
 .farm-profile__header {
   display: flex;
   align-items: center;
-  color: var(--ks-grey);
 }
 
 .farm-profile__header-edit {
@@ -58,7 +57,7 @@
 .contact-card__info {
   margin-top: 48px;
   text-align: center;
-  font-family: "Inter"
+  font-family: 'Inter';
 }
 
 .contact-card__info-details {
@@ -87,4 +86,12 @@
 .divider {
   margin: 48px 0px;
   border-top: 0.7px solid var(--ks-medium-light-grey);
+}
+
+h2 {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--ks-dark-grey);
 }

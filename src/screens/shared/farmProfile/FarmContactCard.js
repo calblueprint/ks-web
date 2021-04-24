@@ -12,20 +12,18 @@ class FarmContactCard extends React.PureComponent {
   render() {
     const { farm } = this.props;
     const {
-      address:physicalAddress,
+      address: physicalAddress,
       mailingAddress,
       contactFirstName,
       contactLastName,
       farmEmail: email,
-      groupGapContactIds: inspector,
       phone,
       foodHubAffiliation: foodHub
     } = farm;
     const { GAP } = this.props;
-    const {
-      gapCertified
-    } = GAP;
+    const { gapCertified } = GAP;
     const { GAPContact } = this.props;
+    const { name: GAPContactName } = GAPContact;
     const farmerName = `${contactFirstName} ${contactLastName}`;
 
     return (
@@ -57,17 +55,15 @@ class FarmContactCard extends React.PureComponent {
         </div>
 
         <div className="contact-card__inspector">
-        <div className="contact-card__inspector-info">
-          <h2>Group GAP Contact</h2>
-          <Chip
-          avatar={<AccountCircle />}
-          label={`${GAPContact}`}
-          />
-          </div> 
+          <div className="contact-card__inspector-info">
+            <h2>Group GAP Contact</h2>
+            <Chip avatar={<AccountCircle />} label={`${GAPContactName}`} />
+          </div>
           <h2>Food Hub</h2>
           <Chip
-          avatar={<Home />}
-          label={`${foodHub}`}
+            avatar={<Home color="var(--ks-dark-blue)" />}
+            label={`${foodHub}`}
+            backgroundColor="white"
           />
         </div>
       </div>
