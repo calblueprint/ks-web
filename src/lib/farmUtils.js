@@ -3,7 +3,9 @@ import {
   getAllFarms,
   getFarmById,
   getAllRecentUpdates,
-  getGAPCertificationById
+  getGAPCertificationById,
+  getRecentHarvestLogById,
+  getTotalHarvestById
 } from './airtable/request';
 
 // Helper functions
@@ -26,12 +28,12 @@ export async function getGapCertificationStatus(id) {
   return status;
 }
 
-export async function getRecentHarvestLogById(id) {
-  const harvestLogs = await getRecentHarvestLogById(id);
-  return harvestLogs;
+export async function getHarvestLog(id) {
+  const harvestLog = await getRecentHarvestLogById(id);
+  return harvestLog;
 }
 
-export async function getTotalHarvestById(id) {
+export async function getTotalHarvest(id) {
   const totalHarvest = await getTotalHarvestById(id);
   return totalHarvest;
 }
@@ -89,6 +91,6 @@ export default {
   getCertificationLabels,
   getCertificationSteps,
   mapCertificationStepsToLabels,
-  getRecentHarvestLogById,
-  getTotalHarvestById
+  getHarvestLog,
+  getTotalHarvest
 };

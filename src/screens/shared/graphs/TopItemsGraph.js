@@ -1,22 +1,23 @@
 import React from 'react';
 import {
-  getSingleFarm,
-  getRecentHarvestLogById,
-  getTotalHarvestById
+  getHarvestLog,
+  getTotalHarvest
 } from '@lib/farmUtils';
 
 import FarmProfileGraph from './FarmProfileGraph';
 
 class TopItemsGraph extends React.PureComponent {
   async componentDidMount() {
-    const { farmId } = this.props;
-    console.log(farmId);
-    const z = await getSingleFarm(farmId);
-    console.log(z);
-    // const h = await getRecentHarvestLogById(farmId);
-    // const t = await getTotalHarvestById(farmId);
-    // console.log(h);
-    // console.log(t);
+    const { farm } = this.props;
+    const harvestLogIds = farm.recentHarvestLogIds;
+    const totalHarvestIds = farm.totalHarvestIds;
+
+    const harvestLogs = await Promise.all(harvestLogIds.map(await getHarvestLog))
+    console.log(harvestLogs)
+
+
+    const totalHarvest = await Promise.all(totalHarvestIds.map(await getTotalHarvest))
+    console.log(totalHarvest)
   }
 
   getData = () => {

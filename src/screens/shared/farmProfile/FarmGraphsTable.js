@@ -19,20 +19,20 @@ const styles = {
 class FarmGraphsTable extends React.PureComponent {
   render() {
     const { classes, farm } = this.props;
-    const { farmId } = farm;
-    console.log(farmId);
+    // const { farmId } = farm;
+    // console.log(farmId);
     return (
       <>
         <div className={classes.graph}>
-          <Graph type="topItems" farmId={farmId} />
+          <Graph type="topItems" farm={farm} />
         </div>
         <div className={classes.divider} />
         <div className={classes.graph}>
-          <Graph type="recentHarvests" farmId={farmId} />
+          <Graph type="recentHarvests" farm={farm} />
         </div>
         <div className={classes.divider} />
         <div className="farm-graph-container">
-          <Graph type="harvestLogs" farmId={farmId} />
+          <Graph type="harvestLogs" farm={farm} />
         </div>
       </>
     );
