@@ -23,12 +23,7 @@ import FarmProfileEdit from '@shared/farmProfileEdit/FarmProfileEdit';
 import { getUserById } from '@lib/airtable/request';
 import { refreshUserData, clearUserData } from '@lib/redux/userData';
 import { history } from '@lib/redux/store';
-import {
-  isNSEVPUser,
-  isKSUser,
-  isSignedIn,
-  getCredentials
-} from '@lib/credentials';
+import { isNSEVPUser, isSignedIn, getCredentials } from '@lib/credentials';
 
 import NavBar from '@route/NavBar';
 import AuthenticatedRoute from '@route/AuthenticatedRoute';
@@ -66,7 +61,7 @@ class App extends React.Component {
     return (
       <ConnectedRouter history={history}>
         <div className="app-container">
-          <NavBar history={history} />
+          <NavBar history={history} isNSEVP={isNSEVP} isSignedIn={signedIn} />
           <div className="route-container">
             <Switch>
               <SuspenseRoute
@@ -77,30 +72,45 @@ class App extends React.Component {
               />
 
               {/* TEMP ROUTES */}
-              <SuspenseRoute exact path="/farms" component={FarmSearch} />
-              <SuspenseRoute
+              <AuthenticatedRoute
+                exact
+                path="/farms"
+                component={FarmSearch}
+                isAuthorized={signedIn}
+              />
+              <AuthenticatedRoute
                 exact
                 path="/farm/:farmId"
                 component={FarmProfile}
+                isAuthorized={signedIn}
               />
               <AuthenticatedRoute
                 exact
                 path="/farm/:farmId/:state"
                 component={FarmProfileEdit}
+                isAuthorized={signedIn}
               />
-              <SuspenseRoute exact path="/about" component={About} />
-              <AuthenticatedRoute path="/profile" component={UserProfile} />
+              <AuthenticatedRoute
+                path="/about"
+                component={About}
+                isAuthorized={signedIn}
+              />
+              <AuthenticatedRoute
+                path="/profile"
+                component={UserProfile}
+                isAuthorized={signedIn}
+              />
               <AuthenticatedRoute
                 path="/referral"
                 component={FarmReferralForm}
-                credentialCheck={isKSUser}
+                isAuthorized={signedIn && !isNSEVP}
               />
 
               <AuthenticatedRoute
-                credentialCheck={c => !isSignedIn(c)}
                 exact
                 path={Constants.SIGNUP_ROUTE}
                 component={SignUp}
+                isAuthorized={!signedIn}
               />
 
               <SuspenseRoute path="*" component={ErrorPage} />

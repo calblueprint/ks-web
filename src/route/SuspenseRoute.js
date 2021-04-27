@@ -7,20 +7,12 @@ import LoadingComponent from './Loading';
 class SuspenseRoute extends React.PureComponent {
   render() {
     // TODO: Replace loading spinner with suspense fallback
-    const {
-      component: Component,
-      isNSEVP,
-      isLoadingUserData,
-      ...rest
-    } = this.props;
+    const { component: Component, isLoadingUserData, ...rest } = this.props;
     const loading = isLoadingUserData;
     return loading ? (
       <LoadingComponent />
     ) : (
-      <Route
-        {...rest}
-        render={props => <Component {...props} isNSEVP={isNSEVP} />}
-      />
+      <Route {...rest} render={props => <Component {...props} />} />
     );
   }
 }
