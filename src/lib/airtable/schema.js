@@ -44,7 +44,7 @@ export const Columns = {
     farmEmail: { name: `Farm Email`, type: `text` },
     commentIds: { name: `Comments`, type: `foreignKey-many` },
     farmId: { name: `Farm ID`, type: `formula` },
-    foodHubAffiliation: { name: `Food Hub Affiliation`, type: `select` },
+    foodHubAffiliation: { name: `Food Hub Affiliation`, type: `text` },
     ksAffiliated: { name: `KS Affiliated`, type: `checkbox` },
     physicalStreet1: { name: `Physical Street 1`, type: `text` },
     physicalStreet2: { name: `Physical Street 2`, type: `text` },
@@ -63,7 +63,8 @@ export const Columns = {
     },
     totalHarvestIds: { name: `Total Harvests`, type: `foreignKey-many` },
     gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` },
-    commentfromComments: { name: `Comment (from Comments)`, type: `lookup` }
+    commentfromComments: { name: `Comment (from Comments)`, type: `lookup` },
+    hcCompanyName: { name: `HC Company Name`, type: `text` }
   },
   'GAP Certification': {
     id: { name: `ID`, type: `formula` },
