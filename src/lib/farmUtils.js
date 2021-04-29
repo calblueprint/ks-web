@@ -41,12 +41,6 @@ export function getCertificationSteps() {
 
 export async function getGapCertificationStatus(id) {
   const status = await getGAPCertificationById(id);
-  // maps certification value to an index to be compatible with select components
-  getCertificationSteps().forEach(k => {
-    status[`${k}Date`] = new Date(status[`${k}Date`]).toLocaleDateString(
-      'en-CA'
-    );
-  });
   return status;
 }
 

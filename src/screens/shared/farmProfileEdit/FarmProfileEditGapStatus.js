@@ -31,10 +31,14 @@ const styles = {
 class FarmProfileEditGapStatus extends React.PureComponent {
   onChange = prop => event => {
     const { values, handleChange } = this.props;
-
+    const fullDate = event.target.value.split('-');
+    const year = fullDate[0];
+    const month = fullDate[1] - 1;
+    const day = fullDate[2];
+    const date = new Date(year, month, day).toISOString();
     const gapCertificationValues = {
       ...values,
-      [prop]: event.target.value
+      [prop]: date
     };
     handleChange(gapCertificationValues);
   };

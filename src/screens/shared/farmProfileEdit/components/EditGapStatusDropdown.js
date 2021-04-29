@@ -36,6 +36,10 @@ class EditGapStatusDropdown extends React.PureComponent {
       onDateChange,
       date
     } = this.props;
+
+    const formattedDate = date
+      ? new Date(date).toLocaleDateString('en-CA')
+      : ' ';
     const items = getPossibleCertificationStates();
     return (
       <div className={classes.root}>
@@ -50,7 +54,7 @@ class EditGapStatusDropdown extends React.PureComponent {
           <TextField
             className={classes.picker}
             type="date"
-            value={date || ''}
+            value={formattedDate}
             onChange={onDateChange}
           />
         </div>
