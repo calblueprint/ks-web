@@ -47,11 +47,6 @@ export async function getGapCertificationStatus(id) {
       'en-CA'
     );
   });
-  delete status.gapCertifiedDate;
-  status.gapCertificationDate = new Date(
-    status.gapCertificationDate
-  ).toLocaleDateString('en-CA');
-
   return status;
 }
 
