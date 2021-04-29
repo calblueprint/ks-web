@@ -1,8 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Home, AccountCircle } from '@material-ui/icons';
+import { AccountCircle } from '@material-ui/icons';
 import Dropdown from '@components/Dropdown';
-import FieldInput from '@components/FieldInput';
 
 const styles = {
   root: {
