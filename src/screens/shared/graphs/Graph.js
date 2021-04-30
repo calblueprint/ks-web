@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import Dropdown from '@components/Dropdown';
 
 import CertificationGraph from './CertificationGraph';
 import RecentHarvestsGraph from './RecentHarvestsGraph';
 import TopItemsGraph from './TopItemsGraph';
 import HarvestLogsGraph from './HarvestLogsGraph';
+import ProductionGraph from './ProductionGraph';
+import DateFilterMenu from '../dateFilterMenu/DateFilterMenu';
 
 const styles = {
   root: {
@@ -36,13 +36,25 @@ const styles = {
   }
 };
 
-class Graph extends React.PureComponent {
+class Graph extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterBy: null
+    };
+  }
+
   getGraphProps = (type, farm) => {
     switch (type) {
       case 'certification':
         return {
           label: 'Gap Certification Progress',
           graph: <CertificationGraph />
+        };
+      case 'production':
+        return {
+          label: 'Farm Production History',
+          graph: <ProductionGraph />
         };
       case 'recentHarvests':
         return {
@@ -64,6 +76,10 @@ class Graph extends React.PureComponent {
     }
   };
 
+  setFilterState = value => {
+    this.setState({ filterBy: value });
+  };
+
   render() {
     const { classes, type, farm } = this.props;
     console.log(farm);
@@ -73,12 +89,7 @@ class Graph extends React.PureComponent {
       <div className={classes.root}>
         <div className={classes.row}>
           <h2 className={classes.header}>{label}</h2>
-          {/* TODO: Create Custom Menu for Filtering */}
-          <Dropdown
-            items={['Date Filters']}
-            icon={<CalendarTodayIcon />}
-            value={0}
-          />
+          <DateFilterMenu onChange={this.setFilterState} />
         </div>
         <div className={classes.graph}>{graph}</div>
       </div>

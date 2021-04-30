@@ -87,7 +87,7 @@ export const Columns = {
     internalAudit2: { name: `Internal Audit (2)`, type: `select` },
     internalAudit2Date: { name: `Internal Audit 2 Date`, type: `date` },
     gapCertified: { name: `GAP Certified`, type: `select` },
-    gapCertifiedDate: { name: `GAP Certified Date`, type: `date` },
+    gapCertificationDate: { name: `GAP Certification Date`, type: `date` },
     farmReferred: { name: `Farm Referred`, type: `select` },
     farmId: { name: `Farm`, type: `foreignKey-one` },
     ksAffiliated: { name: `KS Affiliated`, type: `lookup` },

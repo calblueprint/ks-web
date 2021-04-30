@@ -1,6 +1,5 @@
 import React from 'react';
-import moment from 'moment';
-import { getTotalHarvest } from '@lib/farmUtils';
+import { getPrevMonths, getTotalHarvest } from '@lib/farmUtils';
 import FarmProfileGraph from './FarmProfileGraph';
 
 class RecentHarvestsGraph extends React.PureComponent {
@@ -28,15 +27,6 @@ class RecentHarvestsGraph extends React.PureComponent {
     this.setState({ dateList, totalList });
   }
 
-  getDates = () => {
-    const date = Date().toLocaleString();
-    const m = moment(date);
-    m.subtract(9, 'months');
-
-    // eslint-disable-next-line no-unused-vars
-    return [...Array(9)].map(_i => m.add(1, 'months').format('MMM[\n]YYYY'));
-  };
-
   getData = (dateList, totalList) => {
     const months = [
       'Jan',
@@ -61,7 +51,7 @@ class RecentHarvestsGraph extends React.PureComponent {
       dict[i] = [dateFormatted, totalList[i]];
     }
 
-    const recentDates = this.getDates();
+    const recentDates = getPrevMonths(9);
     const recentValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (let i = 0; i < dict.length; i += 1) {
       for (let j = 0; j < recentDates.length; j += 1) {

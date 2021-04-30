@@ -25,9 +25,14 @@ h2 {
 
 h3 {
   font-family: 'Inter';
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
   color: var(--ks-dark-grey);
+}
+
+p {
+  font-family: 'Inter';
+  font-size: 14px;
 }
 
 code {
