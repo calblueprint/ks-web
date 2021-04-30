@@ -61,7 +61,6 @@ class TopItemsGraph extends React.PureComponent {
     dict = dict.sort(function(a, b) {
       return b[1] - a[1];
     });
-    console.log(dict);
 
     const cropsSorted = [];
     const quantitiesSorted = [];

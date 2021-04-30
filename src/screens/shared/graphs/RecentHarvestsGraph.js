@@ -14,7 +14,6 @@ class RecentHarvestsGraph extends React.PureComponent {
 
   async componentDidMount() {
     const { farm } = this.props;
-    console.log(farm);
     const totalHarvest = await Promise.all(
       farm.totalHarvestIds.map(await getTotalHarvest)
     );
@@ -26,31 +25,62 @@ class RecentHarvestsGraph extends React.PureComponent {
       dateList[h] = date.slice(0, 7);
       totalList[h] = totalProductionPounds;
     }
-    console.log(dateList);
-    console.log(totalList);
+    this.setState({ dateList, totalList });
   }
 
-  /* eslint-disable no-unused-vars */
   getDates = () => {
     const date = Date().toLocaleString();
     const m = moment(date);
     m.subtract(9, 'months');
 
+    // eslint-disable-next-line no-unused-vars
     return [...Array(9)].map(_i => m.add(1, 'months').format('MMM[\n]YYYY'));
   };
 
-  /* eslint-enable no-unused-vars */
-  getData = () => {
-    // Fill in with Airtable Data
-    console.log(this.getDates()[0]);
+  getData = (dateList, totalList) => {
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
+    const dict = [];
+    for (let i = 0; i < dateList.length; i += 1) {
+      const year = dateList[i].slice(0, 4);
+      // eslint-disable-next-line radix
+      const month = months[parseInt(dateList[i].slice(5, 7)) - 1];
+      const dateFormatted = `${String(month)}\n${year}`;
+      dict[i] = [dateFormatted, totalList[i]];
+    }
+
+    const recentDates = this.getDates();
+    const recentValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for (let i = 0; i < dict.length; i += 1) {
+      for (let j = 0; j < recentDates.length; j += 1) {
+        if (recentDates[j] === dict[i][0]) {
+          // eslint-disable-next-line prefer-destructuring
+          recentValues[j] = dict[i][1];
+        }
+      }
+    }
+
     return {
-      labels: this.getDates(),
-      values: [10, 7, 5, 8, 11, 10, 7, 5, 8]
+      labels: recentDates,
+      values: recentValues
     };
   };
 
   render() {
-    const { labels, values } = this.getData();
+    const { dateList, totalList } = this.state;
+    const { labels, values } = this.getData(dateList, totalList);
     return <FarmProfileGraph labels={labels} values={values} barRatio={1.2} />;
   }
 }
