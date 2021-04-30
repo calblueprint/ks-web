@@ -28,7 +28,7 @@ class TopItemsGraph extends React.PureComponent {
       cropsStr += crops;
       quantitiesStr += quantities;
     }
-
+    console.log(cropsStr);
     const quantitiesFloats = quantitiesStr.match(/\d+(?:\.\d+)?/g).map(Number);
 
     this.setState({ cropsStr, quantitiesFloats });
@@ -44,6 +44,7 @@ class TopItemsGraph extends React.PureComponent {
         for (let j = 0; j < dict.length; j += 1) {
           if (dict[j][0] === cropsSplit[i]) {
             dict[j][1] += quantitiesFloats[i];
+            console.log(dict);
           }
         }
       } else {

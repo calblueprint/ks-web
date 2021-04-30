@@ -19,8 +19,6 @@ const styles = {
 class FarmGraphsTable extends React.PureComponent {
   render() {
     const { classes, farm } = this.props;
-    // const { farmId } = farm;
-    // console.log(farmId);
     return (
       <>
         <div className={classes.graph}>
