@@ -7,7 +7,7 @@ class TopItemsGraph extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      crops: '',
+      cropsStr: '',
       quantitiesFloats: ''
     };
   }
@@ -17,21 +17,47 @@ class TopItemsGraph extends React.PureComponent {
     const totalHarvest = await Promise.all(
       farm.totalHarvestIds.map(await getTotalHarvest)
     );
+    let cropsStr = '';
+    let quantitiesStr = '';
+    for (let h = 0; h < totalHarvest.length; h += 1) {
+      const { crops, quantities } = totalHarvest[h];
+      if (h !== 0) {
+        cropsStr += ', ';
+        quantitiesStr += ', ';
+      }
+      cropsStr += crops;
+      quantitiesStr += quantities;
+    }
 
-    console.log(totalHarvest);
+    const quantitiesFloats = quantitiesStr.match(/\d+(?:\.\d+)?/g).map(Number);
 
-    const { crops, quantities } = totalHarvest[0];
-    const quantitiesFloats = quantities.match(/\d+(?:\.\d+)?/g).map(Number);
-    this.setState({ crops, quantitiesFloats });
+    this.setState({ cropsStr, quantitiesFloats });
   }
 
-  sortData = (crops, quantitiesFloats) => {
-    const cropsList = crops.split(',');
-    let dict = [];
-    for (let i = 0; i < cropsList.length; i += 1) {
-      cropsList[i] = cropsList[i].replace(/^\s+|\s+$/g, '');
-      dict[i] = [cropsList[i], quantitiesFloats[i]];
+  formulateData = (cropsStr, quantitiesFloats) => {
+    const cropsSplit = cropsStr.split(',');
+
+    const dict = [];
+    for (let i = 0; i < cropsSplit.length; i += 1) {
+      cropsSplit[i] = cropsSplit[i].replace(/^\s+|\s+$/g, '');
+      if (cropsSplit.slice(0, i).includes(cropsSplit[i])) {
+        for (let j = 0; j < dict.length; j += 1) {
+          if (dict[j][0] === cropsSplit[i]) {
+            dict[j][1] += quantitiesFloats[i];
+          }
+        }
+      } else {
+        dict[i] = [cropsSplit[i], quantitiesFloats[i]];
+      }
     }
+
+    return {
+      cropsToQuantity: dict
+    };
+  };
+
+  sortData = cropsToQuantity => {
+    let dict = cropsToQuantity;
     dict = dict.sort(function(a, b) {
       return b[1] - a[1];
     });
@@ -47,15 +73,15 @@ class TopItemsGraph extends React.PureComponent {
     }
 
     return {
-      labels: cropsSorted,
-      values: quantitiesSorted
+      labels: cropsSorted.slice(0, 5),
+      values: quantitiesSorted.slice(0, 5)
     };
   };
 
   render() {
-    const { crops, quantitiesFloats } = this.state;
-
-    const { labels, values } = this.sortData(crops, quantitiesFloats);
+    const { cropsStr, quantitiesFloats } = this.state;
+    const { cropsToQuantity } = this.formulateData(cropsStr, quantitiesFloats);
+    const { labels, values } = this.sortData(cropsToQuantity);
     return <FarmProfileGraph labels={labels} values={values} />;
   }
 }

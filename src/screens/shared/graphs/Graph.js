@@ -47,7 +47,7 @@ class Graph extends React.PureComponent {
       case 'recentHarvests':
         return {
           label: 'Recent Harvests',
-          graph: <RecentHarvestsGraph />
+          graph: <RecentHarvestsGraph farm={farm} />
         };
       case 'topItems':
         return {
