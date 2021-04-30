@@ -69,17 +69,6 @@ class NavBar extends React.PureComponent {
                 </li>
                 {isNSEVP && (
                   <li>
-                    <NavLink
-                      to="/forecast"
-                      className="nav-bar__header"
-                      activeClassName="nav-bar__header-active"
-                    >
-                      Forecast
-                    </NavLink>
-                  </li>
-                )}
-                {isNSEVP && (
-                  <li>
                     <a
                       href="https://airtable.com/shrdkcW9b6rA5HMxl"
                       className="nav-bar__header"
