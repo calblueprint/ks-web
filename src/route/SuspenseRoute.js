@@ -4,11 +4,18 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LoadingComponent from './Loading';
 
-const SuspenseRoute = ({ isLoadingUserData, ...rest }) => {
-  // TODO: Replace loading spinner with suspense fallback
-  const loading = isLoadingUserData;
-  return loading ? <LoadingComponent /> : <Route {...rest} />;
-};
+class SuspenseRoute extends React.PureComponent {
+  render() {
+    // TODO: Replace loading spinner with suspense fallback
+    const { component: Component, isLoadingUserData, ...rest } = this.props;
+    const loading = isLoadingUserData;
+    return loading ? (
+      <LoadingComponent />
+    ) : (
+      <Route {...rest} render={props => <Component {...props} />} />
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   isLoadingUserData: state.userData.isLoading
