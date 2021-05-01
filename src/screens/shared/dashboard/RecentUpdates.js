@@ -73,7 +73,7 @@ class RecentUpdates extends React.PureComponent {
       <div className={classes.root}>
         <h2>Recent Updates</h2>
         {recentUpdates.map(update => (
-          <div className={classes.update}>
+          <div className={classes.update} key={update.id}>
             <div className={classes.profilePic}>
               {update.profilePic ? (
                 <img src={update.profilePic} alt="icon" />
