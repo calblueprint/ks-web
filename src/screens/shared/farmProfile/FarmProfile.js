@@ -30,7 +30,6 @@ class FarmProfile extends React.Component {
     const GAPContact = await getUserById(farm.groupGapContactId);
     const GAP = await getGapCertificationStatus(farm.gapCertificationId);
     this.setState({ farm, farmId, loading: false, GAP, GAPContact });
-    console.log(GAP);
   }
 
   render() {
