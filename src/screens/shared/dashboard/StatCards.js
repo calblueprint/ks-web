@@ -46,14 +46,15 @@ class StatCards extends React.Component {
       totalHarvests: [],
       recentHarvests: [],
       GAPCertification: [],
-      numFarmReferred: '',
+      numKSFarmReferred: '',
       numKSGAPAccepted: '',
       percentKSGAPCertified: '',
       percentKSGAPApplied: '',
       percentGAPCertified: '',
       NSEVPHarvestFarms: '',
       totalHarvestsPounds: '',
-      percentGAPApplied: ''
+      percentGAPApplied: '',
+      time7daysAgo: ''
     };
   }
 
@@ -63,20 +64,20 @@ class StatCards extends React.Component {
     const totalHarvests = await getAllTotalHarvestsForStatCard();
     const recentHarvests = await getAllRecentHarvestLogsForStatCard();
     const KSFarms = farms.filter(farm => farm.ksAffiliated);
-    const KSGAP = [];
-    for (let i = 0; i < GAPCertification.length; i += 1) {
-      if ('ksAffiliated' in GAPCertification[i]) {
-        if (GAPCertification[i].ksAffiliated.includes(true)) {
-          KSGAP.push(GAPCertification[i]);
-        }
-      }
-    }
 
-    const numGAPCertified = GAPCertification.filter(farm => farm.gapCertified);
+    const KSGAP = GAPCertification.filter(
+      farm => 'ksAffiliated' in farm && farm.ksAffiliated.includes(true)
+    );
 
-    const numKSGAPCertified = KSGAP.filter(farm => farm.gapCertified);
+    const numGAPCertified = GAPCertification.filter(
+      farm => farm.gapCertified === 'Complete'
+    );
 
-    const numFarmReferred = GAPCertification.filter(
+    const numKSGAPCertified = KSGAP.filter(
+      farm => farm.gapCertified === 'Complete'
+    );
+
+    const numKSFarmReferred = KSGAP.filter(
       farm => farm.farmReferred === 'Complete'
     ).length;
 
@@ -95,6 +96,7 @@ class StatCards extends React.Component {
     const percentKSGAPCertified = Math.round(
       (numKSGAPCertified.length / KSFarms.length) * 100
     );
+
     const percentKSGAPApplied = Math.round(
       (numKSGAPApplied.length / KSFarms.length) * 100
     );
@@ -102,10 +104,38 @@ class StatCards extends React.Component {
     const percentGAPCertified = Math.round(
       (numGAPCertified.length / farms.length) * 100
     );
+
     const percentGAPApplied = Math.round(
       (numGAPApplied.length / farms.length) * 100
     );
+
     const NSEVPHarvestFarms = recentHarvests.length;
+
+    function getWeekDates() {
+      let now = new Date();
+      let dayOfWeek = now.getDay(); //0-6
+      let numDay = now.getDate();
+
+      let start = new Date(now); //copy
+      start.setDate(numDay - dayOfWeek);
+      start.setHours(0, 0, 0, 0);
+
+      let end = new Date(now); //copy
+      end.setDate(numDay + (7 - dayOfWeek));
+      end.setHours(0, 0, 0, 0);
+
+      return [start, end];
+    }
+
+     let [start, end] = getWeekDates();
+
+     console.log(start.toLocaleString(), end.toLocaleString());
+     console.log(recentHarvests)
+     console.log(new Date(recentHarvests[0].date).toLocaleString)
+    // //console.log(new Date(recentHarvests.date[0]).toLocaleDateString)
+
+    // const time7daysAgo = recentHarvests.filter(farm => new Date(farm.date).toLocaleDateString >= +start && +farm.date < +end);
+    // console.log(recentHarvests, time7daysAgo);
 
     let totalHarvestsPounds = 0;
     for (let i = 0; i < totalHarvests.length; i += 1) {
@@ -119,7 +149,7 @@ class StatCards extends React.Component {
       totalHarvests,
       recentHarvests,
       GAPCertification,
-      numFarmReferred,
+      numKSFarmReferred,
       numKSGAPAccepted,
       percentKSGAPCertified,
       percentKSGAPApplied,
@@ -132,7 +162,7 @@ class StatCards extends React.Component {
 
   getCardStats = isNSEVP => {
     const {
-      numFarmReferred,
+      numKSFarmReferred,
       numKSGAPAccepted,
       percentKSGAPCertified,
       percentKSGAPApplied,
@@ -160,7 +190,7 @@ class StatCards extends React.Component {
           name: 'Harvesting Farms',
           number: NSEVPHarvestFarms,
           unit: ' farms',
-          description: 'are harvesting this week'
+          description: 'harvested in the last 7 days'
         },
         {
           icon: <LocalShipping {...iconProps} />,
@@ -182,7 +212,7 @@ class StatCards extends React.Component {
       {
         icon: <Chat {...iconProps} />,
         name: 'Referrals',
-        number: numFarmReferred,
+        number: numKSFarmReferred,
         unit: ' farms',
         description: 'referred to Group GAP'
       },
