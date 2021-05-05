@@ -11,7 +11,7 @@ const AppConfigurations = [
   'REACT_APP_PAYPAL_CLIENT_ID',
   'REACT_APP_SERVER_URL',
   'REACT_APP_BUG_REPORT_URL'
-]; // REACT_APP_GOOGLE_API_KEY not included for now because MapView is not used
+];
 
 // Fails explicitly if the environment is improperly configured
 AppConfigurations.forEach(param => {

@@ -1,12 +1,6 @@
 /* eslint-disable no-await-in-loop */
-import React from 'react';
 import USStates from '@assets/usStates.json';
-import ErrorIcon from '@assets/error.svg';
-import {
-  // getAllProjectGroups,
-  updateUser,
-  deleteUser
-} from './airtable/request';
+import { updateUser, deleteUser } from './airtable/request';
 import { refreshUserData, clearUserData } from './redux/userData';
 import { signupUser } from './airlock/airlock';
 
@@ -29,18 +23,9 @@ const toggleValidColor = (input, type) => {
   return !input ? '\u00A0' : input;
 };
 
-// User must check this box
-const validateCertifyPermanentAddress = value => {
-  return value ? (
-    ''
-  ) : (
-    <div className="error-container">
-      <img src={ErrorIcon} alt="error" className="mr-1" />
-      <div className="error-text">
-        Please certify the above address in order to proceed.
-      </div>
-    </div>
-  );
+// Ensure Zipcode is of valid length
+const validateZipcode = value => {
+  return value.length === 5 ? '' : 'Must be 5 digits';
 };
 
 // Ensure valid email using regex
@@ -54,19 +39,7 @@ const validateEmail = value => {
   return re.test(value) ? '' : 'Please enter a valid email address.';
 };
 
-// Ensure valid alternate email using regex (allowed to be empty)
-const validateAlternateEmail = value => {
-  if (!value || value.length === 0) {
-    return '';
-  }
-  // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
-  // eslint-disable-next-line no-useless-escape
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(value) ? '' : 'Please enter a valid email address.';
-};
-
 // Ensure email is unique
-// TODO: Replace this with a call to the backend
 const validateUniqueEmail = async value => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const url = `${SERVER_URL}/uniqueEmail?email=${value}`;
@@ -88,32 +61,13 @@ const validateNumber = value => {
   return !Number.isNaN(value) ? '' : 'Must be a number';
 };
 
-// Ensure shares is a valid number
-const validateShares = value => {
-  if (value > 10) {
-    return 'Max number of shares is 10';
-  }
-  if (value < 1) {
-    return 'Min number of shares is 1';
-  }
-  return '';
-};
-
 // Ensure State is a real state (either abbreivation or full name)
 const ValidateUSState = value => {
   const upperCaseValue = value.toUpperCase();
   if (USStates.map(s => s.toUpperCase()).indexOf(upperCaseValue) !== -1) {
-    if (upperCaseValue !== 'CA') {
-      return 'Not California';
-    }
     return '';
   }
   return 'Invalid State';
-};
-
-// Ensure Zipcode is of valid length
-const validateZipcode = value => {
-  return value.length === 5 ? '' : 'Must be 5 digits';
 };
 
 const validatePhoneNumber = value => {
@@ -133,20 +87,14 @@ const validatePhoneNumber = value => {
 // Default for all fields: [validateExistence]
 const ValidatorData = {
   email: [validateExistence, validateEmail, validateUniqueEmail],
+  farmEmail: [validateExistence, validateEmail],
   phoneNumber: [validateExistence, validatePhoneNumber],
+  phone: [validateExistence, validatePhoneNumber],
   password: [validateExistence, validatePassword],
-  permanentState: [validateExistence, ValidateUSState],
+  physicalState: [validateExistence, ValidateUSState],
   mailingState: [validateExistence, ValidateUSState],
-  permanentZipcode: [validateExistence, validateNumber, validateZipcode],
-  mailingZipcode: [validateExistence, validateNumber, validateZipcode],
-  numberOfShares: [validateExistence, validateNumber, validateShares],
-  mailingAddressSame: [],
-  alternateEmail: [validateAlternateEmail],
-  permanentStreet2: [],
-  mailingStreet2: [],
-  certifyPermanentAddress: [validateCertifyPermanentAddress],
-  isReceivingDividends: []
-  // projectGroup: [v => validateExistence(v, 'Please choose a group')] // Custom error message
+  physicalZipcode: [validateExistence, validateZipcode],
+  mailingZipcode: [validateExistence, validateZipcode]
 };
 
 // Asynchronously validate field
@@ -191,10 +139,10 @@ const validateFieldSync = (name, value) => {
 // Update or Create the user with the given fields
 const updateUserFields = async (user, fields) => {
   // Ensure that only the fields that are supposed to be updated are updated
-  const userUpdate = fields.reduce((value, field) => ({
-    ...value,
-    [field]: user[field]
-  }));
+  const userUpdate = {};
+  fields.forEach(field => {
+    userUpdate[field] = user[field];
+  });
 
   // If user exists, update it, else, create.
   if (user.id) {
@@ -211,10 +159,60 @@ const updateUserFields = async (user, fields) => {
   }
 };
 
+const createFalseDict = keys => {
+  const dict = {};
+  keys.forEach(k => {
+    dict[k] = false;
+  });
+  return dict;
+};
+
 // Delete user and return to homepage. This is used if the user does not live in california
 const returnToHomepage = user => {
   deleteUser(user.id);
   clearUserData();
+};
+
+const farmFieldsToValidate = [
+  'contactFirstName',
+  'contactLastName',
+  'farmName',
+  'phone',
+  'farmEmail',
+  'physicalStreet1',
+  'physicalCity',
+  'physicalState',
+  'physicalZipcode',
+  'mailingStreet1',
+  'mailingCity',
+  'mailingState',
+  'mailingZipcode'
+];
+
+const validateFarmEdit = async farm => {
+  // Keep track of whether we've found any errors
+  let foundErrors = false;
+  const allErrorMessages = await Promise.all(
+    farmFieldsToValidate.map(f => validateField(f, farm[f]))
+  ).catch(e => {
+    console.error(e);
+  });
+
+  const newErrors = {};
+  farmFieldsToValidate.forEach((field, i) => {
+    const errorMessage = allErrorMessages[i];
+    if (errorMessage !== '') {
+      newErrors[field] = errorMessage;
+      foundErrors = true;
+    } else {
+      newErrors[field] = false;
+    }
+  });
+
+  if (!foundErrors) {
+    return { errors: createFalseDict(farmFieldsToValidate), validated: true };
+  }
+  return { errors: newErrors, validated: false };
 };
 
 export {
@@ -227,5 +225,9 @@ export {
   validateUniqueEmail,
   validateNumber,
   validateExistence,
-  validateZipcode
+  validateZipcode,
+  createFalseDict,
+  validateFarmEdit,
+  farmFieldsToValidate,
+  validatePhoneNumber
 };
