@@ -27,11 +27,9 @@ class FarmProfile extends React.Component {
     const { match } = this.props;
     const { farmId } = match.params;
     const farm = await getSingleFarm(farmId);
-    const GAPId = farm.groupGapContactIds[0];
-    const GAPContact = await getUserById(GAPId);
+    const GAPContact = await getUserById(farm.groupGapContactId);
     const GAP = await getGapCertificationStatus(farm.gapCertificationId);
     this.setState({ farm, farmId, loading: false, GAP, GAPContact });
-    console.log(farm, GAPId, GAPContact);
   }
 
   render() {

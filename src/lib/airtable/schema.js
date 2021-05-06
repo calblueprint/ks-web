@@ -64,11 +64,8 @@ export const Columns = {
     totalHarvestIds: { name: `Total Harvests`, type: `foreignKey-many` },
     gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` },
     commentfromComments: { name: `Comment (from Comments)`, type: `lookup` },
-<<<<<<< HEAD
-    dateCreated: { name: `Date Created`, type: `formula` }
-=======
-    hcCompanyName: { name: `HC Company Name`, type: `text` }
->>>>>>> a3be652b68c32fda5e548fdc8cf74be6f322cdc4
+    hcCompanyName: { name: `HC Company Name`, type: `text` },
+    field31: { name: `Field 31`, type: `text` }
   },
   'GAP Certification': {
     id: { name: `ID`, type: `formula` },
@@ -91,11 +88,7 @@ export const Columns = {
     internalAudit2: { name: `Internal Audit (2)`, type: `select` },
     internalAudit2Date: { name: `Internal Audit 2 Date`, type: `date` },
     gapCertified: { name: `GAP Certified`, type: `select` },
-<<<<<<< HEAD
-    gapCertificationDate: { name: `GAP Certification Date`, type: `date` },
-=======
     gapCertifiedDate: { name: `GAP Certified Date`, type: `date` },
->>>>>>> a3be652b68c32fda5e548fdc8cf74be6f322cdc4
     farmReferred: { name: `Farm Referred`, type: `select` },
     farmId: { name: `Farm`, type: `foreignKey-one` },
     ksAffiliated: { name: `KS Affiliated`, type: `lookup` },
