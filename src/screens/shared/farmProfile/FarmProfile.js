@@ -34,8 +34,13 @@ class FarmProfile extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
     const { farm, loading, GAP, GAPContact} = this.state;
     const { match } = this.props;
+=======
+    const { farm, loading } = this.state;
+    const { match, isNSEVP } = this.props;
+>>>>>>> a3be652b68c32fda5e548fdc8cf74be6f322cdc4
     const { farmId } = match.params;
 
     if (loading) {
@@ -46,13 +51,15 @@ class FarmProfile extends React.Component {
         <BackButton label="Back to Farm Search" href="/farms" />
         <div className="farm-profile__header">
           <h1>{farm.farmName}</h1>
-          <Link
-            href={`/farm/${farmId}/edit`}
-            underline="always"
-            color="inherit"
-          >
-            <p className="farm-profile__header-edit">Edit</p>
-          </Link>
+          {isNSEVP && (
+            <Link
+              href={`/farm/${farmId}/edit`}
+              underline="always"
+              color="inherit"
+            >
+              <p className="farm-profile__header-edit">Edit</p>
+            </Link>
+          )}
         </div>
         <div className="farm-profile__section">
           <div className="farm-profile__left-col">
