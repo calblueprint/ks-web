@@ -9,9 +9,8 @@ import Constants from '@root/constants';
 
 import '@styles/App.css';
 
-import KSDashboard from '@ks/dashboard/KSDashboard';
+import Dashboard from '@shared/dashboard/Dashboard';
 import FarmReferralForm from '@ks/FarmReferralForm';
-import NSEVPDashboard from '@nsevp/dashboard/NSEVPDashboard';
 import UserProfile from '@shared/UserProfile';
 import Login from '@shared/auth/Login';
 import SignUp from '@shared/auth/SignUp';
@@ -24,12 +23,7 @@ import FarmProfileEdit from '@shared/farmProfileEdit/FarmProfileEdit';
 import { getUserById } from '@lib/airtable/request';
 import { refreshUserData, clearUserData } from '@lib/redux/userData';
 import { history } from '@lib/redux/store';
-import {
-  isNSEVPUser,
-  isKSUser,
-  isSignedIn,
-  getCredentials
-} from '@lib/credentials';
+import { isNSEVPUser, isSignedIn, getCredentials } from '@lib/credentials';
 
 import NavBar from '@route/NavBar';
 import AuthenticatedRoute from '@route/AuthenticatedRoute';
@@ -54,60 +48,70 @@ class App extends React.Component {
     }
   }
 
-  // Figure out component to be shown at root based on user credentials
-  getHomeComponent() {
+  render() {
     const { user } = this.props;
     const credentials = getCredentials(user);
     const signedIn = isSignedIn(credentials);
     const isNSEVP = isNSEVPUser(credentials);
-    const isKS = isKSUser(credentials);
-    let homeComponent;
+    let HomeComponent = Dashboard;
     if (!signedIn) {
-      homeComponent = Login;
-    } else if (isKS) {
-      // Dashboard for both ks and ks ownrers (ks with shares)
-      homeComponent = KSDashboard;
-    } else if (isNSEVP) {
-      homeComponent = NSEVPDashboard;
+      HomeComponent = Login;
     }
-    return homeComponent;
-  }
 
-  render() {
-    const HomeComponent = this.getHomeComponent();
     return (
       <ConnectedRouter history={history}>
         <div className="app-container">
-          <NavBar history={history} />
+          <NavBar history={history} isNSEVP={isNSEVP} isSignedIn={signedIn} />
           <div className="route-container">
             <Switch>
-              <SuspenseRoute exact path="/" component={HomeComponent} />
+              <SuspenseRoute
+                exact
+                path="/"
+                component={HomeComponent}
+                isNSEVP={isNSEVP}
+              />
 
               {/* TEMP ROUTES */}
-              <SuspenseRoute exact path="/farms" component={FarmSearch} />
-              <SuspenseRoute
+              <AuthenticatedRoute
+                exact
+                path="/farms"
+                component={FarmSearch}
+                isNSEVP={isNSEVP}
+                isAuthorized={signedIn}
+              />
+              <AuthenticatedRoute
                 exact
                 path="/farm/:farmId"
                 component={FarmProfile}
+                isAuthorized={signedIn}
               />
               <AuthenticatedRoute
                 exact
                 path="/farm/:farmId/:state"
                 component={FarmProfileEdit}
+                isAuthorized={signedIn}
               />
-              <SuspenseRoute exact path="/about" component={About} />
-              <AuthenticatedRoute path="/profile" component={UserProfile} />
+              <AuthenticatedRoute
+                path="/about"
+                component={About}
+                isAuthorized={signedIn}
+              />
+              <AuthenticatedRoute
+                path="/profile"
+                component={UserProfile}
+                isAuthorized={signedIn}
+              />
               <AuthenticatedRoute
                 path="/referral"
                 component={FarmReferralForm}
-                credentialCheck={isKSUser}
+                isAuthorized={signedIn && !isNSEVP}
               />
 
               <AuthenticatedRoute
-                credentialCheck={credentials => !isSignedIn(credentials)}
                 exact
                 path={Constants.SIGNUP_ROUTE}
                 component={SignUp}
+                isAuthorized={!signedIn}
               />
 
               <SuspenseRoute path="*" component={ErrorPage} />

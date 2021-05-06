@@ -56,7 +56,6 @@ class FarmProfileEditForm extends React.PureComponent {
 
   render() {
     const { values, classes } = this.props;
-    console.log(values);
 
     return (
       <div className={classes.root}>

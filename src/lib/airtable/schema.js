@@ -40,11 +40,11 @@ export const Columns = {
     contactFirstName: { name: `Contact First Name`, type: `text` },
     contactLastName: { name: `Contact Last Name`, type: `text` },
     phone: { name: `Phone`, type: `phone` },
-    groupGapContactIds: { name: `Group GAP Contact`, type: `foreignKey-many` },
+    groupGapContactId: { name: `Group GAP Contact`, type: `foreignKey-one` },
     farmEmail: { name: `Farm Email`, type: `text` },
     commentIds: { name: `Comments`, type: `foreignKey-many` },
     farmId: { name: `Farm ID`, type: `formula` },
-    foodHubAffiliation: { name: `Food Hub Affiliation`, type: `select` },
+    foodHubAffiliation: { name: `Food Hub Affiliation`, type: `text` },
     ksAffiliated: { name: `KS Affiliated`, type: `checkbox` },
     physicalStreet1: { name: `Physical Street 1`, type: `text` },
     physicalStreet2: { name: `Physical Street 2`, type: `text` },
@@ -64,7 +64,11 @@ export const Columns = {
     totalHarvestIds: { name: `Total Harvests`, type: `foreignKey-many` },
     gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` },
     commentfromComments: { name: `Comment (from Comments)`, type: `lookup` },
+<<<<<<< HEAD
     dateCreated: { name: `Date Created`, type: `formula` }
+=======
+    hcCompanyName: { name: `HC Company Name`, type: `text` }
+>>>>>>> a3be652b68c32fda5e548fdc8cf74be6f322cdc4
   },
   'GAP Certification': {
     id: { name: `ID`, type: `formula` },
@@ -87,10 +91,15 @@ export const Columns = {
     internalAudit2: { name: `Internal Audit (2)`, type: `select` },
     internalAudit2Date: { name: `Internal Audit 2 Date`, type: `date` },
     gapCertified: { name: `GAP Certified`, type: `select` },
+<<<<<<< HEAD
     gapCertificationDate: { name: `GAP Certification Date`, type: `date` },
+=======
+    gapCertifiedDate: { name: `GAP Certified Date`, type: `date` },
+>>>>>>> a3be652b68c32fda5e548fdc8cf74be6f322cdc4
     farmReferred: { name: `Farm Referred`, type: `select` },
     farmId: { name: `Farm`, type: `foreignKey-one` },
-    ksAffiliated: { name: `KS Affiliated`, type: `lookup` }
+    ksAffiliated: { name: `KS Affiliated`, type: `lookup` },
+    created: { name: `Created`, type: `formula` }
   },
   Comments: {
     id: { name: `ID`, type: `formula` },
@@ -110,7 +119,8 @@ export const Columns = {
     id: { name: `ID`, type: `formula` },
     farmId: { name: `Farm`, type: `foreignKey-one` },
     date: { name: `Date`, type: `date` },
-    crops: { name: `Crops`, type: `text` }
+    crops: { name: `Crops`, type: `text` },
+    created: { name: `Created`, type: `formula` }
   },
   'Total Harvests': {
     id: { name: `ID`, type: `formula` },

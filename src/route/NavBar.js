@@ -1,12 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  isNSEVPUser,
-  isKSUser,
-  isSignedIn,
-  getCredentials
-} from '@lib/credentials';
 
 import '@styles/NavBar.css';
 import NSEVPLogo from '@assets/NSEVP-LOGO.svg';
@@ -16,40 +10,42 @@ import SettingsDropdown from './SettingsDropdown';
 
 class NavBar extends React.PureComponent {
   render() {
-    const { user, history } = this.props;
-    const credentials = getCredentials(user);
+    const { user, history, isNSEVP, isSignedIn } = this.props;
 
     let affiliation;
-    if (isNSEVPUser(credentials)) {
-      affiliation = (
-        <div className="nav-bar__title">
-          <h3>North Shore</h3>
-          <h3>EVP</h3>
-        </div>
-      );
-    }
-    if (isKSUser(credentials)) {
-      affiliation = (
-        <img
-          className="nav-bar__kslogo"
-          src={KSLogo}
-          alt="Kamehameha Schools Logo"
-        />
-      );
+    if (isSignedIn) {
+      if (isNSEVP) {
+        affiliation = (
+          <div className="nav-bar__title">
+            <h3>North Shore</h3>
+            <h3>EVP</h3>
+          </div>
+        );
+      } else {
+        affiliation = (
+          <img
+            className="nav-bar__kslogo"
+            src={KSLogo}
+            alt="Kamehameha Schools Logo"
+          />
+        );
+      }
     }
 
     return affiliation ? (
       <div className="nav-bar">
-        <a href="/">
+        <NavLink to="/" exact>
           <img
             className="nav-bar__nsevplogo"
             src={NSEVPLogo}
             alt="North Shore Economic Vitality Partnership Logo"
           />
-        </a>
-        {affiliation}
+        </NavLink>
+        <NavLink to="/" exact className="nav-bar__header">
+          {affiliation}
+        </NavLink>
         <nav>
-          {isSignedIn(credentials) && (
+          {isSignedIn && (
             <ul>
               <div className="nav-left-container">
                 <li>
@@ -71,29 +67,18 @@ class NavBar extends React.PureComponent {
                     Farms
                   </NavLink>
                 </li>
-                {isNSEVPUser(credentials) && (
+                {isNSEVP && (
                   <li>
-                    <NavLink
-                      to="/forecast"
-                      className="nav-bar__header"
-                      activeClassName="nav-bar__header-active"
-                    >
-                      Forecast
-                    </NavLink>
-                  </li>
-                )}
-                {isNSEVPUser(credentials) && (
-                  <li>
-                    <NavLink
-                      to="/error"
+                    <a
+                      href="https://airtable.com/shrdkcW9b6rA5HMxl"
                       className="nav-bar__header"
                       activeClassName="nav-bar__header-active"
                     >
                       Referrals
-                    </NavLink>
+                    </a>
                   </li>
                 )}
-                {isKSUser(credentials) && (
+                {!isNSEVP && (
                   <li>
                     <NavLink
                       to="/referral"
