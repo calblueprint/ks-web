@@ -87,9 +87,9 @@ class App extends React.Component {
               />
               <AuthenticatedRoute
                 exact
-                path="/farm/:farmId/:state"
+                path="/farm/:farmId/edit"
                 component={FarmProfileEdit}
-                isAuthorized={signedIn}
+                isAuthorized={signedIn && isNSEVP}
               />
               <AuthenticatedRoute
                 path="/about"

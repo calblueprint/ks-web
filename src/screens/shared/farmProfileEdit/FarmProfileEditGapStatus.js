@@ -2,7 +2,10 @@ import React from 'react';
 
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
-import { mapCertificationStepsToLabels } from '@lib/farmUtils';
+import {
+  mapCertificationStepsToLabels,
+  getPossibleCertificationStates
+} from '@lib/farmUtils';
 import EditGapStatusDropdown from './components/EditGapStatusDropdown';
 
 const styles = {
@@ -28,12 +31,26 @@ const styles = {
 class FarmProfileEditGapStatus extends React.PureComponent {
   onChange = prop => event => {
     const { values, handleChange } = this.props;
-
+    const fullDate = event.target.value.split('-');
+    const year = fullDate[0];
+    const month = fullDate[1] - 1;
+    const day = fullDate[2];
+    const date = new Date(year, month, day).toISOString();
     const gapCertificationValues = {
       ...values,
-      [prop]: event.target.value
+      [prop]: date
     };
     handleChange(gapCertificationValues);
+  };
+
+  onDropdownChange = (prop, items) => event => {
+    const { values, handleChange } = this.props;
+
+    const dropdownValues = {
+      ...values,
+      [prop]: items[event.target.value]
+    };
+    handleChange(dropdownValues);
   };
 
   render() {
@@ -41,6 +58,7 @@ class FarmProfileEditGapStatus extends React.PureComponent {
     const map = mapCertificationStepsToLabels();
     const steps = Object.keys(map);
     const labels = Object.values(map);
+    const certificationStates = getPossibleCertificationStates();
 
     const marker = 4;
     return (
@@ -54,7 +72,9 @@ class FarmProfileEditGapStatus extends React.PureComponent {
                 key={labels[index]}
                 label={labels[index]}
                 value={values[step]}
-                onChange={this.onChange(step)}
+                onChange={this.onDropdownChange(step, certificationStates)}
+                onDateChange={this.onChange(`${step}Date`)}
+                date={values[`${step}Date`]}
               />
             ))}
           </div>
@@ -65,7 +85,9 @@ class FarmProfileEditGapStatus extends React.PureComponent {
                 key={labels[marker + index]}
                 label={labels[marker + index]}
                 value={values[step]}
-                onChange={this.onChange(step)}
+                onChange={this.onDropdownChange(step, certificationStates)}
+                onDateChange={this.onChange(`${step}Date`)}
+                date={values[`${step}Date`]}
               />
             ))}
           </div>
