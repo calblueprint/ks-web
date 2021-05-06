@@ -4,7 +4,10 @@ import {
   getAllFarms,
   getFarmById,
   getAllRecentUpdates,
-  getGAPCertificationById
+  getGAPCertificationById,
+  getAllUsers,
+  updateFarm,
+  updateGAPCertification
 } from './airtable/request';
 
 // Helper functions
@@ -22,17 +25,6 @@ export async function getSingleFarm(id) {
   return singleFarm;
 }
 
-export async function getGapCertificationStatus(id) {
-  const status = await getGAPCertificationById(id);
-  return status;
-}
-
-export async function getAllRecentUpdatesByUserType(userType) {
-  let comments = [];
-  comments = await getAllRecentUpdates();
-  return comments.filter(c => c.organization.includes(userType));
-}
-
 export function getCertificationSteps() {
   return [
     'farmReferred',
@@ -47,6 +39,29 @@ export function getCertificationSteps() {
   ];
 }
 
+export async function getGapCertificationStatus(id) {
+  const status = await getGAPCertificationById(id);
+  return status;
+}
+
+export async function getSingleFarmAndGapCertification(id) {
+  let gapStatus = false;
+  let farm;
+  await getSingleFarm(id).then(async res => {
+    farm = res;
+    if (res.gapCertificationId) {
+      gapStatus = await getGapCertificationStatus(res.gapCertificationId);
+    }
+  });
+  return [farm, gapStatus];
+}
+
+export async function getAllRecentUpdatesByUserType(userType) {
+  let comments = [];
+  comments = await getAllRecentUpdates();
+  return comments.filter(c => c.organization.includes(userType));
+}
+
 export function getCertificationLabels() {
   return [
     'Farm\nReferred',
@@ -59,6 +74,10 @@ export function getCertificationLabels() {
     'Internal\nAudit (2)',
     'Group GAP\nCertified!'
   ];
+}
+
+export function getPossibleCertificationStates() {
+  return [' ', 'Incomplete', 'Complete', 'Failed', 'Outdated'];
 }
 
 export function getDefaultCertificationObj() {
@@ -80,6 +99,49 @@ export function mapCertificationStepsToLabels() {
     map[key] = values[idx];
   });
   return map;
+}
+
+export async function getAllGroupGapContacts() {
+  const users = await getAllUsers("SEARCH('NSEVP', {User Types})");
+  const ids = [];
+  const names = [];
+  users.forEach(u => {
+    ids.push(u.id);
+    names.push(u.name);
+  });
+  return [ids, names];
+}
+
+export async function updateFarmAndCertification(
+  oldFarm,
+  newFarm,
+  oldGapStatus,
+  gapStatus
+) {
+  let farmDiff = Object.entries(newFarm).filter(kv => {
+    const [k, v] = kv;
+    return oldFarm[k] !== v;
+  });
+  if (farmDiff) {
+    farmDiff = Object.fromEntries(farmDiff);
+    updateFarm(newFarm.farmId, farmDiff).catch(e => {
+      console.error(e);
+      return false;
+    });
+  }
+
+  let gapDiff = Object.entries(gapStatus).filter(kv => {
+    const [k, v] = kv;
+    return oldGapStatus[k] !== v;
+  });
+  if (gapDiff) {
+    gapDiff = Object.fromEntries(gapDiff);
+    updateGAPCertification(newFarm.gapCertificationId, gapDiff).catch(e => {
+      console.error(e);
+      return false;
+    });
+  }
+  return true;
 }
 
 export function getDateOptions() {
@@ -113,5 +175,7 @@ export default {
   getCertificationLabels,
   getCertificationSteps,
   mapCertificationStepsToLabels,
-  getDefaultCertificationObj
+  getDefaultCertificationObj,
+  getPossibleCertificationStates,
+  updateFarmAndCertification
 };
