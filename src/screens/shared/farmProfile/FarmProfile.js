@@ -34,13 +34,8 @@ class FarmProfile extends React.Component {
   }
 
   render() {
-<<<<<<< HEAD
     const { farm, loading, GAP, GAPContact} = this.state;
-    const { match } = this.props;
-=======
-    const { farm, loading } = this.state;
     const { match, isNSEVP } = this.props;
->>>>>>> a3be652b68c32fda5e548fdc8cf74be6f322cdc4
     const { farmId } = match.params;
 
     if (loading) {
