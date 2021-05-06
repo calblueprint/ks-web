@@ -45,6 +45,7 @@ class Graph extends React.Component {
   }
 
   getGraphProps = type => {
+    const { id } = this.props;
     switch (type) {
       case 'certification':
         return {
@@ -69,7 +70,7 @@ class Graph extends React.Component {
       case 'harvestLogs':
         return {
           label: 'Harvest Logs',
-          graph: <HarvestLogsGraph />
+          graph: <HarvestLogsGraph id={id} />
         };
       default:
         return { label: '', graph: null };

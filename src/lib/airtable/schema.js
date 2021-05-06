@@ -64,7 +64,8 @@ export const Columns = {
     totalHarvestIds: { name: `Total Harvests`, type: `foreignKey-many` },
     gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` },
     commentfromComments: { name: `Comment (from Comments)`, type: `lookup` },
-    hcCompanyName: { name: `HC Company Name`, type: `text` }
+    hcCompanyName: { name: `HC Company Name`, type: `text` },
+    field31: { name: `Field 31`, type: `text` }
   },
   'GAP Certification': {
     id: { name: `ID`, type: `formula` },
@@ -87,10 +88,11 @@ export const Columns = {
     internalAudit2: { name: `Internal Audit (2)`, type: `select` },
     internalAudit2Date: { name: `Internal Audit 2 Date`, type: `date` },
     gapCertified: { name: `GAP Certified`, type: `select` },
-    gapCertificationDate: { name: `GAP Certification Date`, type: `date` },
+    gapCertifiedDate: { name: `GAP Certified Date`, type: `date` },
     farmReferred: { name: `Farm Referred`, type: `select` },
     farmId: { name: `Farm`, type: `foreignKey-one` },
-    ksAffiliated: { name: `KS Affiliated`, type: `lookup` }
+    ksAffiliated: { name: `KS Affiliated`, type: `lookup` },
+    created: { name: `Created`, type: `formula` }
   },
   Comments: {
     id: { name: `ID`, type: `formula` },
@@ -110,7 +112,8 @@ export const Columns = {
     id: { name: `ID`, type: `formula` },
     farmId: { name: `Farm`, type: `foreignKey-one` },
     date: { name: `Date`, type: `date` },
-    crops: { name: `Crops`, type: `text` }
+    crops: { name: `Crops`, type: `text` },
+    created: { name: `Created`, type: `formula` }
   },
   'Total Harvests': {
     id: { name: `ID`, type: `formula` },
