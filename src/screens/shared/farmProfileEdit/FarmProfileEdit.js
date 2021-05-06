@@ -122,7 +122,8 @@ class FarmProfileEdit extends React.Component {
       oldFarm,
       newFarm,
       oldGapStatus,
-      gapStatus
+      gapStatus,
+      user
     );
 
     const comment = { farmId, comment: comments, authorId: user.id };

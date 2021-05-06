@@ -109,7 +109,6 @@ class FarmReferralForm extends React.PureComponent {
       return;
     }
 
-    // todo replace with better func call
     createFarm(newFarm)
       .then(res => {
         defaultGAPCertification.farmId = res;
@@ -118,6 +117,7 @@ class FarmReferralForm extends React.PureComponent {
         createComment(newComment).catch(e => {
           console.error(e);
         });
+
         createGAPCertification(defaultGAPCertification)
           .then(this.setState({ submitted: true }))
           .catch(e => {

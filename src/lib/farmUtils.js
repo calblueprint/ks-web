@@ -9,6 +9,7 @@ import {
   updateFarm,
   updateGAPCertification
 } from './airtable/request';
+import { createRecentUpdateFromCertification } from './gapCertificationUtils';
 
 // Helper functions
 
@@ -85,7 +86,6 @@ export function getDefaultCertificationObj() {
   getCertificationSteps().forEach(step => {
     defaultGAPCertification[step] = 'Incomplete';
   });
-  defaultGAPCertification.gapCertified = false;
   defaultGAPCertification.farmReferredDate = Date.now();
   return defaultGAPCertification;
 }
@@ -116,7 +116,8 @@ export async function updateFarmAndCertification(
   oldFarm,
   newFarm,
   oldGapStatus,
-  gapStatus
+  gapStatus,
+  author
 ) {
   let farmDiff = Object.entries(newFarm).filter(kv => {
     const [k, v] = kv;
@@ -136,10 +137,18 @@ export async function updateFarmAndCertification(
   });
   if (gapDiff) {
     gapDiff = Object.fromEntries(gapDiff);
-    updateGAPCertification(newFarm.gapCertificationId, gapDiff).catch(e => {
-      console.error(e);
-      return false;
-    });
+    updateGAPCertification(newFarm.gapCertificationId, gapDiff)
+      .then(() => {
+        createRecentUpdateFromCertification(
+          gapDiff,
+          newFarm.farmName,
+          author.id
+        );
+      })
+      .catch(e => {
+        console.error(e);
+        return false;
+      });
   }
   return true;
 }
