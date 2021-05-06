@@ -76,6 +76,7 @@ class App extends React.Component {
                 exact
                 path="/farms"
                 component={FarmSearch}
+                isNSEVP={isNSEVP}
                 isAuthorized={signedIn}
               />
               <AuthenticatedRoute
