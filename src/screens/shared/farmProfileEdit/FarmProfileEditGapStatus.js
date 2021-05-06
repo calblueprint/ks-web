@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import {
   mapCertificationStepsToLabels,
   getPossibleCertificationStates
-} from '@lib/farmUtils';
+} from '@lib/gapCertificationUtils';
 import EditGapStatusDropdown from './components/EditGapStatusDropdown';
 
 const styles = {

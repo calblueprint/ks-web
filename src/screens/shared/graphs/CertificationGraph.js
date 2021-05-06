@@ -7,7 +7,7 @@ import {
   VictoryLabel
 } from 'victory';
 
-import { getCertificationLabels } from '@lib/farmUtils';
+import { getCertificationLabels } from '@lib/gapCertificationUtils';
 
 const fontProps = {
   fontSize: 8,

@@ -15,7 +15,7 @@ import {
   createFarm,
   createGAPCertification
 } from '@lib/airtable/request';
-import { getDefaultCertificationObj } from '@lib/farmUtils';
+import { getDefaultCertificationObj } from '@lib/gapCertificationUtils';
 
 const styles = {
   root: {

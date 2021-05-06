@@ -1,4 +1,9 @@
-import { createManyRecentUpdates } from './airtable/request';
+import {
+  createManyRecentUpdates,
+  getAllUsers,
+  getGAPCertificationById,
+  getAllRecentUpdates
+} from './airtable/request';
 
 const certificationLabelToCompletedMessage = {
   farmReferred: 'Referred FARM to the Group GAP program.',
@@ -11,6 +16,74 @@ const certificationLabelToCompletedMessage = {
   internalAudit2: 'FARM completed their second internal audit',
   gapCertified: 'FARM is successfully GAP certified!'
 };
+
+export function getCertificationLabels() {
+  return [
+    'Farm\nReferred',
+    'Farm\nApplied',
+    'Farm\nAccepted',
+    'Farm Food\nSafety Plan',
+    'Risk\nAssessment',
+    'Mock\nRecall',
+    'Internal\nAudit (1)',
+    'Internal\nAudit (2)',
+    'Group GAP\nCertified!'
+  ];
+}
+
+export function getCertificationSteps() {
+  return [
+    'farmReferred',
+    'farmApplied',
+    'farmAccepted',
+    'farmFoodSafetyPlan',
+    'riskAssessment',
+    'mockRecall',
+    'internalAudit1',
+    'internalAudit2',
+    'gapCertified'
+  ];
+}
+
+export function getPossibleCertificationStates() {
+  return [' ', 'Incomplete', 'Complete', 'Failed', 'Outdated'];
+}
+
+export function getDefaultCertificationObj() {
+  const defaultGAPCertification = {};
+  getCertificationSteps().forEach(step => {
+    defaultGAPCertification[step] = 'Incomplete';
+  });
+  defaultGAPCertification.farmReferredDate = Date.now();
+  return defaultGAPCertification;
+}
+
+export function mapCertificationStepsToLabels() {
+  const keys = getCertificationSteps();
+  const values = getCertificationLabels();
+
+  const map = {};
+  keys.forEach((key, idx) => {
+    map[key] = values[idx];
+  });
+  return map;
+}
+
+export async function getAllGroupGapContacts() {
+  const users = await getAllUsers("SEARCH('NSEVP', {User Types})");
+  const ids = [];
+  const names = [];
+  users.forEach(u => {
+    ids.push(u.id);
+    names.push(u.name);
+  });
+  return [ids, names];
+}
+
+export async function getGapCertificationStatus(id) {
+  const status = await getGAPCertificationById(id);
+  return status;
+}
 
 export function createRecentUpdateFromCertification(
   gapCertificationChanges,
@@ -37,6 +110,19 @@ export function createRecentUpdateFromCertification(
   return res;
 }
 
+export async function getAllRecentUpdatesByUserType(userType) {
+  let comments = [];
+  comments = await getAllRecentUpdates();
+  return comments.filter(c => c.organization.includes(userType));
+}
+
 export default {
-  certificationLabelToCompletedMessage
+  getCertificationLabels,
+  getCertificationSteps,
+  getPossibleCertificationStates,
+  getDefaultCertificationObj,
+  mapCertificationStepsToLabels,
+  getAllGroupGapContacts,
+  getGapCertificationStatus,
+  getAllRecentUpdatesByUserType
 };

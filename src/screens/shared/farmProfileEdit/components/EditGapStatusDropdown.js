@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Dropdown from '@components/Dropdown';
 import TextField from '@material-ui/core/TextField';
-import { getPossibleCertificationStates } from '@lib/farmUtils';
+import { getPossibleCertificationStates } from '@lib/gapCertificationUtils';
 
 const styles = {
   root: {

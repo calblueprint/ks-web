@@ -6,9 +6,10 @@ import BackButton from '@components/BackButton';
 
 import {
   getSingleFarmAndGapCertification,
-  getAllGroupGapContacts,
   updateFarmAndCertification
 } from '@lib/farmUtils';
+
+import { getAllGroupGapContacts } from '@lib/gapCertificationUtils';
 
 import {
   validateFarmEdit,
