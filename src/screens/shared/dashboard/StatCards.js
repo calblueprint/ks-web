@@ -130,12 +130,12 @@ class StatCards extends React.Component {
      let [start, end] = getWeekDates();
 
      console.log(start.toLocaleString(), end.toLocaleString());
-     console.log(recentHarvests)
-     console.log(new Date(recentHarvests[0].date).toLocaleString)
+     console.log(new Date(recentHarvests[0].date.toLocaleString()))
+     //console.log(new Date(recentHarvests[0].date).toLocaleString)
     // //console.log(new Date(recentHarvests.date[0]).toLocaleDateString)
 
-    // const time7daysAgo = recentHarvests.filter(farm => new Date(farm.date).toLocaleDateString >= +start && +farm.date < +end);
-    // console.log(recentHarvests, time7daysAgo);
+     const time7daysAgo = recentHarvests.filter(farm => new Date(farm.date).toLocaleString >= +start && +new Date(farm.date).toLocaleString < +end);
+     console.log(recentHarvests, time7daysAgo);
 
     let totalHarvestsPounds = 0;
     for (let i = 0; i < totalHarvests.length; i += 1) {
