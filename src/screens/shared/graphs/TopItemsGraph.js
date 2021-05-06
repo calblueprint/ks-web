@@ -14,9 +14,10 @@ class TopItemsGraph extends React.PureComponent {
 
   async componentDidMount() {
     const { farm } = this.props;
-    const totalHarvest = await Promise.all(
-      farm.totalHarvestIds.map(await getTotalHarvest)
-    );
+    const totalHarvest =
+      farm.totalHarvestIds === undefined
+        ? []
+        : await Promise.all(farm.totalHarvestIds.map(await getTotalHarvest));
     let cropsStr = '';
     let quantitiesStr = '';
     for (let h = 0; h < totalHarvest.length; h += 1) {
@@ -29,8 +30,11 @@ class TopItemsGraph extends React.PureComponent {
       quantitiesStr += quantities;
     }
     console.log(cropsStr);
-    const quantitiesFloats = quantitiesStr.match(/\d+(?:\.\d+)?/g).map(Number);
-
+    console.log(quantitiesStr);
+    const quantitiesFloats =
+      quantitiesStr === ''
+        ? []
+        : quantitiesStr.match(/\d+(?:\.\d+)?/g).map(Number);
     this.setState({ cropsStr, quantitiesFloats });
   }
 
