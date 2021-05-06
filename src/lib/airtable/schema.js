@@ -64,8 +64,7 @@ export const Columns = {
     totalHarvestIds: { name: `Total Harvests`, type: `foreignKey-many` },
     gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` },
     commentfromComments: { name: `Comment (from Comments)`, type: `lookup` },
-    hcCompanyName: { name: `HC Company Name`, type: `text` },
-    field31: { name: `Field 31`, type: `text` }
+    hcCompanyName: { name: `HC Company Name`, type: `text` }
   },
   'GAP Certification': {
     id: { name: `ID`, type: `formula` },
