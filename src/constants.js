@@ -4,7 +4,7 @@ export default {
   NSEVP_USER: 'NSEVP',
 
   // ROUTES
-  ABOUT_ROUTE: '/',
+  ABOUT_ROUTE: '/about',
   FARM_PROFILE_ROUTE: '/farm/:farmId',
   FARM_PROFILE_EDIT_ROUTE: '/farm/:farmId/edit',
   FARM_SEARCH_ROUTE: '/farms',
