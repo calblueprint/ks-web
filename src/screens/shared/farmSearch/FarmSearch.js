@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { getAllFarmsForFarmSearch } from '@lib/farmUtils';
+import { getAllFarms } from '@lib/airtable/request';
+import { getAllKSAffiliatedFarms } from '@lib/farmUtils';
 
 import '@styles/FarmSearch.css';
-import SearchIcon from '@assets/search-icon.png';
 
+import SearchIcon from '@assets/search-icon.png';
 import FarmCard from './FarmCard';
 
 class FarmSearch extends React.PureComponent {
@@ -18,7 +19,10 @@ class FarmSearch extends React.PureComponent {
   }
 
   async componentDidMount() {
-    const farms = await getAllFarmsForFarmSearch();
+    const { isNSEVP } = this.props;
+    const farms = isNSEVP
+      ? await getAllFarms()
+      : await getAllKSAffiliatedFarms();
     this.setState({ farms, filteredFarms: farms });
   }
 
@@ -40,6 +44,7 @@ class FarmSearch extends React.PureComponent {
 
   render() {
     const { filteredFarms } = this.state;
+
     return (
       <div className="farm-search__body">
         <div className="farm-search__header">

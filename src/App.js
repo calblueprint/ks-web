@@ -70,8 +70,6 @@ class App extends React.Component {
                 component={HomeComponent}
                 isNSEVP={isNSEVP}
               />
-
-              {/* TEMP ROUTES */}
               <AuthenticatedRoute
                 exact
                 path={Constants.FARM_SEARCH_ROUTE}
@@ -107,14 +105,12 @@ class App extends React.Component {
                 component={FarmReferralForm}
                 isAuthorized={signedIn && !isNSEVP}
               />
-
               <AuthenticatedRoute
                 exact
                 path={Constants.SIGNUP_ROUTE}
                 component={SignUp}
                 isAuthorized={!signedIn}
               />
-
               <SuspenseRoute path="*" component={ErrorPage} />
             </Switch>
           </div>

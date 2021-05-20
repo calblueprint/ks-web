@@ -9,12 +9,13 @@ import {
 } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
-import { getAllFarmsForFarmSearch } from '@lib/farmUtils';
 import {
-  getAllGAPCertificationsForStatCard,
-  getAllTotalHarvestsForStatCard,
-  getAllRecentHarvestLogsData
-} from '@lib/dashUtils';
+  getAllFarms,
+  getAllGAPCertifications,
+  getAllTotalHarvests,
+  getAllRecentHarvestLogs
+} from '@lib/airtable/request';
+import { getAllKSAffiliatedFarms } from '@lib/farmUtils';
 
 const styles = {
   root: {
@@ -58,25 +59,32 @@ class StatCards extends React.Component {
   }
 
   async componentDidMount() {
-    const farms = await getAllFarmsForFarmSearch();
-    const GAPCertification = await getAllGAPCertificationsForStatCard();
-    const totalHarvests = await getAllTotalHarvestsForStatCard();
-    const recentHarvests = await getAllRecentHarvestLogsData();
-    const KSFarms = farms.filter(farm => farm.ksAffiliated);
+    const farms = await getAllFarms();
+    const GAPCertifications = await getAllGAPCertifications();
+    const totalHarvests = await getAllTotalHarvests();
+    const recentHarvests = await getAllRecentHarvestLogs();
+    const KSFarms = await getAllKSAffiliatedFarms();
     const KSGAP = [];
-    for (let i = 0; i < GAPCertification.length; i += 1) {
-      if ('ksAffiliated' in GAPCertification[i]) {
-        if (GAPCertification[i].ksAffiliated.includes(true)) {
-          KSGAP.push(GAPCertification[i]);
+
+    console.log(GAPCertifications);
+
+    // GAPCertifications.forEach(gapCert => {
+
+    // });
+    console.log(GAPCertifications);
+    for (let i = 0; i < GAPCertifications.length; i += 1) {
+      if ('ksAffiliated' in GAPCertifications[i]) {
+        if (GAPCertifications[i].ksAffiliated.includes(true)) {
+          KSGAP.push(GAPCertifications[i]);
         }
       }
     }
 
-    const numGAPCertified = GAPCertification.filter(farm => farm.gapCertified);
+    const numGAPCertified = GAPCertifications.filter(farm => farm.gapCertified);
 
     const numKSGAPCertified = KSGAP.filter(farm => farm.gapCertified);
 
-    const numFarmReferred = GAPCertification.filter(
+    const numFarmReferred = GAPCertifications.filter(
       farm => farm.farmReferred === 'Complete'
     ).length;
 
@@ -84,7 +92,7 @@ class StatCards extends React.Component {
       farm => farm.farmAccepted === 'Complete'
     ).length;
 
-    const numGAPApplied = GAPCertification.filter(
+    const numGAPApplied = GAPCertifications.filter(
       farm => farm.farmApplied === 'Complete'
     );
 
@@ -118,7 +126,7 @@ class StatCards extends React.Component {
       KSGAP,
       totalHarvests,
       recentHarvests,
-      GAPCertification,
+      GAPCertifications,
       numFarmReferred,
       numKSGAPAccepted,
       percentKSGAPCertified,
@@ -130,54 +138,64 @@ class StatCards extends React.Component {
     });
   }
 
-  getCardStats = isNSEVP => {
+  getNSEVPStatCards = () => {
     const {
-      numFarmReferred,
-      numKSGAPAccepted,
-      percentKSGAPCertified,
-      percentKSGAPApplied,
       percentGAPCertified,
       NSEVPHarvestFarms,
       totalHarvestsPounds,
       percentGAPApplied
     } = this.state;
+
     const iconProps = {
       fontSize: 'large',
       style: { color: 'var(--ks-dark-blue)' }
     };
 
-    if (isNSEVP) {
-      return [
-        {
-          icon: <Check {...iconProps} />,
-          name: 'GAP Certification',
-          number: percentGAPCertified,
-          unit: ' %',
-          description: 'of farms in the Group GAP program are GAP Certified'
-        },
-        {
-          icon: <WbSunny {...iconProps} />,
-          name: 'Harvesting Farms',
-          number: NSEVPHarvestFarms,
-          unit: ' farms',
-          description: 'are harvesting this week'
-        },
-        {
-          icon: <LocalShipping {...iconProps} />,
-          name: 'Total Harvest',
-          number: totalHarvestsPounds,
-          unit: ' lbs',
-          description: 'of harvest to date'
-        },
-        {
-          icon: <Assignment {...iconProps} />,
-          name: 'Group GAP Applications',
-          number: percentGAPApplied,
-          unit: '%',
-          description: 'of referred farms have completed an application'
-        }
-      ];
-    }
+    return [
+      {
+        icon: <Check {...iconProps} />,
+        name: 'GAP Certification',
+        number: percentGAPCertified,
+        unit: ' %',
+        description: 'of farms in the Group GAP program are GAP Certified'
+      },
+      {
+        icon: <WbSunny {...iconProps} />,
+        name: 'Harvesting Farms',
+        number: NSEVPHarvestFarms,
+        unit: ' farms',
+        description: 'are harvesting this week'
+      },
+      {
+        icon: <LocalShipping {...iconProps} />,
+        name: 'Total Harvest',
+        number: totalHarvestsPounds,
+        unit: ' lbs',
+        description: 'of harvest to date'
+      },
+      {
+        icon: <Assignment {...iconProps} />,
+        name: 'Group GAP Applications',
+        number: percentGAPApplied,
+        unit: '%',
+        description: 'of referred farms have completed an application'
+      }
+    ];
+  };
+
+  getKSStatCards = () => {
+    const {
+      numFarmReferred,
+      numKSGAPAccepted,
+      percentKSGAPCertified,
+      percentKSGAPApplied
+    } = this.state;
+
+    const iconProps = {
+      fontSize: 'large',
+      style: { color: 'var(--ks-dark-blue)' }
+    };
+
     return [
       {
         icon: <Chat {...iconProps} />,
@@ -212,16 +230,18 @@ class StatCards extends React.Component {
 
   render() {
     const { classes, isNSEVP } = this.props;
-    const stats = this.getCardStats(isNSEVP);
+    const statCards = isNSEVP
+      ? this.getNSEVPStatCards()
+      : this.getKSStatCards();
 
     return (
       <div className={classes.root}>
-        {stats.map(stat => (
-          <div className={classes.card} key={stat.name}>
-            {stat.icon}
-            <h3>{stat.name}</h3>
-            <h2>{`${stat.number} ${stat.unit}`}</h2>
-            <p>{stat.description}</p>
+        {statCards.map(statCard => (
+          <div className={classes.card} key={statCard.name}>
+            {statCard.icon}
+            <h3>{statCard.name}</h3>
+            <h2>{`${statCard.number} ${statCard.unit}`}</h2>
+            <p>{statCard.description}</p>
           </div>
         ))}
       </div>

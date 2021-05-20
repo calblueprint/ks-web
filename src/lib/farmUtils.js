@@ -12,12 +12,9 @@ import {
 
 // Helper functions
 
-// TODO: Nick is too lazy to read on the proper way to export this function
-// I don't think I should be using the `default` keyword
-// Returns a list of farms to render for FarmSearch page.
-export async function getAllFarmsForFarmSearch() {
+export async function getAllKSAffiliatedFarms() {
   const farms = await getAllFarms();
-  return farms;
+  return farms.filter(farm => farm.ksAffiliated);
 }
 
 export async function getSingleFarm(id) {
@@ -39,18 +36,13 @@ export function getCertificationSteps() {
   ];
 }
 
-export async function getGapCertificationStatus(id) {
-  const status = await getGAPCertificationById(id);
-  return status;
-}
-
 export async function getSingleFarmAndGapCertification(id) {
   let gapStatus = false;
   let farm;
   await getSingleFarm(id).then(async res => {
     farm = res;
     if (res.gapCertificationId) {
-      gapStatus = await getGapCertificationStatus(res.gapCertificationId);
+      gapStatus = await getGAPCertificationById(res.gapCertificationId);
     }
   });
   return [farm, gapStatus];
@@ -169,8 +161,6 @@ export default {
   getDateOptions,
   getPrevMonths,
   getSingleFarm,
-  getAllFarmsForFarmSearch,
-  getGapCertificationStatus,
   getAllRecentUpdatesByUserType,
   getCertificationLabels,
   getCertificationSteps,
