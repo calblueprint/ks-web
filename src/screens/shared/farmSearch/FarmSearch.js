@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getAllFarms } from '@lib/airtable/request';
-import { getAllKSAffiliatedFarms } from '@lib/farmUtils';
+import { getAllFarmsForKS } from '@lib/farmUtils';
 
 import '@styles/FarmSearch.css';
 
@@ -20,9 +20,7 @@ class FarmSearch extends React.PureComponent {
 
   async componentDidMount() {
     const { isNSEVP } = this.props;
-    const farms = isNSEVP
-      ? await getAllFarms()
-      : await getAllKSAffiliatedFarms();
+    const farms = isNSEVP ? await getAllFarms() : await getAllFarmsForKS();
     this.setState({ farms, filteredFarms: farms });
   }
 

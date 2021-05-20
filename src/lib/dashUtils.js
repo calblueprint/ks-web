@@ -1,5 +1,6 @@
 import {
   getGAPCertificationById,
+  getAllGAPCertifications,
   getTotalHarvestById,
   getRecentHarvestLogById
 } from './airtable/request';
@@ -19,8 +20,16 @@ export async function getSingleRecentHarvestLogById(id) {
   return singleRecentHarvest;
 }
 
+export async function getAllGAPCertificationsForKS() {
+  const GAPCertifications = await getAllGAPCertifications();
+  return GAPCertifications.filter(
+    gap => gap.ksAffiliated && gap.ksAffiliated[0]
+  );
+}
+
 export default {
   getSingleGAPCertfication,
   getSingleTotalHarvestById,
-  getSingleRecentHarvestLogById
+  getSingleRecentHarvestLogById,
+  getAllGAPCertificationsForKS
 };

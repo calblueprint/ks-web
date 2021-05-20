@@ -12,7 +12,7 @@ import {
 
 // Helper functions
 
-export async function getAllKSAffiliatedFarms() {
+export async function getAllFarmsForKS() {
   const farms = await getAllFarms();
   return farms.filter(farm => farm.ksAffiliated);
 }

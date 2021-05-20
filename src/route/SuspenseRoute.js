@@ -7,7 +7,6 @@ import LoadingComponent from './Loading';
 class SuspenseRoute extends React.PureComponent {
   render() {
     // TODO: Replace loading spinner with suspense fallback
-    console.log(this.props);
     const {
       component: Component,
       isNSEVP,
