@@ -97,7 +97,7 @@ class FarmCertificationStepper extends React.Component {
               >
                 <h3 className={classes.label}>{label}</h3>
                 <h3 className={classes.date}>Date:</h3>
-                <h3 className={classes.date}>3/24/2021</h3>
+                <h3 className={classes.date}>3/25/2021</h3>
               </StepLabel>
             </Step>
           ))}

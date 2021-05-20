@@ -27,13 +27,13 @@ class FarmProfile extends React.Component {
     const { match } = this.props;
     const { farmId } = match.params;
     const farm = await getSingleFarm(farmId);
-    //const GAPContact = await getUserById(farm.groupGapContactId);
+    const GAPContact = await getUserById(farm.groupGapContactId);
     const GAP = await getGapCertificationStatus(farm.gapCertificationId);
-    this.setState({ farm, farmId, loading: false, GAP });
+    this.setState({ farm, farmId, loading: false, GAP, GAPContact });
   }
 
   render() {
-    const { farm, loading, GAP } = this.state;
+    const { farm, loading, GAP, GAPContact } = this.state;
     const { match, isNSEVP } = this.props;
     const { farmId } = match.params;
 
@@ -57,7 +57,7 @@ class FarmProfile extends React.Component {
         </div>
         <div className="farm-profile__section">
           <div className="farm-profile__left-col">
-            <FarmContactCard farm={farm} />
+            <FarmContactCard farm={farm} GAPContact={GAPContact} />
           </div>
           <div className="farm-profile__right-col">
             <FarmCertificationStepper farm={farm} GAP={GAP} />
