@@ -27,7 +27,7 @@ export async function getSingleTotalHarvestById(id) {
   return singleHarvest;
 }
 
-export async function getAllRecentHarvestLogsForStatCard() {
+export async function getAllRecentHarvestLogsData() {
   const AllHarvests = await getAllRecentHarvestLogs();
   return AllHarvests;
 }
@@ -42,6 +42,6 @@ export default {
   getAllGAPCertificationsForStatCard,
   getAllTotalHarvestsForStatCard,
   getSingleTotalHarvestById,
-  getAllRecentHarvestLogsForStatCard,
+  getAllRecentHarvestLogsForStatCard: getAllRecentHarvestLogsData,
   getSingleRecentHarvestLogById
 };
