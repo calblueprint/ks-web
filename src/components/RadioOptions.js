@@ -19,13 +19,13 @@ const useStyles = makeStyles({
 });
 
 export default function RadioOptions(props) {
-  const { options, title, value, id, onChange } = props;
+  const { options, title, value, id, onClick } = props;
   const classes = useStyles();
 
   return (
     <FormControl>
       {title ? <FormLabel>{title}</FormLabel> : null}
-      <RadioGroup aria-label={id} name={id} value={value} onChange={onChange}>
+      <RadioGroup aria-label={id} name={id} value={value}>
         {options.map(option => (
           <FormControlLabel
             key={option}
@@ -33,6 +33,7 @@ export default function RadioOptions(props) {
             label={option}
             control={
               <Radio
+                onClick={onClick}
                 classes={{
                   root: classes.radio,
                   checked: classes.checked
