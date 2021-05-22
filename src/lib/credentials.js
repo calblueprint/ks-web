@@ -11,11 +11,7 @@ const { KS_USER, NSEVP_USER } = constants;
 
 const Credentials = {
   KS: 'K',
-  NSEVP: 'N',
-  ADMIN: 'A',
-  // GENERAL: 'G',
-  // SUBSCRIBER: 'S',
-  SUPERADMIN: 'X'
+  NSEVP: 'N'
 };
 
 // Gets credentials for a given user
@@ -24,15 +20,6 @@ function getCredentials(user) {
 
   if (user == null) {
     return credentials;
-  }
-
-  // Assumes that admin is only user of one project group
-  if (user.adminOfId && user.adminOfId.length >= 0) {
-    credentials += Credentials.ADMIN;
-  }
-
-  if (user.isSuperAdmin) {
-    credentials += Credentials.SUPERADMIN;
   }
 
   const { userTypes } = user;
@@ -53,10 +40,6 @@ function isSignedIn(credentials) {
   return credentials !== '';
 }
 
-function isAdmin(credentials) {
-  return credentials.includes(Credentials.ADMIN);
-}
-
 function isKSUser(credentials) {
   return credentials.includes(Credentials.KS);
 }
@@ -65,16 +48,4 @@ function isNSEVPUser(credentials) {
   return credentials.includes(Credentials.NSEVP);
 }
 
-function isSuperAdmin(credentials) {
-  return credentials.includes(Credentials.SUPERADMIN);
-}
-
-export {
-  getCredentials,
-  isAdmin,
-  isKSUser,
-  isNSEVPUser,
-  isSuperAdmin,
-  isSignedIn,
-  Credentials
-};
+export { getCredentials, isKSUser, isNSEVPUser, isSignedIn, Credentials };

@@ -18,7 +18,7 @@ const styles = {
 };
 class FarmGraphsTable extends React.PureComponent {
   render() {
-    const { classes } = this.props;
+    const { classes, id } = this.props;
     return (
       <>
         <div className={classes.graph}>
@@ -30,7 +30,7 @@ class FarmGraphsTable extends React.PureComponent {
         </div>
         <div className={classes.divider} />
         <div className="farm-graph-container">
-          <Graph type="harvestLogs" />
+          <Graph type="harvestLogs" id={id} />
         </div>
       </>
     );

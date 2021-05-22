@@ -13,7 +13,7 @@ import { getAllFarmsForFarmSearch } from '@lib/farmUtils';
 import {
   getAllGAPCertificationsForStatCard,
   getAllTotalHarvestsForStatCard,
-  getAllRecentHarvestLogsForStatCard
+  getAllRecentHarvestLogsData
 } from '@lib/dashUtils';
 
 const styles = {
@@ -61,7 +61,7 @@ class StatCards extends React.Component {
     const farms = await getAllFarmsForFarmSearch();
     const GAPCertification = await getAllGAPCertificationsForStatCard();
     const totalHarvests = await getAllTotalHarvestsForStatCard();
-    const recentHarvests = await getAllRecentHarvestLogsForStatCard();
+    const recentHarvests = await getAllRecentHarvestLogsData();
     const KSFarms = farms.filter(farm => farm.ksAffiliated);
     const KSGAP = [];
     for (let i = 0; i < GAPCertification.length; i += 1) {

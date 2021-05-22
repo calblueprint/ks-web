@@ -1,4 +1,6 @@
 import React from 'react';
+import Constants from '@root/constants';
+
 import { Link } from 'react-router-dom';
 import Gear from '../assets/settingsIcon.svg';
 import { logoutUser } from '../lib/airlock/airlock';
@@ -21,12 +23,12 @@ class SettingsDropdown extends React.PureComponent {
         <img className="nav-item-gear" alt="nav item gear" src={Gear} />
         <span className="dropdown-content">
           <div className="settings-dropdown-logout">
-            <Link to="/about" className="dropdown-link">
+            <Link to={Constants.ABOUT_ROUTE} className="dropdown-link">
               About
             </Link>
           </div>
           <div className="settings-dropdown-logout">
-            <Link to="/profile" className="dropdown-link">
+            <Link to={Constants.PROFILE_ROUTE} className="dropdown-link">
               Settings
             </Link>
           </div>
