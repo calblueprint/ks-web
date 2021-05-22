@@ -197,13 +197,6 @@ class StatCards extends React.Component {
         description: 'referred to Group GAP'
       },
       {
-        icon: <Assignment {...iconProps} />,
-        name: 'Group GAP Applications',
-        number: percentKSGAPApplied,
-        unit: '%',
-        description: 'of referred farms have completed an application'
-      },
-      {
         icon: <WbSunny {...iconProps} />,
         name: 'Group GAP Acceptances',
         number: numKSGAPAccepted,
@@ -216,6 +209,13 @@ class StatCards extends React.Component {
         number: percentKSGAPCertified,
         unit: '%',
         description: 'of KS farms are GAP certified'
+      },
+      {
+        icon: <Assignment {...iconProps} />,
+        name: 'Group GAP Applications',
+        number: percentKSGAPApplied,
+        unit: '%',
+        description: 'of referred farms have completed an application'
       }
     ];
   };

@@ -128,7 +128,7 @@ class SignUp extends React.PureComponent {
             </div>
             <div className="flex row sign-up-dropdown">
               <Dropdown
-                items={['', 'KS', 'NSEVP']}
+                items={['KS', 'NSEVP']}
                 label="Organization"
                 onChange={this.handleDropdownChange(['', 'KS', 'NSEVP'])}
                 value={userTypesIndex || 0}
