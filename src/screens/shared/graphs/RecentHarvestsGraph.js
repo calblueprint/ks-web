@@ -1,5 +1,5 @@
 import React from 'react';
-import { getPrevMonths } from '@lib/farmUtils';
+import { getPrevMonths } from '@lib/utils';
 
 import FarmProfileGraph from './FarmProfileGraph';
 

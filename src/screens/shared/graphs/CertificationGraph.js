@@ -7,7 +7,10 @@ import {
   VictoryLabel
 } from 'victory';
 
-import { getCertificationLabels } from '@lib/farmUtils';
+import {
+  // getAllGAPCertificationsForKS,
+  getCertificationLabels
+} from '@lib/utils';
 
 const fontProps = {
   fontSize: 8,
@@ -32,7 +35,20 @@ const axisStyles = {
 class CertificationGraph extends React.PureComponent {
   getData = () => {
     const labels = getCertificationLabels();
-    const values = [10, 7, 5, 8, 11, 4, 3, 9, 7];
+    const values = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+    // const steps = getCertificationSteps();
+    // const GAPCertifications = await getAllGAPCertificationsForKS();
+    // const valueDict = {};
+
+    // // For each GAP Certification record,
+    // GAPCertifications.forEach(gap => {
+    //   steps.forEach(step => {
+    //     if (farm[step] === 'Complete') {
+
+    //     }
+    //   })
+    // });
 
     return labels.map((label, index) => ({ x: label, y: values[index] }));
   };

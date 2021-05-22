@@ -15,7 +15,7 @@ import {
   getAllTotalHarvests,
   getAllRecentHarvestLogs
 } from '@lib/airtable/request';
-import { getAllGAPCertificationsForKS } from '@lib/dashUtils';
+import { getAllGAPCertificationsForKS } from '@lib/utils';
 
 const styles = {
   root: {

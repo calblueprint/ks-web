@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getAllFarms } from '@lib/airtable/request';
-import { getAllFarmsForKS } from '@lib/farmUtils';
+import { getAllFarmsForKS } from '@lib/utils';
 
 import '@styles/FarmSearch.css';
 

@@ -8,7 +8,7 @@ import {
   getSingleFarmAndGapCertification,
   getAllGroupGapContacts,
   updateFarmAndCertification
-} from '@lib/farmUtils';
+} from '@lib/utils';
 
 import {
   validateFarmEdit,

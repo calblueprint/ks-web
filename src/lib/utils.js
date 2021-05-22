@@ -4,6 +4,7 @@ import {
   getAllFarms,
   getFarmById,
   getAllRecentUpdates,
+  getAllGAPCertifications,
   getGAPCertificationById,
   getAllUsers,
   updateFarm,
@@ -17,9 +18,17 @@ export async function getAllFarmsForKS() {
   return farms.filter(farm => farm.ksAffiliated);
 }
 
-export async function getSingleFarm(id) {
-  const singleFarm = await getFarmById(id);
-  return singleFarm;
+export async function getAllGAPCertificationsForKS() {
+  const GAPCertifications = await getAllGAPCertifications();
+  return GAPCertifications.filter(
+    gap => gap.ksAffiliated && gap.ksAffiliated[0]
+  );
+}
+
+export async function getAllRecentUpdatesByUserType(userType) {
+  let comments = [];
+  comments = await getAllRecentUpdates();
+  return comments.filter(c => c.organization.includes(userType));
 }
 
 export function getCertificationSteps() {
@@ -39,19 +48,13 @@ export function getCertificationSteps() {
 export async function getSingleFarmAndGapCertification(id) {
   let gapStatus = false;
   let farm;
-  await getSingleFarm(id).then(async res => {
+  await getFarmById(id).then(async res => {
     farm = res;
     if (res.gapCertificationId) {
       gapStatus = await getGAPCertificationById(res.gapCertificationId);
     }
   });
   return [farm, gapStatus];
-}
-
-export async function getAllRecentUpdatesByUserType(userType) {
-  let comments = [];
-  comments = await getAllRecentUpdates();
-  return comments.filter(c => c.organization.includes(userType));
 }
 
 export function getCertificationLabels() {
@@ -160,7 +163,7 @@ export function getPrevMonths(n) {
 export default {
   getDateOptions,
   getPrevMonths,
-  getSingleFarm,
+  getAllGAPCertificationsForKS,
   getAllRecentUpdatesByUserType,
   getCertificationLabels,
   getCertificationSteps,
