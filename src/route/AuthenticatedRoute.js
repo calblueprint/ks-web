@@ -5,13 +5,19 @@ import { connect } from 'react-redux';
 
 class AuthenticatedRoute extends React.PureComponent {
   render() {
-    const { component: Component, user, isAuthorized, ...rest } = this.props;
+    const {
+      component: Component,
+      user,
+      isAuthorized,
+      isNSEVP,
+      ...rest
+    } = this.props;
     return (
       <Route
         {...rest}
         render={props =>
           isAuthorized ? (
-            <Component user={user} {...props} />
+            <Component user={user} isNSEVP={isNSEVP} {...props} />
           ) : (
             <Redirect to={{ pathname: '/', state: { from: props.location } }} />
           )

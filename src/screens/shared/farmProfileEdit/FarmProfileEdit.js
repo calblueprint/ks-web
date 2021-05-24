@@ -8,13 +8,13 @@ import {
   getSingleFarmAndGapCertification,
   getAllGroupGapContacts,
   updateFarmAndCertification
-} from '@lib/farmUtils';
+} from '@lib/utils';
 
 import {
   validateFarmEdit,
   createFalseDict,
   farmFieldsToValidate
-} from '@lib/utils';
+} from '@lib/validationUtils';
 import { createComment } from '@lib/airtable/request';
 import FarmProfileEditForm from './FarmProfileEditForm';
 import FarmProfileEditDropdown from './FarmProfileEditDropdown';

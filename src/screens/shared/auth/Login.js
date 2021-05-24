@@ -73,7 +73,7 @@ class Login extends React.Component {
       <div className="center card flex column">
         <h1 className="t-center login-header">Welcome back!</h1>
         <br />
-        <form onSubmit={this.handleSubmit} className="flex column ">
+        <form onSubmit={this.handleSubmit} className="flex column">
           <div className="w-100 login-input-mb">
             <label className="login-label" htmlFor="email">
               Email
@@ -83,10 +83,10 @@ class Login extends React.Component {
               placeholder="Email address"
               onChange={this.handleEmailChange}
               defaultValue={email}
-              className={` input-gray ${this.toggleValidColor(showLoginError)}`}
+              className={`input-gray ${this.toggleValidColor(showLoginError)}`}
             />
           </div>
-          <div className="w-100 ">
+          <div className="w-100">
             <label className="login-label" htmlFor="email">
               Password
             </label>
@@ -99,7 +99,7 @@ class Login extends React.Component {
               className={` input-gray ${this.toggleValidColor(showLoginError)}`}
             />
           </div>
-          <div className=" t-center">
+          <div className="t-center">
             <button
               type="submit"
               className="btn btn--rounded btn--ks-blue btn--size12 login-button"

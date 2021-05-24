@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Step, StepLabel, Stepper } from '@material-ui/core';
 import StatusIcon from '@components/StatusIcon';
 
-import { getCertificationLabels } from '@lib/farmUtils';
+import { getCertificationLabels } from '@lib/utils';
 
 const styles = {
   root: {
