@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import { getAllRecentHarvestLogsData } from '@lib/dashUtils';
+import { getAllRecentHarvestLogs } from '@lib/airtable/request';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import { Button } from '@material-ui/core';
@@ -55,7 +55,7 @@ class HarvestLogsGraph extends React.PureComponent {
 
   getData = async () => {
     const { id } = this.props;
-    let data = await getAllRecentHarvestLogsData();
+    let data = await getAllRecentHarvestLogs();
     data = data
       .filter(datum => datum.farmId === id)
       .map(datum => ({ ...datum, date: new Date(datum.date) }))

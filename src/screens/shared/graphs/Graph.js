@@ -64,7 +64,7 @@ class Graph extends React.Component {
         };
       case 'topItems':
         return {
-          label: 'Top Items',
+          label: 'Top 5 Items',
           graph: <TopItemsGraph />
         };
       case 'harvestLogs':
@@ -78,6 +78,7 @@ class Graph extends React.Component {
   };
 
   setFilterState = value => {
+    console.log(value);
     this.setState({ filterBy: value });
   };
 

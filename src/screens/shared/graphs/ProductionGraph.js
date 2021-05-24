@@ -9,7 +9,7 @@ import {
   VictoryLabel
 } from 'victory';
 
-import { getPrevMonths } from '@lib/farmUtils';
+import { getPrevMonths } from '@lib/utils';
 
 const fontProps = {
   fontSize: 8,
@@ -92,6 +92,7 @@ class ProductionGraph extends React.PureComponent {
               style={barStyles}
               data={segment}
               barRatio={1.25}
+              key={segment}
               labels={({ datum }) => this.formatLabel(datum)}
               labelComponent={
                 <VictoryTooltip

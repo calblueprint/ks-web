@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 import Dropdown from '@components/Dropdown';
 import FieldInput from '@components/FieldInput';
 import '@styles/SignUp.css';
-import { validateField, updateUserFields } from '@lib/utils';
+import { validateField, updateUserFields } from '@lib/validationUtils';
 
 class SignUp extends React.PureComponent {
   constructor(props) {
@@ -128,7 +128,7 @@ class SignUp extends React.PureComponent {
             </div>
             <div className="flex row sign-up-dropdown">
               <Dropdown
-                items={['', 'KS', 'NSEVP']}
+                items={['KS', 'NSEVP']}
                 label="Organization"
                 onChange={this.handleDropdownChange(['', 'KS', 'NSEVP'])}
                 value={userTypesIndex || 0}

@@ -1,6 +1,5 @@
 import React from 'react';
-import { getSingleFarm, getGapCertificationStatus } from '@lib/farmUtils';
-import { getUserById } from '@lib/airtable/request';
+import { getFarmById } from '@lib/airtable/request';
 
 import BackButton from '@components/BackButton';
 import Link from '@material-ui/core/Link';
@@ -26,10 +25,8 @@ class FarmProfile extends React.Component {
   async componentDidMount() {
     const { match } = this.props;
     const { farmId } = match.params;
-    const farm = await getSingleFarm(farmId);
-    const GAPContact = await getUserById(farm.groupGapContactId);
-    const GAP = await getGapCertificationStatus(farm.gapCertificationId);
-    this.setState({ farm, farmId, loading: false, GAP, GAPContact });
+    const farm = await getFarmById(farmId);
+    this.setState({ farm, farmId, loading: false });
   }
 
   render() {

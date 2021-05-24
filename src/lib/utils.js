@@ -1,233 +1,174 @@
 /* eslint-disable no-await-in-loop */
-import USStates from '@assets/usStates.json';
-import { updateUser, deleteUser } from './airtable/request';
-import { refreshUserData, clearUserData } from './redux/userData';
-import { signupUser } from './airlock/airlock';
+import moment from 'moment';
+import {
+  getAllFarms,
+  getFarmById,
+  getAllRecentUpdates,
+  getAllGAPCertifications,
+  getGAPCertificationById,
+  getAllUsers,
+  updateFarm,
+  updateGAPCertification
+} from './airtable/request';
 
-// Helper functions to validate user record fields
+// Helper functions
 
-// Ensure value exists
-// Allows custom error message
-const validateExistence = (
-  value,
-  error = 'Please enter this required field.'
-) => {
-  return value ? '' : error;
-};
+export async function getAllFarmsForKS() {
+  const farms = await getAllFarms();
+  return farms.filter(farm => farm.ksAffiliated);
+}
 
-// Validation Styling
-const toggleValidColor = (input, type) => {
-  if (!type) {
-    return input !== '' && typeof input !== 'undefined' ? 'b-is-not-valid' : '';
-  }
-  return !input ? '\u00A0' : input;
-};
+export async function getAllGAPCertificationsForKS() {
+  const GAPCertifications = await getAllGAPCertifications();
+  return GAPCertifications.filter(
+    gap => gap.ksAffiliated && gap.ksAffiliated[0]
+  );
+}
 
-// Ensure Zipcode is of valid length
-const validateZipcode = value => {
-  return value.length === 5 ? '' : 'Must be 5 digits';
-};
+export async function getAllRecentUpdatesByUserType(userType) {
+  let comments = [];
+  comments = await getAllRecentUpdates();
+  return comments.filter(c => c.organization.includes(userType));
+}
 
-// Ensure valid email using regex
-const validateEmail = value => {
-  if (value && value.length === 0) {
-    return '';
-  }
-  // No such thing as perfect regex email validation but this is supposed to be pretty thorough! Ideally we validate by sending them an email
-  // eslint-disable-next-line no-useless-escape
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(value) ? '' : 'Please enter a valid email address.';
-};
+export function getCertificationSteps() {
+  return [
+    'farmReferred',
+    'farmApplied',
+    'farmAccepted',
+    'farmFoodSafetyPlan',
+    'riskAssessment',
+    'mockRecall',
+    'internalAudit1',
+    'internalAudit2',
+    'gapCertified'
+  ];
+}
 
-// Ensure email is unique
-const validateUniqueEmail = async value => {
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-  const url = `${SERVER_URL}/uniqueEmail?email=${value}`;
-  const response = await fetch(url);
-  const result = await response.json();
-  return result.unique
-    ? ''
-    : 'It looks like an account with this email already exists.';
-};
-
-// TODO: Add Better Password Rules
-// Ensure valid password
-const validatePassword = value => {
-  return value.length >= 6 ? '' : 'Must be at least 6 characters';
-};
-
-// Ensure value is a number
-const validateNumber = value => {
-  return !Number.isNaN(value) ? '' : 'Must be a number';
-};
-
-// Ensure State is a real state (either abbreivation or full name)
-const ValidateUSState = value => {
-  const upperCaseValue = value.toUpperCase();
-  if (USStates.map(s => s.toUpperCase()).indexOf(upperCaseValue) !== -1) {
-    return '';
-  }
-  return 'Invalid State';
-};
-
-const validatePhoneNumber = value => {
-  // validated phone numbers in this form:
-  // (123) 456-7890
-  // (123)456-7890
-  // 123-456-7890
-  // 123.456.7890
-  // 1234567890
-  // +31636363634
-  // 075-63546725
-  const re = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
-  return re.test(value) ? '' : 'Please enter a valid phone number.';
-};
-
-// Specify special validation functions for fields
-// Default for all fields: [validateExistence]
-const ValidatorData = {
-  email: [validateExistence, validateEmail, validateUniqueEmail],
-  farmEmail: [validateExistence, validateEmail],
-  phoneNumber: [validateExistence, validatePhoneNumber],
-  phone: [validateExistence, validatePhoneNumber],
-  password: [validateExistence, validatePassword],
-  physicalState: [validateExistence, ValidateUSState],
-  mailingState: [validateExistence, ValidateUSState],
-  physicalZipcode: [validateExistence, validateZipcode],
-  mailingZipcode: [validateExistence, validateZipcode]
-};
-
-// Asynchronously validate field
-const validateField = async (name, value) => {
-  let validators = ValidatorData[name];
-
-  // Set Default Validator
-  if (!validators) {
-    validators = [validateExistence];
-  }
-
-  for (let i = 0; i < validators.length; i += 1) {
-    const validateFunc = validators[i];
-    const error = await validateFunc(value);
-    if (error !== '') {
-      return error;
-    }
-  }
-
-  return '';
-};
-
-const validateFieldSync = (name, value) => {
-  let validators = ValidatorData[name];
-
-  // Set Default Validator
-  if (!validators) {
-    validators = [validateExistence];
-  }
-
-  for (let i = 0; i < validators.length; i += 1) {
-    const validateFunc = validators[i];
-    const error = validateFunc(value);
-    if (error !== '') {
-      return error;
-    }
-  }
-
-  return '';
-};
-
-// Update or Create the user with the given fields
-const updateUserFields = async (user, fields) => {
-  // Ensure that only the fields that are supposed to be updated are updated
-  const userUpdate = {};
-  fields.forEach(field => {
-    userUpdate[field] = user[field];
-  });
-
-  // If user exists, update it, else, create.
-  if (user.id) {
-    await updateUser(user.id, userUpdate);
-    refreshUserData(user.id);
-  } else {
-    // TODO: Error Handling
-    const id = await signupUser(
-      userUpdate.email,
-      userUpdate.password,
-      { ...userUpdate, password: undefined } // Remove password from user update
-    );
-    refreshUserData(id);
-  }
-};
-
-const createFalseDict = keys => {
-  const dict = {};
-  keys.forEach(k => {
-    dict[k] = false;
-  });
-  return dict;
-};
-
-// Delete user and return to homepage. This is used if the user does not live in california
-const returnToHomepage = user => {
-  deleteUser(user.id);
-  clearUserData();
-};
-
-const farmFieldsToValidate = [
-  'contactFirstName',
-  'contactLastName',
-  'farmName',
-  'phone',
-  'farmEmail',
-  'physicalStreet1',
-  'physicalCity',
-  'physicalState',
-  'physicalZipcode',
-  'mailingStreet1',
-  'mailingCity',
-  'mailingState',
-  'mailingZipcode'
-];
-
-const validateFarmEdit = async farm => {
-  // Keep track of whether we've found any errors
-  let foundErrors = false;
-  const allErrorMessages = await Promise.all(
-    farmFieldsToValidate.map(f => validateField(f, farm[f]))
-  ).catch(e => {
-    console.error(e);
-  });
-
-  const newErrors = {};
-  farmFieldsToValidate.forEach((field, i) => {
-    const errorMessage = allErrorMessages[i];
-    if (errorMessage !== '') {
-      newErrors[field] = errorMessage;
-      foundErrors = true;
-    } else {
-      newErrors[field] = false;
+export async function getSingleFarmAndGapCertification(id) {
+  let gapStatus = false;
+  let farm;
+  await getFarmById(id).then(async res => {
+    farm = res;
+    if (res.gapCertificationId) {
+      gapStatus = await getGAPCertificationById(res.gapCertificationId);
     }
   });
+  return [farm, gapStatus];
+}
 
-  if (!foundErrors) {
-    return { errors: createFalseDict(farmFieldsToValidate), validated: true };
+export function getCertificationLabels() {
+  return [
+    'Farm\nReferred',
+    'Farm\nApplied',
+    'Farm\nAccepted',
+    'Farm Food\nSafety Plan',
+    'Risk\nAssessment',
+    'Mock\nRecall',
+    'Internal\nAudit (1)',
+    'Internal\nAudit (2)',
+    'Group GAP\nCertified!'
+  ];
+}
+
+export function getPossibleCertificationStates() {
+  return [' ', 'Incomplete', 'Complete', 'Failed', 'Outdated'];
+}
+
+export function getDefaultCertificationObj() {
+  const defaultGAPCertification = {};
+  getCertificationSteps().forEach(step => {
+    defaultGAPCertification[step] = 'Incomplete';
+  });
+  defaultGAPCertification.gapCertified = false;
+  defaultGAPCertification.farmReferredDate = Date.now();
+  return defaultGAPCertification;
+}
+
+export function mapCertificationStepsToLabels() {
+  const keys = getCertificationSteps();
+  const values = getCertificationLabels();
+
+  const map = {};
+  keys.forEach((key, idx) => {
+    map[key] = values[idx];
+  });
+  return map;
+}
+
+export async function getAllGroupGapContacts() {
+  const users = await getAllUsers("SEARCH('NSEVP', {User Types})");
+  const ids = [];
+  const names = [];
+  users.forEach(u => {
+    ids.push(u.id);
+    names.push(u.name);
+  });
+  return [ids, names];
+}
+
+export async function updateFarmAndCertification(
+  oldFarm,
+  newFarm,
+  oldGapStatus,
+  gapStatus
+) {
+  let farmDiff = Object.entries(newFarm).filter(kv => {
+    const [k, v] = kv;
+    return oldFarm[k] !== v;
+  });
+  if (farmDiff) {
+    farmDiff = Object.fromEntries(farmDiff);
+    updateFarm(newFarm.farmId, farmDiff).catch(e => {
+      console.error(e);
+      return false;
+    });
   }
-  return { errors: newErrors, validated: false };
-};
 
-export {
-  validateField,
-  validateFieldSync,
-  updateUserFields,
-  returnToHomepage,
-  toggleValidColor,
-  validateEmail,
-  validateUniqueEmail,
-  validateNumber,
-  validateExistence,
-  validateZipcode,
-  createFalseDict,
-  validateFarmEdit,
-  farmFieldsToValidate,
-  validatePhoneNumber
+  let gapDiff = Object.entries(gapStatus).filter(kv => {
+    const [k, v] = kv;
+    return oldGapStatus[k] !== v;
+  });
+  if (gapDiff) {
+    gapDiff = Object.fromEntries(gapDiff);
+    updateGAPCertification(newFarm.gapCertificationId, gapDiff).catch(e => {
+      console.error(e);
+      return false;
+    });
+  }
+  return true;
+}
+
+export function getDateOptions() {
+  return [
+    'Last 60 Days',
+    'Year to Date',
+    'Last Year',
+    'This Year Q1',
+    'This Year Q2',
+    'This Year Q3',
+    'This Year Q4'
+  ];
+}
+
+/* eslint-disable no-unused-vars */
+export function getPrevMonths(n) {
+  const date = new Date();
+  const m = moment(date);
+  m.subtract(n, 'months');
+
+  return [...Array(n)].map(_i => m.add(1, 'months').format('MMM[\n]YYYY'));
+}
+
+export default {
+  getDateOptions,
+  getPrevMonths,
+  getAllGAPCertificationsForKS,
+  getAllRecentUpdatesByUserType,
+  getCertificationLabels,
+  getCertificationSteps,
+  mapCertificationStepsToLabels,
+  getDefaultCertificationObj,
+  getPossibleCertificationStates,
+  updateFarmAndCertification
 };

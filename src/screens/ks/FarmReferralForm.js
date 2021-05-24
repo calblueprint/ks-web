@@ -9,13 +9,13 @@ import {
   validateFarmEdit,
   createFalseDict,
   farmFieldsToValidate
-} from '@lib/utils';
+} from '@lib/validationUtils';
 import {
   createComment,
   createFarm,
   createGAPCertification
 } from '@lib/airtable/request';
-import { getDefaultCertificationObj } from '@lib/farmUtils';
+import { getDefaultCertificationObj } from '@lib/utils';
 
 const styles = {
   root: {
