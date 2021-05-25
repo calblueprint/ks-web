@@ -29,8 +29,6 @@ class TopItemsGraph extends React.PureComponent {
       cropsStr += crops;
       quantitiesStr += quantities;
     }
-    console.log(cropsStr);
-    console.log(quantitiesStr);
     const quantitiesFloats =
       quantitiesStr === ''
         ? []
@@ -40,24 +38,27 @@ class TopItemsGraph extends React.PureComponent {
 
   formulateData = (cropsStr, quantitiesFloats) => {
     const cropsSplit = cropsStr.split(',');
-
+    console.log(cropsSplit);
     const dict = [];
     for (let i = 0; i < cropsSplit.length; i += 1) {
-      cropsSplit[i] = cropsSplit[i].replace(/^\s+|\s+$/g, '');
+      cropsSplit[i] = cropsSplit[i].replace(/^\s+|\s+$/g, ''); // trims starting and trailing white spaces
       if (cropsSplit.slice(0, i).includes(cropsSplit[i])) {
         for (let j = 0; j < dict.length; j += 1) {
           if (dict[j][0] === cropsSplit[i]) {
             dict[j][1] += quantitiesFloats[i];
-            console.log(dict);
           }
         }
       } else {
         dict[i] = [cropsSplit[i], quantitiesFloats[i]];
       }
     }
+    console.log(dict);
+    const dictStrip = dict.filter(function(el) {
+      return el != null;
+    });
 
     return {
-      cropsToQuantity: dict
+      cropsToQuantity: dictStrip
     };
   };
 
@@ -75,7 +76,6 @@ class TopItemsGraph extends React.PureComponent {
       // eslint-disable-next-line prefer-destructuring
       quantitiesSorted[j] = dict[j][1];
     }
-
     return {
       labels: cropsSorted.slice(0, 5),
       values: quantitiesSorted.slice(0, 5)
@@ -84,8 +84,11 @@ class TopItemsGraph extends React.PureComponent {
 
   render() {
     const { cropsStr, quantitiesFloats } = this.state;
+    console.log(cropsStr);
+    console.log(quantitiesFloats);
     const { cropsToQuantity } = this.formulateData(cropsStr, quantitiesFloats);
     const { labels, values } = this.sortData(cropsToQuantity);
+
     return <FarmProfileGraph labels={labels} values={values} />;
   }
 }

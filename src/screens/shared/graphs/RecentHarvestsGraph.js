@@ -13,12 +13,10 @@ class RecentHarvestsGraph extends React.PureComponent {
 
   async componentDidMount() {
     const { farm } = this.props;
-    console.log(farm.totalHarvestIds === undefined);
     const totalHarvest =
       farm.totalHarvestIds === undefined
         ? []
         : await Promise.all(farm.totalHarvestIds.map(await getTotalHarvest));
-    console.log(totalHarvest);
     // check if totalHarvestIds is defined, then map. if not, assign to an empty array.
     // how do I error handle when there are no records associated with a farmID?
 
@@ -66,6 +64,8 @@ class RecentHarvestsGraph extends React.PureComponent {
         }
       }
     }
+    console.log(recentDates);
+    console.log(recentValues);
 
     return {
       labels: recentDates,
