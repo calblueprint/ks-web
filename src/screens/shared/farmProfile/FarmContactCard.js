@@ -1,12 +1,12 @@
 import React from 'react';
 import farmProfileCover from '@assets/farmProfileCover.png';
 import farmProfilePhoto from '@assets/farmProfilePhoto.png';
-import Chip from '@material-ui/core/Chip';
-import { Home, AccountCircle } from '@material-ui/icons';
 
 import '@styles/FarmProfile.css';
 
 import StatusChip from '@components/StatusChip';
+import FoodHub from '@components/FoodHub';
+import GroupContact from '@components/GroupContact';
 
 class FarmContactCard extends React.PureComponent {
   render() {
@@ -25,7 +25,7 @@ class FarmContactCard extends React.PureComponent {
     const { GAPContact } = this.props;
     const { name: GAPContactName } = GAPContact;
     const farmerName = `${contactFirstName} ${contactLastName}`;
-
+    console.log( GAPContact, GAPContactName, foodHub, typeof foodHub)
     return (
       <div>
         <div className="contact-card">
@@ -57,14 +57,16 @@ class FarmContactCard extends React.PureComponent {
         <div className="contact-card__inspector">
           <div className="contact-card__inspector-info">
             <h2>Group GAP Contact</h2>
-            <Chip avatar={<AccountCircle />} label={`${GAPContactName}`} />
+            <GroupContact
+              type={GAPContactName}
+              data={GAPContactName}
+            />
           </div>
           <h2>Food Hub</h2>
-          <Chip
-            avatar={<Home color="var(--ks-dark-blue)" />}
-            label={`${foodHub}`}
-            backgroundColor="white"
-          />
+          <FoodHub
+              type={foodHub}
+              data={foodHub}
+            />
         </div>
       </div>
     );

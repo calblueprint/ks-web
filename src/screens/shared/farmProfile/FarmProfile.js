@@ -1,5 +1,6 @@
 import React from 'react';
-import { getFarmById } from '@lib/airtable/request';
+import { getFarmById, getUserById, getGAPCertificationById, getAllUsers  } from '@lib/airtable/request';
+import {getSingleFarmAndGapCertification, getAllGroupGapContacts} from '@lib/utils';
 
 import BackButton from '@components/BackButton';
 import Link from '@material-ui/core/Link';
@@ -15,10 +16,9 @@ class FarmProfile extends React.Component {
     this.state = {
       farm: {},
       GAP: {},
-      GAPId: '',
       GAPContact: {},
       farmId: '',
-      loading: true
+      loading: true,
     };
   }
 
@@ -26,7 +26,16 @@ class FarmProfile extends React.Component {
     const { match } = this.props;
     const { farmId } = match.params;
     const farm = await getFarmById(farmId);
-    this.setState({ farm, farmId, loading: false });
+    const GAP = await getGAPCertificationById(farm.gapCertificationId);
+    const users = await getAllUsers();
+    // if (farm.groupGapContactId === undefined) {
+    //   const GAPContact = "";
+    // } else {
+    //   const GAPContact = await getUserById(farm.groupGapContactId);//nsevp user not displaying for ks users
+    // }
+    const GAPContact = await getUserById(farm.groupGapContactId);//nsevp user not displaying for ks users
+    this.setState({ farm, farmId, loading: false, GAP, GAPContact, users});
+    //console.log(farm, users, GAPContact)
   }
 
   render() {
