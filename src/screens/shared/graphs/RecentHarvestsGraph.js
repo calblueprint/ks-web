@@ -13,13 +13,14 @@ class RecentHarvestsGraph extends React.PureComponent {
 
   async componentDidMount() {
     const { farm } = this.props;
+
+    // If there are no harvest logs under the farm ID, then return an empty list.
     const totalHarvest =
       farm.totalHarvestIds === undefined
         ? []
         : await Promise.all(farm.totalHarvestIds.map(await getTotalHarvest));
-    // check if totalHarvestIds is defined, then map. if not, assign to an empty array.
-    // how do I error handle when there are no records associated with a farmID?
 
+    // Create a list of dates and a list of total production quantities.
     const dateList = [];
     const totalList = [];
     for (let h = 0; h < totalHarvest.length; h += 1) {
@@ -28,9 +29,12 @@ class RecentHarvestsGraph extends React.PureComponent {
       totalList[h] = totalProductionPounds;
     }
     this.setState({ dateList, totalList });
+    console.log('Here');
+    console.log(dateList, totalList);
   }
 
   getData = (dateList, totalList) => {
+    // Reformatting the dates (2021-03 to Mar\n2021)
     const months = [
       'Jan',
       'Feb',
@@ -51,9 +55,11 @@ class RecentHarvestsGraph extends React.PureComponent {
       // eslint-disable-next-line radix
       const month = months[parseInt(dateList[i].slice(5, 7)) - 1];
       const dateFormatted = `${String(month)}\n${year}`;
+      // Creating a dictionary mapping dates to its corresponding total production quantity.
       dict[i] = [dateFormatted, totalList[i]];
     }
 
+    // Taking the most recent months and matching them up to the data. Filling in months without production with 0.
     const recentDates = getPrevMonths(9);
     const recentValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (let i = 0; i < dict.length; i += 1) {
@@ -64,8 +70,6 @@ class RecentHarvestsGraph extends React.PureComponent {
         }
       }
     }
-    console.log(recentDates);
-    console.log(recentValues);
 
     return {
       labels: recentDates,

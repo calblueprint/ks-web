@@ -14,10 +14,13 @@ class TopItemsGraph extends React.PureComponent {
 
   async componentDidMount() {
     const { farm } = this.props;
+    // If there are no harvest logs under the farm ID, then return an empty list.
     const totalHarvest =
       farm.totalHarvestIds === undefined
         ? []
         : await Promise.all(farm.totalHarvestIds.map(await getTotalHarvest));
+
+    // Creating a string of all crops and a list of their corresponding quantities.
     let cropsStr = '';
     let quantitiesStr = '';
     for (let h = 0; h < totalHarvest.length; h += 1) {
@@ -34,18 +37,20 @@ class TopItemsGraph extends React.PureComponent {
         ? []
         : quantitiesStr.match(/\d+(?:\.\d+)?/g).map(Number);
     this.setState({ cropsStr, quantitiesFloats });
+    console.log(cropsStr);
   }
 
+  // Reformulates data into a dictionary mapping every unique crop and its totaled quantity.
   formulateData = (cropsStr, quantitiesFloats) => {
-    const cropsSplit = cropsStr.split(',');
-    console.log(cropsSplit);
+    const cropsSplit = cropsStr.split(','); // Splitting string of crops into a list (by comma separation)
     const dict = [];
+
     for (let i = 0; i < cropsSplit.length; i += 1) {
-      cropsSplit[i] = cropsSplit[i].replace(/^\s+|\s+$/g, ''); // trims starting and trailing white spaces
+      cropsSplit[i] = cropsSplit[i].replace(/^\s+|\s+$/g, ''); // Trims starting and trailing white spaces
       if (cropsSplit.slice(0, i).includes(cropsSplit[i])) {
         for (let j = 0; j < dict.length; j += 1) {
           if (dict[j][0] === cropsSplit[i]) {
-            dict[j][1] += quantitiesFloats[i];
+            dict[j][1] += quantitiesFloats[i]; // If crop has already been added to dictionary, just add the quantity to its current total.
           }
         }
       } else {
@@ -53,6 +58,8 @@ class TopItemsGraph extends React.PureComponent {
       }
     }
     console.log(dict);
+
+    // Removes null values from the dictionary. Length of dictionary shrinks from the total # of inputs to the # of unique crops.
     const dictStrip = dict.filter(function(el) {
       return el != null;
     });
@@ -62,6 +69,7 @@ class TopItemsGraph extends React.PureComponent {
     };
   };
 
+  // Sorts the dictionary of data from highest quantity to lowest quantity and takes the top 5.
   sortData = cropsToQuantity => {
     let dict = cropsToQuantity;
     dict = dict.sort(function(a, b) {
@@ -84,8 +92,6 @@ class TopItemsGraph extends React.PureComponent {
 
   render() {
     const { cropsStr, quantitiesFloats } = this.state;
-    console.log(cropsStr);
-    console.log(quantitiesFloats);
     const { cropsToQuantity } = this.formulateData(cropsStr, quantitiesFloats);
     const { labels, values } = this.sortData(cropsToQuantity);
 
