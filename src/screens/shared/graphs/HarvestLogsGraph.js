@@ -64,7 +64,7 @@ class HarvestLogsGraph extends React.PureComponent {
     const dates = data.map(datum => moment(datum.date).format('MM/DD/YY'));
     const crops = data.map(datum => datum.crops.split(','));
 
-    //console.log(data);
+    // console.log(data);
     return { dates, crops };
   };
 

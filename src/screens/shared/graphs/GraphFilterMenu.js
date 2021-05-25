@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getDateOptions } from '@lib/farmUtils';
+import { getDateOptions } from '@lib/utils';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Popper } from '@material-ui/core';
