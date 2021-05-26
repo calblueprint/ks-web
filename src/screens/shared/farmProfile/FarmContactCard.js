@@ -5,12 +5,12 @@ import farmProfilePhoto from '@assets/farmProfilePhoto.png';
 import '@styles/FarmProfile.css';
 
 import StatusChip from '@components/StatusChip';
-import FoodHub from '@components/FoodHub';
-import GroupContact from '@components/GroupContact';
+import FoodHubChip from '@components/FoodHubChip';
+import GAPContactChip from '@components/GAPContactChip';
 
 class FarmContactCard extends React.PureComponent {
   render() {
-    const { farm } = this.props;
+    const { farm, GAP, GAPContact } = this.props;
     const {
       address: physicalAddress,
       mailingAddress,
@@ -20,16 +20,8 @@ class FarmContactCard extends React.PureComponent {
       phone,
       foodHubAffiliation: foodHub
     } = farm;
-    const { GAP } = this.props;
-    let GAPCertified;
-    if (GAP !== '') {
-      GAPCertified = GAP.gapCertified;
-    }
-    const { GAPContact } = this.props;
-    let GAPContactName;
-    if (GAPContact !== '') {
-      GAPContactName = GAPContact.name;
-    }
+    const GAPCertified = GAP && GAP.gapCertified === 'Complete';
+    const GAPContactName = GAPContact ? GAPContact.name : '';
     const farmerName = `${contactFirstName} ${contactLastName}`;
 
     return (
@@ -63,10 +55,10 @@ class FarmContactCard extends React.PureComponent {
         <div className="contact-card__inspector">
           <div className="contact-card__inspector-info">
             <h2>Group GAP Contact</h2>
-            <GroupContact type={GAPContactName} data={GAPContactName} />
+            <GAPContactChip data={GAPContactName} />
           </div>
           <h2>Food Hub</h2>
-          <FoodHub type={foodHub} data={foodHub} />
+          <FoodHubChip data={foodHub} />
         </div>
       </div>
     );
