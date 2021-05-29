@@ -83,6 +83,9 @@ class TopItemsGraph extends React.PureComponent {
       // eslint-disable-next-line prefer-destructuring
       quantitiesSorted[j] = dict[j][1];
     }
+
+    // If there are less than 5 items listed, we fill the empty items with "N/A" and 0 pounds.
+    // Since VictoryGraphs cannot have two categories on the x-axis with the same name, we add an additional whitespace at the end of the "N/A" for every N/A value.
     let counter = -1;
     for (let k = 0; k < 5; k += 1) {
       if (cropsSorted[k] === undefined || quantitiesSorted[k] === undefined) {
