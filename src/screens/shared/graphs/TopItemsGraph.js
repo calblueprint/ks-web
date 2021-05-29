@@ -37,7 +37,6 @@ class TopItemsGraph extends React.PureComponent {
         ? []
         : quantitiesStr.match(/\d+(?:\.\d+)?/g).map(Number);
     this.setState({ cropsStr, quantitiesFloats });
-    console.log(cropsStr);
   }
 
   // Reformulates data into a dictionary mapping every unique crop and its totaled quantity.
@@ -84,6 +83,17 @@ class TopItemsGraph extends React.PureComponent {
       // eslint-disable-next-line prefer-destructuring
       quantitiesSorted[j] = dict[j][1];
     }
+    let counter = -1;
+    for (let k = 0; k < 5; k += 1) {
+      if (cropsSorted[k] === undefined || quantitiesSorted[k] === undefined) {
+        counter += 1;
+        cropsSorted[k] = 'N/A';
+        for (let c = 0; c < counter; c += 1) {
+          cropsSorted[k] = cropsSorted[k].concat(' ');
+        }
+        quantitiesSorted[k] = 0;
+      }
+    }
     return {
       labels: cropsSorted.slice(0, 5),
       values: quantitiesSorted.slice(0, 5)
@@ -94,8 +104,16 @@ class TopItemsGraph extends React.PureComponent {
     const { cropsStr, quantitiesFloats } = this.state;
     const { cropsToQuantity } = this.formulateData(cropsStr, quantitiesFloats);
     const { labels, values } = this.sortData(cropsToQuantity);
+    console.log(labels);
+    console.log(values);
 
-    return <FarmProfileGraph labels={labels} values={values} />;
+    return (
+      <FarmProfileGraph
+        labels={labels}
+        values={values}
+        isEmpty={cropsStr === ''}
+      />
+    );
   }
 }
 

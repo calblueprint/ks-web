@@ -63,7 +63,7 @@ class Graph extends React.Component {
         };
       case 'topItems':
         return {
-          label: 'Top Items',
+          label: 'Top 5 Items',
           graph: <TopItemsGraph farm={farm} />
         };
       case 'harvestLogs':

@@ -80,7 +80,14 @@ class RecentHarvestsGraph extends React.PureComponent {
   render() {
     const { dateList, totalList } = this.state;
     const { labels, values } = this.getData(dateList, totalList);
-    return <FarmProfileGraph labels={labels} values={values} barRatio={1.2} />;
+    return (
+      <FarmProfileGraph
+        labels={labels}
+        values={values}
+        barRatio={1.2}
+        isEmpty={dateList.length === 0}
+      />
+    );
   }
 }
 
