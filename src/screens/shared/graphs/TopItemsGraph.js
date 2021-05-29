@@ -56,7 +56,6 @@ class TopItemsGraph extends React.PureComponent {
         dict[i] = [cropsSplit[i], quantitiesFloats[i]];
       }
     }
-    console.log(dict);
 
     // Removes null values from the dictionary. Length of dictionary shrinks from the total # of inputs to the # of unique crops.
     const dictStrip = dict.filter(function(el) {
@@ -107,8 +106,6 @@ class TopItemsGraph extends React.PureComponent {
     const { cropsStr, quantitiesFloats } = this.state;
     const { cropsToQuantity } = this.formulateData(cropsStr, quantitiesFloats);
     const { labels, values } = this.sortData(cropsToQuantity);
-    console.log(labels);
-    console.log(values);
 
     return (
       <FarmProfileGraph

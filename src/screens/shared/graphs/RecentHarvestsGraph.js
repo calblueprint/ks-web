@@ -1,4 +1,5 @@
 import React from 'react';
+import { months } from '@lib/utils';
 import { getPrevMonths, getTotalHarvest } from '@lib/farmUtils';
 import FarmProfileGraph from './FarmProfileGraph';
 
@@ -25,30 +26,14 @@ class RecentHarvestsGraph extends React.PureComponent {
     const totalList = [];
     for (let h = 0; h < totalHarvest.length; h += 1) {
       const { date, totalProductionPounds } = totalHarvest[h];
-      dateList[h] = date.slice(0, 7);
+      dateList[h] = date.slice(0, 7); // takes YYYY-MM format
       totalList[h] = totalProductionPounds;
     }
     this.setState({ dateList, totalList });
-    console.log('Here');
-    console.log(dateList, totalList);
   }
 
   getData = (dateList, totalList) => {
     // Reformatting the dates (2021-03 to Mar\n2021)
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
-    ];
     const dict = [];
     for (let i = 0; i < dateList.length; i += 1) {
       const year = dateList[i].slice(0, 4);
