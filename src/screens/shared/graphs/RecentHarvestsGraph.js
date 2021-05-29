@@ -14,13 +14,13 @@ class RecentHarvestsGraph extends React.PureComponent {
   async componentDidMount() {
     const { farm } = this.props;
 
-    // If there are no harvest logs under the farm ID, then return an empty list.
+    // Fetch all the "total harvest" records for the specified farm.
     const totalHarvest =
-      farm.totalHarvestIds === undefined
+      farm.totalHarvestIds === undefined // If there are no harvest logs under the farm ID, then return an empty list.
         ? []
         : await Promise.all(farm.totalHarvestIds.map(await getTotalHarvest));
 
-    // Create a list of dates and a list of total production quantities.
+    // Iterate through all "total harvest" records to create a list of dates and a list of total production quantities.
     const dateList = [];
     const totalList = [];
     for (let h = 0; h < totalHarvest.length; h += 1) {
@@ -59,7 +59,8 @@ class RecentHarvestsGraph extends React.PureComponent {
       dict[i] = [dateFormatted, totalList[i]];
     }
 
-    // Taking the most recent months and matching them up to the data. Filling in months without production with 0.
+    // Take the recent 9 months and match them up to the data in `dict`, filling in months without production with 0.
+    // Note: Each farm only has 1 "total harvest" record per month, so aggregation of total production pounds is not needed.
     const recentDates = getPrevMonths(9);
     const recentValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (let i = 0; i < dict.length; i += 1) {

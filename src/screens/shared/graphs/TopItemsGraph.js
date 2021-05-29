@@ -14,13 +14,13 @@ class TopItemsGraph extends React.PureComponent {
 
   async componentDidMount() {
     const { farm } = this.props;
-    // If there are no harvest logs under the farm ID, then return an empty list.
+    // Fetch all the "total harvest" records for the specified farm.
     const totalHarvest =
-      farm.totalHarvestIds === undefined
+      farm.totalHarvestIds === undefined // If there are no harvest logs under the farm ID, then return an empty list.
         ? []
         : await Promise.all(farm.totalHarvestIds.map(await getTotalHarvest));
 
-    // Creating a string of all crops and a list of their corresponding quantities.
+    // Iterate through all "total harvest" records to create a string of all crops and a list of their corresponding quantities.
     let cropsStr = '';
     let quantitiesStr = '';
     for (let h = 0; h < totalHarvest.length; h += 1) {
@@ -35,7 +35,7 @@ class TopItemsGraph extends React.PureComponent {
     const quantitiesFloats =
       quantitiesStr === ''
         ? []
-        : quantitiesStr.match(/\d+(?:\.\d+)?/g).map(Number);
+        : quantitiesStr.match(/\d+(?:\.\d+)?/g).map(Number); // TO-DO: comment here
     this.setState({ cropsStr, quantitiesFloats });
   }
 
@@ -59,9 +59,7 @@ class TopItemsGraph extends React.PureComponent {
     console.log(dict);
 
     // Removes null values from the dictionary. Length of dictionary shrinks from the total # of inputs to the # of unique crops.
-    const dictStrip = dict.filter(function(el) {
-      return el != null;
-    });
+    const dictStrip = dict.filter(e => e != null);
 
     return {
       cropsToQuantity: dictStrip
@@ -71,9 +69,7 @@ class TopItemsGraph extends React.PureComponent {
   // Sorts the dictionary of data from highest quantity to lowest quantity and takes the top 5.
   sortData = cropsToQuantity => {
     let dict = cropsToQuantity;
-    dict = dict.sort(function(a, b) {
-      return b[1] - a[1];
-    });
+    dict = dict.sort((a, b) => b[1] - a[1]);
 
     const cropsSorted = [];
     const quantitiesSorted = [];
@@ -94,6 +90,7 @@ class TopItemsGraph extends React.PureComponent {
         quantitiesSorted[k] = 0;
       }
     }
+    // Only save the top 5 crops and their associated quantities.
     return {
       labels: cropsSorted.slice(0, 5),
       values: quantitiesSorted.slice(0, 5)
