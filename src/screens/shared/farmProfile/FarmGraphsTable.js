@@ -1,6 +1,4 @@
 import React from 'react';
-import '@styles/FarmProfile.css';
-
 import { withStyles } from '@material-ui/core/styles';
 
 import Graph from '@shared/graphs/Graph';
@@ -18,7 +16,7 @@ const styles = {
 };
 class FarmGraphsTable extends React.PureComponent {
   render() {
-    const { classes, id } = this.props;
+    const { classes } = this.props;
     return (
       <>
         <div className={classes.graph}>
@@ -29,8 +27,8 @@ class FarmGraphsTable extends React.PureComponent {
           <Graph type="recentHarvests" />
         </div>
         <div className={classes.divider} />
-        <div className="farm-graph-container">
-          <Graph type="harvestLogs" id={id} />
+        <div className={classes.graph}>
+          <Graph type="harvestLogs" />
         </div>
       </>
     );
