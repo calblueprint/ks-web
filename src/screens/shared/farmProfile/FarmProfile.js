@@ -3,8 +3,7 @@ import {
   getFarmById,
   getUserById,
   getGAPCertificationById,
-  getCommentsByIds,
-  getUsersByIds
+  getCommentsByIds
 } from '@lib/airtable/request';
 
 import BackButton from '@components/BackButton';
@@ -56,8 +55,6 @@ class FarmProfile extends React.Component {
       GAPContact: {},
       farmId: '',
       comments: {},
-      authors: {},
-      authorIds:[],
       loading: true
     };
   }
@@ -79,15 +76,26 @@ class FarmProfile extends React.Component {
       GAPContact = await getUserById(farm.groupGapContactId); // nsevp user not displaying for ks users
     }
     const comments = await getCommentsByIds(farm.commentIds);
-    let authorIds = [];
-    comments.forEach(author => {
-      authorIds.push(author.authorId);
+    // const commentsCopy = JSON.parse(JSON.stringify(comments));
+    // let authorIds = [];
+    // let commentor = [];
+    // commentsCopy.forEach(comment => {
+    //   hi = await getUserById(comment.authorId)
+    // });
+    // commentsCopy.forEach(comment => {
+    //   Object.assign(comment, {author: commentor.name})
+    // });
+    // const authors = await getUsersByIds(authorIds);
+    this.setState({
+      farm,
+      farmId,
+      loading: false,
+      GAP,
+      GAPContact,
+      comments
     });
-    const authors = await getUsersByIds(authorIds);
-    console.log( authors);
-    this.setState({ farm, farmId, loading: false, GAP, GAPContact, comments, authorIds, authors });
   }
-  
+
   render() {
     const { farm, loading, GAP, GAPContact, comments } = this.state;
     const { match, isNSEVP, classes } = this.props;
@@ -113,7 +121,12 @@ class FarmProfile extends React.Component {
         </div>
         <div className={classes.body}>
           <div className={classes.leftCol}>
-            <FarmContactCard farm={farm} GAP={GAP} GAPContact={GAPContact} comments={comments}/>
+            <FarmContactCard
+              farm={farm}
+              GAP={GAP}
+              GAPContact={GAPContact}
+              comments={comments}
+            />
           </div>
           <div className={classes.rightCol}>
             <FarmCertificationStepper />

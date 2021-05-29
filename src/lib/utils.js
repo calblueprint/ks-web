@@ -8,7 +8,7 @@ import {
   getGAPCertificationById,
   getAllUsers,
   updateFarm,
-  updateGAPCertification,
+  updateGAPCertification
 } from './airtable/request';
 
 // Helper functions

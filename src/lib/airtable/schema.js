@@ -98,7 +98,8 @@ export const Columns = {
     id: { name: `ID`, type: `formula` },
     authorId: { name: `Author`, type: `foreignKey-one` },
     farmId: { name: `Farm`, type: `foreignKey-one` },
-    comment: { name: `Comment`, type: `multilineText` }
+    comment: { name: `Comment`, type: `multilineText` },
+    authorName: { name: `Author Name`, type: `text` }
   },
   'Recent Updates': {
     id: { name: `ID`, type: `formula` },

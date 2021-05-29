@@ -109,7 +109,7 @@ class FarmContactCard extends React.PureComponent {
             />
           </div>
         </div>
-        <FarmComments comments={comments}/>
+        <FarmComments comments={comments} />
       </div>
     );
   }
