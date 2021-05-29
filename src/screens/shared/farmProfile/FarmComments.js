@@ -40,7 +40,6 @@ class FarmComments extends React.PureComponent {
   render() {
     const { classes } = this.props;
     const { comments } = this.props;
-    const placeholderDate = moment(new Date(2020, 11, 16)).calendar();
 
     return (
       <div className={classes.root}>
@@ -52,7 +51,7 @@ class FarmComments extends React.PureComponent {
                 <AccountCircle className={classes.icon} fontSize="large" />
                 <h3>{comment.authorName}</h3>
               </div>
-              <h3>{placeholderDate}</h3>
+              <h3>{moment(comment.date).calendar()}</h3>
             </div>
             <h3 className={classes.text}>{comment.comment}</h3>
           </div>
