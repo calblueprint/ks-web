@@ -76,16 +76,6 @@ class FarmProfile extends React.Component {
       GAPContact = await getUserById(farm.groupGapContactId); // nsevp user not displaying for ks users
     }
     const comments = await getCommentsByIds(farm.commentIds);
-    // const commentsCopy = JSON.parse(JSON.stringify(comments));
-    // let authorIds = [];
-    // let commentor = [];
-    // commentsCopy.forEach(comment => {
-    //   hi = await getUserById(comment.authorId)
-    // });
-    // commentsCopy.forEach(comment => {
-    //   Object.assign(comment, {author: commentor.name})
-    // });
-    // const authors = await getUsersByIds(authorIds);
     this.setState({
       farm,
       farmId,
