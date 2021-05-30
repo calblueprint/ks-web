@@ -66,53 +66,51 @@ class App extends React.Component {
             <Switch>
               <SuspenseRoute
                 exact
-                path="/"
+                path={Constants.HOME_ROUTE}
                 component={HomeComponent}
                 isNSEVP={isNSEVP}
               />
-
-              {/* TEMP ROUTES */}
               <AuthenticatedRoute
                 exact
-                path="/farms"
+                path={Constants.FARM_SEARCH_ROUTE}
                 component={FarmSearch}
+                isNSEVP={isNSEVP}
                 isAuthorized={signedIn}
               />
               <AuthenticatedRoute
                 exact
-                path="/farm/:farmId"
+                path={Constants.FARM_PROFILE_ROUTE}
                 component={FarmProfile}
                 isAuthorized={signedIn}
+                isNSEVP={isNSEVP}
               />
               <AuthenticatedRoute
                 exact
-                path="/farm/:farmId/:state"
+                path={Constants.FARM_PROFILE_EDIT_ROUTE}
                 component={FarmProfileEdit}
-                isAuthorized={signedIn}
+                isAuthorized={signedIn && isNSEVP}
               />
               <AuthenticatedRoute
-                path="/about"
+                path={Constants.ABOUT_ROUTE}
                 component={About}
                 isAuthorized={signedIn}
               />
               <AuthenticatedRoute
-                path="/profile"
+                path={Constants.PROFILE_ROUTE}
                 component={UserProfile}
                 isAuthorized={signedIn}
               />
               <AuthenticatedRoute
-                path="/referral"
+                path={Constants.REFERRAL_ROUTE}
                 component={FarmReferralForm}
                 isAuthorized={signedIn && !isNSEVP}
               />
-
               <AuthenticatedRoute
                 exact
                 path={Constants.SIGNUP_ROUTE}
                 component={SignUp}
                 isAuthorized={!signedIn}
               />
-
               <SuspenseRoute path="*" component={ErrorPage} />
             </Switch>
           </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Home, AccountCircle } from '@material-ui/icons';
+import { AccountCircle } from '@material-ui/icons';
 import Dropdown from '@components/Dropdown';
 
 const styles = {
@@ -18,50 +18,29 @@ const styles = {
   }
 };
 class FarmProfileEditDropdown extends React.PureComponent {
-  getContacts = () => {
-    // Placeholder, replace with Airtable Data
-    return ['Francesco Sola', 'Ace Chen', 'Andi Halm', 'Alice Zhao'];
-  };
-
-  getFoodHubs = () => {
-    // Placeholder, replace with Airtable Data
-    return ['Waialua Old Mill Food Hub', "Nick's Secret Food Hub"];
-  };
-
-  onChange = prop => event => {
+  onChange = (prop, items) => event => {
     const { values, handleChange } = this.props;
 
     const dropdownValues = {
       ...values,
-      [prop]: event.target.value
+      [prop]: items[event.target.value]
     };
     handleChange(dropdownValues);
   };
 
   render() {
     const { classes, values } = this.props;
-    const { foodHubAffiliation, gapContact } = values;
-    const contacts = this.getContacts();
-    const foodHubs = this.getFoodHubs();
+    const { gapContact, contactNames = [], contactIds = [] } = values;
 
     return (
       <div className={classes.root}>
         <div className={classes.column}>
-          <h2 className={classes.header}> Group Gap Contact</h2>
+          <h2 className={classes.header}>Group Gap Contact</h2>
           <Dropdown
-            items={contacts}
+            items={contactNames}
             icon={<AccountCircle fontSize="large" />}
-            onChange={this.onChange('gapContact')}
-            value={gapContact}
-          />
-        </div>
-        <div className={classes.column}>
-          <h2 className={classes.header}>Food Hub Affiliation</h2>
-          <Dropdown
-            items={foodHubs}
-            icon={<Home fontSize="large" />}
-            onChange={this.onChange('foodHubAffiliation')}
-            value={foodHubAffiliation}
+            onChange={this.onChange('gapContact', contactIds)}
+            value={contactIds.indexOf(gapContact)}
           />
         </div>
       </div>

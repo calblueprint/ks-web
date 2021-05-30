@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Dropdown from '@components/Dropdown';
 import TextField from '@material-ui/core/TextField';
+import { getPossibleCertificationStates } from '@lib/utils';
 
 const styles = {
   root: {
@@ -24,15 +25,22 @@ const styles = {
   }
 };
 
-class FarmProfileEditGapStatus extends React.PureComponent {
-  getItems = () => {
-    return ['Incomplete', 'Complete', 'Failed', 'Outdated'];
-  };
-
+class EditGapStatusDropdown extends React.PureComponent {
   render() {
-    const { index, label, onChange, classes, value } = this.props;
-    const items = this.getItems();
+    const {
+      index,
+      label,
+      onChange,
+      classes,
+      value,
+      onDateChange,
+      date
+    } = this.props;
 
+    const formattedDate = date
+      ? new Date(date).toLocaleDateString('en-CA')
+      : ' ';
+    const items = getPossibleCertificationStates();
     return (
       <div className={classes.root}>
         <h3 className={classes.label}>{`${index}. ${label}`}</h3>
@@ -40,13 +48,14 @@ class FarmProfileEditGapStatus extends React.PureComponent {
           <Dropdown
             items={items}
             icon={null}
-            value={value}
+            value={items.indexOf(value)}
             onChange={onChange}
           />
           <TextField
             className={classes.picker}
             type="date"
-            defaultValue="2017-05-24"
+            value={formattedDate}
+            onChange={onDateChange}
           />
         </div>
       </div>
@@ -54,4 +63,4 @@ class FarmProfileEditGapStatus extends React.PureComponent {
   }
 }
 
-export default withStyles(styles)(FarmProfileEditGapStatus);
+export default withStyles(styles)(EditGapStatusDropdown);

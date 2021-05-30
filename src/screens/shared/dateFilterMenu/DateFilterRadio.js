@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getDateOptions } from '@lib/farmUtils';
+import { getDateOptions } from '@lib/utils';
 
 import { withStyles } from '@material-ui/core/styles';
 import RadioOptions from '@components/RadioOptions';
@@ -14,7 +14,7 @@ const styles = {
 
 class DateFilterMenu extends React.PureComponent {
   render() {
-    const { classes, value, handleChange } = this.props;
+    const { classes, value, handleClick } = this.props;
 
     return (
       <div className={classes.radio}>
@@ -22,7 +22,7 @@ class DateFilterMenu extends React.PureComponent {
           id="date-filter"
           options={getDateOptions()}
           value={value}
-          onChange={handleChange}
+          onClick={handleClick}
         />
       </div>
     );

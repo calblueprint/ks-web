@@ -77,6 +77,7 @@ class Graph extends React.Component {
   };
 
   setFilterState = value => {
+    console.log(value);
     this.setState({ filterBy: value });
   };
 

@@ -31,6 +31,7 @@ class Dashboard extends React.PureComponent {
   render() {
     const { classes, isNSEVP } = this.props;
     const graph = isNSEVP ? 'production' : 'certification';
+
     return (
       <div className={classes.root}>
         <h1>Dashboard</h1>

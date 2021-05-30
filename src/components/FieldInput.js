@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 });
 
 export default function FieldInput(props) {
-  const { label, onChange, placeholder, variant, tooltip, ...rest } = props;
+  const { label, onChange, variant, tooltip, ...rest } = props;
   const classes = useStyles();
 
   const innerHTML = (

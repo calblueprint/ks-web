@@ -1,5 +1,5 @@
 import React from 'react';
-import { getTotalHarvest } from '@lib/farmUtils';
+import { getTotalHarvest } from '@lib/utils';
 
 import FarmProfileGraph from './FarmProfileGraph';
 

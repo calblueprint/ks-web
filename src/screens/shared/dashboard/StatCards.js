@@ -9,12 +9,13 @@ import {
 } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
-import { getAllFarmsForFarmSearch } from '@lib/farmUtils';
 import {
-  getAllGAPCertificationsForStatCard,
-  getAllTotalHarvestsForStatCard,
-  getAllRecentHarvestLogsForStatCard
-} from '@lib/dashUtils';
+  getAllFarms,
+  getAllGAPCertifications,
+  getAllTotalHarvests,
+  getAllRecentHarvestLogs
+} from '@lib/airtable/request';
+import { getAllGAPCertificationsForKS } from '@lib/utils';
 
 const styles = {
   root: {
@@ -40,149 +41,158 @@ class StatCards extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      farms: [],
-      KSFarms: [],
-      KSGAP: [],
-      totalHarvests: [],
-      recentHarvests: [],
-      GAPCertification: [],
-      numFarmReferred: '',
-      numKSGAPAccepted: '',
-      percentKSGAPCertified: '',
-      percentKSGAPApplied: '',
-      percentGAPCertified: '',
-      NSEVPHarvestFarms: '',
-      totalHarvestsPounds: '',
-      percentGAPApplied: ''
+      percentGAPCertified: '--',
+      numHarvestingFarms: '--',
+      totalHarvestPounds: '--',
+      percentGAPApplied: '--',
+      numKSFarmsReferred: '--',
+      percentKSGAPApplied: '--',
+      numKSGAPAccepted: '--',
+      percentKSGAPCertified: '--'
     };
   }
 
   async componentDidMount() {
-    const farms = await getAllFarmsForFarmSearch();
-    const GAPCertification = await getAllGAPCertificationsForStatCard();
-    const totalHarvests = await getAllTotalHarvestsForStatCard();
-    const recentHarvests = await getAllRecentHarvestLogsForStatCard();
-    const KSFarms = farms.filter(farm => farm.ksAffiliated);
-    const KSGAP = [];
-    for (let i = 0; i < GAPCertification.length; i += 1) {
-      if ('ksAffiliated' in GAPCertification[i]) {
-        if (GAPCertification[i].ksAffiliated.includes(true)) {
-          KSGAP.push(GAPCertification[i]);
-        }
-      }
+    const { isNSEVP } = this.props;
+
+    if (isNSEVP) {
+      // Looking at all farms
+      const GAPCertifications = await getAllGAPCertifications();
+
+      // 1 - Percentage of certified farms in Group GAP
+      const numGAPCertified = GAPCertifications.filter(
+        farm => farm.gapCertified === 'Complete'
+      ).length;
+      const percentGAPCertified = Math.round(
+        (numGAPCertified / GAPCertifications.length) * 100
+      );
+
+      // 2 - Number of harvesting farms
+      const recentHarvests = await getAllRecentHarvestLogs();
+      const numHarvestingFarms = recentHarvests.length;
+
+      // 3 - Pounds of total harvest
+      const totalHarvests = await getAllTotalHarvests();
+      let totalHarvestPounds = 0;
+      totalHarvests.forEach(harvest => {
+        totalHarvestPounds += harvest.totalProductionPounds;
+      });
+
+      // 4 - Percentage of referred farms that are GAP applied
+      const allFarms = await getAllFarms();
+      const numGAPApplied = GAPCertifications.filter(
+        farm => farm.farmApplied === 'Complete'
+      );
+      const percentGAPApplied = Math.round(
+        (numGAPApplied.length / allFarms.length) * 100
+      );
+
+      this.setState({
+        percentGAPCertified,
+        numHarvestingFarms,
+        totalHarvestPounds,
+        percentGAPApplied
+      });
+    } else {
+      // Only looking at KS-affiliated farms
+      const KSGAPCertifications = await getAllGAPCertificationsForKS();
+
+      // 1 - Number of farms referred by KS
+      const numKSFarmsReferred = KSGAPCertifications.length;
+
+      // 2 - Number of GAP accepted farms
+      const numKSGAPAccepted = KSGAPCertifications.filter(
+        farm => farm.farmAccepted === 'Complete'
+      ).length;
+
+      // 3 - Percentage of certified farms in Group GAP
+      const numKSGAPCertified = KSGAPCertifications.filter(
+        farm => farm.gapCertified === 'Complete'
+      ).length;
+      const percentKSGAPCertified = Math.round(
+        (numKSGAPCertified / KSGAPCertifications.length) * 100
+      );
+
+      // 4 - Percentage of referred farms that are GAP applied
+      const numKSGAPApplied = KSGAPCertifications.filter(
+        farm => farm.farmApplied === 'Complete'
+      );
+      const percentKSGAPApplied = Math.round(
+        (numKSGAPApplied.length / KSGAPCertifications.length) * 100
+      );
+
+      this.setState({
+        numKSFarmsReferred,
+        numKSGAPAccepted,
+        percentKSGAPCertified,
+        percentKSGAPApplied
+      });
     }
-
-    const numGAPCertified = GAPCertification.filter(farm => farm.gapCertified);
-
-    const numKSGAPCertified = KSGAP.filter(farm => farm.gapCertified);
-
-    const numFarmReferred = GAPCertification.filter(
-      farm => farm.farmReferred === 'Complete'
-    ).length;
-
-    const numKSGAPAccepted = KSGAP.filter(
-      farm => farm.farmAccepted === 'Complete'
-    ).length;
-
-    const numGAPApplied = GAPCertification.filter(
-      farm => farm.farmApplied === 'Complete'
-    );
-
-    const numKSGAPApplied = KSGAP.filter(
-      farm => farm.farmApplied === 'Complete'
-    );
-
-    const percentKSGAPCertified = Math.round(
-      (numKSGAPCertified.length / KSFarms.length) * 100
-    );
-    const percentKSGAPApplied = Math.round(
-      (numKSGAPApplied.length / KSFarms.length) * 100
-    );
-
-    const percentGAPCertified = Math.round(
-      (numGAPCertified.length / farms.length) * 100
-    );
-    const percentGAPApplied = Math.round(
-      (numGAPApplied.length / farms.length) * 100
-    );
-    const NSEVPHarvestFarms = recentHarvests.length;
-
-    let totalHarvestsPounds = 0;
-    for (let i = 0; i < totalHarvests.length; i += 1) {
-      totalHarvestsPounds += totalHarvests[i].totalProductionPounds;
-    }
-
-    this.setState({
-      farms,
-      KSFarms,
-      KSGAP,
-      totalHarvests,
-      recentHarvests,
-      GAPCertification,
-      numFarmReferred,
-      numKSGAPAccepted,
-      percentKSGAPCertified,
-      percentKSGAPApplied,
-      percentGAPCertified,
-      NSEVPHarvestFarms,
-      totalHarvestsPounds,
-      percentGAPApplied
-    });
   }
 
-  getCardStats = isNSEVP => {
+  getNSEVPStatCards = () => {
     const {
-      numFarmReferred,
-      numKSGAPAccepted,
-      percentKSGAPCertified,
-      percentKSGAPApplied,
       percentGAPCertified,
-      NSEVPHarvestFarms,
-      totalHarvestsPounds,
+      numHarvestingFarms,
+      totalHarvestPounds,
       percentGAPApplied
     } = this.state;
+
     const iconProps = {
       fontSize: 'large',
       style: { color: 'var(--ks-dark-blue)' }
     };
 
-    if (isNSEVP) {
-      return [
-        {
-          icon: <Check {...iconProps} />,
-          name: 'GAP Certification',
-          number: percentGAPCertified,
-          unit: ' %',
-          description: 'of farms in the Group GAP program are GAP Certified'
-        },
-        {
-          icon: <WbSunny {...iconProps} />,
-          name: 'Harvesting Farms',
-          number: NSEVPHarvestFarms,
-          unit: ' farms',
-          description: 'are harvesting this week'
-        },
-        {
-          icon: <LocalShipping {...iconProps} />,
-          name: 'Total Harvest',
-          number: totalHarvestsPounds,
-          unit: ' lbs',
-          description: 'of harvest to date'
-        },
-        {
-          icon: <Assignment {...iconProps} />,
-          name: 'Group GAP Applications',
-          number: percentGAPApplied,
-          unit: '%',
-          description: 'of referred farms have completed an application'
-        }
-      ];
-    }
+    return [
+      {
+        icon: <Check {...iconProps} />,
+        name: 'GAP Certification',
+        number: percentGAPCertified,
+        unit: ' %',
+        description: 'of farms in the Group GAP program are GAP Certified'
+      },
+      {
+        icon: <WbSunny {...iconProps} />,
+        name: 'Harvesting Farms',
+        number: numHarvestingFarms,
+        unit: ' farms',
+        description: 'are harvesting this week'
+      },
+      {
+        icon: <LocalShipping {...iconProps} />,
+        name: 'Total Harvest',
+        number: totalHarvestPounds,
+        unit: ' lbs',
+        description: 'of harvest to date'
+      },
+      {
+        icon: <Assignment {...iconProps} />,
+        name: 'Group GAP Applications',
+        number: percentGAPApplied,
+        unit: '%',
+        description: 'of referred farms have completed an application'
+      }
+    ];
+  };
+
+  getKSStatCards = () => {
+    const {
+      numKSFarmsReferred,
+      numKSGAPAccepted,
+      percentKSGAPCertified,
+      percentKSGAPApplied
+    } = this.state;
+
+    const iconProps = {
+      fontSize: 'large',
+      style: { color: 'var(--ks-dark-blue)' }
+    };
+
     return [
       {
         icon: <Chat {...iconProps} />,
         name: 'Referrals',
-        number: numFarmReferred,
+        number: numKSFarmsReferred,
         unit: ' farms',
         description: 'referred to Group GAP'
       },
@@ -212,16 +222,18 @@ class StatCards extends React.Component {
 
   render() {
     const { classes, isNSEVP } = this.props;
-    const stats = this.getCardStats(isNSEVP);
+    const statCards = isNSEVP
+      ? this.getNSEVPStatCards()
+      : this.getKSStatCards();
 
     return (
       <div className={classes.root}>
-        {stats.map(stat => (
-          <div className={classes.card} key={stat.name}>
-            {stat.icon}
-            <h3>{stat.name}</h3>
-            <h2>{`${stat.number} ${stat.unit}`}</h2>
-            <p>{stat.description}</p>
+        {statCards.map(statCard => (
+          <div className={classes.card} key={statCard.name}>
+            {statCard.icon}
+            <h3>{statCard.name}</h3>
+            <h2>{`${statCard.number} ${statCard.unit}`}</h2>
+            <p>{statCard.description}</p>
           </div>
         ))}
       </div>

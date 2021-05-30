@@ -1,6 +1,5 @@
 import React from 'react';
-import { months } from '@lib/utils';
-import { getPrevMonths, getTotalHarvest } from '@lib/farmUtils';
+import { getPrevMonths, getTotalHarvest, getMonthsofYear } from '@lib/utils';
 import FarmProfileGraph from './FarmProfileGraph';
 
 class RecentHarvestsGraph extends React.PureComponent {
@@ -35,6 +34,7 @@ class RecentHarvestsGraph extends React.PureComponent {
   getData = (dateList, totalList) => {
     // Reformatting the dates (2021-03 to Mar\n2021)
     const dict = [];
+    const months = getMonthsofYear();
     for (let i = 0; i < dateList.length; i += 1) {
       const year = dateList[i].slice(0, 4);
       // eslint-disable-next-line radix
