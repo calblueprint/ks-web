@@ -21,7 +21,8 @@ const styles = {
     minWidth: 200
   },
   picker: {
-    marginTop: 16
+    marginTop: 16,
+    marginLeft: 12
   }
 };
 
