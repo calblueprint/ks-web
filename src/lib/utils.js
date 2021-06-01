@@ -29,7 +29,12 @@ export async function getAllGAPCertificationsForKS() {
 export async function getAllRecentUpdatesByUserType(userType) {
   let comments = [];
   comments = await getAllRecentUpdates();
-  return comments.filter(c => c.organization.includes(userType));
+  if (userType === 'NSEVP') {
+    return comments;
+  }
+  return comments.filter(
+    c => c.ksAffiliatedfromFarm && c.ksAffiliatedfromFarm[0] === true
+  );
 }
 
 export function getCertificationSteps() {
