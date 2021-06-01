@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSingleFarm } from '@lib/farmUtils';
+import { getFarmById } from '@lib/airtable/request';
 
 import BackButton from '@components/BackButton';
 import Link from '@material-ui/core/Link';
@@ -22,13 +22,13 @@ class FarmProfile extends React.Component {
   async componentDidMount() {
     const { match } = this.props;
     const { farmId } = match.params;
-    const farm = await getSingleFarm(farmId);
+    const farm = await getFarmById(farmId);
     this.setState({ farm, farmId, loading: false });
   }
 
   render() {
     const { farm, loading } = this.state;
-    const { match } = this.props;
+    const { match, isNSEVP } = this.props;
     const { farmId } = match.params;
 
     if (loading) {
@@ -39,13 +39,15 @@ class FarmProfile extends React.Component {
         <BackButton label="Back to Farm Search" href="/farms" />
         <div className="farm-profile__header">
           <h1>{farm.farmName}</h1>
-          <Link
-            href={`/farm/${farmId}/edit`}
-            underline="always"
-            color="inherit"
-          >
-            <p className="farm-profile__header-edit">Edit</p>
-          </Link>
+          {isNSEVP && (
+            <Link
+              href={`/farm/${farmId}/edit`}
+              underline="always"
+              color="inherit"
+            >
+              <p className="farm-profile__header-edit">Edit</p>
+            </Link>
+          )}
         </div>
         <div className="farm-profile__section">
           <div className="farm-profile__left-col">
@@ -53,7 +55,7 @@ class FarmProfile extends React.Component {
           </div>
           <div className="farm-profile__right-col">
             <FarmCertificationStepper />
-            <FarmGraphsTable />
+            <FarmGraphsTable farm={farm} />
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ import {
   validateFarmEdit,
   createFalseDict,
   farmFieldsToValidate
-} from '@lib/utils';
+} from '@lib/validationUtils';
 import {
   createComment,
   createFarm,

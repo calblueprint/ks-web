@@ -56,19 +56,32 @@ class DateFilterMenu extends React.PureComponent {
 
   handleApply = () => {
     const { onChange } = this.props;
-    const { filterBy } = this.state;
+    const { startDate, endDate, filterBy } = this.state;
 
-    onChange(filterBy);
+    // TO-DO onChange needs to take start and end date, if those are changed
+    if (startDate && endDate) {
+      onChange([startDate, endDate]);
+    } else {
+      onChange(filterBy);
+    }
+
     this.setState({ anchorEl: null });
-    console.log(this.state);
   };
 
-  handleChange = event => {
-    this.setState({
-      filterBy: event.target.value,
-      startDate: '',
-      endDate: ''
-    });
+  handleRadioClick = event => {
+    const { filterBy } = this.state;
+    if (event.target.value === filterBy) {
+      // If same radio button clicked, deselect it
+      this.setState({
+        filterBy: null
+      });
+    } else {
+      this.setState({
+        filterBy: event.target.value,
+        startDate: '',
+        endDate: ''
+      });
+    }
   };
 
   handleExpand = () => {
@@ -121,7 +134,7 @@ class DateFilterMenu extends React.PureComponent {
           <Collapse in={showDropdown} timeout="auto" unmountOnExit>
             <DateFilterRadio
               value={filterBy}
-              handleChange={this.handleChange}
+              handleClick={this.handleRadioClick}
             />
           </Collapse>
         </Popper>

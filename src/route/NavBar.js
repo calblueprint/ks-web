@@ -48,57 +48,46 @@ class NavBar extends React.PureComponent {
           {isSignedIn && (
             <ul>
               <div className="nav-left-container">
-                <li>
+                <li className="nav-item">
                   <NavLink
                     to="/"
                     exact
                     className="nav-bar__header"
-                    activeClassName="nav-bar__header-active"
+                    activeclassname="nav-bar__header-active"
                   >
                     Dashboard
                   </NavLink>
                 </li>
-                <li>
+                <li className="nav-item">
                   <NavLink
                     to="/farms"
                     className="nav-bar__header"
-                    activeClassName="nav-bar__header-active"
+                    activeclassname="nav-bar__header-active"
                   >
                     Farms
                   </NavLink>
                 </li>
                 {isNSEVP && (
-                  <li>
-                    <NavLink
-                      to="/forecast"
-                      className="nav-bar__header"
-                      activeClassName="nav-bar__header-active"
-                    >
-                      Forecast
-                    </NavLink>
-                  </li>
-                )}
-                {isNSEVP && (
-                  <li>
+                  <li className="nav-item">
                     <a
                       href="https://airtable.com/shrdkcW9b6rA5HMxl"
                       className="nav-bar__header"
-                      activeClassName="nav-bar__header-active"
+                      activeclassname="nav-bar__header-active"
                     >
                       Referrals
                     </a>
                   </li>
                 )}
                 {!isNSEVP && (
-                  <li>
+                  <div className="nav-item">
                     <NavLink
                       to="/referral"
                       className="nav-bar__header"
-                      activeClassName="nav-bar__header-active"
+                      activeclassname="nav-bar__header-active"
                     >
                       Referral
                     </NavLink>
-                  </li>
+                  </div>
                 )}
               </div>
 
@@ -111,11 +100,9 @@ class NavBar extends React.PureComponent {
                   />
                   <div className="nav-button__name">{user.name}</div>
                 </button>
-
-                <div className="dropdown-safety-box" />
-                <li className="nav-item dropdown-container">
+                <div className="nav-item">
                   <SettingsDropdown history={history} />
-                </li>
+                </div>
               </div>
             </ul>
           )}

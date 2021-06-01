@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateUser } from '@lib/airtable/request';
 import { refreshUserData } from '@lib/redux/userData';
-import { validateField } from '@lib/utils';
+import { validateField } from '@lib/validationUtils';
 import EditButton from '@components/EditButton';
 import '@styles/UserProfile.css';
 import DefaultUserIcon from '@assets/defaultUserIcon-small.svg';

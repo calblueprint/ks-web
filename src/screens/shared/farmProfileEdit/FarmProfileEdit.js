@@ -7,7 +7,7 @@ import BackButton from '@components/BackButton';
 import {
   getSingleFarmAndGapCertification,
   updateFarmAndCertification
-} from '@lib/farmUtils';
+} from '@lib/utils';
 
 import { getAllGroupGapContacts } from '@lib/gapCertificationUtils';
 
@@ -15,7 +15,7 @@ import {
   validateFarmEdit,
   createFalseDict,
   farmFieldsToValidate
-} from '@lib/utils';
+} from '@lib/validationUtils';
 import { createComment } from '@lib/airtable/request';
 import FarmProfileEditForm from './FarmProfileEditForm';
 import FarmProfileEditDropdown from './FarmProfileEditDropdown';

@@ -1,8 +1,8 @@
 import {
   createManyRecentUpdates,
   getAllUsers,
-  getGAPCertificationById,
-  getAllRecentUpdates
+  getAllRecentUpdates,
+  getAllGAPCertifications
 } from './airtable/request';
 
 const certificationLabelToCompletedMessage = {
@@ -69,6 +69,13 @@ export function mapCertificationStepsToLabels() {
   return map;
 }
 
+export async function getAllGAPCertificationsForKS() {
+  const GAPCertifications = await getAllGAPCertifications();
+  return GAPCertifications.filter(
+    gap => gap.ksAffiliated && gap.ksAffiliated[0]
+  );
+}
+
 export async function getAllGroupGapContacts() {
   const users = await getAllUsers("SEARCH('NSEVP', {User Types})");
   const ids = [];
@@ -78,11 +85,6 @@ export async function getAllGroupGapContacts() {
     names.push(u.name);
   });
   return [ids, names];
-}
-
-export async function getGapCertificationStatus(id) {
-  const status = await getGAPCertificationById(id);
-  return status;
 }
 
 export function createRecentUpdateFromCertification(
@@ -123,6 +125,6 @@ export default {
   getDefaultCertificationObj,
   mapCertificationStepsToLabels,
   getAllGroupGapContacts,
-  getGapCertificationStatus,
-  getAllRecentUpdatesByUserType
+  getAllRecentUpdatesByUserType,
+  getAllGAPCertificationsForKS
 };
