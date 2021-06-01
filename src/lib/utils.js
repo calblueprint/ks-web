@@ -3,7 +3,6 @@ import moment from 'moment';
 import {
   getAllFarms,
   getFarmById,
-  getAllRecentUpdates,
   getGAPCertificationById,
   updateFarm,
   updateGAPCertification,
@@ -17,17 +16,6 @@ import { createRecentUpdateFromCertification } from './gapCertificationUtils';
 export async function getAllFarmsForKS() {
   const farms = await getAllFarms();
   return farms.filter(farm => farm.ksAffiliated);
-}
-
-export async function getAllRecentUpdatesByUserType(userType) {
-  let comments = [];
-  comments = await getAllRecentUpdates();
-  if (userType === 'NSEVP') {
-    return comments;
-  }
-  return comments.filter(
-    c => c.ksAffiliatedfromFarm && c.ksAffiliatedfromFarm[0] === true
-  );
 }
 
 export async function getSingleFarmAndGapCertification(id) {
@@ -74,11 +62,7 @@ export async function updateFarmAndCertification(
     gapDiff = Object.fromEntries(gapDiff);
     updateGAPCertification(newFarm.gapCertificationId, gapDiff)
       .then(() => {
-        createRecentUpdateFromCertification(
-          gapDiff,
-          newFarm.farmName,
-          author.id
-        );
+        createRecentUpdateFromCertification(gapDiff, newFarm, author.id);
       })
       .catch(e => {
         console.error(e);
@@ -130,7 +114,6 @@ export default {
   getAllFarmsForKS,
   getDateOptions,
   getPrevMonths,
-  getAllRecentUpdatesByUserType,
   getTotalHarvest,
   updateFarmAndCertification
 };

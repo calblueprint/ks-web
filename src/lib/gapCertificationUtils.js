@@ -89,7 +89,7 @@ export async function getAllGroupGapContacts() {
 
 export function createRecentUpdateFromCertification(
   gapCertificationChanges,
-  farmName,
+  farm,
   authorId
 ) {
   const recentUpdates = [];
@@ -97,17 +97,16 @@ export function createRecentUpdateFromCertification(
     const [k, v] = kv;
     if (v === 'Complete') {
       let message = certificationLabelToCompletedMessage[k];
-      message = message.replace('FARM', farmName);
+      message = message.replace('FARM', farm.farmName);
       console.log(message);
-      console.log(farmName);
-      // todo decide if organization should be both
       recentUpdates.push({
         message,
         authorId,
-        organization: ['KS', 'NSEVP']
+        farmId: farm.farmId
       });
     }
   });
+  console.log(recentUpdates);
   const res = createManyRecentUpdates(recentUpdates);
   return res;
 }
@@ -115,7 +114,12 @@ export function createRecentUpdateFromCertification(
 export async function getAllRecentUpdatesByUserType(userType) {
   let comments = [];
   comments = await getAllRecentUpdates();
-  return comments.filter(c => c.organization.includes(userType));
+  if (userType === 'NSEVP') {
+    return comments;
+  }
+  return comments.filter(
+    c => c.ksAffiliatedfromFarm && c.ksAffiliatedfromFarm[0] === true
+  );
 }
 
 export default {
