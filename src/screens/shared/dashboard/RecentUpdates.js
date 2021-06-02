@@ -4,7 +4,7 @@ import { store } from '@lib/redux/store';
 import { withStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-import { getAllRecentUpdatesByUserType } from '@lib/utils';
+import { getAllRecentUpdatesByUserType } from '@lib/gapCertificationUtils.js';
 
 const styles = {
   root: {

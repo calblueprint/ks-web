@@ -6,9 +6,10 @@ import BackButton from '@components/BackButton';
 
 import {
   getSingleFarmAndGapCertification,
-  getAllGroupGapContacts,
   updateFarmAndCertification
 } from '@lib/utils';
+
+import { getAllGroupGapContacts } from '@lib/gapCertificationUtils';
 
 import {
   validateFarmEdit,
@@ -122,7 +123,8 @@ class FarmProfileEdit extends React.Component {
       oldFarm,
       newFarm,
       oldGapStatus,
-      gapStatus
+      gapStatus,
+      user
     );
 
     const comment = { farmId, comment: comments, authorId: user.id };
