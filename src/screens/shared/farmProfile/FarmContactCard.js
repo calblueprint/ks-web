@@ -1,68 +1,118 @@
 import React from 'react';
 import farmProfileCover from '@assets/farmProfileCover.png';
 import farmProfilePhoto from '@assets/farmProfilePhoto.png';
-import userIcon from '@assets/userIcon.png';
 
-import '@styles/FarmProfile.css';
-
+import { withStyles } from '@material-ui/core/styles';
+import Chip from '@material-ui/core/Chip';
 import StatusChip from '@components/StatusChip';
+import { Home, AccountCircle } from '@material-ui/icons';
+
+import FarmComments from './FarmComments';
+
+const styles = {
+  root: {
+    position: 'relative',
+    borderRadius: 5,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  coverPhoto: {
+    width: '100%',
+    borderRadius: '5px 5px 0px 0px'
+  },
+  profilePhoto: {
+    position: 'absolute',
+    width: 125,
+    height: 125,
+    top: 100
+  },
+  farm: {
+    marginTop: 48,
+    textAlign: 'center',
+    fontFamily: 'Inter'
+  },
+  farmInfo: {
+    margin: '24px 0px'
+  },
+  chips: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 16
+  },
+  inspector: {
+    marginTop: 12,
+    textAlign: 'center'
+  },
+  foodHub: {
+    marginTop: 16,
+    textAlign: 'center'
+  }
+};
 
 class FarmContactCard extends React.PureComponent {
   render() {
-    const { farm } = this.props;
+    const { farm, classes, comments } = this.props;
     const {
-      farmAddress,
+      address: physicalAddress,
+      mailingAddress,
       contactFirstName,
       contactLastName,
       farmEmail: email,
-      GroupGapContactIds: inspector,
-      phone
+      phone,
+      foodHubAffiliation: foodHub
     } = farm;
-
-    const gapApproved = true;
+    const { GAP } = this.props;
+    const { gapCertified } = GAP;
+    const { GAPContact } = this.props;
+    const { name: GAPContactName } = GAPContact;
     const farmerName = `${contactFirstName} ${contactLastName}`;
 
     return (
-      <div>
-        <div className="contact-card">
-          <img
-            className="contact-card__cover-photo"
-            src={farmProfileCover}
-            alt="farm profile cover"
+      <div className={classes.root}>
+        <img
+          className={classes.coverPhoto}
+          src={farmProfileCover}
+          alt="farm profile cover"
+        />
+        <img
+          className={classes.profilePhoto}
+          src={farmProfilePhoto}
+          alt="farm profile"
+        />
+        <div className={classes.farm}>
+          <h2 className={classes.header}>{farmerName}</h2>
+          <div className={classes.farmInfo}>
+            <p>{`Phone: ${phone}`}</p>
+            <p>{`Email: ${email}`}</p>
+            <p>{`Physical Address: ${physicalAddress}`}</p>
+            <p>{`Mailing Address: ${mailingAddress}`}</p>
+          </div>
+          <StatusChip
+            type={gapCertified ? 'certified' : 'notCertified'}
+            data={GAP}
           />
-          <img
-            className="contact-card__profile-photo"
-            src={farmProfilePhoto}
-            alt="farm profile"
-          />
-          <div className="contact-card__info">
-            <h2>{farmerName}</h2>
-            <div className="contact-card__info-details">
-              <p>{`Phone: ${phone}`}</p>
-              <p>{`Email: ${email}`}</p>
-              <p>{`Address: ${farmAddress}`}</p>
-            </div>
-            <StatusChip
-              type={gapApproved ? 'certified' : 'notCertified'}
-              data={farm}
+        </div>
+        <div className={classes.chips}>
+          <div className={classes.inspector}>
+            <h3>Group GAP Contact</h3>
+            <Chip avatar={<AccountCircle />} label={`${GAPContactName}`} />
+          </div>
+          <div className={classes.foodHub}>
+            <h3>Food Hub</h3>
+            <Chip
+              avatar={<Home color="var(--ks-dark-blue)" />}
+              label={`${foodHub}`}
+              backgroundColor="white"
             />
           </div>
         </div>
-
-        <div className="contact-card__inspector">
-          <h2>Group GAP Contact</h2>
-          <div className="contact-card__inspector-info">
-            <img
-              className="farm-contact-card__user-icon"
-              src={userIcon}
-              alt="user"
-            />
-            {inspector}
-          </div>
-        </div>
+        <FarmComments comments={comments} />
       </div>
     );
   }
 }
 
-export default FarmContactCard;
+export default withStyles(styles)(FarmContactCard);

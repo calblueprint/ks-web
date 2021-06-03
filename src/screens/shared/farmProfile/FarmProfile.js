@@ -1,20 +1,60 @@
 import React from 'react';
-import { getFarmById } from '@lib/airtable/request';
+import {
+  getFarmById,
+  getUserById,
+  getGAPCertificationById,
+  getCommentsByIds
+} from '@lib/airtable/request';
 
 import BackButton from '@components/BackButton';
 import Link from '@material-ui/core/Link';
-import '@styles/FarmProfile.css';
+import { withStyles } from '@material-ui/core/styles';
 
 import FarmContactCard from './FarmContactCard';
 import FarmGraphsTable from './FarmGraphsTable';
 import FarmCertificationStepper from './FarmCertificationStepper';
+
+const styles = {
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: 50,
+    padding: 50,
+    backgroundColor: 'white',
+    maxWidth: 1680,
+    width: '100%'
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  edit: {
+    margin: '8px 24px 0px 24px'
+  },
+  body: {
+    display: 'flex',
+    font: 'Inter',
+    color: 'var(--ks-grey)'
+  },
+  leftCol: {
+    flex: 1,
+    minWidth: 256
+  },
+  rightCol: {
+    flex: 4,
+    marginLeft: 48
+  }
+};
 
 class FarmProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       farm: {},
+      GAP: {},
+      GAPContact: {},
       farmId: '',
+      comments: {},
       loading: true
     };
   }
@@ -23,21 +63,42 @@ class FarmProfile extends React.Component {
     const { match } = this.props;
     const { farmId } = match.params;
     const farm = await getFarmById(farmId);
-    this.setState({ farm, farmId, loading: false });
+    let GAP;
+    if (farm.gapCertificationId === undefined) {
+      GAP = '';
+    } else {
+      GAP = await getGAPCertificationById(farm.gapCertificationId);
+    }
+    let GAPContact;
+    if (farm.groupGapContactId === undefined) {
+      GAPContact = '';
+    } else {
+      GAPContact = await getUserById(farm.groupGapContactId); // nsevp user not displaying for ks users
+    }
+    const comments = await getCommentsByIds(farm.commentIds);
+    console.log(comments);
+    this.setState({
+      farm,
+      farmId,
+      loading: false,
+      GAP,
+      GAPContact,
+      comments
+    });
   }
 
   render() {
-    const { farm, loading } = this.state;
-    const { match, isNSEVP } = this.props;
+    const { farm, loading, GAP, GAPContact, comments } = this.state;
+    const { match, isNSEVP, classes } = this.props;
     const { farmId } = match.params;
 
     if (loading) {
       return null;
     }
     return (
-      <div className="farm-profile">
+      <div className={classes.root}>
         <BackButton label="Back to Farm Search" href="/farms" />
-        <div className="farm-profile__header">
+        <div className={classes.header}>
           <h1>{farm.farmName}</h1>
           {isNSEVP && (
             <Link
@@ -45,15 +106,20 @@ class FarmProfile extends React.Component {
               underline="always"
               color="inherit"
             >
-              <p className="farm-profile__header-edit">Edit</p>
+              <p className={classes.edit}>Edit</p>
             </Link>
           )}
         </div>
-        <div className="farm-profile__section">
-          <div className="farm-profile__left-col">
-            <FarmContactCard farm={farm} />
+        <div className={classes.body}>
+          <div className={classes.leftCol}>
+            <FarmContactCard
+              farm={farm}
+              GAP={GAP}
+              GAPContact={GAPContact}
+              comments={comments}
+            />
           </div>
-          <div className="farm-profile__right-col">
+          <div className={classes.rightCol}>
             <FarmCertificationStepper />
             <FarmGraphsTable farm={farm} />
           </div>
@@ -63,4 +129,4 @@ class FarmProfile extends React.Component {
   }
 }
 
-export default FarmProfile;
+export default withStyles(styles)(FarmProfile);
