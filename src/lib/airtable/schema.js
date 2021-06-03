@@ -65,7 +65,8 @@ export const Columns = {
     gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` },
     commentfromComments: { name: `Comment (from Comments)`, type: `lookup` },
     hcCompanyName: { name: `HC Company Name`, type: `text` },
-    field31: { name: `Field 31`, type: `text` }
+    field31: { name: `Field 31`, type: `text` },
+    recentUpdateIds: { name: `Recent Updates`, type: `foreignKey-many` }
   },
   'GAP Certification': {
     id: { name: `ID`, type: `formula` },
@@ -107,8 +108,9 @@ export const Columns = {
     authorId: { name: `Author`, type: `foreignKey-one` },
     message: { name: `Message`, type: `multilineText` },
     date: { name: `Date`, type: `formula` },
-    organization: { name: `Organization`, type: `multiSelect` },
-    namefromAuthor: { name: `Name (from Author)`, type: `lookup` }
+    namefromAuthor: { name: `Name (from Author)`, type: `lookup` },
+    farmId: { name: `farm`, type: `foreignKey-one` },
+    ksAffiliatedfromFarm: { name: `KS Affiliated (from farm)`, type: `lookup` }
   },
   'Recent Harvest Logs': {
     id: { name: `ID`, type: `formula` },

@@ -11,12 +11,12 @@ const styles = {
     alignItems: 'center'
   },
   header: {
-    margin: 0
+    marginBottom: 0
   },
   comment: {
     backgroundColor: 'var(--ks-medium-light-grey)',
     borderRadius: 20,
-    padding: 24,
+    padding: 16,
     marginTop: 24
   },
   meta: {
@@ -40,10 +40,11 @@ class FarmComments extends React.PureComponent {
   render() {
     const { classes } = this.props;
     const { comments } = this.props;
+    console.log(classes);
 
     return (
       <div className={classes.root}>
-        <h2 className={classes.header}> Additional Comments </h2>
+        <h3 className={classes.header}> Additional Comments </h3>
         {comments.map(comment => (
           <div className={classes.comment}>
             <div className={classes.meta}>

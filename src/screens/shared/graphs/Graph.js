@@ -44,8 +44,7 @@ class Graph extends React.Component {
     };
   }
 
-  getGraphProps = type => {
-    const { id } = this.props;
+  getGraphProps = (type, farm) => {
     switch (type) {
       case 'certification':
         return {
@@ -60,17 +59,17 @@ class Graph extends React.Component {
       case 'recentHarvests':
         return {
           label: 'Recent Harvests',
-          graph: <RecentHarvestsGraph />
+          graph: <RecentHarvestsGraph farm={farm} />
         };
       case 'topItems':
         return {
           label: 'Top 5 Items',
-          graph: <TopItemsGraph />
+          graph: <TopItemsGraph farm={farm} />
         };
       case 'harvestLogs':
         return {
           label: 'Harvest Logs',
-          graph: <HarvestLogsGraph id={id} />
+          graph: <HarvestLogsGraph farm={farm} />
         };
       default:
         return { label: '', graph: null };
@@ -83,8 +82,9 @@ class Graph extends React.Component {
   };
 
   render() {
-    const { classes, type } = this.props;
-    const { label, graph } = this.getGraphProps(type);
+    const { classes, type, farm } = this.props;
+    console.log(farm);
+    const { label, graph } = this.getGraphProps(type, farm);
 
     return (
       <div className={classes.root}>

@@ -40,7 +40,6 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 36,
     paddingTop: 16
   },
   inspector: {
@@ -48,7 +47,8 @@ const styles = {
     textAlign: 'center'
   },
   foodHub: {
-    marginTop: 36
+    marginTop: 16,
+    textAlign: 'center'
   }
 };
 
@@ -97,11 +97,11 @@ class FarmContactCard extends React.PureComponent {
         </div>
         <div className={classes.chips}>
           <div className={classes.inspector}>
-            <h2>Group GAP Contact</h2>
+            <h3>Group GAP Contact</h3>
             <Chip avatar={<AccountCircle />} label={`${GAPContactName}`} />
           </div>
           <div className={classes.foodHub}>
-            <h2>Food Hub</h2>
+            <h3>Food Hub</h3>
             <Chip
               avatar={<Home color="var(--ks-dark-blue)" />}
               label={`${foodHub}`}

@@ -8,7 +8,8 @@ import {
   getGAPCertificationById,
   getAllUsers,
   updateFarm,
-  updateGAPCertification
+  updateGAPCertification,
+  getTotalHarvestById
 } from './airtable/request';
 
 // Helper functions
@@ -28,7 +29,12 @@ export async function getAllGAPCertificationsForKS() {
 export async function getAllRecentUpdatesByUserType(userType) {
   let comments = [];
   comments = await getAllRecentUpdates();
-  return comments.filter(c => c.organization.includes(userType));
+  if (userType === 'NSEVP') {
+    return comments;
+  }
+  return comments.filter(
+    c => c.ksAffiliatedfromFarm && c.ksAffiliatedfromFarm[0] === true
+  );
 }
 
 export function getCertificationSteps() {
@@ -55,6 +61,11 @@ export async function getSingleFarmAndGapCertification(id) {
     }
   });
   return [farm, gapStatus];
+}
+
+export async function getTotalHarvest(id) {
+  const totalHarvest = await getTotalHarvestById(id);
+  return totalHarvest;
 }
 
 export function getCertificationLabels() {
@@ -151,6 +162,23 @@ export function getDateOptions() {
   ];
 }
 
+export function getMonthsofYear() {
+  return [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+}
+
 /* eslint-disable no-unused-vars */
 export function getPrevMonths(n) {
   const date = new Date();
@@ -161,10 +189,12 @@ export function getPrevMonths(n) {
 }
 
 export default {
+  getAllFarmsForKS,
   getDateOptions,
   getPrevMonths,
   getAllGAPCertificationsForKS,
   getAllRecentUpdatesByUserType,
+  getTotalHarvest,
   getCertificationLabels,
   getCertificationSteps,
   mapCertificationStepsToLabels,
