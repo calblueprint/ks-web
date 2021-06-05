@@ -65,7 +65,6 @@ export const Columns = {
     gapCertificationId: { name: `GAP Certification`, type: `foreignKey-one` },
     commentfromComments: { name: `Comment (from Comments)`, type: `lookup` },
     hcCompanyName: { name: `HC Company Name`, type: `text` },
-    field31: { name: `Field 31`, type: `text` },
     recentUpdateIds: { name: `Recent Updates`, type: `foreignKey-many` }
   },
   'GAP Certification': {
@@ -117,7 +116,8 @@ export const Columns = {
     farmId: { name: `Farm`, type: `foreignKey-one` },
     date: { name: `Date`, type: `date` },
     crops: { name: `Crops`, type: `text` },
-    created: { name: `Created`, type: `formula` }
+    created: { name: `Created`, type: `formula` },
+    quantity: { name: `Quantity`, type: `number` }
   },
   'Total Harvests': {
     id: { name: `ID`, type: `formula` },
@@ -125,6 +125,8 @@ export const Columns = {
     date: { name: `Date`, type: `date` },
     crops: { name: `Crops`, type: `text` },
     quantities: { name: `Quantities`, type: `text` },
-    totalProductionPounds: { name: `Total Production Pounds`, type: `number` }
+    totalProductionPounds: { name: `Total Production Pounds`, type: `number` },
+    created: { name: `Created`, type: `formula` },
+    lastModified: { name: `Last Modified`, type: `formula` }
   }
 };
