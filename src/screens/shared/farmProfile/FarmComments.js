@@ -40,11 +40,12 @@ class FarmComments extends React.PureComponent {
   render() {
     const { classes } = this.props;
     const { comments } = this.props;
-    console.log(classes);
 
     return (
       <div className={classes.root}>
-        <h3 className={classes.header}> Additional Comments </h3>
+        {comments.length > 0 ? (
+          <h3 className={classes.header}> Additional Comments </h3>
+        ) : null}
         {comments.map(comment => (
           <div className={classes.comment}>
             <div className={classes.meta}>

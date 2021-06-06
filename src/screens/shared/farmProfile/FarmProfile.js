@@ -54,7 +54,7 @@ class FarmProfile extends React.Component {
       GAP: {},
       GAPContact: {},
       farmId: '',
-      comments: {},
+      comments: [],
       loading: true
     };
   }
@@ -75,8 +75,9 @@ class FarmProfile extends React.Component {
     } else {
       GAPContact = await getUserById(farm.groupGapContactId); // nsevp user not displaying for ks users
     }
-    const comments = await getCommentsByIds(farm.commentIds);
-    console.log(comments);
+    const comments = farm.commentIds
+      ? await getCommentsByIds(farm.commentIds)
+      : [];
     this.setState({
       farm,
       farmId,

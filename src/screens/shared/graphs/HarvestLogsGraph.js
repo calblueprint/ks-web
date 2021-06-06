@@ -56,7 +56,6 @@ class HarvestLogsGraph extends React.PureComponent {
   getData = async () => {
     const { farm } = this.props;
     let data = await getAllRecentHarvestLogs();
-    // console.log(data);
     data = data
       .filter(datum => datum.farmId === farm.farmId)
       .map(datum => ({ ...datum, date: new Date(datum.date) }))

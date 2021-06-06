@@ -106,7 +106,6 @@ export function createRecentUpdateFromCertification(
       });
     }
   });
-  console.log(recentUpdates);
   const res = createManyRecentUpdates(recentUpdates);
   return res;
 }
