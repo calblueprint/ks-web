@@ -25,10 +25,10 @@ const styles = {
     marginTop: '10%'
   },
   form: {
-    padding: '10px 48px',
+    padding: '30px 48px',
     margin: '48px 0px 48px 0px',
     backgroundColor: 'white',
-    borderRadius: '4px'
+    borderRadius: '10px'
   },
   row: {
     display: 'flex',
@@ -146,6 +146,7 @@ class FarmReferralForm extends React.PureComponent {
         <h1 className={classes.title}>Refer a Farm to the Group GAP Program</h1>
         <div className={classes.form}>
           <h2>Contact Information</h2>
+          <br />
           <div className={classes.row}>
             <FieldInput
               label="First Name"

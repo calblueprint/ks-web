@@ -60,11 +60,10 @@ class HarvestLogsGraph extends React.PureComponent {
       .filter(datum => datum.farmId === id)
       .map(datum => ({ ...datum, date: new Date(datum.date) }))
       .sort((a, b) => b.date - a.date);
-
+    console.log(data);
     const dates = data.map(datum => moment(datum.date).format('MM/DD/YY'));
     const crops = data.map(datum => datum.crops.split(','));
 
-    console.log(data);
     return { dates, crops };
   };
 
