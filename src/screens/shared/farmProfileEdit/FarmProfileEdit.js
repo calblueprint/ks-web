@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { createComment } from '@lib/airtable/request';
 
 import Button from '@components/Button';
 import BackButton from '@components/BackButton';
@@ -16,7 +17,7 @@ import {
   createFalseDict,
   farmFieldsToValidate
 } from '@lib/validationUtils';
-import { createComment } from '@lib/airtable/request';
+
 import FarmProfileEditForm from './FarmProfileEditForm';
 import FarmProfileEditDropdown from './FarmProfileEditDropdown';
 import FarmProfileEditGapStatus from './FarmProfileEditGapStatus';
@@ -127,7 +128,6 @@ class FarmProfileEdit extends React.Component {
       user
     );
 
-    console.log(comments);
     if (comments !== '') {
       const comment = { farmId, comment: comments, authorId: user.id };
       createComment(comment).catch(e => {
