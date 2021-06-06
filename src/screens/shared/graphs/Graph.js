@@ -78,13 +78,11 @@ class Graph extends React.Component {
   };
 
   setFilterState = value => {
-    console.log(value);
     this.setState({ filterBy: value });
   };
 
   render() {
     const { classes, type, farm } = this.props;
-    console.log(farm);
     const { label, graph } = this.getGraphProps(type, farm);
 
     return (

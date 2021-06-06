@@ -54,10 +54,11 @@ class HarvestLogsGraph extends React.PureComponent {
   };
 
   getData = async () => {
-    const { id } = this.props;
+    const { farm } = this.props;
     let data = await getAllRecentHarvestLogs();
+    // console.log(data);
     data = data
-      .filter(datum => datum.farmId === id)
+      .filter(datum => datum.farmId === farm.farmId)
       .map(datum => ({ ...datum, date: new Date(datum.date) }))
       .sort((a, b) => b.date - a.date);
     console.log(data);

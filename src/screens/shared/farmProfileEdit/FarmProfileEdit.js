@@ -127,11 +127,14 @@ class FarmProfileEdit extends React.Component {
       user
     );
 
-    const comment = { farmId, comment: comments, authorId: user.id };
-    createComment(comment).catch(e => {
-      console.error(e);
-      res = false;
-    });
+    console.log(comments);
+    if (comments !== '') {
+      const comment = { farmId, comment: comments, authorId: user.id };
+      createComment(comment).catch(e => {
+        console.error(e);
+        res = false;
+      });
+    }
 
     this.setState({ success: res });
   };
