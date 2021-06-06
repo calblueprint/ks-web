@@ -3,9 +3,9 @@ import farmProfileCover from '@assets/farmProfileCover.png';
 import farmProfilePhoto from '@assets/farmProfilePhoto.png';
 
 import { withStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
 import StatusChip from '@components/StatusChip';
-import { Home, AccountCircle } from '@material-ui/icons';
+import FoodHubChip from '@components/FoodHubChip';
+import GAPContactChip from '@components/GAPContactChip';
 
 import FarmComments from './FarmComments';
 
@@ -98,15 +98,11 @@ class FarmContactCard extends React.PureComponent {
         <div className={classes.chips}>
           <div className={classes.inspector}>
             <h3>Group GAP Contact</h3>
-            <Chip avatar={<AccountCircle />} label={`${GAPContactName}`} />
+            <GAPContactChip data={GAPContactName} />
           </div>
           <div className={classes.foodHub}>
             <h3>Food Hub</h3>
-            <Chip
-              avatar={<Home color="var(--ks-dark-blue)" />}
-              label={`${foodHub}`}
-              backgroundColor="white"
-            />
+            <FoodHubChip data={foodHub} />
           </div>
         </div>
         <FarmComments comments={comments} />

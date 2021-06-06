@@ -9,7 +9,7 @@ export default function FoodHubChip(props) {
   return (
     <Chip
       avatar={<Home color="var(--ks-dark-blue)" />}
-      label={`${data}`}
+      label={data}
       backgroundColor="white"
     />
   );
