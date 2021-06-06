@@ -27,13 +27,15 @@ const styles = {
   card: {
     alignItems: 'center',
     backgroundColor: 'white',
+    borderRadius: '10px',
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 0',
     justifyContent: 'center',
     margin: 16,
     minWidth: 180,
-    padding: 16,
+    paddingTop: 38,
+    padding: 30,
     textAlign: 'center'
   }
 };

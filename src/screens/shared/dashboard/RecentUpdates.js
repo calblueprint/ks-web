@@ -9,6 +9,7 @@ import { getAllRecentUpdatesByUserType } from '@lib/gapCertificationUtils.js';
 const styles = {
   root: {
     backgroundColor: 'white',
+    borderRadius: '10px',
     flex: 1,
     height: '100%',
     margin: 16,

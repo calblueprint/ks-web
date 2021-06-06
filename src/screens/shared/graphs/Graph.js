@@ -12,6 +12,7 @@ import DateFilterMenu from '../dateFilterMenu/DateFilterMenu';
 const styles = {
   root: {
     backgroundColor: 'white',
+    borderRadius: '10px',
     display: 'flex',
     flex: 3,
     flexDirection: 'column',
