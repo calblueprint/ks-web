@@ -83,7 +83,6 @@ class Graph extends React.Component {
 
   render() {
     const { classes, type, farm } = this.props;
-    console.log(farm);
     const { label, graph } = this.getGraphProps(type, farm);
 
     return (
