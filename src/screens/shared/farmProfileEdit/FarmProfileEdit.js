@@ -39,6 +39,15 @@ const styles = {
   },
   button: {
     marginTop: 48
+  },
+  backButton: {
+    marginTop: 100
+  },
+  success: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 };
 class FarmProfileEdit extends React.Component {
@@ -89,11 +98,14 @@ class FarmProfileEdit extends React.Component {
     const { farmId } = match.params;
 
     return (
-      <div className={classes.success}>
-        <br />
-        <h1>Success!</h1>
-        <p>Your changes have been saved.</p>
-        <BackButton label="Back to Farm" href={`/farm/${farmId}`} />
+      <div>
+        <div className={classes.backButton}>
+          <BackButton label=" Back to Farm" href={`/farm/${farmId}`} />
+        </div>
+        <div className={classes.success}>
+          <h1>Success!</h1>
+          <p>Your changes have been saved.</p>
+        </div>
       </div>
     );
   }
