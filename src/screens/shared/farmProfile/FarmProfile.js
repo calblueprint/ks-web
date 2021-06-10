@@ -121,7 +121,7 @@ class FarmProfile extends React.Component {
             />
           </div>
           <div className={classes.rightCol}>
-            <FarmCertificationStepper />
+            <FarmCertificationStepper farm={farm} GAP={GAP} />
             <FarmGraphsTable farm={farm} />
           </div>
         </div>

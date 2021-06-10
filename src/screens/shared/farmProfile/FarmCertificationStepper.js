@@ -31,9 +31,29 @@ class FarmCertificationStepper extends React.Component {
   getStepStatus = index => {
     /* Mock Data */
     /* TODO: Mock Airtable Data to Index */
-    const completed = [0, 1, 2, 3, 4];
-    const active = [5];
-    const error = [6, 7];
+    const { GAP } = this.props;
+
+    const GAPArray = [
+      GAP.farmReferred,
+      GAP.farmApplied,
+      GAP.farmAccepted,
+      GAP.farmFoodSafetyPlan,
+      GAP.riskAssessment,
+      GAP.mockRecall,
+      GAP.internalAudit1,
+      GAP.internalAudit2,
+      GAP.gapCertified
+    ];
+    const completed = GAPArray.map((e, i) =>
+      e === 'Complete' ? i : ''
+    ).filter(String);
+    const active = GAPArray.map((e, i) => (e === 'Incomplete' ? i : '')).filter(
+      String
+    );
+    const error = GAPArray.map((e, i) =>
+      e === 'Failed' || e === 'Outdated' ? i : ''
+    ).filter(String);
+    console.log(active, error, completed);
 
     return {
       completed: completed.includes(index),

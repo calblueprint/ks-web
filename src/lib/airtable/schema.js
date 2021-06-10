@@ -99,7 +99,7 @@ export const Columns = {
     authorId: { name: `Author`, type: `foreignKey-one` },
     farmId: { name: `Farm`, type: `foreignKey-one` },
     comment: { name: `Comment`, type: `multilineText` },
-    authorName: { name: `Author Name`, type: `text` },
+    authorName: { name: `Author Name`, type: `lookup` },
     date: { name: `Date`, type: `formula` }
   },
   'Recent Updates': {
