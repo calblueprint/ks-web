@@ -272,6 +272,7 @@ class FarmReferralForm extends React.PureComponent {
         </div>
         <div className={classes.form}>
           <h2>Additional Notes</h2>
+          <br />
           <FieldInput
             onChange={this.onChange('additionalNotes')}
             variant="outlined"

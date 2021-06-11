@@ -7,7 +7,12 @@ import {
   VictoryLabel
 } from 'victory';
 
-import { getCertificationLabels } from '@lib/gapCertificationUtils';
+import {
+  getCertificationLabels,
+  getCertificationSteps,
+  getAllGAPCertificationsForKS
+} from '@lib/gapCertificationUtils';
+import EmptyGraph from './EmptyGraph';
 
 const fontProps = {
   fontSize: 8,
@@ -30,42 +35,55 @@ const axisStyles = {
 };
 
 class CertificationGraph extends React.PureComponent {
-  getLastCompleteStep = (gapRecord, allSteps) => {
+  constructor(props) {
+    super(props);
+    this.allSteps = getCertificationSteps();
+    this.state = {
+      labels: getCertificationLabels(),
+      values: []
+    };
+  }
+
+  async componentDidMount() {
+    const values = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const GAPCertifications = await getAllGAPCertificationsForKS();
+
+    // Create a dictionary mapping each step to its index position
+    const stepToIndex = {};
+    this.allSteps.forEach((step, i) => {
+      stepToIndex[step] = i;
+    });
+    console.log(stepToIndex);
+
+    // For each GAP Certification record, get the last complete step and increment that category
+    GAPCertifications.forEach(gapRecord => {
+      const step = this.getLastCompleteStep(gapRecord);
+      console.log(gapRecord);
+      console.log(step);
+      if (step !== '') values[stepToIndex[step]] += 1;
+    });
+
+    this.setState({ values });
+  }
+
+  // Return the last completed step in the GAP Certification process
+  getLastCompleteStep = gapRecord => {
     let lastCompleteStep = '';
-    for (let i = 0; i < allSteps.length; i += 1) {
-      const step = allSteps[i];
+    for (let i = this.allSteps.length - 1; i >= 0; i -= 1) {
+      const step = this.allSteps[i];
       if (gapRecord[step] === 'Complete') {
         lastCompleteStep = step;
-      } else {
-        break; // break at the first non-complete step
+        break;
       }
     }
     return lastCompleteStep;
   };
 
-  getData = () => {
-    const labels = getCertificationLabels();
-    const values = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-    // const allSteps = getCertificationSteps();
-    // const GAPCertifications = await getAllGAPCertificationsForKS();
-
-    // // Create an array of 2-elem arrays of the form [step, i]
-    // const stepToIndex = allSteps.map((step, i) => [step, i]);
-    // console.log(stepToIndex);
-
-    // // For each GAP Certification record, put in the category of its last complete step
-    // GAPCertifications.forEach(gapRecord => {
-    //   const step = this.getLastCompleteStep(gapRecord, allSteps)
-    //   if (step) {
-
-    //   }
-    // });
-
-    return labels.map((label, index) => ({ x: label, y: values[index] }));
-  };
-
   render() {
+    const { labels, values } = this.state;
+    if (values.length === 0) return <EmptyGraph />;
+
+    const data = labels.map((label, index) => ({ x: label, y: values[index] }));
     return (
       <VictoryChart padding={48} height={250} width={600}>
         <VictoryBar
@@ -73,7 +91,7 @@ class CertificationGraph extends React.PureComponent {
           labelComponent={<VictoryLabel dy={-5} />}
           dataComponent={<Bar />}
           style={barStyles}
-          data={this.getData()}
+          data={data}
           barRatio={1.25}
         />
         <VictoryAxis style={axisStyles} />
