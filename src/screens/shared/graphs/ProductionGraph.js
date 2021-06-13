@@ -69,8 +69,8 @@ class ProductionGraph extends React.PureComponent {
     const cropsList = [];
     const quantitiesList = [];
     for (let h = 0; h < totalHarvest.length; h += 1) {
-      const { date, crops, quantities } = totalHarvest[h];
-      dateList[h] = date.slice(0, 7); // takes YYYY-MM format
+      const { created, crops, quantities } = totalHarvest[h];
+      dateList[h] = created.slice(0, 7); // takes YYYY-MM format
       cropsList[h] = crops;
       quantitiesList[h] = quantities;
     }

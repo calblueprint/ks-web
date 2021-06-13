@@ -24,8 +24,8 @@ class RecentHarvestsGraph extends React.PureComponent {
     const dateList = [];
     const totalList = [];
     for (let h = 0; h < totalHarvest.length; h += 1) {
-      const { date, totalProductionPounds } = totalHarvest[h];
-      dateList[h] = date.slice(0, 7); // takes YYYY-MM format
+      const { created, totalProductionPounds } = totalHarvest[h];
+      dateList[h] = created.slice(0, 7); // takes YYYY-MM format
       totalList[h] = totalProductionPounds;
     }
     this.setState({ dateList, totalList });
@@ -52,7 +52,7 @@ class RecentHarvestsGraph extends React.PureComponent {
       for (let j = 0; j < recentDates.length; j += 1) {
         if (recentDates[j] === dict[i][0]) {
           // eslint-disable-next-line prefer-destructuring
-          recentValues[j] = dict[i][1];
+          recentValues[j] += dict[i][1];
         }
       }
     }
@@ -66,6 +66,7 @@ class RecentHarvestsGraph extends React.PureComponent {
   render() {
     const { dateList, totalList } = this.state;
     const { labels, values } = this.getData(dateList, totalList);
+
     return (
       <FarmProfileGraph
         labels={labels}
