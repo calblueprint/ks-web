@@ -35,14 +35,14 @@ class TopItemsGraph extends React.PureComponent {
     const quantitiesFloats =
       quantitiesStr === ''
         ? []
-        : quantitiesStr.match(/\d+(?:\.\d+)?/g).map(Number); // TO-DO: comment here
+        : quantitiesStr.match(/\d+(?:\.\d+)?/g).map(Number); // Converts string to float for the quantities
     this.setState({ cropsStr, quantitiesFloats });
   }
 
   // Reformulates data into a dictionary mapping every unique crop and its totaled quantity.
   formulateData = (cropsStr, quantitiesFloats) => {
     const cropsSplit = cropsStr.split(','); // Splitting string of crops into a list (by comma separation)
-    const dict = [];
+    let dict = [];
 
     for (let i = 0; i < cropsSplit.length; i += 1) {
       cropsSplit[i] = cropsSplit[i].replace(/^\s+|\s+$/g, ''); // Trims starting and trailing white spaces
@@ -55,13 +55,11 @@ class TopItemsGraph extends React.PureComponent {
       } else {
         dict[i] = [cropsSplit[i], quantitiesFloats[i]];
       }
+      dict = dict.filter(e => e != null); // Removes null values from the dictionary. Length of dictionary shrinks from the total # of inputs to the # of unique crops.
     }
 
-    // Removes null values from the dictionary. Length of dictionary shrinks from the total # of inputs to the # of unique crops.
-    const dictStrip = dict.filter(e => e != null);
-
     return {
-      cropsToQuantity: dictStrip
+      cropsToQuantity: dict
     };
   };
 
@@ -69,6 +67,7 @@ class TopItemsGraph extends React.PureComponent {
   sortData = cropsToQuantity => {
     let dict = cropsToQuantity;
     dict = dict.sort((a, b) => b[1] - a[1]);
+    console.log(dict);
 
     const cropsSorted = [];
     const quantitiesSorted = [];
@@ -102,6 +101,8 @@ class TopItemsGraph extends React.PureComponent {
   render() {
     const { cropsStr, quantitiesFloats } = this.state;
     const { cropsToQuantity } = this.formulateData(cropsStr, quantitiesFloats);
+    console.log(cropsToQuantity);
+    console.log(typeof cropsToQuantity);
     const { labels, values } = this.sortData(cropsToQuantity);
 
     return (
