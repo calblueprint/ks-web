@@ -6,7 +6,8 @@ import {
   getGAPCertificationById,
   updateFarm,
   updateGAPCertification,
-  getTotalHarvestById
+  getTotalHarvestById,
+  getAllTotalHarvests
 } from './airtable/request';
 
 import { createRecentUpdateFromCertification } from './gapCertificationUtils';
@@ -33,6 +34,11 @@ export async function getSingleFarmAndGapCertification(id) {
 export async function getTotalHarvest(id) {
   const totalHarvest = await getTotalHarvestById(id);
   return totalHarvest;
+}
+
+export async function getTotalHarvestData() {
+  const harvest = await getAllTotalHarvests();
+  return harvest;
 }
 
 export async function updateFarmAndCertification(
@@ -115,5 +121,6 @@ export default {
   getDateOptions,
   getPrevMonths,
   getTotalHarvest,
-  updateFarmAndCertification
+  updateFarmAndCertification,
+  getTotalHarvestData
 };
