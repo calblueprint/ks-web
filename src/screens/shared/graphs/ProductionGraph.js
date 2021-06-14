@@ -106,7 +106,6 @@ class ProductionGraph extends React.PureComponent {
       }
       recentCrops = new Array(recentDates.length).fill('');
       recentQuantities = new Array(recentDates.length).fill('');
-      console.log(recentDates);
       // DEFAULT: Take the recent 9 months and match them up to the data in `dict`, filling in months without production with 0.
     } else {
       recentDates = getPrevMonths(9);
@@ -218,9 +217,24 @@ class ProductionGraph extends React.PureComponent {
     return [level1, level2, level3, level4, level5other];
   };
 
-  getData = dict => {
+  getData = (dict, filterBy) => {
+    let labels = []
+    if (filterBy !== null) {
+      const months = getMonthsofYear();
+      labels = getMonthsBetween(filterBy[0], filterBy[1]);
+      // Reformatting the dates (2021-03 to Mar\n2021)
+      for (let i = 0; i < labels.length; i += 1) {
+        const year = labels[i].slice(0, 4);
+        // eslint-disable-next-line radix
+        const month = months[parseInt(labels[i].slice(5, 7)) - 1];
+        const dateFormatted = `${String(month)}\n${year}`;
+        labels[i] = dateFormatted;
+      }
+    }
+    else {
+      labels = getPrevMonths(9);
+    }
     // produces data object for each segmenet of stacked bar graph
-    const labels = getPrevMonths(9);
     const level5other = [];
     const level4 = [];
     const level3 = [];
@@ -258,7 +272,7 @@ class ProductionGraph extends React.PureComponent {
       quantitiesList,
       filterBy
     );
-    console.log(lists);
+
     const productionDict = [];
     for (let i = 0; i < lists.dateStringList.length; i += 1) {
       productionDict[i] = [
@@ -269,15 +283,13 @@ class ProductionGraph extends React.PureComponent {
         )
       ];
     }
-    console.log(productionDict);
 
     for (let i = 0; i < productionDict.length; i += 1) {
       productionDict[i][1] = this.sortData(
         productionDict[i][1].cropsToQuantity
       );
     }
-    console.log(productionDict);
-    const data = this.getData(productionDict);
+    const data = this.getData(productionDict, filterBy);
 
     return (
       <VictoryChart padding={48} height={250} width={600}>
