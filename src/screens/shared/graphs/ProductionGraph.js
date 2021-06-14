@@ -59,7 +59,6 @@ class ProductionGraph extends React.PureComponent {
       dateList: [],
       cropsList: [],
       quantitiesList: [],
-      filterBy: []
     };
   }
 
