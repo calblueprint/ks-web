@@ -13,7 +13,8 @@ import {
 import {
   getPrevMonths,
   getMonthsofYear,
-  getTotalHarvestData
+  getTotalHarvestData,
+  getMonthsBetween
 } from '@lib/utils';
 
 const fontProps = {
@@ -57,14 +58,14 @@ class ProductionGraph extends React.PureComponent {
     this.state = {
       dateList: [],
       cropsList: [],
-      quantitiesList: []
+      quantitiesList: [],
+      filterBy: []
     };
   }
 
   async componentDidMount() {
     // Fetch all the "total harvest" records for the specified farm.
     const totalHarvest = await getTotalHarvestData();
-    console.log(totalHarvest);
     const dateList = [];
     const cropsList = [];
     const quantitiesList = [];
@@ -77,7 +78,7 @@ class ProductionGraph extends React.PureComponent {
     this.setState({ dateList, cropsList, quantitiesList });
   }
 
-  filterByDate = (dateList, cropsList, quantitiesList) => {
+  filterByDate = (dateList, cropsList, quantitiesList, filterBy) => {
     const dict = [];
     const months = getMonthsofYear();
     for (let i = 0; i < dateList.length; i += 1) {
@@ -90,9 +91,29 @@ class ProductionGraph extends React.PureComponent {
     }
 
     // Take the recent 9 months and match them up to the data in `dict`, filling in months without production with 0.
-    const recentDates = getPrevMonths(9);
-    const recentCrops = ['', '', '', '', '', '', '', '', ''];
-    const recentQuantities = ['', '', '', '', '', '', '', '', ''];
+    let recentDates = [];
+    let recentCrops = [];
+    let recentQuantities = [];
+    if (filterBy !== null) {
+      recentDates = getMonthsBetween(filterBy[0], filterBy[1]);
+      // Reformatting the dates (2021-03 to Mar\n2021)
+      for (let i = 0; i < recentDates.length; i += 1) {
+        const year = recentDates[i].slice(0, 4);
+        // eslint-disable-next-line radix
+        const month = months[parseInt(recentDates[i].slice(5, 7)) - 1];
+        const dateFormatted = `${String(month)}\n${year}`;
+        recentDates[i] = dateFormatted;
+      }
+      recentCrops = new Array(recentDates.length).fill('');
+      recentQuantities = new Array(recentDates.length).fill('');
+      console.log(recentDates);
+      // DEFAULT: Take the recent 9 months and match them up to the data in `dict`, filling in months without production with 0.
+    } else {
+      recentDates = getPrevMonths(9);
+      recentCrops = ['', '', '', '', '', '', '', '', ''];
+      recentQuantities = ['', '', '', '', '', '', '', '', ''];
+    }
+
     for (let i = 0; i < dict.length; i += 1) {
       for (let j = 0; j < recentDates.length; j += 1) {
         if (recentDates[j] === dict[i][0]) {
@@ -181,11 +202,6 @@ class ProductionGraph extends React.PureComponent {
   };
 
   getTopFourItems = dict => {
-    // Index 0: Oct\n2020 ; Index 1: Nov\n2020
-    // 4th: ["N/A", "N/A"]
-    // 3rd: ["N/A", "N/A"]
-    // 2nd Highest: ["Pineapple", "Tomato Cherry"]
-    // Highest: ["Corn", "Tomato Roma"]
     const level5other = [];
     const level4 = [];
     const level3 = [];
@@ -235,8 +251,13 @@ class ProductionGraph extends React.PureComponent {
 
   render() {
     const { dateList, cropsList, quantitiesList } = this.state;
-    console.log(dateList, cropsList, quantitiesList);
-    const lists = this.filterByDate(dateList, cropsList, quantitiesList);
+    const { filterBy } = this.props;
+    const lists = this.filterByDate(
+      dateList,
+      cropsList,
+      quantitiesList,
+      filterBy
+    );
     console.log(lists);
     const productionDict = [];
     for (let i = 0; i < lists.dateStringList.length; i += 1) {

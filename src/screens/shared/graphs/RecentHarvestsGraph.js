@@ -12,8 +12,7 @@ class RecentHarvestsGraph extends React.PureComponent {
     super(props);
     this.state = {
       dateList: [],
-      totalList: [],
-      filterBy: []
+      totalList: []
     };
   }
 
