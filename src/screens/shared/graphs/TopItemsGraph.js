@@ -67,7 +67,6 @@ class TopItemsGraph extends React.PureComponent {
   sortData = cropsToQuantity => {
     let dict = cropsToQuantity;
     dict = dict.sort((a, b) => b[1] - a[1]);
-    console.log(dict);
 
     const cropsSorted = [];
     const quantitiesSorted = [];
@@ -101,8 +100,6 @@ class TopItemsGraph extends React.PureComponent {
   render() {
     const { cropsStr, quantitiesFloats } = this.state;
     const { cropsToQuantity } = this.formulateData(cropsStr, quantitiesFloats);
-    console.log(cropsToQuantity);
-    console.log(typeof cropsToQuantity);
     const { labels, values } = this.sortData(cropsToQuantity);
 
     return (

@@ -64,7 +64,6 @@ class DateFilterMenu extends React.PureComponent {
     } else {
       onChange(filterBy);
     }
-
     this.setState({ anchorEl: null });
   };
 
@@ -127,7 +126,7 @@ class DateFilterMenu extends React.PureComponent {
             handleStart={this.handleStartDate}
             handleEnd={this.handleEndDate}
           />
-          <ListItem button onClick={this.handleExpand}>
+          {/* <ListItem button onClick={this.handleExpand}>
             <h3 className={classes.options}>Advanced Options</h3>
             {showDropdown ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
@@ -136,7 +135,7 @@ class DateFilterMenu extends React.PureComponent {
               value={filterBy}
               handleClick={this.handleRadioClick}
             />
-          </Collapse>
+          </Collapse> */}
         </Popper>
       </div>
     );
