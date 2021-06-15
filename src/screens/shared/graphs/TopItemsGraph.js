@@ -90,6 +90,25 @@ class TopItemsGraph extends React.PureComponent {
     };
   };
 
+  convertToString = (cropsStringList, quantitiesStringList) => {
+    let cropsString = ""; let quantitiesString = "";
+    for (let i = 0; i < cropsStringList.length; i += 1) {
+      if (cropsStringList[i] !== "") {
+        if (cropsString === "") {
+          cropsString = cropsString.concat(cropsStringList[i])
+          quantitiesString = quantitiesString.concat(quantitiesStringList[i])
+        } else {
+          cropsString = cropsString.concat(", ").concat(cropsStringList[i])
+          quantitiesString = quantitiesString.concat(", ").concat(quantitiesStringList[i])
+        }
+      }
+    }
+
+    return {
+      cropsString, quantitiesString
+    }
+  }
+
   // Reformulates data into a dictionary mapping every unique crop and its totaled quantity.
   formulateData = (crops, quantities) => {
     const quantitiesFloats =
@@ -111,40 +130,10 @@ class TopItemsGraph extends React.PureComponent {
       dict = dict.filter(e => e != null); // Removes null values from the dictionary. Length of dictionary shrinks from the total # of inputs to the # of unique crops.
     }
 
-    console.log(dict)
-
     return {
-      cropsToQuantity: dict
+      dict
     };
   };
-
-
-
-  /**
-
-  // Reformulates data into a dictionary mapping every unique crop and its totaled quantity.
-  formulateData = (cropsStr, quantitiesFloats) => {
-    const cropsSplit = cropsStr.split(','); // Splitting string of crops into a list (by comma separation)
-    let dict = [];
-
-    for (let i = 0; i < cropsSplit.length; i += 1) {
-      cropsSplit[i] = cropsSplit[i].replace(/^\s+|\s+$/g, ''); // Trims starting and trailing white spaces
-      if (cropsSplit.slice(0, i).includes(cropsSplit[i])) {
-        for (let j = 0; j < dict.length; j += 1) {
-          if (dict[j][0] === cropsSplit[i]) {
-            dict[j][1] += quantitiesFloats[i]; // If crop has already been added to dictionary, just add the quantity to its current total.
-          }
-        }
-      } else {
-        dict[i] = [cropsSplit[i], quantitiesFloats[i]];
-      }
-      dict = dict.filter(e => e != null); // Removes null values from the dictionary. Length of dictionary shrinks from the total # of inputs to the # of unique crops.
-    }
-
-    return {
-      cropsToQuantity: dict
-    };
-  };  
 
   // Sorts the dictionary of data from highest quantity to lowest quantity and takes the top 5.
   sortData = cropsToQuantity => {
@@ -179,7 +168,6 @@ class TopItemsGraph extends React.PureComponent {
       values: quantitiesSorted.slice(0, 5)
     };
   };
-  */
 
   render() {
     const { dateList, cropsList, quantitiesList } = this.state;
@@ -190,39 +178,16 @@ class TopItemsGraph extends React.PureComponent {
       quantitiesList,
       filterBy
     );
-    console.log(lists)
-    const productionDict = [];
-    /** 
-    for (let i = 0; i < lists.dateStringList.length; i += 1) {
-      productionDict[i] = // [
-        // lists.dateStringList[i],
-        this.formulateData(
-          lists.cropsStringList[i],
-          lists.quantitiesStringList[i]
-        )
-      // ];
-    }
-    console.log(productionDict)
-    
+
+    const {cropsString, quantitiesString} = this.convertToString(lists.cropsStringList, lists.quantitiesStringList)
+    const productionDict = this.formulateData(cropsString, quantitiesString).dict
     const { labels, values } = this.sortData(productionDict);
-    console.log(labels)
-    console.log(values)
-    */
-
-    const labels = ["A", "B", "C", "D", "E"]
-    const values = [1, 2, 3, 4, 5]
-
-    /** 
-    const { cropsStr, quantitiesFloats } = this.state;
-    const { cropsToQuantity } = this.formulateData(cropsStr, quantitiesFloats);
-    const { labels, values } = this.sortData(cropsToQuantity);
-    */
 
     return (
       <FarmProfileGraph
         labels={labels}
         values={values}
-        isEmpty={dateList === []}
+        isEmpty={dateList.length === 0}
       />
     );
   }
