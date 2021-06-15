@@ -116,11 +116,24 @@ export function getPrevMonths(n) {
   return [...Array(n)].map(_i => m.add(1, 'months').format('MMM[\n]YYYY'));
 }
 
+export function getMonthsBetween(startDate, endDate) {
+  const dateStart = moment(startDate);
+  const dateEnd = moment(endDate);
+  const timeValues = [];
+
+  while (dateEnd > dateStart || dateStart.format('M') === dateEnd.format('M')) {
+    timeValues.push(dateStart.format('YYYY-MM'));
+    dateStart.add(1, 'month');
+  }
+  return timeValues;
+}
+
 export default {
   getAllFarmsForKS,
   getDateOptions,
   getPrevMonths,
   getTotalHarvest,
   updateFarmAndCertification,
-  getTotalHarvestData
+  getTotalHarvestData,
+  getMonthsBetween
 };

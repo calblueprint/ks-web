@@ -1,5 +1,5 @@
 import React from 'react';
-import { getTotalHarvest } from '@lib/utils';
+import { getTotalHarvest, getPrevMonths, getMonthsofYear, getMonthsBetween } from '@lib/utils';
 
 import FarmProfileGraph from './FarmProfileGraph';
 
@@ -7,8 +7,9 @@ class TopItemsGraph extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      cropsStr: '',
-      quantitiesFloats: ''
+      dateList: [],
+      cropsList: [],
+      quantitiesList: []
     };
   }
 
@@ -19,31 +20,102 @@ class TopItemsGraph extends React.PureComponent {
       farm.totalHarvestIds === undefined // If there are no harvest logs under the farm ID, then return an empty list.
         ? []
         : await Promise.all(farm.totalHarvestIds.map(await getTotalHarvest));
-
-    // Iterate through all "total harvest" records to create a string of all crops and a list of their corresponding quantities.
-    let cropsStr = '';
-    let quantitiesStr = '';
+    const dateList = []; const cropsList = []; const quantitiesList = [];
     for (let h = 0; h < totalHarvest.length; h += 1) {
-      const { crops, quantities } = totalHarvest[h];
-      if (h !== 0) {
-        cropsStr += ', ';
-        quantitiesStr += ', ';
-      }
-      cropsStr += crops;
-      quantitiesStr += quantities;
+      const { created, crops, quantities } = totalHarvest[h];
+      dateList[h] = created.slice(0, 7); // takes YYYY-MM format
+      cropsList[h] = crops;
+      quantitiesList[h] = quantities;
     }
-    const quantitiesFloats =
-      quantitiesStr === ''
-        ? []
-        : quantitiesStr.match(/\d+(?:\.\d+)?/g).map(Number); // Converts string to float for the quantities
-    this.setState({ cropsStr, quantitiesFloats });
+    this.setState({ dateList, cropsList, quantitiesList });
+  }
+
+  filterByDate = (dateList, cropsList, quantitiesList, filterBy) => {
+    const dict = [];
+    const months = getMonthsofYear();
+    for (let i = 0; i < dateList.length; i += 1) {
+      const year = dateList[i].slice(0, 4);
+      // eslint-disable-next-line radix
+      const month = months[parseInt(dateList[i].slice(5, 7)) - 1];
+      const dateFormatted = `${String(month)}\n${year}`;
+      // Creating a dictionary mapping dates to its corresponding total production quantity.
+      dict[i] = [dateFormatted, cropsList[i], quantitiesList[i]];
+    }
+
+    // Take the recent 9 months and match them up to the data in `dict`, filling in months without production with 0.
+    let recentDates = [];
+    let recentCrops = [];
+    let recentQuantities = [];
+    if (filterBy !== null) {
+      recentDates = getMonthsBetween(filterBy[0], filterBy[1]);
+      // Reformatting the dates (2021-03 to Mar\n2021)
+      for (let i = 0; i < recentDates.length; i += 1) {
+        const year = recentDates[i].slice(0, 4);
+        // eslint-disable-next-line radix
+        const month = months[parseInt(recentDates[i].slice(5, 7)) - 1];
+        const dateFormatted = `${String(month)}\n${year}`;
+        recentDates[i] = dateFormatted;
+      }
+      recentCrops = new Array(recentDates.length).fill('');
+      recentQuantities = new Array(recentDates.length).fill('');
+      // DEFAULT: Take the recent 9 months and match them up to the data in `dict`, filling in months without production with 0.
+    } else {
+      recentDates = getPrevMonths(9);
+      recentCrops = ['', '', '', '', '', '', '', '', ''];
+      recentQuantities = ['', '', '', '', '', '', '', '', ''];
+    }
+
+    for (let i = 0; i < dict.length; i += 1) {
+      for (let j = 0; j < recentDates.length; j += 1) {
+        if (recentDates[j] === dict[i][0]) {
+          if (recentCrops[j] === '' && recentQuantities[j] === '') {
+            // eslint-disable-next-line prefer-destructuring
+            recentCrops[j] = dict[i][1];
+            // eslint-disable-next-line prefer-destructuring
+            recentQuantities[j] = dict[i][2];
+          } else {
+            // eslint-disable-next-line prefer-destructuring
+            recentCrops[j] += ', '.concat(dict[i][1]);
+            // eslint-disable-next-line prefer-destructuring
+            recentQuantities[j] += ', '.concat(dict[i][2]);
+          }
+        }
+      }
+    }
+
+    return {
+      dateStringList: recentDates,
+      cropsStringList: recentCrops,
+      quantitiesStringList: recentQuantities
+    };
+  };
+
+  convertToString = (cropsStringList, quantitiesStringList) => {
+    let cropsString = ""; let quantitiesString = "";
+    for (let i = 0; i < cropsStringList.length; i += 1) {
+      if (cropsStringList[i] !== "") {
+        if (cropsString === "") {
+          cropsString = cropsString.concat(cropsStringList[i])
+          quantitiesString = quantitiesString.concat(quantitiesStringList[i])
+        } else {
+          cropsString = cropsString.concat(", ").concat(cropsStringList[i])
+          quantitiesString = quantitiesString.concat(", ").concat(quantitiesStringList[i])
+        }
+      }
+    }
+
+    return {
+      cropsString, quantitiesString
+    }
   }
 
   // Reformulates data into a dictionary mapping every unique crop and its totaled quantity.
-  formulateData = (cropsStr, quantitiesFloats) => {
-    const cropsSplit = cropsStr.split(','); // Splitting string of crops into a list (by comma separation)
-    let dict = [];
+  formulateData = (crops, quantities) => {
+    const quantitiesFloats =
+      quantities === '' ? [] : quantities.match(/\d+(?:\.\d+)?/g).map(Number); // Converts string to float for the quantities
+    const cropsSplit = crops.split(','); // Splitting string of crops into a list (by comma separation)
 
+    let dict = [];
     for (let i = 0; i < cropsSplit.length; i += 1) {
       cropsSplit[i] = cropsSplit[i].replace(/^\s+|\s+$/g, ''); // Trims starting and trailing white spaces
       if (cropsSplit.slice(0, i).includes(cropsSplit[i])) {
@@ -59,7 +131,7 @@ class TopItemsGraph extends React.PureComponent {
     }
 
     return {
-      cropsToQuantity: dict
+      dict
     };
   };
 
@@ -67,7 +139,6 @@ class TopItemsGraph extends React.PureComponent {
   sortData = cropsToQuantity => {
     let dict = cropsToQuantity;
     dict = dict.sort((a, b) => b[1] - a[1]);
-    console.log(dict);
 
     const cropsSorted = [];
     const quantitiesSorted = [];
@@ -99,17 +170,24 @@ class TopItemsGraph extends React.PureComponent {
   };
 
   render() {
-    const { cropsStr, quantitiesFloats } = this.state;
-    const { cropsToQuantity } = this.formulateData(cropsStr, quantitiesFloats);
-    console.log(cropsToQuantity);
-    console.log(typeof cropsToQuantity);
-    const { labels, values } = this.sortData(cropsToQuantity);
+    const { dateList, cropsList, quantitiesList } = this.state;
+    const { filterBy } = this.props;
+    const lists = this.filterByDate(
+      dateList,
+      cropsList,
+      quantitiesList,
+      filterBy
+    );
+
+    const {cropsString, quantitiesString} = this.convertToString(lists.cropsStringList, lists.quantitiesStringList)
+    const productionDict = this.formulateData(cropsString, quantitiesString).dict
+    const { labels, values } = this.sortData(productionDict);
 
     return (
       <FarmProfileGraph
         labels={labels}
         values={values}
-        isEmpty={cropsStr === ''}
+        isEmpty={dateList.length === 0}
       />
     );
   }

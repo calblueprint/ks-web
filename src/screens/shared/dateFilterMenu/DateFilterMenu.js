@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -37,7 +38,8 @@ class DateFilterMenu extends React.PureComponent {
       filterBy: null,
       showDropdown: false,
       startDate: '',
-      endDate: ''
+      endDate: '',
+      applied: false
     };
   }
 
@@ -61,10 +63,10 @@ class DateFilterMenu extends React.PureComponent {
     // TO-DO onChange needs to take start and end date, if those are changed
     if (startDate && endDate) {
       onChange([startDate, endDate]);
+      this.setState({ applied: true });
     } else {
       onChange(filterBy);
     }
-
     this.setState({ anchorEl: null });
   };
 
@@ -97,9 +99,17 @@ class DateFilterMenu extends React.PureComponent {
     this.setState({ endDate: event.target.value });
   };
 
+  filterLabel = (startDate, endDate) => {
+    const { applied } = this.state;
+    if (startDate !== '' && endDate !== '' && applied === true) {
+      return startDate.concat(' to ').concat(endDate);
+    }
+    return 'Date Filters';
+  };
+
   render() {
     const { classes } = this.props;
-    const { anchorEl, filterBy, showDropdown } = this.state;
+    const { anchorEl, filterBy, showDropdown, startDate, endDate } = this.state;
 
     return (
       <div>
@@ -111,7 +121,9 @@ class DateFilterMenu extends React.PureComponent {
           startIcon={<CalendarToday />}
           endIcon={<KeyboardArrowDown />}
         >
-          <h3 className={classes.label}>Date Filters</h3>
+          <h3 className={classes.label}>
+            {this.filterLabel(startDate, endDate)}
+          </h3>
         </Button>
         <Popper
           className={classes.popper}
@@ -127,7 +139,7 @@ class DateFilterMenu extends React.PureComponent {
             handleStart={this.handleStartDate}
             handleEnd={this.handleEndDate}
           />
-          <ListItem button onClick={this.handleExpand}>
+          {/* <ListItem button onClick={this.handleExpand}>
             <h3 className={classes.options}>Advanced Options</h3>
             {showDropdown ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
@@ -136,7 +148,7 @@ class DateFilterMenu extends React.PureComponent {
               value={filterBy}
               handleClick={this.handleRadioClick}
             />
-          </Collapse>
+          </Collapse> */}
         </Popper>
       </div>
     );
