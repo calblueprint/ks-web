@@ -58,16 +58,14 @@ class ProductionGraph extends React.PureComponent {
     this.state = {
       dateList: [],
       cropsList: [],
-      quantitiesList: [],
+      quantitiesList: []
     };
   }
 
   async componentDidMount() {
-    // Fetch all the "total harvest" records for the specified farm.
+    // Fetch all the "total harvest" records in the database.
     const totalHarvest = await getTotalHarvestData();
-    const dateList = [];
-    const cropsList = [];
-    const quantitiesList = [];
+    const dateList = []; const cropsList = []; const quantitiesList = [];
     for (let h = 0; h < totalHarvest.length; h += 1) {
       const { created, crops, quantities } = totalHarvest[h];
       dateList[h] = created.slice(0, 7); // takes YYYY-MM format
